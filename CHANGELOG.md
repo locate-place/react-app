@@ -7,7 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Changelogs
 
-### [0.1.0] - 2023-11-06
+### [0.1.1] - 2023-12-17
+
+* Add sass preprocessor
+
+### [0.1.0] - 2023-12-17
 
 * Initialize project using Create React App
 * First changes; Add calendar overview; calendar page, about and contact page and more

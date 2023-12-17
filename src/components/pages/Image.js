@@ -40,8 +40,8 @@ const Image = () => {
     return (
         <>
             <HeaderImage data={data} />
-            <div className="container px-4 px-lg-5 image-viewer">
-                <div className="row gx-4 gx-lg-5 justify-content-center">
+            <div className="container px-4 px-lg-2 image-viewer">
+                <div className="row gx-4 gx-lg-2 justify-content-center">
                     <div className="col-md-10 col-lg-8 col-xl-7">
                         <h2>{data.page_title}</h2>
                         <div>
@@ -55,12 +55,13 @@ const Image = () => {
                             Kalenderblatt: {data.year}/{data.month === 0 ? 'Titelblatt' : data.month}<br/>
                         </p>
                         <p>
-                            <a href={calendarBuilderUrl + data.path + '?width=1280'}>
+                            <a href={calendarBuilderUrl + data.path + '?width=3072&quality=85'}>
                                 <img src={calendarBuilderUrl + data.path + '?width=1280'}
                                      alt={data.page_title + ' (' + data.coordinate + ')'}
                                      title={data.page_title + ' (' + data.coordinate + ')'}/>
                             </a>
                         </p>
+                        <p><a href={'calendar.html?c=' + data.identifier}>zurück zum Kalender</a> </p>
                     </div>
                 </div>
             </div>

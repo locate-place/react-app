@@ -10,7 +10,7 @@ import Image from "./components/pages/Image";
 import NotFound from "./components/pages/NotFound";
 import redirect from "./redirect/Redirect";
 import addOnScrollListener from "./functions/AddOnScrollListener";
-import './App.css';
+import './App.scss';
 
 /**
  * This is the app main component.

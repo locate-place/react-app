@@ -33,7 +33,7 @@ const Calendar = () => {
     return (
         <>
             <HeaderCalendar data={data} />
-            <div className="container px-4 px-lg-2">
+            <div className="container px-4 px-lg-2 calendar-viewer">
                 <div className="row gx-4 gx-lg-2 justify-content-center">
                     <div className="col-md-10 col-lg-8 col-xl-7">
                         <h2>{data.title}</h2>

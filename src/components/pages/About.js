@@ -32,7 +32,7 @@ const About = () => {
                         <ul>
                             <li>React App 18.2.0 (v{process.env.REACT_APP_VERSION_APP})</li>
                             <li><a href={'https://github.com/twelvepics-com/php-calendar-builder'} target={'_blank'} rel='noreferrer'>PHP Calendar Builder</a> v{data.version} ({data.date})</li>
-                            <li>Verwendete API <a href={'https://www.calendar-builder.localhost/api/v1/version.json'} target={'_blank'} rel='noreferrer'>v.json</a></li>
+                            <li>Verwendete API <a href={process.env.REACT_APP_CALENDAR_BUILDER_URL + '/api/v1/version.json'} target={'_blank'} rel='noreferrer'>v.json</a></li>
                             <li>Copyright © <a href="https://twelvepics.com">twelvepics.com</a> 2023</li>
                         </ul>
                     </div>

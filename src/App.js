@@ -8,7 +8,7 @@ import About from "./components/pages/About";
 import Calendar from "./components/pages/Calendar";
 import NotFound from "./components/pages/NotFound";
 import redirect from "./redirect/Redirect";
-import addOnScrollListener from "./components/functions/AddOnScrollListener";
+import addOnScrollListener from "./functions/AddOnScrollListener";
 import './App.css';
 
 /**

@@ -1,7 +1,7 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import { useSearchParams } from 'react-router-dom';
 import HeaderCalendar from "../layout/HeaderCalendar";
-import loadApiData from "../functions/LoadApiData";
+import loadApiData from "../../functions/LoadApiData";
 
 /**
  * This is the calendar page.

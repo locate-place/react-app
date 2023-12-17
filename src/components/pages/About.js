@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import Header from "../layout/Header";
-import loadApiData from "../functions/LoadApiData";
+import loadApiData from "../../functions/LoadApiData";
 
 /**
  * This is the about page.

@@ -51,11 +51,11 @@ const Image = () => {
                             <div style={{clear: 'both'}}></div>
                         </div>
                         <p>
-                            Koordinate: {data.google_maps !== null ? <a href={data.google_maps}>{data.coordinate_dms}</a> : data.coordinate}<br/>
+                            Koordinate: {data.google_maps !== null ? <a href={data.google_maps} target="_blank" rel="noreferrer">{data.coordinate_dms}</a> : data.coordinate}<br/>
                             Kalenderblatt: {data.year}/{data.month === 0 ? 'Titelblatt' : data.month}<br/>
                         </p>
                         <p>
-                            <a href={calendarBuilderUrl + data.path + '?width=3072&quality=85'}>
+                            <a href={calendarBuilderUrl + data.path + '?width=3072&quality=85'} target="_blank" rel="noreferrer">
                                 <img src={calendarBuilderUrl + data.path + '?width=1280'}
                                      alt={data.page_title + ' (' + data.coordinate + ')'}
                                      title={data.page_title + ' (' + data.coordinate + ')'}/>

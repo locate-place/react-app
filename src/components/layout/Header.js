@@ -3,7 +3,7 @@
  */
 const Header = ({title, subtitle}) => {
     return (
-        <header className="masthead" style={{
+        <header className="header header-main" style={{
             backgroundImage: `url('assets/img/head.jpg')`,
             backgroundRepeat: 'no-repeat',
             backgroundPosition: 'center center'

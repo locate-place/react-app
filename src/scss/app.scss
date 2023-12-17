@@ -2,27 +2,19 @@
  * General styles
  */
 body {
-    font-size: 1.25rem;
+    font-size: 1rem;
 
     hr {
         border-color: #dee2e6;
         opacity: 1;
     }
 
-    p {
-        margin: 2rem 0;
-        a {
+    a {
+        text-decoration: none;
+
+        &:hover {
             text-decoration: underline;
         }
-    }
-
-    blockquote {
-        font-style: italic;
-        color: #6c757d;
-    }
-
-    .btn {
-        letter-spacing: 0.0625em;
     }
 
     .form-floating input,
@@ -135,7 +127,7 @@ footer {
 /**
  * Header styles.
  */
-header.masthead {
+header.header {
     position: relative;
     margin-bottom: 3rem;
     padding-top: calc(8rem + 57px);
@@ -145,7 +137,7 @@ header.masthead {
     background-size: cover;
     background-attachment: scroll;
 }
-header.masthead:before {
+header.header:before {
     content: "";
     position: absolute;
     top: 0;
@@ -155,22 +147,21 @@ header.masthead:before {
     background-color: #212529;
     opacity: 0.5;
 }
-header.masthead .page-heading,
-header.masthead .post-heading,
-header.masthead .site-heading {
+header.header .page-heading,
+header.header .post-heading,
+header.header .site-heading {
     color: #fff;
 }
-header.masthead .page-heading,
-header.masthead .site-heading {
+header.header .page-heading,
+header.header .site-heading {
     text-align: center;
 }
-header.masthead .page-heading h1, header.masthead .page-heading .h1,
-header.masthead .site-heading h1,
-header.masthead .site-heading .h1 {
+header.header .page-heading h1,
+header.header .site-heading h1 {
     font-size: 3rem;
 }
-header.masthead .page-heading .subheading,
-header.masthead .site-heading .subheading {
+header.header .page-heading .subheading,
+header.header .site-heading .subheading {
     font-size: 1.5rem;
     font-weight: 300;
     line-height: 1.1;
@@ -178,70 +169,53 @@ header.masthead .site-heading .subheading {
     margin-top: 0.625rem;
     font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
-header.masthead .post-heading h1, header.masthead .post-heading .h1 {
+header.header .post-heading h1 {
     font-size: 2.25rem;
 }
-header.masthead .post-heading .meta,
-header.masthead .post-heading .subheading {
+header.header .post-heading .meta,
+header.header .post-heading .subheading {
     line-height: 1.1;
     display: block;
 }
-header.masthead .post-heading .subheading {
+header.header .post-heading .subheading {
     font-size: 1.5rem;
     font-weight: 600;
     margin: 0.75rem 0 2rem;
     font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
-header.masthead .post-heading .meta {
+header.header .post-heading .meta {
     font-size: 1.25rem;
     font-weight: 300;
     font-style: italic;
     font-family: "Lora", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
-header.masthead .post-heading .meta a {
+header.header .post-heading .meta a {
     color: #fff;
 }
 @media (min-width: 992px) {
-    header.masthead {
+    header.header {
         padding-top: 12.5rem;
         padding-bottom: 12.5rem;
     }
-    header.masthead .page-heading h1, header.masthead .page-heading .h1,
-    header.masthead .site-heading h1,
-    header.masthead .site-heading .h1 {
+    header.header .page-heading h1,
+    header.header .site-heading h1 {
         font-size: 5rem;
     }
-    header.masthead .post-heading h1, header.masthead .post-heading .h1 {
+    header.header .post-heading h1 {
         font-size: 3.5rem;
     }
-    header.masthead .post-heading .subheading {
+    header.header .post-heading .subheading {
         font-size: 1.875rem;
     }
 }
 
-header.masthead.image {
+header.header.header-image {
     padding-top: calc(3rem + 57px);
     padding-bottom: 3rem;
 }
 
-header.masthead.image .site-heading h1,
-header.masthead.image .site-heading .h1 {
+header.header.header-image .site-heading h1 {
     font-size: 2rem;
-}
-
-.section-heading {
-    font-size: 2.25rem;
-    font-weight: 700;
-    margin-top: 3.75rem;
-}
-
-.caption {
-    font-size: 0.875rem;
-    font-style: italic;
-    display: block;
-    margin: 0;
-    padding: 0.625rem;
-    text-align: center;
 }
 
 /**
@@ -295,6 +269,16 @@ header.masthead.image .site-heading .h1 {
 /**
  * Calendar overview styles.
  */
-.calendar-overview img {
-    width: 100%;
+.calendar-overview {
+    .calendar-preview {
+        p {
+            height: 60px;
+        }
+
+        img {
+            width: 100%;
+        }
+    }
+
+
 }

@@ -12,7 +12,7 @@ const HeaderCalendar = ({data}) => {
     }
 
     return (
-        <header className="masthead" style={{
+        <header className="header header-calendar" style={{
             backgroundImage: 'url(' + calendarBuilderUrl + title_image + '?width=1280&type=source)',
             backgroundRepeat: 'no-repeat',
             backgroundPosition: 'center center'

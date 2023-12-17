@@ -11,7 +11,7 @@ const HeaderImage = ({data}) => {
     }
 
     return (
-        <header className="masthead image" style={{
+        <header className="header header-image" style={{
             backgroundColor: color
         }}>
             <div className="container position-relative px-4 px-lg-5">

@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Changelogs
 
+### [0.1.2] - 2023-12-17
+
+* Fix image redirect
+
 ### [0.1.1] - 2023-12-17
 
 * Add sass preprocessor

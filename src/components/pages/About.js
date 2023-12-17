@@ -30,9 +30,10 @@ const About = () => {
                     <div className="col-md-10 col-lg-8 col-xl-7">
                         <h2>Dieser Service wird bereitgestellt von twelvepics.com</h2>
                         <ul>
+                            <li>React App 18.2.0 (v{process.env.REACT_APP_VERSION_APP})</li>
                             <li><a href={'https://github.com/twelvepics-com/php-calendar-builder'} target={'_blank'} rel='noreferrer'>PHP Calendar Builder</a> v{data.version} ({data.date})</li>
                             <li>Verwendete API <a href={'https://www.calendar-builder.localhost/api/v1/version.json'} target={'_blank'} rel='noreferrer'>v.json</a></li>
-                            <li>Copyright © twelvepics.com 2023</li>
+                            <li>Copyright © <a href="https://twelvepics.com">twelvepics.com</a> 2023</li>
                         </ul>
                     </div>
                 </div>

@@ -40,13 +40,23 @@ const Image = () => {
     return (
         <>
             <HeaderImage data={data} />
-            <div className="container px-4 px-lg-5">
+            <div className="container px-4 px-lg-5 image-viewer">
                 <div className="row gx-4 gx-lg-5 justify-content-center">
                     <div className="col-md-10 col-lg-8 col-xl-7">
                         <h2>{data.page_title}</h2>
+                        <div>
+                            { 'colors' in data ? data.colors.map((item, index) => (
+                                <div key={'color-' + index} style={{width: 10, height: 10, backgroundColor: item, float: "left"}}></div>
+                            )) : null }
+                            <div style={{clear: 'both'}}></div>
+                        </div>
+                        <p>
+                            Koordinate: {data.google_maps !== null ? <a href={data.google_maps}>{data.coordinate_dms}</a> : data.coordinate}<br/>
+                            Kalenderblatt: {data.year}/{data.month === 0 ? 'Titelblatt' : data.month}<br/>
+                        </p>
                         <p>
                             <a href={calendarBuilderUrl + data.path + '?width=1280'}>
-                                <img src={calendarBuilderUrl + data.path + '?width=500'}
+                                <img src={calendarBuilderUrl + data.path + '?width=1280'}
                                      alt={data.page_title + ' (' + data.coordinate + ')'}
                                      title={data.page_title + ' (' + data.coordinate + ')'}/>
                             </a>

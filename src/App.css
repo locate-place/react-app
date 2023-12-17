@@ -203,6 +203,16 @@ header.masthead .post-heading .meta a {
     }
 }
 
+header.masthead.image {
+    padding-top: calc(3rem + 57px);
+    padding-bottom: 3rem;
+}
+
+header.masthead.image .site-heading h1,
+header.masthead.image .site-heading .h1 {
+    font-size: 2rem;
+}
+
 .section-heading {
     font-size: 2.25rem;
     font-weight: 700;

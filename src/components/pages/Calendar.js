@@ -39,7 +39,7 @@ const Calendar = () => {
                         { 'calendars' in data ? data.calendars.map((item, index) => (
                             <div key={'image-' + index}>
                                 <p>
-                                    <a href={calendarBuilderUrl + item.path + '?width=1280'}>
+                                    <a href={'image.html?c=' + data.identifier + '&m=' + index}>
                                         <img src={calendarBuilderUrl + item.path + '?width=500'} alt={item.page_title + ' (' + item.coordinate + ')'} title={item.page_title + ' (' + item.coordinate + ')'} />
                                     </a>
                                 </p>

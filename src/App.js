@@ -6,6 +6,7 @@ import Home from "./components/pages/Home";
 import Contact from "./components/pages/Contact";
 import About from "./components/pages/About";
 import Calendar from "./components/pages/Calendar";
+import Image from "./components/pages/Image";
 import NotFound from "./components/pages/NotFound";
 import redirect from "./redirect/Redirect";
 import addOnScrollListener from "./functions/AddOnScrollListener";
@@ -41,6 +42,7 @@ const App = () => {
                 <Route path="/contact.html" element={<Contact />} />
                 <Route path="/about.html" element={<About />} />
                 <Route path="/calendar.html" element={<Calendar />} />
+                <Route path="/image.html" element={<Image />} />
                 <Route path="*" element={<NotFound />} />
             </Routes>
             <Footer />

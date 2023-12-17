@@ -1,25 +1,51 @@
-import logo from './logo.svg';
+import React, {useEffect, useMemo} from 'react';
+import {Route, Routes, useNavigate } from 'react-router-dom';
+import Navigation from "./components/layout/Navigation";
+import Footer from "./components/layout/Footer";
+import Home from "./components/pages/Home";
+import Contact from "./components/pages/Contact";
+import About from "./components/pages/About";
+import Calendar from "./components/pages/Calendar";
+import NotFound from "./components/pages/NotFound";
+import redirect from "./redirect/Redirect";
+import addOnScrollListener from "./components/functions/AddOnScrollListener";
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+/**
+ * This is the app main component.
+ */
+const App = () => {
+    const navigateOrig = useNavigate();
+
+    /**
+     * Memorized variables.
+     */
+    const navigate = useMemo(() => {
+        return navigateOrig;
+    }, [navigateOrig]);
+
+    /**
+     * useEffect function.
+     */
+    useEffect(() => {
+        addOnScrollListener();
+        redirect(navigate);
+    }, [navigate]);
+
+    return (
+        <div className="App">
+            <Navigation />
+            <Routes>
+                <Route index element={<Home />} />
+                <Route path="/index.html" element={<Home />} />
+                <Route path="/contact.html" element={<Contact />} />
+                <Route path="/about.html" element={<About />} />
+                <Route path="/calendar.html" element={<Calendar />} />
+                <Route path="*" element={<NotFound />} />
+            </Routes>
+            <Footer />
+        </div>
+    );
 }
 
 export default App;

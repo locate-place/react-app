@@ -38,7 +38,7 @@ const Calendar = () => {
                     <div className="col-md-10 col-lg-8 col-xl-7">
                         <h2>{data.title}</h2>
                         <p>{data.subtitle}</p>
-                        { 'calendars' in data ? data.calendars.map((item, index) => (
+                        { 'pages' in data ? data.pages.map((item, index) => (
                             <div key={'image-' + index}>
                                 <p>
                                     <a href={'image.html?c=' + data.identifier + '&m=' + index}>

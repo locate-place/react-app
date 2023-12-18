@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Changelogs
 
+### [0.1.4] - 2023-12-18
+
+* Adopt things to new api structure (image instead of title_image, calendar path without all
+
 ### [0.1.3] - 2023-12-18
 
 * Change calendars to pages on calendar page

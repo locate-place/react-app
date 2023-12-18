@@ -5,15 +5,15 @@ const HeaderCalendar = ({data}) => {
     let calendarBuilderUrl = process.env.REACT_APP_CALENDAR_BUILDER_URL;
     let title = data.title;
     let subtitle = data.subtitle;
-    let title_image = data.title_image;
+    let image = data.image;
 
-    if (title === undefined || subtitle === undefined || title_image === undefined) {
+    if (title === undefined || subtitle === undefined || image === undefined) {
         return (<></>);
     }
 
     return (
         <header className="header header-calendar" style={{
-            backgroundImage: 'url(' + calendarBuilderUrl + title_image + '?width=1280&type=source)',
+            backgroundImage: 'url(' + calendarBuilderUrl + image + '?width=1280&type=source)',
             backgroundRepeat: 'no-repeat',
             backgroundPosition: 'center center'
         }}>

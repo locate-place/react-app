@@ -35,7 +35,7 @@ const Calendars = () => {
                                         <a href={'calendar.html?c=' + item.identifier}>
                                             <h2 className="calendar-title">{item.title}</h2>
                                             <p className="calendar-subtitle">{item.subtitle}</p>
-                                            <img src={calendarBuilderUrl + item.title_image + '?width=500'} alt={item.title} title={item.title} />
+                                            <img src={calendarBuilderUrl + item.image + '?width=500'} alt={item.title} title={item.title} />
                                         </a>
                                     </div>
                                 </div>

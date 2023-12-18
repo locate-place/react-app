@@ -24,7 +24,7 @@ const Calendar = () => {
      * useEffect function.
      */
     useEffect(() => {
-        loadApiData(calendarBuilderUrl + '/v/' + calendar + '/all.json', setData);
+        loadApiData(calendarBuilderUrl + '/v/' + calendar + '.json', setData);
     }, [calendarBuilderUrl, calendar]);
 
     /**

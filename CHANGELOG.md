@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Changelogs
 
+### [0.1.3] - 2023-12-18
+
+* Change calendars to pages on calendar page
+* Add bootstrap to npm packages
+  * Remove cdn include
+* Calendars page refactoring
+* Fix api link on about page
+* Fix image width on mobile devices
+* Disable social links in footer
+
 ### [0.1.2] - 2023-12-17
 
 * Fix image redirect

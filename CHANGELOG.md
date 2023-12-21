@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Changelogs
 
+### [0.1.7] - 2023-12-22
+
+* Bootstrap layout refactoring
+* Add the version to package.json
+* The calendars and calendar view refactoring
+* Add short title to the main page
+
 ### [0.1.6] - 2023-12-21
 
 * Check existing holidays and birthdays before rendering; Calendar page refactoring

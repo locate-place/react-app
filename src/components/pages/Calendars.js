@@ -24,7 +24,7 @@ const Calendars = () => {
      */
     return (
         <>
-            <Header title='Kalenderübersicht' subtitle='Übersicht über alle Kalender' />
+            <Header title='Übersicht' subtitle='Übersicht über alle Kalender' />
             <div className="container calendar-overview mb-5">
                 <div className="row g-3">
                     {data.length > 0 ? data.map((item, index) => (

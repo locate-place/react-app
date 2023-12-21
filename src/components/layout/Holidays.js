@@ -4,18 +4,20 @@ import React from "react";
  * This is the holiday part.
  */
 const Holidays = ({data}) => {
+    if (data.holidays === undefined || Object.keys(data.holidays).length <= 0) {
+        return <></>
+    }
+
     return (
         <>
-            { data.holidays !== undefined && Object.keys(data.holidays).length > 0 ? <>
-                <h3>Feiertage</h3>
-                <ul>
-                    {Object.entries(data.holidays).map(([date, name]) => (
-                        <li key={'holiday-' + date}>
-                            {date}: {name}
-                        </li>
-                    )) }
-                </ul>
-            </> : null }
+            <h3>Feiertage</h3>
+            <ul>
+                {Object.entries(data.holidays).map(([date, name]) => (
+                    <li key={'holiday-' + date}>
+                        {date}: {name}
+                    </li>
+                )) }
+            </ul>
         </>
     )
 }

@@ -1,11 +1,18 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import Header from "../layout/Header";
+import React, {useEffect, useMemo, useState} from 'react';
+
+/* Add functions */
 import loadApiData from "../../functions/LoadApiData";
+
+/* Add component parts */
+import Header from "../layout/Header";
+import Loader from "../layout/Loader";
 
 /**
  * This is the app main component.
  */
 const Calendars = () => {
+    const [error, setError] = useState([]);
+    const [loaded, setLoaded] = useState([]);
     const [data, setData] = useState([]);
 
     const calendarBuilderUrl = useMemo(() => {
@@ -16,7 +23,7 @@ const Calendars = () => {
      * useEffect function.
      */
     useEffect(() => {
-        loadApiData(calendarBuilderUrl + '/v.json', setData);
+        loadApiData(calendarBuilderUrl + '/v.json', setLoaded, setError, setData);
     }, [calendarBuilderUrl]);
 
     /**
@@ -25,19 +32,22 @@ const Calendars = () => {
     return (
         <>
             <Header title='Übersicht' subtitle='Übersicht über alle Kalender' />
-            <div className="container calendar-overview mb-5">
+            <div className="calendars container mb-5">
                 <div className="row g-3">
-                    {data.length > 0 ? data.map((item, index) => (
-                        <div className="col-12 col-lg-6 col-xl-4" key={'calendar-' + index}>
-                            <div className="p-3 border bg-light calendar-preview">
-                                <a href={'calendar.html?c=' + item.identifier}>
-                                    <h2 className="calendar-title">{item.title}</h2>
-                                    <p className="calendar-subtitle">{item.subtitle}</p>
-                                    <img src={calendarBuilderUrl + item.image + '?width=500'} alt={item.title} title={item.title} />
-                                </a>
+                    {loaded && data.length > 0 ? data.map((item, index) => (
+                        <div className="col-12 col-lg-6 col-xl-4 d-flex align-items-stretch" key={'calendar-' + index}>
+                            <div className="card">
+                                <img className="card-img-top ratio ratio-4x3" src={calendarBuilderUrl + item.image + '?width=500'} alt={item.title} title={item.title} />
+                                <div className="card-body">
+                                    <h5 className="card-title">{item.title}</h5>
+                                    <p className="card-text">{item.subtitle}</p>
+                                </div>
+                                <div className="card-footer">
+                                    <a href={'calendar.html?c=' + item.identifier} className="btn btn-primary">Öffne {item.title}</a>
+                                </div>
                             </div>
                         </div>
-                    )) : <div>Lade. Bitte warten...</div>}
+                    )) : <Loader />}
                 </div>
             </div>
         </>

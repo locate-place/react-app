@@ -1,14 +1,21 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import { useSearchParams } from 'react-router-dom';
-import HeaderCalendar from "../layout/HeaderCalendar";
+
+/* Add functions */
 import loadApiData from "../../functions/LoadApiData";
+
+/* Add component parts */
+import HeaderCalendar from "../layout/HeaderCalendar";
 import Birthdays from "../layout/Birthdays";
 import Holidays from "../layout/Holidays";
+import Loader from "../layout/Loader";
 
 /**
  * This is the calendar page.
  */
 const Calendar = () => {
+    const [error, setError] = useState([]);
+    const [loaded, setLoaded] = useState([]);
     const [data, setData] = useState([]);
     const [searchParams] = useSearchParams();
 
@@ -26,7 +33,7 @@ const Calendar = () => {
      * useEffect function.
      */
     useEffect(() => {
-        loadApiData(calendarBuilderUrl + '/v/' + calendar + '.json', setData);
+        loadApiData(calendarBuilderUrl + '/v/' + calendar + '.json', setLoaded, setError, setData);
     }, [calendarBuilderUrl, calendar]);
 
     /**
@@ -35,29 +42,32 @@ const Calendar = () => {
     return (
         <>
             <HeaderCalendar data={data} />
-            <div className="container calendar-viewer mb-5">
+            <div className="calendar container mb-5">
                 <div className="row g-3">
-                    <div className="col-12">
-                        <h2>{data.title}</h2>
-                        <p>{data.subtitle}</p>
-                    </div>
-                    { 'pages' in data ? data.pages.map((item, index) => (
-                        <div className="col-12 col-lg-6 col-xl-4" key={'image-' + index}>
-                            <div className="p-3 border bg-light image-preview">
-                                <h2>{item.page_title}</h2>
-                                <p>{item.year}/{item.month}</p>
-                                <p>
-                                    <a href={'image.html?c=' + data.identifier + '&m=' + index}>
-                                        <img src={calendarBuilderUrl + item.path + '?width=500'} alt={item.page_title + ' (' + item.coordinate + ')'} title={item.page_title + ' (' + item.coordinate + ')'} />
-                                    </a>
-                                </p>
-                            </div>
+                    {loaded ? <>
+                        <div className="col-12">
+                            <h2>{data.title}</h2>
+                            <p>{data.subtitle}</p>
                         </div>
-                    )) : <div>Lade. Bitte warten...</div>}
-                    <div className="col-12">
-                        <Birthdays data={data} />
-                        <Holidays data={data} />
-                    </div>
+                        { 'pages' in data ? data.pages.map((item, index) => (
+                            <div className="col-12 col-lg-6 col-xl-4 d-flex align-items-stretch" key={'image-' + index}>
+                                <div className="card">
+                                    <img className="card-img-top ratio ratio-4x3" src={calendarBuilderUrl + item.path + '?width=500'} alt={item.page_title + ' (' + item.coordinate + ')'} title={item.page_title + ' (' + item.coordinate + ')'} />
+                                    <div className="card-body">
+                                        <h5 className="card-title">{item.page_title}</h5>
+                                        <p className="card-text">{item.year}/{item.month === 0 ? 'Titelblatt' : item.month}</p>
+                                    </div>
+                                    <div className="card-footer">
+                                        <a href={'page.html?c=' + data.identifier + '&m=' + index} className="btn btn-primary">Öffne {item.year}/{item.month === 0 ? 'Titelblatt' : item.month}</a>
+                                    </div>
+                                </div>
+                            </div>
+                        )) : null}
+                        <div className="col-12">
+                            <Birthdays data={data} />
+                            <Holidays data={data} />
+                        </div>
+                    </> : <Loader />}
                 </div>
             </div>
         </>

@@ -219,83 +219,41 @@ header.header.header-image .site-heading h1 {
 }
 
 /**
- * Calendar preview styles.
+ * Page calendars styles.
  */
-.calendar-preview {
-    h2 {
-        margin-top: 0.5rem !important;
-    }
-}
-.calendar-preview > a {
-    color: #212529;
-}
-.calendar-preview > a:focus, .calendar-preview > a:hover {
-    text-decoration: none;
-    color: #0085A1;
-}
-.calendar-preview > a > .calendar-title {
-    font-size: 1.875rem;
-    margin-top: 1.875rem;
-    margin-bottom: 0.625rem;
-}
-.calendar-preview > a > .calendar-subtitle {
-    font-weight: 300;
-    margin-bottom: 0.625rem;
-}
-.calendar-preview > .post-meta {
-    font-size: 1.125rem;
-    font-style: italic;
-    margin-top: 0;
-    color: #6c757d;
-}
-.calendar-preview > .post-meta > a {
-    text-decoration: none;
+.calendars {
+
 }
 @media (min-width: 992px) {
-    .calendar-preview > a > .calendar-title {
-        font-size: 2.25rem;
+    .calendars {
+
     }
 }
 
+/**
+ * Page calendar styles.
+ */
+.calendar {
 
+}
+@media (min-width: 992px) {
+    .calendar {
 
-.image-preview {
-    h2 {
-        margin-top: 0.1rem!important;
-        font-size: 1rem!important;
-        height: 3rem;
     }
 }
 
-
-
 /**
- * Image viewer styles.
+ * Page page styles.
  */
-.image-viewer img {
-    width: 100%;
-}
-
-/**
- * Calendar viewer styles.
- */
-.calendar-viewer img {
-    width: 100%;
-}
-
-/**
- * Calendar overview styles.
- */
-.calendar-overview {
-    .calendar-preview {
-        p {
-            height: 60px;
-        }
-
-        img {
-            width: 100%;
-        }
+.page {
+    img {
+        width: 100%;
     }
+}
 
+/**
+ * Page about styles.
+ */
+.about {
 
 }

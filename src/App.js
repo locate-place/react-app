@@ -1,17 +1,22 @@
 import React, {useEffect, useMemo} from 'react';
 import {Route, Routes, useNavigate } from 'react-router-dom';
 
-/* Add components */
-import Navigation from "./components/layout/Navigation";
-import Footer from "./components/layout/Footer";
-import Calendars from "./components/pages/Calendars";
-import Contact from "./components/pages/Contact";
-import About from "./components/pages/About";
-import Calendar from "./components/pages/Calendar";
-import Image from "./components/pages/Image";
-import NotFound from "./components/pages/NotFound";
+/* Add functions */
 import redirect from "./redirect/Redirect";
 import addOnScrollListener from "./functions/AddOnScrollListener";
+
+/* Add components */
+import Calendars from "./components/pages/Calendars";
+import Calendar from "./components/pages/Calendar";
+import Page from "./components/pages/Page";
+import Contact from "./components/pages/Contact";
+import About from "./components/pages/About";
+import NotFound from "./components/pages/NotFound";
+import Home from "./components/pages/Home";
+
+/* Add component parts */
+import Navigation from "./components/layout/Navigation";
+import Footer from "./components/layout/Footer";
 
 /* Add styles */
 import './scss/bootstrap.scss';
@@ -46,11 +51,15 @@ const App = () => {
             <Navigation />
             <Routes>
                 <Route index element={<Calendars />} />
+
                 <Route path="/index.html" element={<Calendars />} />
                 <Route path="/calendar.html" element={<Calendar />} />
-                <Route path="/image.html" element={<Image />} />
+                <Route path="/page.html" element={<Page />} />
+
+                <Route path="/home.html" element={<Home />} />
                 <Route path="/contact.html" element={<Contact />} />
                 <Route path="/about.html" element={<About />} />
+
                 <Route path="*" element={<NotFound />} />
             </Routes>
             <Footer />

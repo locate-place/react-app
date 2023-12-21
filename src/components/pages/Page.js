@@ -1,14 +1,21 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import { useSearchParams } from 'react-router-dom';
-import HeaderImage from "../layout/HeaderImage";
+
+/* Add functions */
 import loadApiData from "../../functions/LoadApiData";
+
+/* Add component parts */
+import HeaderImage from "../layout/HeaderImage";
 import Birthdays from "../layout/Birthdays";
 import Holidays from "../layout/Holidays";
+import Loader from "../layout/Loader";
 
 /**
  * This is the image page.
  */
-const Image = () => {
+const Page = () => {
+    const [error, setError] = useState([]);
+    const [loaded, setLoaded] = useState([]);
     const [data, setData] = useState([]);
     const [searchParams] = useSearchParams();
 
@@ -29,7 +36,7 @@ const Image = () => {
      * useEffect function.
      */
     useEffect(() => {
-        loadApiData(calendarBuilderUrl + '/v/' + calendar + '/' + month + '.json', setData);
+        loadApiData(calendarBuilderUrl + '/v/' + calendar + '/' + month + '.json', setLoaded, setError, setData);
     }, [calendarBuilderUrl, calendar, month]);
 
     /**
@@ -38,10 +45,10 @@ const Image = () => {
     return (
         <>
             <HeaderImage pageTitle={data.page_title} title={data.title} color={data.color} />
-            <div className="container px-4 px-lg-2 image-viewer">
-                <div className="row gx-4 gx-lg-2 justify-content-center">
-                    { data.page_title !== undefined ?
-                        <div className="col-md-10 col-lg-8 col-xl-7">
+            <div className="page container mb-5">
+                <div className="row g-3">
+                    { loaded && data.page_title !== undefined ? <>
+                        <div className="col-12 col-md-10 offset-md-1 col-xl-8 offset-xl-2">
                             <h2>{data.page_title}</h2>
                             <div>
                                 { 'colors' in data ? data.colors.map((item, index) => (
@@ -55,7 +62,7 @@ const Image = () => {
                             </p>
                             <p>
                                 <a href={calendarBuilderUrl + data.path + '?width=3072&quality=85'} target="_blank" rel="noreferrer">
-                                    <img src={calendarBuilderUrl + data.path + '?width=1280'}
+                                    <img className="ratio ratio-4x3" src={calendarBuilderUrl + data.path + '?width=1280'}
                                          alt={data.page_title + ' (' + data.coordinate + ')'}
                                          title={data.page_title + ' (' + data.coordinate + ')'}/>
                                 </a>
@@ -63,13 +70,12 @@ const Image = () => {
                             <Birthdays data={data} />
                             <Holidays data={data} />
                             <p><a href={'calendar.html?c=' + data.identifier}>zurück zum Kalender</a> </p>
-                        </div> :
-                        <div className="col-md-10 col-lg-8 col-xl-7">Lade. Bitte warten...</div>
-                    }
+                        </div>
+                    </> : <Loader />}
                 </div>
             </div>
         </>
     );
 }
 
-export default Image;
+export default Page;

@@ -19,7 +19,7 @@ const redirect = (navigate) => {
     /* Redirect image page from calendar */
     let matchImage = regexImage.exec(path);
     if (matchImage) {
-        navigate('/image.html?c=' + matchImage[1] + '&m=' + matchImage[2]);
+        navigate('/page.html?c=' + matchImage[1] + '&m=' + matchImage[2]);
     }
 }
 

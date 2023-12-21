@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Changelogs
 
+### [0.1.5] - 2023-12-21
+
+* Add birthdays and holidays to calendar and image view
+
 ### [0.1.4] - 2023-12-18
 
 * Adopt things to new api structure (image instead of title_image, calendar path without all

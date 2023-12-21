@@ -29,7 +29,7 @@ const Calendars = () => {
                 <div className="row">
                     <div className="col-10 offset-1 p-0">
                         <div className="row">
-                            {data.map((item, index) => (
+                            {data.length > 0 ? data.map((item, index) => (
                                 <div className="col col-12 col-md-6" key={'calendar-' + index}>
                                     <div className="calendar-preview">
                                         <a href={'calendar.html?c=' + item.identifier}>
@@ -39,7 +39,7 @@ const Calendars = () => {
                                         </a>
                                     </div>
                                 </div>
-                            ))}
+                            )) : <div>Lade. Bitte warten...</div>}
                         </div>
                     </div>
                     <div className="offset-1"></div>

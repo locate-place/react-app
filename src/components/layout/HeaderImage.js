@@ -1,15 +1,7 @@
 /**
  * This is the header image part.
  */
-const HeaderImage = ({data}) => {
-    let pageTitle = data.page_title;
-    let title = data.title;
-    let color = data.color;
-
-    if (title === undefined) {
-        return (<></>);
-    }
-
+const HeaderImage = ({pageTitle, title, color}) => {
     return (
         <header className="header header-image" style={{
             backgroundColor: color

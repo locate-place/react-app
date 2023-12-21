@@ -2,6 +2,8 @@ import React, {useEffect, useMemo, useState} from 'react';
 import { useSearchParams } from 'react-router-dom';
 import HeaderCalendar from "../layout/HeaderCalendar";
 import loadApiData from "../../functions/LoadApiData";
+import Birthdays from "../layout/Birthdays";
+import Holidays from "../layout/Holidays";
 
 /**
  * This is the calendar page.
@@ -46,7 +48,9 @@ const Calendar = () => {
                                     </a>
                                 </p>
                             </div>
-                        )) : null }
+                        )) : <div>Lade. Bitte warten...</div>}
+                        <Birthdays data={data} />
+                        <Holidays data={data} />
                     </div>
                 </div>
             </div>

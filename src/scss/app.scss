@@ -221,6 +221,11 @@ header.header.header-image .site-heading h1 {
 /**
  * Calendar preview styles.
  */
+.calendar-preview {
+    h2 {
+        margin-top: 0.5rem !important;
+    }
+}
 .calendar-preview > a {
     color: #212529;
 }
@@ -251,6 +256,18 @@ header.header.header-image .site-heading h1 {
         font-size: 2.25rem;
     }
 }
+
+
+
+.image-preview {
+    h2 {
+        margin-top: 0.1rem!important;
+        font-size: 1rem!important;
+        height: 3rem;
+    }
+}
+
+
 
 /**
  * Image viewer styles.

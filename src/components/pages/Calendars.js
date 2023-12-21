@@ -25,24 +25,19 @@ const Calendars = () => {
     return (
         <>
             <Header title='Kalenderübersicht' subtitle='Übersicht über alle Kalender' />
-            <div className="container mb-5 calendar-overview">
-                <div className="row">
-                    <div className="col-10 offset-1 p-0">
-                        <div className="row">
-                            {data.length > 0 ? data.map((item, index) => (
-                                <div className="col col-12 col-md-6" key={'calendar-' + index}>
-                                    <div className="calendar-preview">
-                                        <a href={'calendar.html?c=' + item.identifier}>
-                                            <h2 className="calendar-title">{item.title}</h2>
-                                            <p className="calendar-subtitle">{item.subtitle}</p>
-                                            <img src={calendarBuilderUrl + item.image + '?width=500'} alt={item.title} title={item.title} />
-                                        </a>
-                                    </div>
-                                </div>
-                            )) : <div>Lade. Bitte warten...</div>}
+            <div className="container calendar-overview mb-5">
+                <div className="row g-3">
+                    {data.length > 0 ? data.map((item, index) => (
+                        <div className="col-12 col-lg-6 col-xl-4" key={'calendar-' + index}>
+                            <div className="p-3 border bg-light calendar-preview">
+                                <a href={'calendar.html?c=' + item.identifier}>
+                                    <h2 className="calendar-title">{item.title}</h2>
+                                    <p className="calendar-subtitle">{item.subtitle}</p>
+                                    <img src={calendarBuilderUrl + item.image + '?width=500'} alt={item.title} title={item.title} />
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                    <div className="offset-1"></div>
+                    )) : <div>Lade. Bitte warten...</div>}
                 </div>
             </div>
         </>

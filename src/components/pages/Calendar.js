@@ -35,13 +35,14 @@ const Calendar = () => {
     return (
         <>
             <HeaderCalendar data={data} />
-            <div className="container px-4 px-lg-2 calendar-viewer">
-                <div className="row gx-4 gx-lg-2 justify-content-center">
-                    <div className="col-md-10 col-lg-8 col-xl-7">
+            <div className="container mb-5 calendar-viewer">
+                <div className="row">
+                    <div className="col-10 offset-1 p-0">
                         <h2>{data.title}</h2>
                         <p>{data.subtitle}</p>
+                        <div className="row">
                         { 'pages' in data ? data.pages.map((item, index) => (
-                            <div key={'image-' + index}>
+                            <div className="col col-12 col-md-6" key={'image-' + index}>
                                 <p>
                                     <a href={'image.html?c=' + data.identifier + '&m=' + index}>
                                         <img src={calendarBuilderUrl + item.path + '?width=500'} alt={item.page_title + ' (' + item.coordinate + ')'} title={item.page_title + ' (' + item.coordinate + ')'} />
@@ -49,6 +50,7 @@ const Calendar = () => {
                                 </p>
                             </div>
                         )) : <div>Lade. Bitte warten...</div>}
+                        </div>
                         <Birthdays data={data} />
                         <Holidays data={data} />
                     </div>

@@ -6,11 +6,11 @@ import React from "react";
 const Birthdays = ({data}) => {
     return (
         <>
-            { Object.keys(data.birthdays).length > 0 ? <>
+            { data.birthdays !== undefined && Object.keys(data.birthdays).length > 0 ? <>
                 <h3>Geburtstage</h3>
                 <ul>
                     {Object.entries(data.birthdays).map(([date, names]) => (
-                        <li key={'birthday-'.date}>
+                        <li key={'birthday-' + date}>
                             {date}: {names.join(', ')}
                         </li>
                     )) }

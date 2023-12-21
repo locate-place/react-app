@@ -6,11 +6,11 @@ import React from "react";
 const Holidays = ({data}) => {
     return (
         <>
-            { Object.keys(data.holidays).length > 0 ? <>
+            { data.holidays !== undefined && Object.keys(data.holidays).length > 0 ? <>
                 <h3>Feiertage</h3>
                 <ul>
                     {Object.entries(data.holidays).map(([date, name]) => (
-                        <li key={'holiday-'.date}>
+                        <li key={'holiday-' + date}>
                             {date}: {name}
                         </li>
                     )) }

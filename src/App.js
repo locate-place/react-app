@@ -21,6 +21,7 @@ import Footer from "./components/layout/Footer";
 /* Add styles */
 import './scss/bootstrap.scss';
 import './scss/app.scss';
+import './scss/fonts.scss';
 
 /* Add javascript */
 import 'bootstrap/dist/js/bootstrap.min.js'

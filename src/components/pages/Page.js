@@ -65,7 +65,8 @@ const Page = () => {
                             </p>
                             <p>
                                 <a href={calendarBuilderUrl + data.path + '?width=3072&quality=85'} target="_blank" rel="noreferrer">
-                                    <img src={calendarBuilderUrl + data.path + '?width=1280'}
+                                    <img className="img-thumbnail"
+                                         src={calendarBuilderUrl + data.path + '?width=1280'}
                                          alt={data.page_title + ' (' + data.coordinate + ')'}
                                          title={data.page_title + ' (' + data.coordinate + ')'}
                                          style={{

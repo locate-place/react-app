@@ -3,6 +3,7 @@
  */
 body {
     font-size: 1rem;
+    font-family: 'Montserrat-Regular', Arial, sans-serif;
 
     hr {
         border-color: #dee2e6;
@@ -43,7 +44,7 @@ body {
     z-index: 1030;
     border-bottom: 1px solid #dee2e6;
     background-color: #fff;
-    font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-family: "Montserrat-Bold", Arial, sans-serif;
 
     .navbar-brand {
         font-weight: 800;
@@ -117,14 +118,6 @@ body {
 }
 
 /**
- * Footer styles.
- */
-footer {
-    padding-top: 3rem;
-    padding-bottom: 3rem;
-}
-
-/**
  * Header styles.
  */
 header.header {
@@ -132,10 +125,8 @@ header.header {
     margin-bottom: 3rem;
     padding-top: calc(8rem + 57px);
     padding-bottom: 8rem;
-    background: no-repeat center center;
-    background-color: #6c757d;
     background-size: cover;
-    background-attachment: scroll;
+    background: #6c757d no-repeat scroll center center;
 }
 header.header:before {
     content: "";
@@ -216,6 +207,15 @@ header.header.header-image {
 
 header.header.header-image .site-heading h1 {
     font-size: 2rem;
+}
+
+/**
+ * Footer styles.
+ */
+footer {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    font-family: 'Montserrat-Light', Arial, sans-serif;
 }
 
 /**

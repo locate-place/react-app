@@ -55,16 +55,18 @@ const Calendar = () => {
                         { 'pages' in data ? data.pages.map((item, index) => (
                             <div className="col-12 col-lg-6 col-xl-4 d-flex align-items-stretch" key={'image-' + index}>
                                 <div className="card">
-                                    <img
-                                        className="card-img-top"
-                                        src={calendarBuilderUrl + item.path + '?width=500'}
-                                        alt={item.page_title + ' (' + item.coordinate + ')'}
-                                        title={item.page_title + ' (' + item.coordinate + ')'}
-                                        style={{
-                                            aspectRatio: '4/3',
-                                            backgroundColor: '#f9f9f9'
-                                        }}
-                                    />
+                                    <a href={'page.html?c=' + data.identifier + '&m=' + index}>
+                                        <img
+                                            className="card-img-top"
+                                            src={calendarBuilderUrl + item.path + '?width=500'}
+                                            alt={item.page_title + ' (' + item.coordinate + ')'}
+                                            title={item.page_title + ' (' + item.coordinate + ')'}
+                                            style={{
+                                                aspectRatio: '4/3',
+                                                backgroundColor: '#f9f9f9'
+                                            }}
+                                        />
+                                    </a>
                                     <div className="card-body">
                                         <h5 className="card-title">{item.page_title}</h5>
                                         <p className="card-text">{item.year}/{item.month === 0 ? 'Titelblatt' : item.month}</p>

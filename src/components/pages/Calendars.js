@@ -40,7 +40,16 @@ const Calendars = () => {
                     {loaded && data.length > 0 ? data.map((item, index) => (
                         <div className="col-12 col-lg-6 col-xl-4 d-flex align-items-stretch" key={'calendar-' + index}>
                             <div className="card">
-                                <img className="card-img-top ratio ratio-4x3" src={calendarBuilderUrl + item.image + '?width=500'} alt={item.title} title={item.title} />
+                                <img
+                                    className="card-img-top"
+                                    src={calendarBuilderUrl + item.image + '?width=500'}
+                                    alt={item.title}
+                                    title={item.title}
+                                    style={{
+                                        aspectRatio: '4/3',
+                                        backgroundColor: '#f9f9f9'
+                                    }}
+                                />
                                 <div className="card-body">
                                     <h5 className="card-title">{item.title}</h5>
                                     <p className="card-text">{item.subtitle}</p>

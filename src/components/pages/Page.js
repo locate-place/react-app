@@ -65,9 +65,14 @@ const Page = () => {
                             </p>
                             <p>
                                 <a href={calendarBuilderUrl + data.path + '?width=3072&quality=85'} target="_blank" rel="noreferrer">
-                                    <img className="ratio ratio-4x3" src={calendarBuilderUrl + data.path + '?width=1280'}
+                                    <img src={calendarBuilderUrl + data.path + '?width=1280'}
                                          alt={data.page_title + ' (' + data.coordinate + ')'}
-                                         title={data.page_title + ' (' + data.coordinate + ')'}/>
+                                         title={data.page_title + ' (' + data.coordinate + ')'}
+                                         style={{
+                                             aspectRatio: '4/3',
+                                             backgroundColor: '#f9f9f9'
+                                         }}
+                                    />
                                 </a>
                             </p>
                             <Birthdays data={data} />

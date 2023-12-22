@@ -32,7 +32,7 @@ const About = () => {
     return (
         <>
             <Header title="App Info" subtitle="Informationen über die App" />
-            <div className="about container mb-5">
+            <div className="about container mb-5 px-4 px-md-3">
                 <div className="row g-3">
                     {loaded ? <>
                         <div className="col-12 col-md-10 offset-md-1 col-xl-8 offset-xl-2">

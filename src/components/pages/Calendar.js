@@ -42,7 +42,7 @@ const Calendar = () => {
     return (
         <>
             <HeaderCalendar data={data} />
-            <div className="calendar container mb-5">
+            <div className="calendar container mb-5 px-4 px-md-3">
                 <div className="row g-3">
                     {loaded ? <>
                         <div className="col-12">

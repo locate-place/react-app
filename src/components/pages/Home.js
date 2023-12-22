@@ -9,7 +9,7 @@ const Home = () => {
     return (
         <>
             <Header title='Home' subtitle='Home Test page' />
-            <div className="home container mb-5">
+            <div className="home container mb-5 px-4 px-md-3">
                 <div className="row g-3">
                     {/* One column */}
                     <div className="col-12">

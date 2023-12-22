@@ -9,13 +9,14 @@ import HeaderImage from "../layout/HeaderImage";
 import Birthdays from "../layout/Birthdays";
 import Holidays from "../layout/Holidays";
 import Loader from "../layout/Loader";
+import Error from "../layout/Error";
 
 /**
  * This is the image page.
  */
 const Page = () => {
-    const [error, setError] = useState([]);
-    const [loaded, setLoaded] = useState([]);
+    const [error, setError] = useState(null);
+    const [loaded, setLoaded] = useState(false);
     const [data, setData] = useState([]);
     const [searchParams] = useSearchParams();
 
@@ -32,12 +33,14 @@ const Page = () => {
         return process.env.REACT_APP_CALENDAR_BUILDER_URL;
     }, []);
 
+    const apiPath = calendarBuilderUrl + '/v/' + calendar + '/' + month + '.json';
+
     /**
      * useEffect function.
      */
     useEffect(() => {
-        loadApiData(calendarBuilderUrl + '/v/' + calendar + '/' + month + '.json', setLoaded, setError, setData);
-    }, [calendarBuilderUrl, calendar, month]);
+        loadApiData(apiPath, setLoaded, setError, setData);
+    }, [apiPath]);
 
     /**
      * The render function.
@@ -71,7 +74,7 @@ const Page = () => {
                             <Holidays data={data} />
                             <p><a href={'calendar.html?c=' + data.identifier}>zurück zum Kalender</a> </p>
                         </div>
-                    </> : <Loader />}
+                    </> : (error !== null ? <Error error={error} apiPath={apiPath} /> : <Loader />)}
                 </div>
             </div>
         </>

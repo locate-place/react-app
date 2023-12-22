@@ -1,6 +1,7 @@
 /* Add component parts */
 import Header from "../layout/Header";
 import Loader from "../layout/Loader";
+import Error from "../layout/Error";
 
 /**
  * This is the app home page.
@@ -48,6 +49,7 @@ const Home = () => {
                     </div>
 
                     <Loader />
+                    <Error error={{message: 'Fehlermeldung'}} apiPath="https://url" />
                 </div>
             </div>
         </>

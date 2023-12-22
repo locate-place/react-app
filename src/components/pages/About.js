@@ -6,25 +6,28 @@ import loadApiData from "../../functions/LoadApiData";
 /* Add component parts */
 import Header from "../layout/Header";
 import Loader from "../layout/Loader";
+import Error from "../layout/Error";
 
 /**
  * This is the about page.
  */
 const About = () => {
-    const [error, setError] = useState([]);
-    const [loaded, setLoaded] = useState([]);
+    const [error, setError] = useState(null);
+    const [loaded, setLoaded] = useState(false);
     const [data, setData] = useState([]);
 
     const calendarBuilderUrl = useMemo(() => {
         return process.env.REACT_APP_CALENDAR_BUILDER_URL;
     }, []);
 
+    const apiPath = calendarBuilderUrl + '/api/v1/version.json';
+
     /**
      * useEffect function.
      */
     useEffect(() => {
-        loadApiData(calendarBuilderUrl + '/api/v1/version.json', setLoaded, setError, setData);
-    }, [calendarBuilderUrl]);
+        loadApiData(apiPath, setLoaded, setError, setData);
+    }, [apiPath]);
 
     /**
      * The render function.
@@ -54,7 +57,7 @@ const About = () => {
                                 <li>Copyright © <a href="https://twelvepics.com">twelvepics.com</a> 2023</li>
                             </ul>
                         </div>
-                    </> : <Loader />}
+                    </> : (error !== null ? <Error error={error} apiPath={apiPath} /> : <Loader />)}
                 </div>
             </div>
         </>

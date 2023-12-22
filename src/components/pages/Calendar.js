@@ -9,13 +9,14 @@ import HeaderCalendar from "../layout/HeaderCalendar";
 import Birthdays from "../layout/Birthdays";
 import Holidays from "../layout/Holidays";
 import Loader from "../layout/Loader";
+import Error from "../layout/Error";
 
 /**
  * This is the calendar page.
  */
 const Calendar = () => {
-    const [error, setError] = useState([]);
-    const [loaded, setLoaded] = useState([]);
+    const [error, setError] = useState(null);
+    const [loaded, setLoaded] = useState(false);
     const [data, setData] = useState([]);
     const [searchParams] = useSearchParams();
 
@@ -29,12 +30,14 @@ const Calendar = () => {
         return process.env.REACT_APP_CALENDAR_BUILDER_URL;
     }, []);
 
+    const apiPath = calendarBuilderUrl + '/v/' + calendar + '.json';
+
     /**
      * useEffect function.
      */
     useEffect(() => {
-        loadApiData(calendarBuilderUrl + '/v/' + calendar + '.json', setLoaded, setError, setData);
-    }, [calendarBuilderUrl, calendar]);
+        loadApiData(apiPath, setLoaded, setError, setData);
+    }, [apiPath]);
 
     /**
      * The render function.
@@ -67,7 +70,7 @@ const Calendar = () => {
                             <Birthdays data={data} />
                             <Holidays data={data} />
                         </div>
-                    </> : <Loader />}
+                    </> : (error !== null ? <Error error={error} apiPath={apiPath} /> : <Loader />)}
                 </div>
             </div>
         </>

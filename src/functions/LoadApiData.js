@@ -10,7 +10,7 @@ const loadApiData = (url, setLoaded, setError, setData) => {
             setLoaded(true);
         })
         .catch(error => {
-            console.error('Error while trying to retrieve the api endpoint.', error);
+            setLoaded(false);
             setError(error);
         });
 }

@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Changelogs
 
+### [0.1.9] - 2023-12-23
+
+* Add chapter what you see
+* Add justify text
+* Add line break to description
+
 ### [0.1.8] - 2023-12-23
 
 * Add more mobile padding right and left

@@ -85,7 +85,16 @@ const Page = () => {
                             </p>
                             { data.description!== undefined ? <>
                                 <h3>Was siehst du?</h3>
-                                <p style={{textAlign: 'justify'}}>{data.description}</p>
+                                <p style={{textAlign: 'justify'}}>
+                                    {data.description.replace(/\n$/, '').split("\n").map(function(item, idx) {
+                                        return (
+                                            <span key={'description-' + idx}>
+                                                {item}
+                                                <br/><br/>
+                                            </span>
+                                        )
+                                    })}
+                                </p>
                             </> : null }
                             <Birthdays data={data} />
                             <Holidays data={data} />

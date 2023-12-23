@@ -83,6 +83,10 @@ const Page = () => {
                                     />
                                 </a>
                             </p>
+                            { data.description!== undefined ? <>
+                                <h3>Was siehst du?</h3>
+                                <p>{data.description}</p>
+                            </> : null }
                             <Birthdays data={data} />
                             <Holidays data={data} />
                             <p><a href={'calendar.html?c=' + data.identifier}>zurück zum Kalender</a> </p>

@@ -7,6 +7,7 @@ import loadApiData from "../../functions/LoadApiData";
 import Header from "../layout/Header";
 import Loader from "../layout/Loader";
 import Error from "../layout/Error";
+import ImageWithLoader from "../layout/ImageWithLoader";
 
 /**
  * This is the app main component.
@@ -40,16 +41,19 @@ const Calendars = () => {
                     {loaded && data.length > 0 ? data.map((item, index) => (
                         <div className="col-12 col-lg-6 col-xl-4 d-flex align-items-stretch" key={'calendar-' + index}>
                             <div className="card">
-                                <a href={'calendar.html?c=' + item.identifier}>
-                                    <img
-                                        className="card-img-top"
+                                <a
+                                    href={'calendar.html?c=' + item.identifier}
+                                    className="no-decoration"
+                                >
+                                    <ImageWithLoader
                                         src={calendarBuilderUrl + item.image + '?width=500'}
+                                        srcSet={[
+                                            { srcSet: calendarBuilderUrl + item.image + '?width=500', media: "(max-width: 600px)" },
+                                            { srcSet: calendarBuilderUrl + item.image + '?width=500', media: "(max-width: 1200px)" }
+                                        ]}
                                         alt={item.title}
                                         title={item.title}
-                                        style={{
-                                            aspectRatio: '4/3',
-                                            backgroundColor: '#f9f9f9'
-                                        }}
+                                        border={false}
                                     />
                                 </a>
                                 <div className="card-body">

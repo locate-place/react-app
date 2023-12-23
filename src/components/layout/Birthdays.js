@@ -8,13 +8,18 @@ const Birthdays = ({data}) => {
         return <></>
     }
 
+    const convertToGermanFormat = (dateString) => {
+        const parts = dateString.split('-');
+        return `${parts[2]}.${parts[1]}.${parts[0]}`;
+    };
+
     return (
         <>
             <h3>Geburtstage</h3>
             <ul>
                 {Object.entries(data.birthdays).map(([date, names]) => (
                     <li key={'birthday-' + date}>
-                        {date}: {names.join(', ')}
+                        {convertToGermanFormat(date)}: {names.join(', ')}
                     </li>
                 )) }
             </ul>

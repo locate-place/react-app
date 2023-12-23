@@ -16,6 +16,14 @@ body {
         &:hover {
             text-decoration: underline;
         }
+
+        &.no-decoration {
+            text-decoration: none;
+
+            &:hover {
+                text-decoration: none;
+            }
+        }
     }
 
     .form-floating input,
@@ -222,11 +230,12 @@ footer {
  * Page calendars styles.
  */
 .calendars {
-
+    .card {
+        width: 100%;
+    }
 }
 @media (min-width: 992px) {
     .calendars {
-
     }
 }
 
@@ -234,7 +243,9 @@ footer {
  * Page calendar styles.
  */
 .calendar {
-
+    .card {
+        width: 100%;
+    }
 }
 @media (min-width: 992px) {
     .calendar {
@@ -246,9 +257,7 @@ footer {
  * Page page styles.
  */
 .page {
-    img {
-        width: 100%;
-    }
+
 }
 
 /**
@@ -257,3 +266,4 @@ footer {
 .about {
 
 }
+

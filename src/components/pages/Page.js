@@ -10,6 +10,7 @@ import Birthdays from "../layout/Birthdays";
 import Holidays from "../layout/Holidays";
 import Loader from "../layout/Loader";
 import Error from "../layout/Error";
+import ImageWithLoader from "../layout/ImageWithLoader";
 
 /**
  * This is the image page.
@@ -64,15 +65,21 @@ const Page = () => {
                                 Kalenderblatt: {data.year}/{data.month === 0 ? 'Titelblatt' : data.month}<br/>
                             </p>
                             <p>
-                                <a href={calendarBuilderUrl + data.path + '?width=3072&quality=85'} target="_blank" rel="noreferrer">
-                                    <img className="img-thumbnail"
-                                         src={calendarBuilderUrl + data.path + '?width=1280'}
-                                         alt={data.page_title + ' (' + data.coordinate + ')'}
-                                         title={data.page_title + ' (' + data.coordinate + ')'}
-                                         style={{
-                                             aspectRatio: '4/3',
-                                             backgroundColor: '#f9f9f9'
-                                         }}
+                                <a
+                                    href={calendarBuilderUrl + data.path + '?width=3072&quality=85'}
+                                    className="no-decoration"
+                                    target="_blank"
+                                    rel="noreferrer"
+                                >
+                                    <ImageWithLoader
+                                        src={calendarBuilderUrl + data.path + '?width=1280'}
+                                        srcSet={[
+                                            { srcSet: calendarBuilderUrl + data.path + '?width=640', media: "(max-width: 600px)" },
+                                            { srcSet: calendarBuilderUrl + data.path + '?width=1280', media: "(max-width: 1200px)" }
+                                        ]}
+                                        alt={data.page_title + ' (' + data.coordinate + ')'}
+                                        title={data.page_title + ' (' + data.coordinate + ')'}
+                                        border={true}
                                     />
                                 </a>
                             </p>

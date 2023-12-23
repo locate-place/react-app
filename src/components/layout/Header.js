@@ -6,7 +6,8 @@ const Header = ({title, subtitle}) => {
         <header className="header header-main" style={{
             backgroundImage: `url('assets/img/head.jpg')`,
             backgroundRepeat: 'no-repeat',
-            backgroundPosition: 'center center'
+            backgroundPosition: 'center center',
+            backgroundSize: 'cover'
         }}>
             <div className="container position-relative px-4 px-lg-5">
                 <div className="row gx-4 gx-lg-5 justify-content-center">

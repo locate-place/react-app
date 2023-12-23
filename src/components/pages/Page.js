@@ -85,7 +85,7 @@ const Page = () => {
                             </p>
                             { data.description!== undefined ? <>
                                 <h3>Was siehst du?</h3>
-                                <p>{data.description}</p>
+                                <p style={{textAlign: 'justify'}}>{data.description}</p>
                             </> : null }
                             <Birthdays data={data} />
                             <Holidays data={data} />

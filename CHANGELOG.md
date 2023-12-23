@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Changelogs
 
+### [0.1.8] - 2023-12-23
+
+* Add more mobile padding right and left
+* Loader vs error refactoring
+* Add ratio to images
+* Add link to images
+* Add fonts to react instead of loading from Google, etc.; Add Font Awesome to npm package, etc.
+* Fix font path to fontello font
+* Add image loader; Add header image to contain
+
 ### [0.1.7] - 2023-12-22
 
 * Bootstrap layout refactoring

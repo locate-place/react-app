@@ -15,13 +15,18 @@ const Birthdays = ({data}) => {
 
     return (
         <>
-            <h3>Geburtstage</h3>
-            <ul>
+            <h3 className="mt-5">Geburtstage</h3>
+            <ul className="list-group list-group-numbered">
                 {Object.entries(data.birthdays).map(([date, birthdays]) => (
-                    <li key={'birthday-' + date}>
-                        <strong>{convertToGermanFormat(date)}</strong>: {birthdays.map(birthday => birthday.name).join(', ')}
+                    <li key={'birthday-' + date}
+                        className="list-group-item d-flex justify-content-between align-items-start">
+                        <div className="ms-2 me-auto">
+                            <div className="fw-bold">{convertToGermanFormat(date)}</div>
+                            {birthdays.map(birthday => birthday.name).join(', ')}
+                        </div>
+                        <span className="badge bg-primary rounded-pill">{birthdays.length}</span>
                     </li>
-                )) }
+                ))}
             </ul>
         </>
     )

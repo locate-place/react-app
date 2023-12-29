@@ -44,9 +44,9 @@ body {
         li {
             font-family: 'Montserrat-Light', Arial, sans-serif;
 
-            strong {
-                font-family: 'Montserrat-Regular', Arial, sans-serif;
-                font-weight: normal;
+            strong, .fw-bold {
+                font-family: 'Montserrat-Bold', Arial, sans-serif;
+                font-weight: normal !important;
             }
         }
     }

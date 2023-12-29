@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Changelogs
 
+### [0.1.12] - 2023-12-29
+
+* Use raw api response from version request
+
 ### [0.1.11] - 2023-12-29
 
 * Adapt to the new api structure from api version 0.1.19

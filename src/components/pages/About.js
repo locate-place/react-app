@@ -47,11 +47,11 @@ const About = () => {
                             <ul>
                                 <li>Build on top of <a href={'https://react.dev/blog/2022/03/29/react-v18'} target={'_blank'} rel='noreferrer'>React</a> 18.2.0</li>
                                 <ul>
-                                    <li><a href={'https://github.com/twelvepics-com/react-calendar-viewer'} target={'_blank'} rel='noreferrer'>Calendar Viewer</a> {process.env.REACT_APP_VERSION_APP}</li>
+                                    <li><a href={'https://github.com/twelvepics-com/react-calendar-viewer/blob/main/CHANGELOG.md'} target={'_blank'} rel='noreferrer'>Calendar Viewer</a> {process.env.REACT_APP_VERSION_APP}</li>
                                 </ul>
                                 <li>API / Calendar Builder</li>
                                 <ul>
-                                    <li><a href={'https://github.com/twelvepics-com/php-calendar-builder'} target={'_blank'} rel='noreferrer'>PHP Calendar Builder</a> {data.version} ({data.date})</li>
+                                    <li><a href={'https://github.com/twelvepics-com/php-calendar-builder/blob/main/CHANGELOG.md'} target={'_blank'} rel='noreferrer'>PHP Calendar Builder</a> {data.version} ({data.date})</li>
                                     <li>Verwendete API: <a href={process.env.REACT_APP_CALENDAR_BUILDER_URL + '/api/v1/version.json'} target={'_blank'} rel='noreferrer'>v.json</a></li>
                                 </ul>
                                 <li>Copyright © <a href="https://twelvepics.com">twelvepics.com</a> 2023</li>

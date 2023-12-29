@@ -61,7 +61,8 @@ const Page = () => {
                                 <div style={{clear: 'both'}}></div>
                             </div>
                             <p>
-                                Koordinate: {data.google_maps !== null ? <a href={data.google_maps} target="_blank" rel="noreferrer">{data.coordinate_dms}</a> : data.coordinate}<br/>
+                                Koordinate (Google Maps): {data.google_maps !== null ? <a href={data.google_maps} target="_blank" rel="noreferrer">{data.coordinate_dms}</a> : data.coordinate}<br/>
+                                Koordinate (Twelvepics API): {data.coordinate_decimal !== null ? <a href={'https://twelvepics.com/location/' + data.coordinate_decimal.replace(/, /, '/')} target="_blank" rel="noreferrer">{data.coordinate_decimal}</a> : data.coordinate_decimal}<br/>
                                 Kalenderblatt: {data.year}/{data.month === 0 ? 'Titelblatt' : data.month}<br/>
                             </p>
                             <p>

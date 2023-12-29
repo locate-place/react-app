@@ -38,7 +38,7 @@ const Calendars = () => {
             <Header title='Übersicht' subtitle='Übersicht über alle Kalender' />
             <div className="calendars container mb-5 px-4 px-md-3">
                 <div className="row g-3">
-                    {loaded && data.length > 0 ? data.map((item, index) => (
+                    {loaded && data.calendars.length > 0 ? data.calendars.map((item, index) => (
                         <div className="col-12 col-lg-6 col-xl-4 d-flex align-items-stretch" key={'calendar-' + index}>
                             <div className="card">
                                 <a

@@ -19,7 +19,7 @@ const Holidays = ({data}) => {
             <ul>
                 {Object.entries(data.holidays).map(([date, holiday]) => (
                     <li key={'holiday-' + date}>
-                        {convertToGermanFormat(date)}: {holiday.name}
+                        <strong>{convertToGermanFormat(date)}</strong>: {holiday.name}
                     </li>
                 )) }
             </ul>

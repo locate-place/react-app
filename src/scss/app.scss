@@ -39,6 +39,17 @@ body {
     .form-floating label {
         color: #6c757d;
     }
+
+    ul {
+        li {
+            font-family: 'Montserrat-Light', Arial, sans-serif;
+
+            strong {
+                font-family: 'Montserrat-Regular', Arial, sans-serif;
+                font-weight: normal;
+            }
+        }
+    }
 }
 
 /**

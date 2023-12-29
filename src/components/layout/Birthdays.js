@@ -19,7 +19,7 @@ const Birthdays = ({data}) => {
             <ul>
                 {Object.entries(data.birthdays).map(([date, birthdays]) => (
                     <li key={'birthday-' + date}>
-                        {convertToGermanFormat(date)}: {birthdays.map(birthday => birthday.name).join(', ')}
+                        <strong>{convertToGermanFormat(date)}</strong>: {birthdays.map(birthday => birthday.name).join(', ')}
                     </li>
                 )) }
             </ul>

@@ -8,13 +8,18 @@ const Holidays = ({data}) => {
         return <></>
     }
 
+    const convertToGermanFormat = (dateString) => {
+        const parts = dateString.split('-');
+        return `${parts[2]}.${parts[1]}.${parts[0]}`;
+    };
+
     return (
         <>
             <h3>Feiertage</h3>
             <ul>
-                {Object.entries(data.holidays).map(([date, name]) => (
+                {Object.entries(data.holidays).map(([date, holiday]) => (
                     <li key={'holiday-' + date}>
-                        {date}: {name}
+                        {convertToGermanFormat(date)}: {holiday.name}
                     </li>
                 )) }
             </ul>

@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Changelogs
 
+### [0.1.13] - 2023-12-29
+
+* Add docker compose setup
+* Add CHANGELOG links to About page
+* Add Twelvepics API to calendar page
+
 ### [0.1.12] - 2023-12-29
 
 * Use raw api response from version request

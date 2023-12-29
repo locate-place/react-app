@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Changelogs
 
+### [0.1.10] - 2023-12-29
+
+* Adjustments for the birthday and holiday version.
+
 ### [0.1.9] - 2023-12-23
 
 * Add chapter what you see

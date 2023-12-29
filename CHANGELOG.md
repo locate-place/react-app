@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Changelogs
 
+### [0.1.11] - 2023-12-29
+
+* Adapt to the new api structure from api version 0.1.19
+* Add semver checker
+
 ### [0.1.10] - 2023-12-29
 
 * Adjustments for the birthday and holiday version.

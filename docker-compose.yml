@@ -1,0 +1,55 @@
+version: "3.7"
+services:
+    # nginx-1.21.3 docker container with content
+    nginx:
+        image: "${NGINX_IMAGE_NAME}"
+        container_name: "${NGINX_CONTAINER_NAME}"
+        hostname: "${NGINX_HOSTNAME}"
+        labels:
+            # enable traefik
+            - "traefik.enable=true"
+            # middleware -> https redirect
+            - "traefik.http.middlewares.${NAMESPACE_UNDERLINE_DEVELOPMENT}_https.redirectscheme.scheme=https"
+            # middleware -> domain redirect
+            - "traefik.http.middlewares.${NAMESPACE_UNDERLINE_DEVELOPMENT}_redirect.redirectregex.regex=^https?://c\\.twelvepics\\.com/(.*)"
+            - "traefik.http.middlewares.${NAMESPACE_UNDERLINE_DEVELOPMENT}_redirect.redirectregex.replacement=https://calendar.twelvepics.com/$${1}"
+            - "traefik.http.middlewares.${NAMESPACE_UNDERLINE_DEVELOPMENT}_redirect.redirectregex.permanent=true"
+            # middleware -> remove headers
+            - "traefik.http.middlewares.${NAMESPACE_UNDERLINE_DEVELOPMENT}_remove_headers.headers.customResponseHeaders.Server="
+            - "traefik.http.middlewares.${NAMESPACE_UNDERLINE_DEVELOPMENT}_remove_headers.headers.customResponseHeaders.X-Powered-By="
+            # middleware -> chain -> frame
+            - "traefik.http.middlewares.${NAMESPACE_UNDERLINE_DEVELOPMENT}_chain_without_auth.chain.middlewares=${NAMESPACE_UNDERLINE_DEVELOPMENT}_remove_headers"
+            # service -> load balancer
+            - "traefik.http.services.${NAMESPACE_UNDERLINE_DEVELOPMENT}_https_lb.loadbalancer.server.port=${PORT_HTTP}"
+            - "traefik.http.services.${NAMESPACE_UNDERLINE_DEVELOPMENT}_https_lb.loadbalancer.server.scheme=http"
+            
+            # router -> http layer -> redirect https
+            - "traefik.http.routers.${NAMESPACE_UNDERLINE_DEVELOPMENT}_http.entrypoints=web"
+            - "traefik.http.routers.${NAMESPACE_UNDERLINE_DEVELOPMENT}_http.rule=Host(`${URL_PRODUCTION}`) || Host(`${URL_PRODUCTION_SHORT}`)"
+            - "traefik.http.routers.${NAMESPACE_UNDERLINE_DEVELOPMENT}_http.middlewares=${NAMESPACE_UNDERLINE_DEVELOPMENT}_https,${NAMESPACE_UNDERLINE_DEVELOPMENT}_chain_without_auth"
+            
+            # router -> https layer -> GET, POST, etc.
+            - "traefik.http.routers.${NAMESPACE_UNDERLINE_DEVELOPMENT}_https.entrypoints=websecure"
+            - "traefik.http.routers.${NAMESPACE_UNDERLINE_DEVELOPMENT}_https.rule=Host(`${URL_PRODUCTION}`) || Host(`${URL_PRODUCTION_SHORT}`)"
+            - "traefik.http.routers.${NAMESPACE_UNDERLINE_DEVELOPMENT}_https.middlewares=${NAMESPACE_UNDERLINE_DEVELOPMENT}_redirect,${NAMESPACE_UNDERLINE_DEVELOPMENT}_chain_without_auth"
+            - "traefik.http.routers.${NAMESPACE_UNDERLINE_DEVELOPMENT}_https.service=${NAMESPACE_UNDERLINE_DEVELOPMENT}_https_lb"
+            - "traefik.http.routers.${NAMESPACE_UNDERLINE_DEVELOPMENT}_https.tls=true"
+            - "traefik.http.routers.${NAMESPACE_UNDERLINE_DEVELOPMENT}_https.tls.certresolver=letsencryptresolver"
+            # network
+            - "traefik.docker.network=${NETWORK_NAME_TRAEFIK_PUBLIC_PRODUCTION}"
+        restart: always
+        volumes:
+            - "./html/:/usr/share/nginx/html/"
+            - "./.docker/default.conf:/etc/nginx/conf.d/default.conf"
+        networks:
+            - traefik-public
+            - internal-com-twelvepics-c
+
+networks:
+    traefik-public:
+        external: true
+        name: traefik-public
+    internal-com-twelvepics-c:
+        external: false
+        name: internal-com-twelvepics-c
+

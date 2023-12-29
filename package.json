@@ -1,6 +1,6 @@
 {
   "name": "react-calendar-viewer",
-  "version": "0.1.14",
+  "version": "0.1.15",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.5.1",

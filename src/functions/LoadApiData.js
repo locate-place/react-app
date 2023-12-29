@@ -8,7 +8,16 @@ const loadApiData = (url, setLoaded, setError, setData) => {
     axios.get(url)
         .then(response => {
 
+            let versionResponse = !!url.match(/version.json/);
             let data = response.data;
+
+            /* Use raw data */
+            if (versionResponse) {
+                setLoaded(true);
+                setData(data);
+                return;
+            }
+
             let version = data.version;
             let valid = data.valid;
 

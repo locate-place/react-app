@@ -47,7 +47,7 @@ const Calendar = () => {
         <>
             <HeaderCalendar data={data} />
             <div className="calendar container mb-5 px-4 px-md-3">
-                <div className="row g-3">
+                <div className="row g-4">
                     {loaded ? <>
                         <div className="col-12">
                             <h2>{data.title}</h2>
@@ -55,10 +55,10 @@ const Calendar = () => {
                         </div>
                         { 'pages' in data ? data.pages.map((item, index) => (
                             <div className="col-12 col-lg-6 col-xl-4 d-flex align-items-stretch" key={'image-' + index}>
-                                <div className="card">
+                                <div className="card card-hover">
                                     <a
                                         href={'page.html?c=' + data.identifier + '&m=' + index}
-                                        className="no-decoration"
+                                        className="no-decoration stretched-link"
                                     >
                                         <ImageWithLoader
                                             src={calendarBuilderUrl + item.path + '?width=500'}
@@ -72,11 +72,10 @@ const Calendar = () => {
                                         />
                                     </a>
                                     <div className="card-body">
-                                        <h5 className="card-title">{item.page_title}</h5>
-                                        <p className="card-text">{item.year}/{item.month === 0 ? 'Titelblatt' : item.month}</p>
+                                        <h5 className="card-title mb-0">{item.page_title}</h5>
                                     </div>
                                     <div className="card-footer">
-                                        <a href={'page.html?c=' + data.identifier + '&m=' + index} className="btn btn-primary">Öffne {item.year}/{item.month === 0 ? 'Titelblatt' : item.month}</a>
+                                        <p className="card-text one-line">{item.year}/{item.month === 0 ? 'Titelblatt' : item.month}</p>
                                     </div>
                                 </div>
                             </div>

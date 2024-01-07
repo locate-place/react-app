@@ -65,7 +65,8 @@ const Page = () => {
                                 Koordinate (Twelvepics API): {data.coordinate_decimal !== null ? <a href={'https://twelvepics.com/location/' + data.coordinate_decimal.replace(/, /, '/')} target="_blank" rel="noreferrer">{data.coordinate_decimal}</a> : data.coordinate_decimal}<br/>
                                 Kalenderblatt: {data.year}/{data.month === 0 ? 'Titelblatt' : data.month}<br/>
                             </p>
-                            <p>
+
+                            <div className="mb-5">
                                 <a
                                     href={calendarBuilderUrl + data.path + '?width=3072&quality=85'}
                                     className="no-decoration"
@@ -75,19 +76,26 @@ const Page = () => {
                                     <ImageWithLoader
                                         src={calendarBuilderUrl + data.path + '?width=1280'}
                                         srcSet={[
-                                            { srcSet: calendarBuilderUrl + data.path + '?width=640', media: "(max-width: 600px)" },
-                                            { srcSet: calendarBuilderUrl + data.path + '?width=1280', media: "(max-width: 1200px)" }
+                                            {
+                                                srcSet: calendarBuilderUrl + data.path + '?width=640',
+                                                media: "(max-width: 600px)"
+                                            },
+                                            {
+                                                srcSet: calendarBuilderUrl + data.path + '?width=1280',
+                                                media: "(max-width: 1200px)"
+                                            }
                                         ]}
                                         alt={data.page_title + ' (' + data.coordinate + ')'}
                                         title={data.page_title + ' (' + data.coordinate + ')'}
                                         border={true}
                                     />
                                 </a>
-                            </p>
-                            { data.description!== undefined ? <>
+                            </div>
+
+                            {data.description !== undefined ? <>
                                 <h3>Was siehst du?</h3>
                                 <p style={{textAlign: 'justify'}}>
-                                    {data.description.replace(/\n$/, '').split("\n").map(function(item, idx) {
+                                    {data.description.replace(/\n$/, '').split("\n").map(function (item, idx) {
                                         return (
                                             <span key={'description-' + idx}>
                                                 {item}
@@ -96,10 +104,12 @@ const Page = () => {
                                         )
                                     })}
                                 </p>
-                            </> : null }
-                            <Birthdays data={data} />
-                            <Holidays data={data} />
-                            <p><a href={'calendar.html?c=' + data.identifier}>zurück zum Kalender</a> </p>
+                            </> : null}
+                            <Birthdays data={data}/>
+                            <Holidays data={data}/>
+                            <div className="mt-5">
+                                <p><a href={'calendar.html?c=' + data.identifier}>zurück zum Kalender</a></p>
+                            </div>
                         </div>
                     </> : (error !== null ? <Error error={error} apiPath={apiPath} /> : <Loader />)}
                 </div>

@@ -10,7 +10,7 @@ const Error = ({error, apiPath}) => {
                 <div className="card-body">
                     <div className="card-text text-center text-danger">
                         Fehler beim Versuch, den Api-Endpunkt abzurufen.<br/>
-                        API: {apiPath}<br/>
+                        API: <a href={apiPath} target="_blank" rel="noreferrer">{apiPath}</a><br/>
                         Fehler: {error.message}
                     </div>
                 </div>

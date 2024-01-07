@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Changelogs
 
+### [0.1.17] - 2023-01-07
+
+* Preparing the app for the Location API
+* Customize the design of the About page
+
 ### [0.1.16] - 2023-12-29
 
 * Format list elements - v2

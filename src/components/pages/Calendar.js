@@ -16,29 +16,38 @@ import ImageWithLoader from "../layout/ImageWithLoader";
  * This is the calendar page.
  */
 const Calendar = () => {
+    /* API types */
+    const typeCalendarBuilder = useMemo(() => {
+        return process.env.REACT_APP_TYPE_CALENDAR_BUILDER;
+    }, []);
+
+    /* State variables */
     const [error, setError] = useState(null);
     const [loaded, setLoaded] = useState(false);
     const [data, setData] = useState([]);
-    const [searchParams] = useSearchParams();
+    const [properties, setProperties] = useState([]);
 
-    /**
-     * Memorized variables.
-     */
+    /* Memorized variables. */
+    const [searchParams] = useSearchParams();
     const calendar = useMemo(() => {
         return searchParams.get('c');
     }, [searchParams]);
-    const calendarBuilderUrl = useMemo(() => {
-        return process.env.REACT_APP_CALENDAR_BUILDER_URL;
-    }, []);
 
-    const apiPath = calendarBuilderUrl + '/v/' + calendar + '.json';
+    const apiPath = '/v/' + calendar + '.json';
 
     /**
      * useEffect function.
      */
     useEffect(() => {
-        loadApiData(apiPath, setLoaded, setError, setData);
-    }, [apiPath]);
+        loadApiData(
+            typeCalendarBuilder,
+            apiPath,
+            setLoaded,
+            setError,
+            setData,
+            setProperties
+        );
+    }, [typeCalendarBuilder, apiPath]);
 
     /**
      * The render function.
@@ -61,10 +70,10 @@ const Calendar = () => {
                                         className="no-decoration stretched-link"
                                     >
                                         <ImageWithLoader
-                                            src={calendarBuilderUrl + item.path + '?width=500'}
+                                            src={properties.url + item.path + '?width=500'}
                                             srcSet={[
-                                                { srcSet: calendarBuilderUrl + item.path + '?width=500', media: "(max-width: 600px)" },
-                                                { srcSet: calendarBuilderUrl + item.path + '?width=500', media: "(max-width: 1200px)" }
+                                                { srcSet: properties.url + item.path + '?width=500', media: "(max-width: 600px)" },
+                                                { srcSet: properties.url + item.path + '?width=500', media: "(max-width: 1200px)" }
                                             ]}
                                             alt={item.page_title + ' (' + item.coordinate + ')'}
                                             title={item.page_title + ' (' + item.coordinate + ')'}

@@ -39,6 +39,20 @@ body {
         font-size: calc(1.275rem + 0.3vw);
     }
 
+    .without-hover {
+        background-color: rgb(230, 230, 230);
+        border-color: rgb(148, 157, 165);
+        color: rgb(148, 157, 165);
+
+        &:hover, &:active, &:focus, &:target {
+            background-color: rgb(230, 230, 230);
+            border-color: rgb(148, 157, 165);
+            color: rgb(148, 157, 165);
+            text-decoration: none;
+            cursor: default;
+        }
+    }
+
     .form-floating input,
     .form-floating textarea {
         border-left: 0;

@@ -7,6 +7,8 @@ import loadApiData from "../../functions/LoadApiData";
 import Header from "../layout/Header";
 import Loader from "../layout/Loader";
 import Error from "../layout/Error";
+
+/* Add font awesome icons */
 import {faDatabase, faImages, faIndustry} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
@@ -14,33 +16,49 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
  * This is the about page.
  */
 const About = () => {
+    /* API types */
+    const typeCalendarBuilder = useMemo(() => {
+        return process.env.REACT_APP_TYPE_CALENDAR_BUILDER;
+    }, []);
+    const typeLocationApi = useMemo(() => {
+        return process.env.REACT_APP_TYPE_LOCATION_API;
+    }, []);
+
     /* Calendar Builder variables */
     const [errorCalendarBuilder, setErrorCalendarBuilder] = useState(null);
     const [loadedCalendarBuilder, setLoadedCalendarBuilder] = useState(false);
     const [dataCalendarBuilder, setDataCalendarBuilder] = useState([]);
+    const [propertiesCalendarBuilder, setPropertiesCalendarBuilder] = useState([]);
+    const apiPathCalendarBuilder = '/api/v1/version.json';
 
-    const urlCalendarBuilder = useMemo(() => {
-        return process.env.REACT_APP_CALENDAR_BUILDER_URL;
-    }, []);
-    const apiPathCalendarBuilder = urlCalendarBuilder + '/api/v1/version.json';
-
-    /* Location variables */
+    /* Location API variables */
     const [errorLocationApi, setErrorLocationApi] = useState(null);
     const [loadedLocationApi, setLoadedLocationApi] = useState(false);
     const [dataLocationApi, setDataLocationApi] = useState([]);
-
-    const urlLocationApi = useMemo(() => {
-        return process.env.REACT_APP_LOACATION_URL;
-    }, []);
-    const apiPathLocationApi = urlLocationApi + '/api/v1/version.json';
+    const [propertiesLocationApi, setPropertiesLocationApi] = useState([]);
+    const apiPathLocationApi = '/api/v1/version.json';
 
     /**
      * useEffect function.
      */
     useEffect(() => {
-        loadApiData(apiPathCalendarBuilder, setLoadedCalendarBuilder, setErrorCalendarBuilder, setDataCalendarBuilder);
-        loadApiData(apiPathLocationApi, setLoadedLocationApi, setErrorLocationApi, setDataLocationApi);
-    }, [apiPathCalendarBuilder, apiPathLocationApi]);
+        loadApiData(
+            typeCalendarBuilder,
+            apiPathCalendarBuilder,
+            setLoadedCalendarBuilder,
+            setErrorCalendarBuilder,
+            setDataCalendarBuilder,
+            setPropertiesCalendarBuilder
+        );
+        loadApiData(
+            typeLocationApi,
+            apiPathLocationApi,
+            setLoadedLocationApi,
+            setErrorLocationApi,
+            setDataLocationApi,
+            setPropertiesLocationApi
+        );
+    }, [apiPathCalendarBuilder, apiPathLocationApi, typeCalendarBuilder, typeLocationApi]);
 
     /**
      * The render function.
@@ -66,7 +84,7 @@ const About = () => {
 
                             <div className="card w-100">
                                 <div className="card-header fw-bold">
-                                    <FontAwesomeIcon icon={faImages}  style={{'color': 'rgb(255, 90, 55)'}}/>&nbsp; React Calendar Viewer
+                                    <FontAwesomeIcon icon={faImages} style={{'color': 'rgb(255, 90, 55)'}}/>&nbsp; React Calendar Viewer
                                 </div>
                                 <div className="card-body">
                                     <ul className="mb-0">
@@ -149,7 +167,7 @@ const About = () => {
                                                 </li>
                                                 <li>
                                                     Verwendete API: <a
-                                                        href={process.env.REACT_APP_LOACATION_URL + '/api/v1/version.json'}
+                                                        href={process.env.REACT_APP_LOCATION_API_URL + '/api/v1/version.json'}
                                                         target={'_blank'}
                                                         rel='noreferrer'
                                                     >
@@ -158,7 +176,7 @@ const About = () => {
                                                 </li>
                                                 <li>
                                                     Unterstützte Länder: <a
-                                                        href={process.env.REACT_APP_LOACATION_URL + '/api/v1/import.json'}
+                                                        href={process.env.REACT_APP_LOCATION_API_URL + '/api/v1/import.json'}
                                                         target={'_blank'}
                                                         rel='noreferrer'
                                                     >
@@ -192,8 +210,8 @@ const About = () => {
                         errorCalendarBuilder === null && errorLocationApi === null ?
                             <Loader/> : (
                                 errorCalendarBuilder !== null ?
-                                    <Error error={errorCalendarBuilder} apiPath={urlCalendarBuilder}/> :
-                                    <Error error={errorLocationApi} apiPath={urlLocationApi}/>
+                                    <Error error={errorCalendarBuilder} apiPath={propertiesCalendarBuilder['api-url']} /> :
+                                    <Error error={errorLocationApi} apiPath={propertiesLocationApi['api-url']} />
                             )
                     )}
                 </div>

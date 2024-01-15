@@ -13,22 +13,32 @@ import ImageWithLoader from "../layout/ImageWithLoader";
  * This is the app main component.
  */
 const Calendars = () => {
+    /* API types */
+    const typeCalendarBuilder = useMemo(() => {
+        return process.env.REACT_APP_TYPE_CALENDAR_BUILDER;
+    }, []);
+
+    /* State variables */
     const [error, setError] = useState(null);
     const [loaded, setLoaded] = useState(false);
     const [data, setData] = useState([]);
+    const [properties, setProperties] = useState([]);
 
-    const calendarBuilderUrl = useMemo(() => {
-        return process.env.REACT_APP_CALENDAR_BUILDER_URL;
-    }, []);
-
-    const apiPath = calendarBuilderUrl + '/v.json';
+    const apiPath = '/v.json';
 
     /**
      * useEffect function.
      */
     useEffect(() => {
-        loadApiData(apiPath, setLoaded, setError, setData);
-    }, [apiPath]);
+        loadApiData(
+            typeCalendarBuilder,
+            apiPath,
+            setLoaded,
+            setError,
+            setData,
+            setProperties
+        );
+    }, [typeCalendarBuilder, apiPath]);
 
     /**
      * The render function.
@@ -46,10 +56,10 @@ const Calendars = () => {
                                     className="no-decoration stretched-link"
                                 >
                                     <ImageWithLoader
-                                        src={calendarBuilderUrl + item.image + '?width=500'}
+                                        src={properties.url + item.image + '?width=500'}
                                         srcSet={[
-                                            { srcSet: calendarBuilderUrl + item.image + '?width=500', media: "(max-width: 600px)" },
-                                            { srcSet: calendarBuilderUrl + item.image + '?width=500', media: "(max-width: 1200px)" }
+                                            { srcSet: properties.url + item.image + '?width=500', media: "(max-width: 600px)" },
+                                            { srcSet: properties.url + item.image + '?width=500', media: "(max-width: 1200px)" }
                                         ]}
                                         alt={item.title}
                                         title={item.title}
@@ -64,7 +74,7 @@ const Calendars = () => {
                                 </div>
                             </div>
                         </div>
-                    )) : (error !== null ? <Error error={error} apiPath={apiPath} /> : <Loader />)}
+                    )) : (error !== null ? <Error error={error} apiPath={properties['api-url']} /> : <Loader />)}
                 </div>
             </div>
         </>

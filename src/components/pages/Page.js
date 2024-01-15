@@ -16,10 +16,17 @@ import ImageWithLoader from "../layout/ImageWithLoader";
  * This is the image page.
  */
 const Page = () => {
+    /* API types */
+    const typeCalendarBuilder = useMemo(() => {
+        return process.env.REACT_APP_TYPE_CALENDAR_BUILDER;
+    }, []);
+
+    /* State variables */
     const [error, setError] = useState(null);
     const [loaded, setLoaded] = useState(false);
     const [data, setData] = useState([]);
     const [searchParams] = useSearchParams();
+    const [properties, setProperties] = useState([]);
 
     /**
      * Memorized variables.
@@ -30,18 +37,22 @@ const Page = () => {
     const month = useMemo(() => {
         return searchParams.get('m');
     }, [searchParams]);
-    const calendarBuilderUrl = useMemo(() => {
-        return process.env.REACT_APP_CALENDAR_BUILDER_URL;
-    }, []);
 
-    const apiPath = calendarBuilderUrl + '/v/' + calendar + '/' + month + '.json';
+    const apiPath = '/v/' + calendar + '/' + month + '.json';
 
     /**
      * useEffect function.
      */
     useEffect(() => {
-        loadApiData(apiPath, setLoaded, setError, setData);
-    }, [apiPath]);
+        loadApiData(
+            typeCalendarBuilder,
+            apiPath,
+            setLoaded,
+            setError,
+            setData,
+            setProperties
+        );
+    }, [typeCalendarBuilder, apiPath]);
 
     /**
      * The render function.
@@ -68,20 +79,20 @@ const Page = () => {
 
                             <div className="mb-5">
                                 <a
-                                    href={calendarBuilderUrl + data.path + '?width=3072&quality=85'}
+                                    href={properties.url + data.path + '?width=3072&quality=85'}
                                     className="no-decoration"
                                     target="_blank"
                                     rel="noreferrer"
                                 >
                                     <ImageWithLoader
-                                        src={calendarBuilderUrl + data.path + '?width=1280'}
+                                        src={properties.url + data.path + '?width=1280'}
                                         srcSet={[
                                             {
-                                                srcSet: calendarBuilderUrl + data.path + '?width=640',
+                                                srcSet: properties.url + data.path + '?width=640',
                                                 media: "(max-width: 600px)"
                                             },
                                             {
-                                                srcSet: calendarBuilderUrl + data.path + '?width=1280',
+                                                srcSet: properties.url + data.path + '?width=1280',
                                                 media: "(max-width: 1200px)"
                                             }
                                         ]}

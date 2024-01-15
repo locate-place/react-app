@@ -13,6 +13,7 @@ import Contact from "./components/pages/Contact";
 import About from "./components/pages/About";
 import NotFound from "./components/pages/NotFound";
 import Home from "./components/pages/Home";
+import Locations from "./components/pages/Locations";
 
 /* Add component parts */
 import Navigation from "./components/layout/Navigation";
@@ -60,6 +61,8 @@ const App = () => {
                 <Route path="/home.html" element={<Home />} />
                 <Route path="/contact.html" element={<Contact />} />
                 <Route path="/about.html" element={<About />} />
+
+                <Route path="/locations.html" element={<Locations />} />
 
                 <Route path="*" element={<NotFound />} />
             </Routes>

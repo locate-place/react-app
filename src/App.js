@@ -14,6 +14,7 @@ import About from "./components/pages/About";
 import NotFound from "./components/pages/NotFound";
 import Home from "./components/pages/Home";
 import Locations from "./components/pages/Locations";
+import Location from "./components/pages/Location";
 
 /* Add component parts */
 import Navigation from "./components/layout/Navigation";
@@ -63,6 +64,7 @@ const App = () => {
                 <Route path="/about.html" element={<About />} />
 
                 <Route path="/locations.html" element={<Locations />} />
+                <Route path="/location.html" element={<Location />} />
 
                 <Route path="*" element={<NotFound />} />
             </Routes>

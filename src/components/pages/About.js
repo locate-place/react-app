@@ -201,7 +201,6 @@ const About = () => {
                                 </div>
                             </div>
 
-
                             <p>
                                 Copyright © <a href="https://twelvepics.com">twelvepics.com</a> 2023
                             </p>

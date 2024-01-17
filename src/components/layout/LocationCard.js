@@ -6,14 +6,18 @@ import Flag from 'react-flagkit';
 /* Add font awesome icons */
 import {faMapLocation, faMaximize, faMinimize} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {convertToGermanFormat} from "../../functions/Date";
+import {translateCountryCode} from "../../functions/Country";
 
 /**
  * This is the example part.
  */
 const LocationCard = ({location, index, urlLocationApi, ownPosition}) => {
 
+    /* true - use geoname id as query; false - use coordinate as query */
+    let useGeonameIdAsQuery = true;
+
     let nextPlaces = location['next-places-config'].config;
-    let endpoints = location['next-places-config'].endpoints;
 
     let hasOwnPosition = !!ownPosition;
 
@@ -32,34 +36,23 @@ const LocationCard = ({location, index, urlLocationApi, ownPosition}) => {
         'waters': 'Gewässer',
     }
 
-    /**
-     * This function is used to convert the date and time into a German format.
-     *
-     * @param dateTimeString
-     * @returns {`${string}${number}.${string}${number}.${number} ${string}${number}:${string}${number}`}
-     */
-    let convertToGermanFormat = (dateTimeString) => {
-        /* Convert date and time into a Date object */
-        const dateTime = new Date(dateTimeString);
+    let routePath = '/location.html';
 
-        // Extract day, month, and year
-        const day = dateTime.getDate();
-        const month = dateTime.getMonth() + 1; // Months are 0-based
-        const year = dateTime.getFullYear();
+    let query = useGeonameIdAsQuery ?
+        location['geoname-id'] :
+        location.coordinate.latitude.decimal + ',%20' + location.coordinate.longitude.decimal;
 
-        // Extract hour and minute
-        const hour = dateTime.getHours();
-        const minute = dateTime.getMinutes();
+    let language = 'de';
+    let country = 'DE';
 
-        // Create the German format: DD.MM.YYYY HH:MM:SS Timezone
-        return `${day < 10 ? '0' : ''}${day}.${month < 10 ? '0' : ''}${month}.${year} ${hour < 10 ? '0' : ''}${hour}:${minute < 10 ? '0' : ''}${minute}`;
-    }
+    let fullQuery = routePath + '?q=' + query + '&language=' + language + '&country=' + country;
+    let fullQueryNextPlaces = fullQuery + '&next_places=1';
 
     return (
         <>
-            <div className={'card card-hover w-100 mb-4'} style={hasOwnPosition ? {'backgroundColor': 'rgb(235, 233, 228)'} : {}}>
+            <div className={'card card-hover w-100 mb-4'} style={hasOwnPosition ? {'backgroundColor': 'rgb(235, 233, 228)'} : {'backgroundColor': 'rgb(228, 235, 233)'}}>
                 <div className="card-header">
-                    <Flag country={location.properties.country} size="20" title={location.properties.country} /> &nbsp;
+                    <Flag country={location.properties.country} size="20" title={translateCountryCode(location.properties.country)} /> &nbsp;
                     {
                         hasOwnPosition ?
                         <span><span className="fw-bold">Aktuelle Position</span>: {location['name-full']}</span> :
@@ -73,14 +66,14 @@ const LocationCard = ({location, index, urlLocationApi, ownPosition}) => {
                                 <h4>Informationen</h4>
                                 <p className="m-0">
                                     <a
-                                        href={urlLocationApi + endpoints.coordinate + '?q=' + location.coordinate.latitude.decimal + ',%20' + location.coordinate.longitude.decimal + '&language=en&country=US'}
-                                        target="_blank"
-                                        rel="noreferrer"
-                                    ><nobr><FontAwesomeIcon icon={faMinimize} style={{'color': 'rgb(114, 135, 42)'}}/> Basic</nobr></a>, <a
-                                        href={urlLocationApi + endpoints.coordinate + '?q=' + location.coordinate.latitude.decimal + ',%20' + location.coordinate.longitude.decimal + '&language=en&country=US&next_places'}
-                                        target="_blank"
-                                        rel="noreferrer"
-                                    ><nobr><FontAwesomeIcon icon={faMaximize} style={{'color': 'rgb(114, 135, 42)'}}/> Vollständig</nobr></a>
+                                        href={fullQueryNextPlaces}
+                                    ><nobr><FontAwesomeIcon icon={faMaximize} style={{'color': 'rgb(114, 135, 42)'}}/> Vollständig</nobr></a>, <a
+                                    href={fullQuery}
+                                >
+                                    <nobr><FontAwesomeIcon icon={faMinimize}
+                                                           style={{'color': 'rgb(114, 135, 42)'}}/> Einfach
+                                    </nobr>
+                                </a>
                                 </p>
                             </div>
                             <div className="col-12 col-md-6 col-lg-4 mb-3">

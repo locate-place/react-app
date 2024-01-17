@@ -4,6 +4,7 @@
 const reactPathLocations = '/locations.html';
 const apiPathQuerySearch = '/api/v1/location.json';
 const apiPathExampleSearch = '/api/v1/location/examples.json';
+const apiPathDetail = '/api/v1/location/coordinate.json';
 
 const nameParameterCoordinates = 'c';
 
@@ -60,6 +61,7 @@ const getFilterConfig = (searchParams) =>
     const limit = searchParams.get('limit');
     const query = searchParams.get('q');
     const sort = searchParams.get('s');
+    const nextPlaces = searchParams.get('next_places');
 
     let filterConfig = {};
 
@@ -70,6 +72,7 @@ const getFilterConfig = (searchParams) =>
     limit && (filterConfig['limit'] = 10);
     query && (filterConfig['q'] = query);
     sort && (filterConfig['s'] = sort);
+    nextPlaces && (filterConfig['next_places'] = 1);
 
     return filterConfig;
 };
@@ -139,12 +142,33 @@ const redirectSortByWithCurrentPosition = (filterConfig, sortName) =>
  * @param withParameter
  * @returns {string}
  */
-const getApiPath = (searchParams, withParameter) =>
+const getApiPathList = (searchParams, withParameter) =>
 {
     withParameter = !!withParameter
 
     let query = getQuery(searchParams);
-    let apiPath = query ? apiPathQuerySearch : apiPathExampleSearch;
+    let isQuery = !!query;
+    let apiPath = isQuery ? apiPathQuerySearch : apiPathExampleSearch;
+
+    if (!withParameter) {
+        return apiPath;
+    }
+
+    return apiPath + '?' + convertFilterToQueryString(getFilterConfig(searchParams));
+}
+
+/**
+ * Returns the API path according to the search parameters.
+ *
+ * @param searchParams
+ * @param withParameter
+ * @returns {string}
+ */
+const getApiPathDetail = (searchParams, withParameter) =>
+{
+    withParameter = !!withParameter
+
+    let apiPath = apiPathDetail;
 
     if (!withParameter) {
         return apiPath;
@@ -196,7 +220,7 @@ const getParsedQueryFeatureCodes = (parsedQueryFeatureCodes) =>
         data.push(item.translated + ' (' + item.code + ')');
     });
 
-    return data.join(', ');
+    return data;
 }
 
 /*
@@ -209,7 +233,8 @@ export {
     getFilterConfig,
     redirectSortBy,
     redirectSortByWithCurrentPosition,
-    getApiPath,
+    getApiPathList,
+    getApiPathDetail,
 
     getParsedQueryFeatureCodes
 }

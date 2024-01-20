@@ -74,6 +74,8 @@ const Locations = () =>
     let hasQuery = properties.given && properties.given.query;
     let isCoordinateSearch = hasQuery && [searchTypeListWithFeatures, searchTypeCoordinate].includes(properties.given.query.parsed.type);
 
+    let numberResults = data.constructor === Array ? data.length : 0;
+
     /**
      * useEffect function.
      */
@@ -184,14 +186,30 @@ const Locations = () =>
                                 </div>
                             </div>
 
-                            {data.map((location, index) => (
-                                <LocationCard
-                                    key={'location-card-' + index}
-                                    location={location}
-                                    properties={properties}
-                                    showOwnPosition={false}
-                                />
-                            ))}
+                            <div className="clearfix"></div>
+
+                            {
+                                numberResults <= 0 ?
+                                    <>
+                                        <div>
+                                            <p>Keine Ergebnisse für "{query}" gefunden.</p>
+                                        </div>
+                                    </> :
+                                    <>
+                                        <div>
+                                            <p>{numberResults} Ergebnisse für "{query}" gefunden.</p>
+                                        </div>
+
+                                        {data.map((location, index) => (
+                                            <LocationCard
+                                                key={'location-card-' + index}
+                                                location={location}
+                                                properties={properties}
+                                                showOwnPosition={false}
+                                            />
+                                        ))}
+                                    </>
+                            }
 
                             {/* Renders the search performance part. */}
                             <SearchPerformance

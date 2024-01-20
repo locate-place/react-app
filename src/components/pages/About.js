@@ -6,7 +6,7 @@ import loadApiData from "../../functions/LoadApiData.ts";
 /* Add component parts */
 import Error from "../layout/Error.tsx";
 import Header from "../layout/Header.tsx";
-import Loader from "../layout/Loader";
+import Loader from "../layout/Loader.tsx";
 
 /* Add font awesome icons: https://fontawesome.com/icons */
 import {faDatabase, faImages, faIndustry} from "@fortawesome/free-solid-svg-icons";

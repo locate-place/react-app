@@ -22,7 +22,7 @@ import {searchTypeListWithFeatures, searchTypeCoordinate} from "../../functions/
 /* Add component parts */
 import Error from "../layout/Error.tsx";
 import HeaderSmall from "../layout/HeaderSmall.tsx";
-import Loader from "../layout/Loader";
+import Loader from "../layout/Loader.tsx";
 import LocationCard from "../layout/LocationCard";
 import SearchForm from "../layout/SearchForm";
 import SearchMetrics from "../layout/SearchMetrics";

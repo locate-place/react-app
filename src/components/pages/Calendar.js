@@ -10,7 +10,7 @@ import Error from "../layout/Error.tsx";
 import HeaderCalendar from "../layout/HeaderCalendar.tsx";
 import Holidays from "../layout/Holidays.tsx";
 import ImageWithLoader from "../layout/ImageWithLoader.tsx";
-import Loader from "../layout/Loader";
+import Loader from "../layout/Loader.tsx";
 
 /**
  * This is the calendar page.

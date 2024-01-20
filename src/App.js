@@ -11,14 +11,14 @@ import Calendars from "./components/pages/Calendars";
 import Calendar from "./components/pages/Calendar";
 import Contact from "./components/pages/Contact.tsx";
 import Home from "./components/pages/Home";
-import NotFound from "./components/pages/NotFound.tsx";
 import Locations from "./components/pages/Locations";
 import Location from "./components/pages/Location";
+import NotFound from "./components/pages/NotFound.tsx";
 import Page from "./components/pages/Page";
 
 /* Add component parts */
 import Footer from "./components/layout/Footer.tsx";
-import Navigation from "./components/layout/Navigation";
+import Navigation from "./components/layout/Navigation.tsx";
 
 /* Add styles */
 import './scss/bootstrap.scss';

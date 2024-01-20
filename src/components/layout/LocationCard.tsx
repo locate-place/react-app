@@ -13,13 +13,20 @@ import {translateCountryCode} from "../../functions/Country.ts";
 
 /* Add component parts */
 import CoordinateDistanceDirection from "./CoordinateDistanceDirection.tsx";
+import {TypeFilterConfig} from "../../types/Types.ts";
+
+type LocationCardProps = {
+    location: any,
+    properties: any,
+    showOwnPosition: boolean,
+}
 
 /**
  * This is the example part.
  *
- * - ownPosition - Use own position instead from the given location.
+ * - ownPosition - Use own position instead of the one from the given location.
  */
-const LocationCard = ({location, properties, showOwnPosition}) => {
+const LocationCard = ({location, properties, showOwnPosition}: LocationCardProps) => {
     /* true - use geoname id as query; false - use coordinate as query */
     let useGeonameIdAsQuery = true;
 
@@ -39,7 +46,16 @@ const LocationCard = ({location, properties, showOwnPosition}) => {
     let ownPositionLatitudeDecimal = hasOwnPosition ? ownPosition.latitude.decimal : null;
     let ownPositionLongitudeDecimal = hasOwnPosition ? ownPosition.longitude.decimal : null;
 
-    let translations = {
+    type TypeTranslation = {
+        'airports': string,
+        'churches': string,
+        'cinemas': string,
+        'cities': string,
+        'parks': string,
+        'waters': string,
+    }
+
+    let translations: TypeTranslation = {
         'airports': 'Flughäfen',
         'churches': 'Kirchen',
         'cinemas': 'Kinos',
@@ -69,7 +85,7 @@ const LocationCard = ({location, properties, showOwnPosition}) => {
         <>
             <div className={'card card-hover w-100 mb-4'} style={showOwnPosition ? {'backgroundColor': 'rgb(235, 233, 228)'} : {'backgroundColor': 'rgb(228, 235, 233)'}}>
                 <div className="card-header">
-                    <Flag country={location.properties.country} size="20" title={translateCountryCode(location.properties.country)} /> &nbsp;
+                    <Flag country={location.properties.country} size={20} title={translateCountryCode(location.properties.country)} /> &nbsp;
                     {
                         showOwnPosition ?
                         <span><span className="fw-bold">Aktuelle Position</span>: {location['name-full']}</span> :
@@ -84,12 +100,12 @@ const LocationCard = ({location, properties, showOwnPosition}) => {
                                 <p className="m-0">
                                     <a
                                         href={fullQueryNextPlaces}
-                                    ><nobr><FontAwesomeIcon icon={faMaximize} style={{'color': 'rgb(114, 135, 42)'}}/> Vollständig</nobr></a>, <a
+                                    ><span className="text-nowrap"><FontAwesomeIcon icon={faMaximize} style={{'color': 'rgb(114, 135, 42)'}}/> Vollständig</span></a>, <a
                                     href={fullQuery}
                                 >
-                                    <nobr><FontAwesomeIcon icon={faMinimize}
+                                    <span className="text-nowrap"><FontAwesomeIcon icon={faMinimize}
                                                            style={{'color': 'rgb(114, 135, 42)'}}/> Einfach
-                                    </nobr>
+                                    </span>
                                 </a>
                                 </p>
                             </div>
@@ -103,7 +119,7 @@ const LocationCard = ({location, properties, showOwnPosition}) => {
                                                 <a
                                                     key={'next-place-' + key}
                                                     href={'/locations.html?q=' + nextPlaces[key]['feature_codes'].join('|') + '%20' + location.coordinate.latitude.decimal + ',%20' + location.coordinate.longitude.decimal + '&distance=' + nextPlaces[key]['distance'] + '&limit=' + nextPlaces[key]['limit'] + '&language=de&country=DE'}
-                                                >{translations.hasOwnProperty(key) ? translations[key] : 'Unbekannt'}</a>
+                                                >{(translations[key as keyof TypeTranslation] ?? 'Unbekannt')}</a>
                                             </span>
                                         );
                                     })}
@@ -116,11 +132,11 @@ const LocationCard = ({location, properties, showOwnPosition}) => {
                                         href={linkGoogleMaps}
                                         target="_blank"
                                         rel="noreferrer"
-                                    ><nobr><FontAwesomeIcon icon={faMapLocation} style={{'color': 'rgb(23, 34, 52)'}}/> Google Maps</nobr></a>, <a
+                                    ><span className="text-nowrap"><FontAwesomeIcon icon={faMapLocation} style={{'color': 'rgb(23, 34, 52)'}}/> Google Maps</span></a>, <a
                                         href={linkOpenStreetMaps}
                                         target="_blank"
                                         rel="noreferrer"
-                                    ><nobr><FontAwesomeIcon icon={faMapLocation} style={{'color': 'rgb(23, 34, 52)'}}/> OpenStreetMap</nobr></a>
+                                    ><span className="text-nowrap"><FontAwesomeIcon icon={faMapLocation} style={{'color': 'rgb(23, 34, 52)'}}/> OpenStreetMap</span></a>
                                 </p>
                             </div>
                         </div>

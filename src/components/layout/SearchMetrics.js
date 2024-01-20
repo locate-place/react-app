@@ -11,7 +11,7 @@ import {searchTypeTranslations} from "../../functions/SearchType.ts";
 import {GraphUp, HouseFill} from "react-bootstrap-icons";
 
 /* Add component parts */
-import LocationCard from "./LocationCard";
+import LocationCard from "./LocationCard.tsx";
 
 
 /**

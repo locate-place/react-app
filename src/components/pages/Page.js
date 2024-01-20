@@ -5,7 +5,7 @@ import { useSearchParams } from 'react-router-dom';
 import loadApiData from "../../functions/LoadApiData.ts";
 
 /* Add component parts */
-import Birthdays from "../layout/Birthdays";
+import Birthdays from "../layout/Birthdays.tsx";
 import Error from "../layout/Error.tsx";
 import HeaderImage from "../layout/HeaderImage.tsx";
 import Holidays from "../layout/Holidays.tsx";

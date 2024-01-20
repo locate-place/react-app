@@ -33,11 +33,21 @@ type TypeSrcSet = {
     'media': string;
 }
 
+type TypeBirthday = {
+    'date': string;
+    'name': string;
+    'name_short': string;
+};
+
 type TypeHoliday = {
     'date': string;
     'name': string;
     'name_short': string;
 };
+
+type TypeBirthdays = {
+    'birthdays': TypeBirthday[][];
+}
 
 type TypeHolidays = {
     'holidays': TypeHoliday[];
@@ -90,6 +100,8 @@ export {
     TypeDirection,
     TypeCoordinate,
     TypeSrcSet,
+    TypeBirthday,
+    TypeBirthdays,
     TypeHoliday,
     TypeHolidays,
     TypeFeature,

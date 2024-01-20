@@ -19,6 +19,8 @@ const Holidays = ({data}: HolidaysProps) =>
         return <></>
     }
 
+    console.log(data);
+
     let hasHolidays = !!data.holidays;
     let holidays = hasHolidays ? data.holidays : [];
 

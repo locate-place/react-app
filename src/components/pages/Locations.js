@@ -17,7 +17,7 @@ import {
     sortByDistance,
     sortByRelevance
 } from "../../functions/Query.ts";
-import {searchTypeListWithFeatures, searchTypeCoordinate} from "../../functions/SearchType";
+import {searchTypeListWithFeatures, searchTypeCoordinate} from "../../functions/SearchType.ts";
 
 /* Add component parts */
 import Error from "../layout/Error.tsx";

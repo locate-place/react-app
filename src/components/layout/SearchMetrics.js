@@ -5,7 +5,7 @@ import {sizeIcon} from "../../config/Config.ts";
 
 /* Add functions */
 import {getParsedQueryFeatureCodes} from "../../functions/Query.ts";
-import {searchTypeTranslations} from "../../functions/SearchType";
+import {searchTypeTranslations} from "../../functions/SearchType.ts";
 
 /* Bootstrap icons; see https://icons.getbootstrap.com/?q=sort#usage */
 import {GraphUp, HouseFill} from "react-bootstrap-icons";

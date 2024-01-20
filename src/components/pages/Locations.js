@@ -24,7 +24,7 @@ import Error from "../layout/Error.tsx";
 import HeaderSmall from "../layout/HeaderSmall.tsx";
 import Loader from "../layout/Loader.tsx";
 import LocationCard from "../layout/LocationCard.tsx";
-import SearchForm from "../layout/SearchForm";
+import SearchForm from "../layout/SearchForm.tsx";
 import SearchMetrics from "../layout/SearchMetrics";
 import SearchPerformance from "../layout/SearchPerformance";
 

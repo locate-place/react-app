@@ -6,10 +6,15 @@ import {sizeIcon} from "../../config/Config.ts";
 /* Bootstrap icons; see https://icons.getbootstrap.com/?q=sort#usage */
 import {GlobeAmericas} from "react-bootstrap-icons";
 
+type SearchFormProps = {
+    routePath: string,
+    query: string,
+}
+
 /**
  * This renders the search form.
  */
-const SearchForm = ({routePath, query}) =>
+const SearchForm = ({routePath, query}: SearchFormProps) =>
 {
     return (
         <>

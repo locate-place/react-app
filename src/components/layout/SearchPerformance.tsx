@@ -1,5 +1,11 @@
 import React from "react";
 
+type SearchPerformanceProps = {
+    properties: any
+    apiPathWithParameter: string
+    apiPathWithoutParameter: string
+}
+
 /**
  * This renders the search performance part.
  */
@@ -7,7 +13,7 @@ const SearchPerformance = ({
     properties,
     apiPathWithParameter,
     apiPathWithoutParameter
-}) =>
+}: SearchPerformanceProps) =>
 {
     return (
         <>

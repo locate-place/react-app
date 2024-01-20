@@ -26,7 +26,7 @@ import Loader from "../layout/Loader.tsx";
 import LocationCard from "../layout/LocationCard.tsx";
 import SearchForm from "../layout/SearchForm.tsx";
 import SearchMetrics from "../layout/SearchMetrics.tsx";
-import SearchPerformance from "../layout/SearchPerformance";
+import SearchPerformance from "../layout/SearchPerformance.tsx";
 
 /* Bootstrap icons; see https://icons.getbootstrap.com/?q=sort#usage */
 import {

@@ -19,7 +19,7 @@ import Loader from "../layout/Loader.tsx";
 import NextPlaces from "../layout/NextPlaces.tsx";
 import SearchForm from "../layout/SearchForm.tsx";
 import SearchMetrics from "../layout/SearchMetrics.tsx";
-import SearchPerformance from "../layout/SearchPerformance";
+import SearchPerformance from "../layout/SearchPerformance.tsx";
 
 /* Flag icons; see https://github.com/stephenway/react-flagkit */
 import Flag from "react-flagkit";

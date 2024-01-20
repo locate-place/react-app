@@ -16,7 +16,7 @@ import {translateCountryCode} from "../../functions/Country.ts";
 import Error from "../layout/Error.tsx";
 import HeaderSmall from "../layout/HeaderSmall.tsx";
 import Loader from "../layout/Loader.tsx";
-import NextPlaces from "../layout/NextPlaces";
+import NextPlaces from "../layout/NextPlaces.tsx";
 import SearchForm from "../layout/SearchForm";
 import SearchMetrics from "../layout/SearchMetrics";
 import SearchPerformance from "../layout/SearchPerformance";

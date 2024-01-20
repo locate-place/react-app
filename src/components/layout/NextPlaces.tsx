@@ -5,12 +5,27 @@ import {convertMeterToKilometer} from "../../functions/Distance.ts";
 import {getDms} from "../../functions/Coordinate.ts";
 import {getElevation, getPopulation} from "../../functions/Properties.ts";
 
+type NextPlacesProps = {
+    nextPlaces: any,
+}
+
 /**
  * This is the next places part.
  */
-const NextPlaces = ({nextPlaces}) =>
+const NextPlaces = ({nextPlaces}: NextPlacesProps) =>
 {
-    let translation = {
+    type TypeTranslation = {
+        H: string,
+        L: string,
+        P: string,
+        R: string,
+        S: string,
+        T: string,
+        U: string,
+        V: string
+    }
+
+    let translations: TypeTranslation = {
         H: 'Flüsse, Seen',
         L: 'Parks oder Flächen',
         P: 'Städte, Stadtteile oder Ortschaften',
@@ -25,11 +40,11 @@ const NextPlaces = ({nextPlaces}) =>
         nextPlaces.places.length > 0 ?
             <>
                 <h3><strong>{
-                    translation.hasOwnProperty(nextPlaces.feature['class']) ?
+                    translations.hasOwnProperty(nextPlaces.feature['class']) ?
                         (
                             <>
                             <span>
-                                {'Nächste ' + translation[nextPlaces.feature['class']]}
+                                {'Nächste ' + (translations[nextPlaces.feature['class'] as keyof TypeTranslation] ?? 'Unbekannt')}
                             </span> - <code>{nextPlaces.feature['class']}</code>
                             </>
 
@@ -43,7 +58,7 @@ const NextPlaces = ({nextPlaces}) =>
                 </small></p>
                 <table className="table table-last-line">
                     <tbody>
-                        {nextPlaces.places.map((place, index) =>
+                        {nextPlaces.places.map((place: any, index: string) =>
                             <tr key={'place-' + nextPlaces.feature['class-name'] + '-' + index}>
                                 <td className="column-compass"></td>
                                 <td className="column-name">
@@ -73,8 +88,9 @@ const NextPlaces = ({nextPlaces}) =>
                                                         )
                                                     }
                                                 ><small>
-                                                    <nobr>{place.coordinate.distance.kilometers['value-formatted']}<sup>*)</sup>
-                                                    </nobr>
+                                                    <span className="text-nowrap">
+                                                        {place.coordinate.distance.kilometers['value-formatted']}<sup>*)</sup>
+                                                    </span>
                                                     <br/>
                                                     - {place.coordinate.direction['cardinal-direction']} -
                                                 </small></a>

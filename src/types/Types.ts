@@ -26,6 +26,12 @@ type TypeCoordinate = {
     'srid': number,
     'distance': TypeDistance,
     'direction': TypeDirection
+    'distance-user': TypeDistance,
+    'direction-user': TypeDirection
+}
+
+type TypeLocation = {
+    coordinate: TypeCoordinate
 }
 
 type TypeSrcSet = {
@@ -99,6 +105,7 @@ export {
     TypePosition,
     TypeDirection,
     TypeCoordinate,
+    TypeLocation,
     TypeSrcSet,
     TypeBirthday,
     TypeBirthdays,

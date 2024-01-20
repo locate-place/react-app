@@ -10,7 +10,9 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 /* Add functions */
 import {convertToGermanFormat} from "../../functions/Date.ts";
 import {translateCountryCode} from "../../functions/Country.ts";
-import CoordinateDistanceDirection from "./CoordinateDistanceDirection";
+
+/* Add component parts */
+import CoordinateDistanceDirection from "./CoordinateDistanceDirection.tsx";
 
 /**
  * This is the example part.

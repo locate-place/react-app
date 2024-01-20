@@ -9,29 +9,36 @@ import {
     Geo
 } from "react-bootstrap-icons";
 
+/* Import types */
+import {TypeLocation} from "../../types/Types.ts";
+
+type CoordinateDistanceDirectionProps = {
+    location: TypeLocation,
+}
+
 /**
  * This is the coordinate, distance and direction part.
  */
-const CoordinateDistanceDirection = ({location}) => {
-    let hasCoordinate = !!location.coordinate;
-    let latitudeDms = hasCoordinate ? location.coordinate.latitude.dms : null;
-    let longitudeDms = hasCoordinate ? location.coordinate.longitude.dms : null;
-    let latitudeDecimal = hasCoordinate ? location.coordinate.latitude.decimal : null;
-    let longitudeDecimal = hasCoordinate ? location.coordinate.longitude.decimal : null;
+const CoordinateDistanceDirection = ({location}: CoordinateDistanceDirectionProps) => {
+    const hasCoordinate: boolean = !!location.coordinate;
+    const latitudeDms: string = hasCoordinate ? location.coordinate.latitude.dms : '';
+    const longitudeDms: string = hasCoordinate ? location.coordinate.longitude.dms : '';
+    const latitudeDecimal: string = hasCoordinate ? location.coordinate.latitude.decimal.toString() : '';
+    const longitudeDecimal: string = hasCoordinate ? location.coordinate.longitude.decimal.toString() : '';
 
-    let nameDistance = 'distance';
-    let nameDirection = 'direction';
-    let hasDistance = !!location.coordinate[nameDistance];
-    let distance = hasDistance ? location.coordinate[nameDistance].kilometers['value-formatted'] : null;
-    let hasDirection =!!location.coordinate[nameDirection];
-    let direction = hasDirection? location.coordinate[nameDirection]['cardinal-direction'] : null;
+    const nameDistance: 'distance' = 'distance';
+    const nameDirection: 'direction' = 'direction';
+    const hasDistance: boolean = !!location.coordinate[nameDistance];
+    const distance: string = hasDistance ? location.coordinate[nameDistance].kilometers['value-formatted'] : '';
+    const hasDirection: boolean =!!location.coordinate[nameDirection];
+    const direction: string = hasDirection? location.coordinate[nameDirection]['cardinal-direction'] : '';
 
-    let nameDistanceUser = 'distance-user';
-    let nameDirectionUser = 'direction-user';
-    let hasDistanceUser = !!location.coordinate[nameDistanceUser];
-    let distanceUser = hasDistanceUser? location.coordinate[nameDistanceUser].kilometers['value-formatted'] : null;
-    let hasDirectionUser =!!location.coordinate[nameDirectionUser];
-    let directionUser = hasDirectionUser? location.coordinate[nameDirectionUser]['cardinal-direction'] : null;
+    const nameDistanceUser: 'distance-user' = 'distance-user';
+    const nameDirectionUser: 'direction-user' = 'direction-user';
+    const hasDistanceUser: boolean = !!location.coordinate[nameDistanceUser];
+    const distanceUser: string = hasDistanceUser? location.coordinate[nameDistanceUser].kilometers['value-formatted'] : '';
+    const hasDirectionUser: boolean =!!location.coordinate[nameDirectionUser];
+    const directionUser: string = hasDirectionUser? location.coordinate[nameDirectionUser]['cardinal-direction'] : '';
 
     return (
         hasCoordinate ?

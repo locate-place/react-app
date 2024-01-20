@@ -8,7 +8,7 @@ import Header from "../layout/Header";
 import Loader from "../layout/Loader";
 import Error from "../layout/Error";
 
-/* Add font awesome icons */
+/* Add font awesome icons: https://fontawesome.com/icons */
 import {faDatabase, faImages, faIndustry} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
@@ -89,7 +89,7 @@ const About = () => {
                                 <div className="card-body">
                                     <ul className="mb-0">
                                         <li>
-                                            Bezieht sich auf diese App, welche gerade aufgerufen wurde
+                                            Diese App, welche gerade aufgerufen wurde
                                         </li>
                                         <li>
                                             Build on top of <a

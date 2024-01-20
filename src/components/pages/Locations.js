@@ -33,7 +33,8 @@ import {
     SortDown,
     HouseFill,
     HouseSlashFill,
-    ListTask
+    ListTask,
+    CursorFill
 } from "react-bootstrap-icons";
 
 /**
@@ -129,8 +130,8 @@ const Locations = () =>
                                             hasOwnPosition ?
                                                 <HouseFill size={sizeIcon.Button} /> :
                                                 <HouseSlashFill size={sizeIcon.Button} />
-                                        }
-                                        &nbsp;<sup><small>Sortierung</small></sup>
+                                        }&nbsp;
+                                        <sup><small>Sortierung</small></sup>
                                     </button>
                                     <button
                                         className={'btn ' + (sort === 'name' ? 'btn-secondary' : 'btn-outline-secondary')}
@@ -144,7 +145,7 @@ const Locations = () =>
                                                 onClick={() => sortByDistance(filterConfig)}
                                                 title="Sortieren nach Distanz"
                                             >
-                                                <SortNumericDown size={sizeIcon.Button}/>
+                                                <SortNumericDown size={sizeIcon.Button}/>&nbsp;
                                                 <sup><small>km</small></sup>
                                             </button> :
                                             <button
@@ -152,7 +153,8 @@ const Locations = () =>
                                                 onClick={() => sortByDistanceUser(filterConfig)}
                                                 title="Sortieren nach Distanz vom User"
                                             >
-                                                <SortNumericDown size={sizeIcon.Button}/>
+                                                <CursorFill size={sizeIcon.ButtonSmall}/>&nbsp;
+                                                <SortNumericDown size={sizeIcon.Button}/>&nbsp;
                                                 <sup><small>km</small></sup>
                                             </button>
                                     }
@@ -172,7 +174,9 @@ const Locations = () =>
                                                         onClick={() => sortByRelevanceUser(filterConfig)}
                                                         title="Sortieren nach Relevanz vom User"
                                                     >
-                                                        <SortDown size={sizeIcon.Button}/> <sup><small>Relevanz</small></sup>
+                                                        <CursorFill size={sizeIcon.ButtonSmall}/>&nbsp;
+                                                        <SortDown size={sizeIcon.Button}/>&nbsp;
+                                                        <sup><small>Relevanz</small></sup>
                                                     </button>
                                             ) :
                                             <></>

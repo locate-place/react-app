@@ -1,5 +1,14 @@
 import React from "react";
 
+/* Add configurations */
+import {sizeIcon} from "../../config/Config";
+
+/* Bootstrap icons; see https://icons.getbootstrap.com/?q=sort#usage */
+import {
+    Compass,
+    CompassFill, Geo
+} from "react-bootstrap-icons";
+
 /**
  * This is the coordinate, distance and direction part.
  */
@@ -27,11 +36,18 @@ const CoordinateDistanceDirection = ({location}) => {
     return (
         hasCoordinate ?
             <>
-                <strong>Position</strong>: <span title={latitudeDecimal}>{latitudeDms}</span>, <span title={longitudeDecimal}>{longitudeDms}</span>
+                <strong>Position</strong>:&nbsp;
+                <span style={{lineHeight: '10px'}}><Geo size={sizeIcon.TextSmall}/></span>&nbsp;
+                <span title={latitudeDecimal}>{latitudeDms}</span>,&nbsp;
+                <span title={longitudeDecimal}>{longitudeDms}</span>
                 {
                     hasDistance || hasDirection ?
                         <>
-                            <br/><span title="Abstand und Richtung zur gesuchten Position"><strong>Abstand</strong>: </span>
+                            <br/>
+                            <span title="Abstand und Richtung zur gesuchten Position">
+                                <strong>Abstand</strong>:&nbsp;
+                                <sup><Compass size={sizeIcon.TextSmall}/></sup>&nbsp;
+                            </span>
                             {
                                 hasDistance ?
                                     <span title="Abstand zur gesuchten Position">{distance}</span> :
@@ -48,7 +64,11 @@ const CoordinateDistanceDirection = ({location}) => {
                 {
                     hasDistanceUser || hasDirectionUser ?
                         <>
-                            <br/><span title="Abstand und Richtung zur eigenen Position"><strong>Abstand eigene Postion</strong>: </span>
+                            <br/>
+                            <span title="Abstand und Richtung zur eigenen Position">
+                                <strong>Abstand eigene Postion</strong>:&nbsp;
+                                <Compass size={sizeIcon.TextSmall} />&nbsp;
+                            </span>
                             {
                                 hasDistanceUser ?
                                     <span title="Abstand zur eigenen Position">{distanceUser}</span> :

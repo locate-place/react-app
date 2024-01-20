@@ -79,6 +79,11 @@ const Location = () =>
     let locationState = hasLocations && data.locations['state'] ? data.locations['state'] : null;
     let locationCountry = hasLocations && data.locations['country'] ? data.locations['country'] : null;
 
+    /* Get timezone parts */
+    let hasTimezone = !!data['timezone'];
+    let timezone = hasTimezone ? data['timezone'].timezone : null;
+    let timezoneOffset = hasTimezone ? data['timezone'].offset : null;
+
     /* Get next places parts */
     let hasNextPlaces = !!data['next-places'];
     let hasNextPlacesA = hasNextPlaces && data['next-places']['A'];
@@ -99,6 +104,8 @@ const Location = () =>
     let nextPlacesU = hasNextPlacesU? data['next-places']['U'] : null;
     let hasNextPlacesV = hasNextPlaces && data['next-places']['V'];
     let nextPlacesV = hasNextPlacesV? data['next-places']['V'] : null;
+
+    console.log(data);
 
 
     let filterConfig = getFilterConfig(searchParams);
@@ -231,6 +238,12 @@ const Location = () =>
                                                 <td className="fw-bold">Schlüssel</td>
                                                 <td><code>{featureCode}</code></td>
                                                 <td>{featureCodeName}</td>
+                                            </tr> : <></>
+                                        }
+                                        {
+                                            hasTimezone ? <tr>
+                                                <td className="fw-bold">Zeitzone</td>
+                                                <td colSpan={2}>{timezone} <code>{timezoneOffset}</code></td>
                                             </tr> : <></>
                                         }
                                         <tr>

@@ -5,7 +5,7 @@ import {sizeIcon} from "../../config/Config.ts";
 
 /* Add functions */
 import {getParsedQueryFeatureCodes} from "../../functions/Query.ts";
-import {searchTypeTranslations} from "../../functions/SearchType.ts";
+import {searchTypeTranslations, TypeSearchTypeTranslations} from "../../functions/SearchType.ts";
 
 /* Bootstrap icons; see https://icons.getbootstrap.com/?q=sort#usage */
 import {GraphUp, HouseFill} from "react-bootstrap-icons";
@@ -13,13 +13,16 @@ import {GraphUp, HouseFill} from "react-bootstrap-icons";
 /* Add component parts */
 import LocationCard from "./LocationCard.tsx";
 
+type SearchMetricsProps = {
+    properties: any
+}
 
 /**
  * This renders the search metrics part.
  */
 const SearchMetrics = ({
     properties
-}) =>
+}: SearchMetricsProps) =>
 {
     /* Debugging */
     let isParsedQueryExpanded = false;
@@ -41,7 +44,7 @@ const SearchMetrics = ({
     let parsedQueryGeonameId = hasParsedQueryGeonameId ? parsedQuery.parsed['geoname-id'] : null;
 
     let hasParsedQueryFeatureCodes = hasParsedQuery && !!parsedQuery.parsed['feature-codes'];
-    let parsedQueryFeatureCodes = getParsedQueryFeatureCodes(hasParsedQueryFeatureCodes ? parsedQuery.parsed['feature-codes'] : null);
+    let parsedQueryFeatureCodes = getParsedQueryFeatureCodes(hasParsedQueryFeatureCodes ? parsedQuery.parsed['feature-codes'] : []) ?? [];
 
     return (
         <>
@@ -91,8 +94,9 @@ const SearchMetrics = ({
                                             <div className="card card-hover mb-4"
                                                  style={{'backgroundColor': 'rgb(233, 235, 228)'}}>
                                                 <div className="card-header">
-                                                        <span className="fw-bold"><GraphUp
-                                                            size={sizeIcon.Caption}/> {searchTypeTranslations.hasOwnProperty(parsedQuery.parsed.type) ? searchTypeTranslations[parsedQuery.parsed.type] : ('Unbekannte Suche "' + parsedQuery.parsed.type + '"')}</span>
+                                                        <span className="fw-bold"><GraphUp size={sizeIcon.Caption}/>&nbsp;
+                                                            {searchTypeTranslations[parsedQuery.parsed.type as keyof TypeSearchTypeTranslations] ?? 'Unbekannte Suche "' + parsedQuery.parsed.type + '"'}
+                                                        </span>
                                                 </div>
                                                 <div className="card-body">
                                                     {

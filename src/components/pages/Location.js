@@ -18,7 +18,7 @@ import HeaderSmall from "../layout/HeaderSmall.tsx";
 import Loader from "../layout/Loader.tsx";
 import NextPlaces from "../layout/NextPlaces.tsx";
 import SearchForm from "../layout/SearchForm.tsx";
-import SearchMetrics from "../layout/SearchMetrics";
+import SearchMetrics from "../layout/SearchMetrics.tsx";
 import SearchPerformance from "../layout/SearchPerformance";
 
 /* Flag icons; see https://github.com/stephenway/react-flagkit */

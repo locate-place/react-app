@@ -1,34 +1,32 @@
 import React, {useEffect, useMemo, useState} from 'react';
+import {useSearchParams} from "react-router-dom";
 
 /* Add functions */
 import loadApiData from "../../functions/LoadApiData";
-
-/* Add component parts */
-import Header from "../layout/Header";
-import Loader from "../layout/Loader";
-import Error from "../layout/Error";
-import {useSearchParams} from "react-router-dom";
 import {
     getQuery,
-    getApiPathDetail,
+    getApiPathDetail, addCurrentPositionToQuery, getFilterConfig,
 } from "../../functions/Query";
 import {convertToGermanFormat} from "../../functions/Date";
+import {translateCountryCode} from "../../functions/Country";
 
-/* Bootstrap icons; see https://icons.getbootstrap.com/?q=sort#usage */
-import {
-    GlobeAmericas
-} from "react-bootstrap-icons";
-import Flag from "react-flagkit";
+/* Add component parts */
+import Loader from "../layout/Loader";
+import Error from "../layout/Error";
 import NextPlaces from "../layout/NextPlaces";
 import SearchForm from "../layout/SearchForm";
 import SearchMetrics from "../layout/SearchMetrics";
 import SearchPerformance from "../layout/SearchPerformance";
+import HeaderSmall from "../layout/HeaderSmall";
+
+/* Flag icons; see https://github.com/stephenway/react-flagkit */
+import Flag from "react-flagkit";
 
 /**
  * This is the app locations component.
  */
-const Location = () => {
-
+const Location = () =>
+{
     /* Routes variables */
     const routePath = '/location.html';
 
@@ -43,13 +41,10 @@ const Location = () => {
     const [data, setData] = useState([]);
     const [properties, setProperties] = useState([]);
 
-    console.log('data');
-    console.log(data);
-    console.log('properties');
-    console.log(properties);
-
     /* Memorized variables. */
     const [searchParams] = useSearchParams();
+
+    let hasOwnPosition = properties.given && properties.given.coordinate && properties.given.coordinate.location;
 
     /* Get variables according to the search parameters. */
     let apiPathWithParameter = getApiPathDetail(searchParams, true);
@@ -67,7 +62,8 @@ const Location = () => {
     let coordinateLatitudeDms = hasCoordinate && data.coordinate.latitude ? data.coordinate.latitude.dms : null;
     let coordinateLongitudeDecimal = hasCoordinate && data.coordinate.longitude ? data.coordinate.longitude.decimal : null;
     let coordinateLongitudeDms = hasCoordinate && data.coordinate.longitude ? data.coordinate.longitude.dms : null;
-    let distanceInKilometers = hasCoordinate && data.coordinate.distance ? data.coordinate.distance.kilometers['value-formatted'] : null;
+    let distanceInKilometers = hasCoordinate && data.coordinate['distance-user'] ? data.coordinate['distance-user'].kilometers['value-formatted'] : null;
+    let distanceText = hasOwnPosition ? ('Von aktueller Position ' + properties.given.coordinate.parsed.latitude.dms + ', ' + properties.given.coordinate.parsed.longitude.dms) : '';
 
     /* Get feature parts */
     let hasFeature = !!data['feature'];
@@ -104,9 +100,13 @@ const Location = () => {
     let hasNextPlacesV = hasNextPlaces && data['next-places']['V'];
     let nextPlacesV = hasNextPlacesV? data['next-places']['V'] : null;
 
-    let sizeIconH3 = 20;
-    let sizeIconCaption = 16;
-    let sizeIconButton = 16;
+
+    let filterConfig = getFilterConfig(searchParams);
+    let addCurrentPosition = (e) => {
+        addCurrentPositionToQuery(filterConfig);
+    }
+
+    console.log(data);
 
     /**
      * useEffect function.
@@ -127,7 +127,7 @@ const Location = () => {
      */
     return (
         <>
-            <Header title='Locations' subtitle='Locations API' />
+            <HeaderSmall title='Locations' subtitle='Locations API' />
             <div className="calendars container mb-5 px-4 px-md-3">
                 <div className="row g-4">
                     <div className="col-12 col-md-10 offset-md-1 col-xl-8 offset-xl-2">
@@ -135,21 +135,15 @@ const Location = () => {
                         <SearchForm
                             query={query}
                             routePath={routePath}
-                            sizeIconH3={sizeIconH3}
                         />
 
                         {loaded ? <>
                             {/* Renders the search metrics part. */}
-                            <SearchMetrics
-                                properties={properties}
-                                sizeIconH3={sizeIconH3}
-                                sizeIconButton={sizeIconButton}
-                                sizeIconCaption={sizeIconCaption}
-                            />
+                            <SearchMetrics properties={properties} />
 
                             <div>
                                 <h2>
-                                    <Flag country={propertyCountryCode} size="20" title={propertyCountryCode} /> &nbsp;
+                                    <Flag country={propertyCountryCode} size="20" title={translateCountryCode(propertyCountryCode)} /> &nbsp;
                                     {data.name}
                                 </h2>
 
@@ -210,8 +204,20 @@ const Location = () => {
                                         {
                                             distanceInKilometers ? <tr>
                                                 <td className="fw-bold">Entfernung</td>
-                                                <td colSpan={2}>{distanceInKilometers}</td>
-                                            </tr> : <></>
+                                                <td colSpan={2} title={distanceText}>{distanceInKilometers}&nbsp;
+                                                    <sup><small>({distanceText})</small></sup></td>
+                                            </tr> : <tr>
+                                                <td className="fw-bold">Entfernung</td>
+                                                <td colSpan={2} title={distanceText}>
+                                                    Aktuelle Position ist unbekannt.<br/>
+                                                    <br/>
+                                                    <button
+                                                        className="btn btn-outline-primary"
+                                                        onClick={addCurrentPosition}
+                                                    >Bestimme aktuelle Position
+                                                    </button>
+                                                </td>
+                                            </tr>
                                         }
                                         {
                                             featureClass ? <tr>

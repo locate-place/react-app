@@ -2,6 +2,7 @@
  * Configurations
  */
 const reactPathLocations = '/locations.html';
+const reactPathLocation = '/location.html';
 const apiPathQuerySearch = '/api/v1/location.json';
 const apiPathExampleSearch = '/api/v1/location/examples.json';
 const apiPathDetail = '/api/v1/location/coordinate.json';
@@ -136,6 +137,22 @@ const redirectSortByWithCurrentPosition = (filterConfig, sortName) =>
 }
 
 /**
+ * Redirects the user to the sort by page with current position.
+ *
+ * @param filterConfig
+ */
+const addCurrentPositionToQuery = (filterConfig) =>
+{
+    /* Create a copy of the object. Do not use the reference. */
+    let filter = { ...filterConfig };
+
+    navigator.geolocation.getCurrentPosition((position) => {
+        filter[nameParameterCoordinates] = getPosition(position);
+        window.location.href = reactPathLocation + '?' + convertFilterToQueryString(filter);
+    });
+}
+
+/**
  * Returns the API path according to the search parameters.
  *
  * @param searchParams
@@ -223,6 +240,14 @@ const getParsedQueryFeatureCodes = (parsedQueryFeatureCodes) =>
     return data;
 }
 
+const sortByDistance = (filterConfig) => redirectSortBy(filterConfig, 'distance');
+const sortByDistanceUser = (filterConfig) => redirectSortByWithCurrentPosition(filterConfig, 'distance-user');
+const sortByName = (filterConfig) => redirectSortBy(filterConfig, 'name');
+const sortByRelevance = (filterConfig) => redirectSortBy(filterConfig, 'relevance');
+const sortByRelevanceUser = (filterConfig) => redirectSortByWithCurrentPosition(filterConfig, 'relevance-user');
+
+
+
 /*
  * Export functions.
  */
@@ -233,8 +258,14 @@ export {
     getFilterConfig,
     redirectSortBy,
     redirectSortByWithCurrentPosition,
+    addCurrentPositionToQuery,
     getApiPathList,
     getApiPathDetail,
+    getParsedQueryFeatureCodes,
 
-    getParsedQueryFeatureCodes
+    sortByDistance,
+    sortByDistanceUser,
+    sortByName,
+    sortByRelevance,
+    sortByRelevanceUser
 }

@@ -1,22 +1,30 @@
 import React, {useEffect, useMemo, useState} from 'react';
+import {useSearchParams} from "react-router-dom";
+
+/* Add configurations */
+import {sizeIcon} from "../../config/Config";
 
 /* Add functions */
 import loadApiData from "../../functions/LoadApiData";
-
-/* Add component parts */
-import Header from "../layout/Header";
-import Loader from "../layout/Loader";
-import Error from "../layout/Error";
-import LocationCard from "../layout/LocationCard";
-import {useSearchParams} from "react-router-dom";
 import {
     getQuery,
     getSort,
     getFilterConfig,
-    redirectSortBy,
-    redirectSortByWithCurrentPosition,
-    getApiPathList
+    getApiPathList,
+    sortByName,
+    sortByRelevanceUser,
+    sortByDistanceUser, sortByDistance, sortByRelevance
 } from "../../functions/Query";
+import {searchTypeListWithFeatures, searchTypeCoordinate} from "../../functions/SearchType";
+
+/* Add component parts */
+import Error from "../layout/Error";
+import HeaderSmall from "../layout/HeaderSmall";
+import Loader from "../layout/Loader";
+import LocationCard from "../layout/LocationCard";
+import SearchForm from "../layout/SearchForm";
+import SearchMetrics from "../layout/SearchMetrics";
+import SearchPerformance from "../layout/SearchPerformance";
 
 /* Bootstrap icons; see https://icons.getbootstrap.com/?q=sort#usage */
 import {
@@ -27,14 +35,12 @@ import {
     HouseSlashFill,
     ListTask
 } from "react-bootstrap-icons";
-import SearchForm from "../layout/SearchForm";
-import SearchMetrics from "../layout/SearchMetrics";
-import SearchPerformance from "../layout/SearchPerformance";
 
 /**
  * This is the app locations component.
  */
-const Locations = () => {
+const Locations = () =>
+{
     /* Routes variables */
     const routePath = '/locations.html';
 
@@ -57,21 +63,15 @@ const Locations = () => {
     let apiPathWithParameter = getApiPathList(searchParams, true);
     let apiPathWithoutParameter = getApiPathList(searchParams, false);
     let query = getQuery(searchParams);
-    let isQuery = !!query;
     let sort = getSort(searchParams);
+    let isQuerySearch = !!query;
 
     /* Check if the current position has been given. */
     let hasOwnPosition = properties.given && properties.given.coordinate && properties.given.coordinate.location;
     let ownPosition = hasOwnPosition ? (properties.given.coordinate.parsed.latitude.dms + ', ' + properties.given.coordinate.parsed.longitude.dms) : null;
 
-    /* Build the sort click functions. */
-    let sortByDistance = () => redirectSortByWithCurrentPosition(filterConfig, 'distance');
-    let sortByName = () => redirectSortBy(filterConfig, 'name');
-    let sortByRelevance = () => redirectSortByWithCurrentPosition(filterConfig, 'relevance');
-
-    let sizeIconH3 = 20;
-    let sizeIconCaption = 16;
-    let sizeIconButton = 16;
+    let hasQuery = properties.given && properties.given.query;
+    let isCoordinateSearch = hasQuery && [searchTypeListWithFeatures, searchTypeCoordinate].includes(properties.given.query.parsed.type);
 
     /**
      * useEffect function.
@@ -92,7 +92,7 @@ const Locations = () => {
      */
     return (
         <>
-            <Header title='Locations' subtitle='Locations API' />
+            <HeaderSmall title='Locations' subtitle='Locations API' />
             <div className="calendars container mb-5 px-4 px-md-3">
                 <div className="row g-4">
                     <div className="col-12 col-md-10 offset-md-1 col-xl-8 offset-xl-2">
@@ -100,27 +100,21 @@ const Locations = () => {
                         <SearchForm
                             query={query}
                             routePath={routePath}
-                            sizeIconH3={sizeIconH3}
                         />
 
                         {loaded ? <>
                             {/* Renders the search metrics part. */}
-                            <SearchMetrics
-                                properties={properties}
-                                sizeIconH3={sizeIconH3}
-                                sizeIconButton={sizeIconButton}
-                                sizeIconCaption={sizeIconCaption}
-                            />
+                            <SearchMetrics properties={properties} />
 
                             {
-                                isQuery ?
+                                isQuerySearch ?
                                     <>
-                                        <h3><ListTask size={sizeIconH3}/> Suchergebnis</h3>
+                                        <h3><ListTask size={sizeIcon.H3}/> Suchergebnis</h3>
                                     </> :
                                     <>
                                         <p>Oder starte mit den nachfolgenden Beispielen.</p>
 
-                                        <h3><ListTask size={sizeIconH3}/> Location Beispiele</h3>
+                                        <h3><ListTask size={sizeIcon.H3}/> Location Beispiele</h3>
                                     </>
                             }
 
@@ -133,28 +127,54 @@ const Locations = () => {
                                     >
                                         {
                                             hasOwnPosition ?
-                                                <HouseFill size={sizeIconButton} /> :
-                                                <HouseSlashFill size={sizeIconButton} />
+                                                <HouseFill size={sizeIcon.Button} /> :
+                                                <HouseSlashFill size={sizeIcon.Button} />
                                         }
                                         &nbsp;<sup><small>Sortierung</small></sup>
                                     </button>
                                     <button
                                         className={'btn ' + (sort === 'name' ? 'btn-secondary' : 'btn-outline-secondary')}
-                                        onClick={sortByName} title="Sortieren nach Name">
-                                        <SortAlphaDown size={sizeIconButton} /> <sup><small>Name</small></sup>
-                                    </button>
-                                    <button
-                                        className={'btn ' + (sort === 'distance' ? 'btn-secondary' : 'btn-outline-secondary')}
-                                        onClick={sortByDistance} title="Sortieren nach Distanz">
-                                        <SortNumericDown size={sizeIconButton} /> <sup><small>km</small></sup>
+                                        onClick={() => sortByName(filterConfig)} title="Sortieren nach Name">
+                                        <SortAlphaDown size={sizeIcon.Button} /> <sup><small>Name</small></sup>
                                     </button>
                                     {
-                                        query ?
+                                        isCoordinateSearch ?
                                             <button
-                                                className={'btn ' + (sort === 'relevance' ? 'btn-secondary' : 'btn-outline-secondary')}
-                                                onClick={sortByRelevance} title="Sortieren nach Relevanz">
-                                                <SortDown size={sizeIconButton} /> <sup><small>Relevanz</small></sup>
+                                                className={'btn ' + (sort === 'distance' ? 'btn-secondary' : 'btn-outline-secondary')}
+                                                onClick={() => sortByDistance(filterConfig)}
+                                                title="Sortieren nach Distanz"
+                                            >
+                                                <SortNumericDown size={sizeIcon.Button}/>
+                                                <sup><small>km</small></sup>
                                             </button> :
+                                            <button
+                                                className={'btn ' + (sort === 'distance-user' ? 'btn-secondary' : 'btn-outline-secondary')}
+                                                onClick={() => sortByDistanceUser(filterConfig)}
+                                                title="Sortieren nach Distanz vom User"
+                                            >
+                                                <SortNumericDown size={sizeIcon.Button}/>
+                                                <sup><small>km</small></sup>
+                                            </button>
+                                    }
+                                    {
+                                        isQuerySearch ?
+                                            (
+                                                isCoordinateSearch ?
+                                                    <button
+                                                        className={'btn ' + (sort === 'relevance' ? 'btn-secondary' : 'btn-outline-secondary')}
+                                                        onClick={() => sortByRelevance(filterConfig)}
+                                                        title="Sortieren nach Relevanz"
+                                                    >
+                                                        <SortDown size={sizeIcon.Button}/> <sup><small>Relevanz</small></sup>
+                                                    </button> :
+                                                    <button
+                                                        className={'btn ' + (sort === 'relevance-user' ? 'btn-secondary' : 'btn-outline-secondary')}
+                                                        onClick={() => sortByRelevanceUser(filterConfig)}
+                                                        title="Sortieren nach Relevanz vom User"
+                                                    >
+                                                        <SortDown size={sizeIcon.Button}/> <sup><small>Relevanz</small></sup>
+                                                    </button>
+                                            ) :
                                             <></>
                                     }
                                 </div>
@@ -164,9 +184,8 @@ const Locations = () => {
                                 <LocationCard
                                     key={'location-card-' + index}
                                     location={location}
-                                    index={index}
-                                    urlLocationApi={properties.url}
-                                    isCurrentLocation={false}
+                                    properties={properties}
+                                    showOwnPosition={false}
                                 />
                             ))}
 

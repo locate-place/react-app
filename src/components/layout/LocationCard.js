@@ -8,24 +8,32 @@ import {faMapLocation, faMaximize, faMinimize} from "@fortawesome/free-solid-svg
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {convertToGermanFormat} from "../../functions/Date";
 import {translateCountryCode} from "../../functions/Country";
+import CoordinateDistanceDirection from "./CoordinateDistanceDirection";
 
 /**
  * This is the example part.
+ *
+ * - ownPosition - Use own position instead from the given location.
  */
-const LocationCard = ({location, index, urlLocationApi, ownPosition}) => {
-
+const LocationCard = ({location, properties, showOwnPosition}) => {
     /* true - use geoname id as query; false - use coordinate as query */
     let useGeonameIdAsQuery = true;
 
     let nextPlaces = location['next-places-config'].config;
 
-    let hasOwnPosition = !!ownPosition;
+    /* Use own position or from the given location. */
+    let ownPositionCard = showOwnPosition? properties.given.coordinate.parsed : null;
+    let latitudeDms = showOwnPosition ? ownPositionCard.latitude.dms : location.coordinate.latitude.dms;
+    let longitudeDms = showOwnPosition ? ownPositionCard.longitude.dms : location.coordinate.longitude.dms;
+    let latitudeDecimal = showOwnPosition ? ownPositionCard.latitude.decimal : location.coordinate.latitude.decimal;
+    let longitudeDecimal = showOwnPosition ? ownPositionCard.longitude.decimal : location.coordinate.longitude.decimal;
+    let linkGoogleMaps = showOwnPosition ? ownPositionCard.links.google : location.links.maps.google;
+    let linkOpenStreetMaps = showOwnPosition ? ownPositionCard.links.openstreetmap : location.links.maps.openstreetmap;
 
-    let latitudeDms = hasOwnPosition ? ownPosition.latitude.dms : location.coordinate.latitude.dms;
-    let longitudeDms = hasOwnPosition ? ownPosition.longitude.dms : location.coordinate.longitude.dms;
-
-    let linkGoogleMaps = location.links.maps.google;
-    let linkOpenStreetMaps = location.links.maps.openstreetmap;
+    let hasOwnPosition = properties.given && properties.given.coordinate && properties.given.coordinate.location;
+    let ownPosition = hasOwnPosition ? properties.given.coordinate.parsed : null;
+    let ownPositionLatitudeDecimal = hasOwnPosition ? ownPosition.latitude.decimal : null;
+    let ownPositionLongitudeDecimal = hasOwnPosition ? ownPosition.longitude.decimal : null;
 
     let translations = {
         'airports': 'Flughäfen',
@@ -45,16 +53,21 @@ const LocationCard = ({location, index, urlLocationApi, ownPosition}) => {
     let language = 'de';
     let country = 'DE';
 
-    let fullQuery = routePath + '?q=' + query + '&language=' + language + '&country=' + country;
+    let fullQuery = routePath +
+        '?q=' + query +
+        '&language=' + language +
+        '&country=' + country +
+        (hasOwnPosition ? '&c=' + ownPositionLatitudeDecimal + ',%20' + ownPositionLongitudeDecimal : '');
+    ;
     let fullQueryNextPlaces = fullQuery + '&next_places=1';
 
     return (
         <>
-            <div className={'card card-hover w-100 mb-4'} style={hasOwnPosition ? {'backgroundColor': 'rgb(235, 233, 228)'} : {'backgroundColor': 'rgb(228, 235, 233)'}}>
+            <div className={'card card-hover w-100 mb-4'} style={showOwnPosition ? {'backgroundColor': 'rgb(235, 233, 228)'} : {'backgroundColor': 'rgb(228, 235, 233)'}}>
                 <div className="card-header">
                     <Flag country={location.properties.country} size="20" title={translateCountryCode(location.properties.country)} /> &nbsp;
                     {
-                        hasOwnPosition ?
+                        showOwnPosition ?
                         <span><span className="fw-bold">Aktuelle Position</span>: {location['name-full']}</span> :
                         <span><span className="fw-bold">Treffer</span>: {location.name}</span>
                     }
@@ -120,16 +133,14 @@ const LocationCard = ({location, index, urlLocationApi, ownPosition}) => {
 
                         <br/>
                         <span>
-                            <strong>Position</strong>: {latitudeDms}, {longitudeDms}
                             {
-                                !hasOwnPosition && location.coordinate.distance ?
-                                    <span> - {location.coordinate.distance.kilometers['value-formatted']}</span> :
-                                    <></>
-                            }
-                            {
-                                !hasOwnPosition && location.coordinate.direction ?
-                                    <span> - {location.coordinate.direction['cardinal-direction']}</span> :
-                                    <></>
+                                showOwnPosition ?
+                                    <>
+                                        <strong>Position</strong>: <span
+                                        title={latitudeDecimal}>{latitudeDms}</span>, <span
+                                        title={longitudeDecimal}>{longitudeDms}</span>
+                                    </> :
+                                    <CoordinateDistanceDirection location={location}/>
                             }
                         </span>
 

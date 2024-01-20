@@ -1,14 +1,19 @@
 import React from "react";
+
+/* Add configurations */
+import {sizeIcon} from "../../config/Config";
+
+/* Bootstrap icons; see https://icons.getbootstrap.com/?q=sort#usage */
 import {GlobeAmericas} from "react-bootstrap-icons";
 
 /**
  * This renders the search form.
  */
-const SearchForm = ({routePath, sizeIconH3, query}) =>
+const SearchForm = ({routePath, query}) =>
 {
     return (
         <>
-            <h3><GlobeAmericas size={sizeIconH3}/> Location Suche</h3>
+            <h3><GlobeAmericas size={sizeIcon.H3}/> Location Suche</h3>
 
             <form action={routePath}>
                 <div className="d-flex justify-content-center w-100 mb-4">

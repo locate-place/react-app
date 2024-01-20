@@ -54,7 +54,8 @@ const Location = () =>
     /* Get generell parts */
     let hasDataProperties = !!data['properties'];
     let propertyCountryCode = hasDataProperties && data.properties.country ? data.properties.country : null;
-    let propertyElevation = hasDataProperties && data.properties.elevation && data.properties.elevation['value-formatted'] ? data.properties.elevation['value-formatted'] : null;
+    let hasPropertyElevation = hasDataProperties && data.properties.elevation && data.properties.elevation['value-formatted'];
+    let propertyElevation = hasPropertyElevation ? data.properties.elevation['value-formatted'] : null;
 
     /* Get coordinate parts */
     let hasCoordinate = !!data['coordinate'];
@@ -189,7 +190,7 @@ const Location = () =>
                                             <td colSpan={2}>{propertyCountryCode}</td>
                                         </tr>
                                         {
-                                            propertyElevation ? <tr>
+                                            hasPropertyElevation ? <tr>
                                                 <td className="fw-bold">Höhe</td>
                                                 <td colSpan={2}>{propertyElevation}</td>
                                             </tr> : <></>

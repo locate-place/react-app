@@ -3,6 +3,7 @@ import React from "react";
 /* Add functions */
 import {convertMeterToKilometer} from "../../functions/Distance";
 import {getDms} from "../../functions/Coordinate";
+import {getElevation, getPopulation, showElevation} from "../../functions/Properties";
 
 /**
  * This is the next places part.
@@ -49,6 +50,8 @@ const NextPlaces = ({nextPlaces}) =>
                                     <small>
                                         <kbd>{place.feature['code']}</kbd> <strong>{index + 1}) {place.name}</strong><br/>
                                         {place.feature['code-name']}
+                                        {getElevation(place, ' - ')}
+                                        {getPopulation(place, ' - ')}
                                     </small>
                                 </td>
 

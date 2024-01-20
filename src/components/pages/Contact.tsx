@@ -1,7 +1,10 @@
-/* Add component parts */
-import Header from "../layout/Header";
-import Flag from "react-flagkit";
 import React from "react";
+
+/* Add component parts */
+import Header from "../layout/Header.tsx";
+
+/* Flag icons; see https://github.com/stephenway/react-flagkit */
+import Flag from "react-flagkit";
 
 /**
  * This is the contact page.
@@ -15,7 +18,7 @@ const Contact = () => {
                     <div className="col-12 col-md-10 offset-md-1 col-xl-8 offset-xl-2">
                         <div className="card">
                             <div className="card-header">
-                                <Flag country="DE" size="20"/> <span className="fw-bold">Kontakt</span>
+                                <Flag country="DE" size={20}/> <span className="fw-bold">Kontakt</span>
                             </div>
                             <div className="card-body">
                                 <p className="card-text">

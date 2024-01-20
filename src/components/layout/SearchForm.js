@@ -1,7 +1,7 @@
 import React from "react";
 
 /* Add configurations */
-import {sizeIcon} from "../../config/Config";
+import {sizeIcon} from "../../config/Config.ts";
 
 /* Bootstrap icons; see https://icons.getbootstrap.com/?q=sort#usage */
 import {GlobeAmericas} from "react-bootstrap-icons";

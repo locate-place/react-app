@@ -1,7 +1,15 @@
+import React from "react";
+
+type HeaderImageProps = {
+    pageTitle: string,
+    title: string,
+    color: string
+}
+
 /**
  * This is the header image part.
  */
-const HeaderImage = ({pageTitle, title, color}) => {
+const HeaderImage = ({pageTitle, title, color}: HeaderImageProps) => {
     return (
         <header className="header header-image" style={{
             backgroundColor: color

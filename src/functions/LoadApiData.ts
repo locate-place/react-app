@@ -1,22 +1,34 @@
+import React from "react";
 import axios from "axios";
 import semver from "semver";
 
 /**
  * API data load function.
  */
-const loadApiData = (type, path, setLoaded, setError, setData, setProperties) => {
-
-    let url = null;
-    let name = null;
+const loadApiData = (
+    type: string,
+    path: string,
+    setLoaded: React.FC,
+    setError: React.FC,
+    setData: React.FC,
+    setProperties: React.FC
+) =>
+{
+    let url: string|null = null;
+    let name: string|null = null;
 
     switch (type) {
         case process.env.REACT_APP_TYPE_CALENDAR_BUILDER:
-            url = process.env.REACT_APP_CALENDAR_BUILDER_URL;
+            url = process.env.REACT_APP_CALENDAR_BUILDER_URL !== undefined ?
+                process.env.REACT_APP_CALENDAR_BUILDER_URL :
+                null;
             name = 'PHP Calendar Builder';
             break;
 
         case process.env.REACT_APP_TYPE_LOCATION_API:
-            url = process.env.REACT_APP_LOCATION_API_URL;
+            url = process.env.REACT_APP_LOCATION_API_URL !== undefined ?
+                process.env.REACT_APP_LOCATION_API_URL :
+                null;
             name = 'PHP Location API';
             break;
 
@@ -55,8 +67,12 @@ const loadApiData = (type, path, setLoaded, setError, setData, setProperties) =>
                 return;
             }
 
+            let calendarBuilderVersion: string = process.env.REACT_APP_CALENDAR_BUILDER_VERSION !== undefined ?
+                process.env.REACT_APP_CALENDAR_BUILDER_VERSION :
+                '0.1.0';
+
             /* Check required api version */
-            if (!semver.satisfies(version, process.env.REACT_APP_CALENDAR_BUILDER_VERSION)) {
+            if (!semver.satisfies(version, calendarBuilderVersion)) {
                 setLoaded(false);
                 setError({message: 'The api version does not match the required version. Required version: ' + process.env.REACT_APP_CALENDAR_BUILDER_VERSION + '. Current version: ' + version});
                 return;

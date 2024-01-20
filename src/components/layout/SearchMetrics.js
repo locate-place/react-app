@@ -1,7 +1,7 @@
 import React from "react";
 
 /* Add configurations */
-import {sizeIcon} from "../../config/Config";
+import {sizeIcon} from "../../config/Config.ts";
 
 /* Add functions */
 import {getParsedQueryFeatureCodes} from "../../functions/Query";

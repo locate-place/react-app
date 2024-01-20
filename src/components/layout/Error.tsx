@@ -1,9 +1,18 @@
 import React from "react";
 
+interface keyable {
+    [message: string]: string
+}
+
+type ErrorProps = {
+    error: keyable,
+    apiPath: string,
+}
+
 /**
  * This is the error part.
  */
-const Error = ({error, apiPath}) => {
+const Error = ({error, apiPath}: ErrorProps) => {
     return (
         <div className="col-12">
             <div className="card">

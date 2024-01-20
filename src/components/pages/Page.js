@@ -2,15 +2,15 @@ import React, {useEffect, useMemo, useState} from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 /* Add functions */
-import loadApiData from "../../functions/LoadApiData";
+import loadApiData from "../../functions/LoadApiData.ts";
 
 /* Add component parts */
-import HeaderImage from "../layout/HeaderImage";
 import Birthdays from "../layout/Birthdays";
+import Error from "../layout/Error.tsx";
+import HeaderImage from "../layout/HeaderImage.tsx";
 import Holidays from "../layout/Holidays";
-import Loader from "../layout/Loader";
-import Error from "../layout/Error";
 import ImageWithLoader from "../layout/ImageWithLoader";
+import Loader from "../layout/Loader";
 
 /**
  * This is the image page.

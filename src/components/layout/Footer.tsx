@@ -1,3 +1,6 @@
+import React from "react";
+
+/* Add font awesome icons: https://fontawesome.com/icons */
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCode} from "@fortawesome/free-solid-svg-icons";
 

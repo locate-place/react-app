@@ -1,7 +1,14 @@
+import React from "react";
+
+type HeaderProps = {
+    title: string,
+    subtitle: string,
+}
+
 /**
  * This is the header part.
  */
-const Header = ({title, subtitle}) =>
+const Header = ({title, subtitle}: HeaderProps) =>
 {
     return (
         <header className="header header-main" style={{

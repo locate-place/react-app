@@ -6,19 +6,19 @@ import redirect from "./redirect/Redirect";
 import addOnScrollListener from "./functions/AddOnScrollListener";
 
 /* Add components */
+import About from "./components/pages/About";
 import Calendars from "./components/pages/Calendars";
 import Calendar from "./components/pages/Calendar";
-import Page from "./components/pages/Page";
-import Contact from "./components/pages/Contact";
-import About from "./components/pages/About";
-import NotFound from "./components/pages/NotFound";
+import Contact from "./components/pages/Contact.tsx";
 import Home from "./components/pages/Home";
+import NotFound from "./components/pages/NotFound.tsx";
 import Locations from "./components/pages/Locations";
 import Location from "./components/pages/Location";
+import Page from "./components/pages/Page";
 
 /* Add component parts */
+import Footer from "./components/layout/Footer.tsx";
 import Navigation from "./components/layout/Navigation";
-import Footer from "./components/layout/Footer";
 
 /* Add styles */
 import './scss/bootstrap.scss';
@@ -26,7 +26,7 @@ import './scss/app.scss';
 import './scss/fonts.scss';
 
 /* Add javascript */
-import 'bootstrap/dist/js/bootstrap.min.js'
+import 'bootstrap/dist/js/bootstrap.min.js';
 
 /**
  * This is the app main component.

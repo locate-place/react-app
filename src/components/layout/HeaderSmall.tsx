@@ -1,7 +1,14 @@
+import React from "react";
+
+type HeaderSmallProps = {
+    title: string,
+    subtitle: string,
+}
+
 /**
  * This is the header part.
  */
-const HeaderSmall = ({title, subtitle}) =>
+const HeaderSmall = ({title, subtitle}: HeaderSmallProps) =>
 {
     return (
         <header className="header header-main" style={{

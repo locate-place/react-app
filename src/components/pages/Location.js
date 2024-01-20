@@ -2,7 +2,7 @@ import React, {useEffect, useMemo, useState} from 'react';
 import {useSearchParams} from "react-router-dom";
 
 /* Add functions */
-import loadApiData from "../../functions/LoadApiData";
+import loadApiData from "../../functions/LoadApiData.ts";
 import {
     getQuery,
     getApiPathDetail, addCurrentPositionToQuery, getFilterConfig,
@@ -11,13 +11,13 @@ import {convertToGermanFormat} from "../../functions/Date";
 import {translateCountryCode} from "../../functions/Country";
 
 /* Add component parts */
+import Error from "../layout/Error.tsx";
+import HeaderSmall from "../layout/HeaderSmall.tsx";
 import Loader from "../layout/Loader";
-import Error from "../layout/Error";
 import NextPlaces from "../layout/NextPlaces";
 import SearchForm from "../layout/SearchForm";
 import SearchMetrics from "../layout/SearchMetrics";
 import SearchPerformance from "../layout/SearchPerformance";
-import HeaderSmall from "../layout/HeaderSmall";
 
 /* Flag icons; see https://github.com/stephenway/react-flagkit */
 import Flag from "react-flagkit";

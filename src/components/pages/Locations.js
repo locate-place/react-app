@@ -2,10 +2,10 @@ import React, {useEffect, useMemo, useState} from 'react';
 import {useSearchParams} from "react-router-dom";
 
 /* Add configurations */
-import {sizeIcon} from "../../config/Config";
+import {sizeIcon} from "../../config/Config.ts";
 
 /* Add functions */
-import loadApiData from "../../functions/LoadApiData";
+import loadApiData from "../../functions/LoadApiData.ts";
 import {
     getQuery,
     getSort,
@@ -18,8 +18,8 @@ import {
 import {searchTypeListWithFeatures, searchTypeCoordinate} from "../../functions/SearchType";
 
 /* Add component parts */
-import Error from "../layout/Error";
-import HeaderSmall from "../layout/HeaderSmall";
+import Error from "../layout/Error.tsx";
+import HeaderSmall from "../layout/HeaderSmall.tsx";
 import Loader from "../layout/Loader";
 import LocationCard from "../layout/LocationCard";
 import SearchForm from "../layout/SearchForm";

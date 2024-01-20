@@ -1,8 +1,16 @@
+import React from "react";
+
+type HeaderCalendarProps = {
+    data: any,
+}
+
 /**
  * This is the header calendar part.
  */
-const HeaderCalendar = ({data}) => {
-    let calendarBuilderUrl = process.env.REACT_APP_CALENDAR_BUILDER_URL;
+const HeaderCalendar = ({data}: HeaderCalendarProps) => {
+    let calendarBuilderUrl: string = process.env.REACT_APP_CALENDAR_BUILDER_URL !== undefined ?
+                                         process.env.REACT_APP_CALENDAR_BUILDER_URL :
+                                         '0.1.0';
 
     /* Generated variables */
     let title = '...';

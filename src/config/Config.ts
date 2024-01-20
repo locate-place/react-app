@@ -1,5 +1,5 @@
 /* Icon configurations */
-const sizeIcon = {
+const sizeIcon: object = {
     Button: 16,
     ButtonSmall: 12,
     Caption: 16,

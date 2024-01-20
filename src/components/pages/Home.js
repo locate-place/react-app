@@ -1,7 +1,7 @@
 /* Add component parts */
-import Header from "../layout/Header";
+import Error from "../layout/Error.tsx";
+import Header from "../layout/Header.tsx";
 import Loader from "../layout/Loader";
-import Error from "../layout/Error";
 
 /**
  * This is the app home page.

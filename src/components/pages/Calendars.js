@@ -7,7 +7,7 @@ import loadApiData from "../../functions/LoadApiData.ts";
 import Error from "../layout/Error.tsx";
 import Header from "../layout/Header.tsx";
 import Loader from "../layout/Loader";
-import ImageWithLoader from "../layout/ImageWithLoader";
+import ImageWithLoader from "../layout/ImageWithLoader.tsx";
 
 /**
  * This is the app main component.

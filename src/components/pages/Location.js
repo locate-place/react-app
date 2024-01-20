@@ -7,8 +7,8 @@ import {
     getQuery,
     getApiPathDetail, addCurrentPositionToQuery, getFilterConfig,
 } from "../../functions/Query";
-import {convertToGermanFormat} from "../../functions/Date";
-import {translateCountryCode} from "../../functions/Country";
+import {convertToGermanFormat} from "../../functions/Date.ts";
+import {translateCountryCode} from "../../functions/Country.ts";
 
 /* Add component parts */
 import Error from "../layout/Error.tsx";

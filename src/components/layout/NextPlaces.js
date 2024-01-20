@@ -1,9 +1,9 @@
 import React from "react";
 
 /* Add functions */
-import {convertMeterToKilometer} from "../../functions/Distance";
-import {getDms} from "../../functions/Coordinate";
-import {getElevation, getPopulation, showElevation} from "../../functions/Properties";
+import {convertMeterToKilometer} from "../../functions/Distance.ts";
+import {getDms} from "../../functions/Coordinate.ts";
+import {getElevation, getPopulation} from "../../functions/Properties.ts";
 
 /**
  * This is the next places part.

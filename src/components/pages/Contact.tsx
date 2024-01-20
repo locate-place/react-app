@@ -29,8 +29,8 @@ const Contact = () => {
                             </div>
                             <div className="card-footer">
                                 <small><small>
-                                    <strong>Innere Neustadt, Dresden, Sachsen, Deutschland</strong> -
-                                    <span>51°3′39.2616″N, 13°44′26.5956″E</span><br/>
+                                    <strong>Innere Neustadt, Dresden, Sachsen, Deutschland</strong> -&nbsp;
+                                    <span><a href={'location.html?q=51°3′39.2616″N,%2013°44′26.5956″E&next_places=1'}>51°3′39.2616″N, 13°44′26.5956″E</a></span><br/>
                                     <span><strong>Letztes Update: </strong>: 14.01.2024 16:30</span>
                                 </small></small>
                         </div>

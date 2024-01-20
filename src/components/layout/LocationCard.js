@@ -6,8 +6,10 @@ import Flag from 'react-flagkit';
 /* Add font awesome icons */
 import {faMapLocation, faMaximize, faMinimize} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {convertToGermanFormat} from "../../functions/Date";
-import {translateCountryCode} from "../../functions/Country";
+
+/* Add functions */
+import {convertToGermanFormat} from "../../functions/Date.ts";
+import {translateCountryCode} from "../../functions/Country.ts";
 import CoordinateDistanceDirection from "./CoordinateDistanceDirection";
 
 /**

@@ -1,9 +1,11 @@
+import {NavigateFunction} from "react-router-dom";
+
 /**
  * Redirect function.
  *
  * @param navigate
  */
-const redirect = (navigate) => {
+const redirect = (navigate: NavigateFunction) => {
 
     let path = window.location.pathname;
 

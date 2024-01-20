@@ -8,8 +8,8 @@ import loadApiData from "../../functions/LoadApiData.ts";
 import Birthdays from "../layout/Birthdays";
 import Error from "../layout/Error.tsx";
 import HeaderImage from "../layout/HeaderImage.tsx";
-import Holidays from "../layout/Holidays";
-import ImageWithLoader from "../layout/ImageWithLoader";
+import Holidays from "../layout/Holidays.tsx";
+import ImageWithLoader from "../layout/ImageWithLoader.tsx";
 import Loader from "../layout/Loader";
 
 /**

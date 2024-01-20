@@ -4,7 +4,8 @@
  * @param meter
  * @returns {string}
  */
-const convertMeterToKilometer = (meter) => {
+const convertMeterToKilometer = (meter: number): string =>
+{
     return (meter / 1000).toLocaleString('de-DE', {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2

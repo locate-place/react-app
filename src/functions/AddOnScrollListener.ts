@@ -1,9 +1,14 @@
 /**
  * Add on scroll listener.
  */
-const addOnScrollListener = () => {
+const addOnScrollListener = (): void =>
+{
     let scrollPos = 0;
     const mainNav = document.getElementById('mainNav');
+
+    if (mainNav === null) {
+        return;
+    }
 
     const headerHeight = mainNav.clientHeight;
 

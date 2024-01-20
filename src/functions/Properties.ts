@@ -1,10 +1,12 @@
+/* Import types. */
+import {TypePlace} from "../types/Types.ts";
+
 /**
  * Returns if the elevation should be shown for the given feature code.
  *
  * @param featureCode
- * @returns {boolean}
  */
-const showElevation = (featureCode) =>
+const showElevation = (featureCode: string): boolean =>
 {
     return [
         'HLL',
@@ -20,9 +22,9 @@ const showElevation = (featureCode) =>
  * @param separator
  * @returns {*|null}
  */
-const getElevation = (place, separator) =>
+const getElevation = (place: TypePlace, separator: string): string|null =>
 {
-    let featureCode = place.feature['code'];
+    let featureCode: string = place.feature['code'];
 
     if (!showElevation(featureCode)) {
         return null;
@@ -39,9 +41,8 @@ const getElevation = (place, separator) =>
  * Returns if the population should be shown for the given feature code.
  *
  * @param featureClass
- * @returns {boolean}
  */
-const showPopulation = (featureClass) =>
+const showPopulation = (featureClass: string): boolean =>
 {
     return [
         'A',
@@ -56,13 +57,11 @@ const showPopulation = (featureClass) =>
  * @param separator
  * @returns {*|null}
  */
-const getPopulation = (place, separator) =>
+const getPopulation = (place: TypePlace, separator: string): string|null =>
 {
-    let showMissingPopulation = false;
+    let showMissingPopulation: boolean = false;
 
-    let featureClass = place.feature['class'];
-
-    console.log(featureClass);
+    let featureClass: string = place.feature['class'];
 
     if (!showPopulation(featureClass)) {
         return null;

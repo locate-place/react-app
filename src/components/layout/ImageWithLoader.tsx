@@ -1,9 +1,20 @@
 import React, { useState } from 'react';
 
+/* Add types */
+import {TypeSrcSet} from "../../types/Types.ts";
+
+type ImageWithLoaderProps = {
+    src: string,
+    srcSet: TypeSrcSet[],
+    alt: string,
+    title: string,
+    border: boolean
+}
+
 /**
  * This is the image with loader part.
  */
-const ImageWithLoader = ({src, srcSet, alt, title, border}) => {
+const ImageWithLoader = ({src, srcSet, alt, title, border}: ImageWithLoaderProps) => {
     const [loading, setLoading] = useState(true);
 
     return (

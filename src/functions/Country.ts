@@ -2,11 +2,10 @@
  * Translates the given country code into a German language.
  *
  * @param countryCode
- * @returns {*}
  */
-const translateCountryCode = (countryCode) =>
+const translateCountryCode = (countryCode: string): string =>
 {
-    let translationsDE = {
+    let translationsDE: Record<string, string> = {
         'AC': 'Ascension',
         'AD': 'Andorra',
         'AE': 'Vereinigte Arabische Emirate',

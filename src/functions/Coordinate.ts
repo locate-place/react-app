@@ -1,10 +1,14 @@
+/* Import types */
+import {TypeCoordinate} from "../types/Types.ts";
+
 /**
  * Returns the decimal format of the given coordinate.
  *
  * @param coordinate
  * @returns {string}
  */
-const getDecimal = (coordinate) => {
+const getDecimal = (coordinate: TypeCoordinate): string =>
+{
     return coordinate.latitude.decimal + ", " + coordinate.longitude.decimal;
 }
 
@@ -14,7 +18,8 @@ const getDecimal = (coordinate) => {
  * @param coordinate
  * @returns {string}
  */
-const getDms = (coordinate) => {
+const getDms = (coordinate: TypeCoordinate): string =>
+{
     return coordinate.latitude.dms + ", " + coordinate.longitude.dms;
 }
 

@@ -2,8 +2,8 @@ import React, {useEffect, useMemo} from 'react';
 import {Route, Routes, useNavigate } from 'react-router-dom';
 
 /* Add functions */
-import redirect from "./redirect/Redirect";
-import addOnScrollListener from "./functions/AddOnScrollListener";
+import redirect from "./redirect/Redirect.ts";
+import addOnScrollListener from "./functions/AddOnScrollListener.ts";
 
 /* Add components */
 import About from "./components/pages/About";

@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Changelogs
 
+### [0.1.18] - 2023-01-20
+
+* Add user and location distance
+* Component and function refactoring
+* Location search refactoring
+* Bind search API to search form
+* API search refactoring
+* Add location api version 0.1.34
+
 ### [0.1.17] - 2023-01-07
 
 * Preparing the app for the Location API

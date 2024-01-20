@@ -13,8 +13,10 @@ import {
     getApiPathList,
     sortByName,
     sortByRelevanceUser,
-    sortByDistanceUser, sortByDistance, sortByRelevance
-} from "../../functions/Query";
+    sortByDistanceUser,
+    sortByDistance,
+    sortByRelevance
+} from "../../functions/Query.ts";
 import {searchTypeListWithFeatures, searchTypeCoordinate} from "../../functions/SearchType";
 
 /* Add component parts */

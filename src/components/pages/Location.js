@@ -5,8 +5,10 @@ import {useSearchParams} from "react-router-dom";
 import loadApiData from "../../functions/LoadApiData.ts";
 import {
     getQuery,
-    getApiPathDetail, addCurrentPositionToQuery, getFilterConfig,
-} from "../../functions/Query";
+    getApiPathDetail,
+    addCurrentPositionToQuery,
+    getFilterConfig,
+} from "../../functions/Query.ts";
 import {convertToGermanFormat} from "../../functions/Date.ts";
 import {translateCountryCode} from "../../functions/Country.ts";
 

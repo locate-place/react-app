@@ -22,8 +22,8 @@ const Contact = () => {
                             </div>
                             <div className="card-body">
                                 <p className="card-text">
-                                    Bj&ouml;rn Hempel<br/>
-                                    K&ouml;nigstr. 3<br/>
+                                    Björn Hempel<br/>
+                                    Königstr. 3<br/>
                                     01097 Dresden
                                 </p>
                             </div>

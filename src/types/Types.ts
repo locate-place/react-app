@@ -64,6 +64,22 @@ type TypePlace = {
     'feature': TypeFeature;
 }
 
+type TypeFilterConfig = {
+    'q'?: string;
+    'c'?: string;
+    'country'?: string;
+    'language'?: string;
+    'distance'?: string;
+    'limit'?: string;
+    's'?: string;
+    'next_places'?: string;
+}
+
+type TypeQuerFeatureCode = {
+    code: string;
+    translated: string;
+}
+
 /*
  * Export functions.
  */
@@ -76,5 +92,8 @@ export {
     TypeSrcSet,
     TypeHoliday,
     TypeHolidays,
-    TypePlace
+    TypeFeature,
+    TypePlace,
+    TypeFilterConfig,
+    TypeQuerFeatureCode
 }

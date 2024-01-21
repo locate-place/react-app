@@ -64,7 +64,7 @@ const NextPlaces = ({nextPlaces}: NextPlacesProps) =>
                                 <td className="column-compass"></td>
                                 <td className="column-name">
                                     <small>
-                                        <kbd>{place.feature['code']}</kbd> <strong>{index + 1}) {place.name}</strong><br/>
+                                        <kbd className="shadow-own">{place.feature['code']}</kbd> <strong>{index + 1}) {place.name}</strong><br/>
                                         {place.feature['code-name']}
                                         {getElevation(place, ' - ')}
                                         {getPopulation(place, ' - ')}
@@ -76,7 +76,7 @@ const NextPlaces = ({nextPlaces}: NextPlacesProps) =>
                                         <>
                                             <td className="column-value">
                                                 <a
-                                                    className="btn btn-primary"
+                                                    className="btn btn-primary shadow-own"
                                                     href={place.links.maps.google}
                                                     target={'_blank'}
                                                     rel="noreferrer"

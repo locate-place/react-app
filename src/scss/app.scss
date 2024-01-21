@@ -12,17 +12,49 @@ body {
 
     .shadow-own {
         border-radius: 6px;
-        background: #fff;
         box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(0,0,0,.05);
         transition: .3s transform cubic-bezier(.155,1.105,.295,1.12),.3s box-shadow,.3s -webkit-transform cubic-bezier(.155,1.105,.295,1.12);
     }
 
+    table.location-detail {
+        tr {
+            td {
+                padding: 12px 20px;
+
+                table {
+                    tr {
+                        td {
+                            padding: 0;
+
+                            &.table-left {
+                                text-align: left;
+                                vertical-align: top;
+                            }
+
+                            &.table-right {
+                                text-align: right;
+
+                                button {
+                                    margin-top: 0 !important;
+                                    margin-bottom: 0 !important;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     .button-own-position {
         background-color: #dfebfd;
-        border-top-left-radius: 6px;
-        border-bottom-left-radius: 6px;
-        margin-left: -6px;
-        z-index: 100;
+
+        &.button-own-position-search {
+            border-top-left-radius: 6px;
+            border-bottom-left-radius: 6px;
+            margin-left: -6px;
+            z-index: 100;
+        }
 
         &:hover {
             background-color: #0d6efd;

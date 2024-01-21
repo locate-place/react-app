@@ -122,8 +122,8 @@ const Locations = () =>
                                     </>
                             }
 
-                            <div className="float-end">
-                                <div className="btn-group pb-3">
+                            <div className="float-end pb-3">
+                                <div className="btn-group shadow-own">
                                 {/* Own position indicator */}
                                     <button
                                         className="btn btn-outline-secondary without-hover"

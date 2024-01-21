@@ -5,6 +5,8 @@ import {sizeIcon} from "../../config/Config.ts";
 
 /* Bootstrap icons; see https://icons.getbootstrap.com/?q=sort#usage */
 import {GlobeAmericas, CursorFill} from "react-bootstrap-icons";
+
+/* Import functions */
 import {getPathLocationApi, redirectCurrentPosition} from "../../functions/Query.ts";
 
 type SearchFormProps = {
@@ -75,7 +77,7 @@ const SearchForm = ({routePathDefault, queryDefault}: SearchFormProps) =>
                             onChange={handleChange}
                         />
                         <button
-                            className="btn btn-outline-primary button-own-position"
+                            className="btn btn-outline-primary button-own-position button-own-position-search"
                             title="Suche nach aktuellem Standort"
                             type="button"
                             onClick={redirectCurrentPosition}

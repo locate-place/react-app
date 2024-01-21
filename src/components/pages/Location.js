@@ -1,6 +1,9 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import {useSearchParams} from "react-router-dom";
 
+/* Add configurations */
+import {sizeIcon} from "../../config/Config.ts";
+
 /* Add functions */
 import loadApiData from "../../functions/LoadApiData.ts";
 import {
@@ -23,6 +26,9 @@ import SearchPerformance from "../layout/SearchPerformance.tsx";
 
 /* Flag icons; see https://github.com/stephenway/react-flagkit */
 import Flag from "react-flagkit";
+
+/* Bootstrap icons; see https://icons.getbootstrap.com/?q=sort#usage */
+import {CursorFill} from "react-bootstrap-icons";
 
 /**
  * This is the app locations component.
@@ -152,12 +158,14 @@ const Location = () =>
                                     {data.name}
                                 </h2>
 
-                                <table className="table table-last-line">
+                                <p>{data['name-full']}</p>
+
+                                <table
+                                    className="table table-last-line shadow-own mb-5 location-detail"
+                                    border={1}
+                                    style={{borderCollapse: 'collapse'}}
+                                >
                                     <tbody>
-                                        <tr>
-                                            <td className="fw-bold">Vollständiger Name</td>
-                                            <td colSpan={2}>{data['name-full']}</td>
-                                        </tr>
                                         {
                                             locationDistrictLocality ? <tr>
                                                 <td className="fw-bold">Stadtteil / Ortschaft</td>
@@ -207,22 +215,32 @@ const Location = () =>
                                             </tr> : <></>
                                         }
                                         {
-                                            distanceInKilometers ? <tr>
-                                                <td className="fw-bold">Entfernung</td>
-                                                <td colSpan={2} title={distanceText}>{distanceInKilometers}&nbsp;
-                                                    <sup><small>({distanceText})</small></sup></td>
-                                            </tr> : <tr>
-                                                <td className="fw-bold">Entfernung</td>
-                                                <td colSpan={2} title={distanceText}>
-                                                    Aktuelle Position ist unbekannt.<br/>
-                                                    <br/>
-                                                    <button
-                                                        className="btn btn-outline-primary"
-                                                        onClick={addCurrentPosition}
-                                                    >Bestimme aktuelle Position
-                                                    </button>
-                                                </td>
-                                            </tr>
+                                            distanceInKilometers ?
+                                                <tr>
+                                                    <td className="fw-bold">Entfernung</td>
+                                                    <td colSpan={2} title={distanceText}>
+                                                        {distanceInKilometers}&nbsp;
+                                                        <sup><small>({distanceText})</small></sup>
+                                                    </td>
+                                                </tr> :
+                                                <tr>
+                                                    <td className="fw-bold">Entfernung</td>
+                                                    <td title={distanceText} colSpan={2}>
+                                                        <table className="w-100"><tr>
+                                                            <td className="table-left">Aktuelle Position ist unbekannt.</td>
+                                                            <td className="table-right">
+                                                                <button
+                                                                    className="btn btn-outline-primary shadow-own mt-2 mb-2 button-own-position"
+                                                                    onClick={addCurrentPosition}
+                                                                    title="Bestimme aktuelle Position"
+                                                                >
+                                                                    <CursorFill size={sizeIcon.H3}/>
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
                                         }
                                         {
                                             featureClass ? <tr>

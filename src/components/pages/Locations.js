@@ -15,9 +15,9 @@ import {
     sortByRelevanceUser,
     sortByDistanceUser,
     sortByDistance,
-    sortByRelevance
+    sortByRelevance,
+    getIsCoordinateSearch
 } from "../../functions/Query.ts";
-import {searchTypeListWithFeatures, searchTypeCoordinate} from "../../functions/SearchType.ts";
 
 /* Add component parts */
 import Error from "../layout/Error.tsx";
@@ -66,15 +66,14 @@ const Locations = () =>
     let apiPathWithParameter = getApiPathList(searchParams, true);
     let apiPathWithoutParameter = getApiPathList(searchParams, false);
     let query = getQuery(searchParams);
-    let sort = getSort(searchParams);
+    let sort = getSort(searchParams, properties);
     let isQuerySearch = !!query;
 
     /* Check if the current position has been given. */
     let hasOwnPosition = properties.given && properties.given.coordinate && properties.given.coordinate.location;
     let ownPosition = hasOwnPosition ? (properties.given.coordinate.parsed.latitude.dms + ', ' + properties.given.coordinate.parsed.longitude.dms) : null;
 
-    let hasQuery = properties.given && properties.given.query;
-    let isCoordinateSearch = hasQuery && [searchTypeListWithFeatures, searchTypeCoordinate].includes(properties.given.query.parsed.type);
+    let isCoordinateSearch = getIsCoordinateSearch(properties);
 
     let numberResults = data.constructor === Array ? data.length : 0;
 
@@ -194,12 +193,20 @@ const Locations = () =>
                                 numberResults <= 0 ?
                                     <>
                                         <div>
-                                            <p>Keine Ergebnisse für "{query}" gefunden.</p>
+                                            {
+                                                query ?
+                                                    <p>Keine Ergebnisse für "{query}" gefunden.</p> :
+                                                    <p>Keine Ergebnisse gefunden.</p>
+                                            }
                                         </div>
                                     </> :
                                     <>
                                         <div>
-                                            <p>{numberResults} Ergebnisse für "{query}" gefunden.</p>
+                                            {
+                                                query ?
+                                                    <p>{numberResults} Ergebnisse für "{query}" gefunden.</p> :
+                                                    <p>{numberResults} Ergebnisse gefunden.</p>
+                                            }
                                         </div>
 
                                         {data.map((location, index) => (

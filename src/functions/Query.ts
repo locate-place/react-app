@@ -1,5 +1,10 @@
+import React from "react";
+
 /* Import types */
 import {TypeFilterConfig, TypeQuerFeatureCode} from "../types/Types.ts";
+
+/* Import search types */
+import {searchTypeCoordinate, searchTypeListWithFeatures} from "./SearchType.ts";
 
 /* Configurations */
 const reactPathLocations: string = '/locations.html';
@@ -20,7 +25,9 @@ const nameParameterNextPlaces: 'next_places' = 'next_places';
 
 /* Sort names */
 const nameSortDistance: 'distance' = 'distance';
+const nameSortDistanceUser: 'distance-user' = 'distance-user';
 const nameSortRelevance: 'relevance' ='relevance';
+const nameSortRelevanceUser: 'relevance-user' ='relevance-user';
 const nameSortName: 'name' = 'name';
 
 /**
@@ -49,9 +56,10 @@ const getQuery = (searchParams: URLSearchParams): string|null =>
  * Returns the query string from the search parameters.
  *
  * @param {URLSearchParams} searchParams
+ * @param {any} properties
  * @returns {string|null}
  */
-const getSort = (searchParams: URLSearchParams): string|null =>
+const getSort = (searchParams: URLSearchParams, properties: any): string|null =>
 {
     let sort = searchParams.get(nameParameterSort);
 
@@ -61,7 +69,10 @@ const getSort = (searchParams: URLSearchParams): string|null =>
 
     let query = getQuery(searchParams);
 
-    return (query ? nameSortRelevance : nameSortName);
+    return (query ?
+        (properties !== null && getIsCoordinateSearch(properties) ? nameSortRelevance : nameSortRelevanceUser) :
+        nameSortName
+    );
 };
 
 /**
@@ -168,6 +179,21 @@ const redirectSortByWithCurrentPosition = (filterConfig: TypeFilterConfig, sortN
     navigator.geolocation.getCurrentPosition((position) => {
         filter[nameParameterCoordinates] = getPosition(position);
         window.location.href = reactPathLocations + '?' + convertFilterToQueryString(filter);
+    });
+}
+
+/**
+ * Search with current position.
+ */
+const redirectCurrentPosition = (): void =>
+{
+    /* Create a new filter */
+    let filter: TypeFilterConfig = {};
+
+    navigator.geolocation.getCurrentPosition((position) => {
+        filter[nameParameterQuery] = getPosition(position);
+        filter[nameParameterNextPlaces] = '1';
+        window.location.href = reactPathLocation + '?' + convertFilterToQueryString(filter);
     });
 }
 
@@ -378,6 +404,17 @@ const getPathLocationApi = (query: string): string =>
 }
 
 /**
+ * Returns if this search is a coordinate search.
+ *
+ * @param properties
+ */
+const getIsCoordinateSearch = (properties: any): boolean =>
+{
+    let hasQuery = properties.given && properties.given.query;
+    return  hasQuery && [searchTypeListWithFeatures, searchTypeCoordinate].includes(properties.given.query.parsed.type);
+}
+
+/**
  * Removes all non-visible characters from string.
  *
  * @param inputString
@@ -388,10 +425,10 @@ const trimString = (inputString: string): string =>
 }
 
 const sortByDistance = (filterConfig: TypeFilterConfig) => redirectSortBy(filterConfig, nameSortDistance);
-const sortByDistanceUser = (filterConfig: TypeFilterConfig) => redirectSortByWithCurrentPosition(filterConfig, 'distance-user');
+const sortByDistanceUser = (filterConfig: TypeFilterConfig) => redirectSortByWithCurrentPosition(filterConfig, nameSortDistanceUser);
 const sortByName = (filterConfig: TypeFilterConfig) => redirectSortBy(filterConfig, nameSortName);
 const sortByRelevance = (filterConfig: TypeFilterConfig) => redirectSortBy(filterConfig, nameSortRelevance);
-const sortByRelevanceUser = (filterConfig: TypeFilterConfig) => redirectSortByWithCurrentPosition(filterConfig, 'relevance-user');
+const sortByRelevanceUser = (filterConfig: TypeFilterConfig) => redirectSortByWithCurrentPosition(filterConfig, nameSortRelevanceUser);
 
 
 
@@ -405,6 +442,7 @@ export {
     getFilterConfig,
     redirectSortBy,
     redirectSortByWithCurrentPosition,
+    redirectCurrentPosition,
     addCurrentPositionToQuery,
     getApiPathList,
     getApiPathDetail,
@@ -417,5 +455,6 @@ export {
     sortByRelevanceUser,
 
     getPathLocationApi,
-    trimString
+    trimString,
+    getIsCoordinateSearch
 }

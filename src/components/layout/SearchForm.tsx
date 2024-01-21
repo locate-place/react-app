@@ -4,8 +4,8 @@ import React, {useState} from "react";
 import {sizeIcon} from "../../config/Config.ts";
 
 /* Bootstrap icons; see https://icons.getbootstrap.com/?q=sort#usage */
-import {GlobeAmericas} from "react-bootstrap-icons";
-import {getPathLocationApi} from "../../functions/Query.ts";
+import {GlobeAmericas, Bullseye} from "react-bootstrap-icons";
+import {getPathLocationApi, redirectCurrentPosition} from "../../functions/Query.ts";
 
 type SearchFormProps = {
     routePathDefault: string,
@@ -64,6 +64,15 @@ const SearchForm = ({routePathDefault, queryDefault}: SearchFormProps) =>
                             defaultValue={query ? query : ''}
                             onChange={handleChange}
                         />
+                        <button
+                            className="btn btn-outline-primary"
+                            title="Suche nach aktuellem Standort"
+                            type="button"
+                            onClick={redirectCurrentPosition}
+                        >
+                            <Bullseye size={sizeIcon.H3} />
+                        </button>
+
                         <button
                             className="btn btn-primary"
                             type="submit"

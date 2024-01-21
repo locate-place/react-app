@@ -39,6 +39,18 @@ const Location = () =>
     /* Routes variables */
     const routePath = '/location.html';
 
+    /* Direction translation */
+    let directionTranslation = {
+        "N": "Norden",
+        "NE": "Nordosten",
+        "E": "Osten",
+        "SE": "Südosten",
+        "S": "Süden",
+        "SW": "Südwesten",
+        "W": "Westen",
+        "NW": "Nordwesten",
+    };
+
     /* API types */
     const typeLocationApi = useMemo(() => {
         return process.env.REACT_APP_TYPE_LOCATION_API;
@@ -72,7 +84,11 @@ const Location = () =>
     let coordinateLatitudeDms = hasCoordinate && data.coordinate.latitude ? data.coordinate.latitude.dms : null;
     let coordinateLongitudeDecimal = hasCoordinate && data.coordinate.longitude ? data.coordinate.longitude.decimal : null;
     let coordinateLongitudeDms = hasCoordinate && data.coordinate.longitude ? data.coordinate.longitude.dms : null;
-    let distanceInKilometers = hasCoordinate && data.coordinate['distance-user'] ? data.coordinate['distance-user'].kilometers['value-formatted'] : null;
+    let distanceInKilometersFormatted = hasCoordinate && data.coordinate['distance-user'] ? data.coordinate['distance-user'].kilometers['value-formatted'] : null;
+    let distanceInKilometers = hasCoordinate && data.coordinate['distance-user'] ? data.coordinate['distance-user'].kilometers['value'] : null;
+    let directionTranslated = hasCoordinate && data.coordinate['direction-user'] ? data.coordinate['direction-user']['cardinal-direction'] : null;
+    let directionDegree = hasCoordinate && data.coordinate['direction-user'] ? data.coordinate['direction-user']['degree'] : null;
+
     let distanceText = hasOwnPosition ? ('Von aktueller Position ' + properties.given.coordinate.parsed.latitude.dms + ', ' + properties.given.coordinate.parsed.longitude.dms) : '';
 
     /* Get feature parts */
@@ -225,14 +241,41 @@ const Location = () =>
                                         </tr> : <></>
                                     }
                                     {
-                                        distanceInKilometers ?
-                                            <tr>
-                                                <td className={classNamesFirstRow.join(' ')}>Entfernung</td>
-                                                <td className={classNamesSecondRow.join([' '])} colSpan={2} title={distanceText}>
-                                                    {distanceInKilometers}&nbsp;
-                                                    <sup><small>({distanceText})</small></sup>
-                                                </td>
-                                            </tr> :
+                                        hasCoordinate ?
+                                            <>
+                                                {
+                                                    distanceInKilometers > 0 ?
+                                                        <>
+                                                            <tr>
+                                                                <td className={classNamesFirstRow.join(' ')}>Entfernung</td>
+                                                                <td className={classNamesSecondRow.join([' '])}
+                                                                    colSpan={2}
+                                                                    title={distanceText}>
+                                                                    {distanceInKilometersFormatted}&nbsp;
+                                                                    <sup><small>({distanceText})</small></sup>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td className={classNamesFirstRow.join(' ')}>Richtung</td>
+                                                                <td className={classNamesSecondRow.join([' '])}
+                                                                    title={distanceText}
+                                                                >
+                                                                    {directionTranslation[directionTranslated] ?? 'Unbekannt'}
+                                                                </td>
+                                                                <td className={classNamesSecondRow.join([' '])} style={{display: "flex", justifyContent: "flex-end"}}>
+                                                                    <div
+                                                                        className="compass compass-direction shadow-own">
+                                                                        <div className="arrow arrow-direction"
+                                                                             data-degree={directionDegree}></div>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        </> :
+                                                        <>
+                                                        </>
+                                                }
+                                            </>
+                                            :
                                             <tr>
                                                 <td className={classNamesFirstRow.join(' ')}>Entfernung</td>
                                                 <td className={classNamesSecondRow.join([' '])} title={distanceText}>

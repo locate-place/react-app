@@ -13,7 +13,6 @@ import {translateCountryCode} from "../../functions/Country.ts";
 
 /* Add component parts */
 import CoordinateDistanceDirection from "./CoordinateDistanceDirection.tsx";
-import {TypeFilterConfig} from "../../types/Types.ts";
 
 type LocationCardProps = {
     location: any,
@@ -88,7 +87,7 @@ const LocationCard = ({location, properties, showOwnPosition}: LocationCardProps
                     <Flag country={location.properties.country} size={20} title={translateCountryCode(location.properties.country)} /> &nbsp;
                     {
                         showOwnPosition ?
-                        <span><span className="fw-bold">Aktuelle Position</span>: {location['name-full']}</span> :
+                        <span><span className="fw-bold">{location['name-full']}</span></span> :
                         <span><span className="fw-bold">Treffer</span>: {location.name}</span>
                     }
                 </div>

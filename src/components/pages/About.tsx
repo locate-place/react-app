@@ -12,30 +12,39 @@ import Loader from "../layout/Loader.tsx";
 import {faDatabase, faImages, faIndustry} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
+/* Import types. */
+import {TypeApiProperties, TypeDataVersion, TypeError, TypeLoaded} from "../../types/Types.ts";
+
 /**
  * This is the about page.
  */
 const About = () => {
     /* API types */
-    const typeCalendarBuilder = useMemo(() => {
-        return process.env.REACT_APP_TYPE_CALENDAR_BUILDER;
+    const typeCalendarBuilder: string = useMemo(() => {
+        return process.env.REACT_APP_TYPE_CALENDAR_BUILDER !== undefined ?
+            process.env.REACT_APP_TYPE_CALENDAR_BUILDER :
+            'calendar-builder'
+        ;
     }, []);
     const typeLocationApi = useMemo(() => {
-        return process.env.REACT_APP_TYPE_LOCATION_API;
+        return process.env.REACT_APP_TYPE_LOCATION_API !== undefined ?
+            process.env.REACT_APP_TYPE_LOCATION_API :
+            'location-api'
+        ;
     }, []);
 
     /* Calendar Builder variables */
-    const [errorCalendarBuilder, setErrorCalendarBuilder] = useState(null);
-    const [loadedCalendarBuilder, setLoadedCalendarBuilder] = useState(false);
-    const [dataCalendarBuilder, setDataCalendarBuilder] = useState([]);
-    const [propertiesCalendarBuilder, setPropertiesCalendarBuilder] = useState([]);
+    const [loadedCalendarBuilder, setLoadedCalendarBuilder] = useState<TypeLoaded>(false);
+    const [errorCalendarBuilder, setErrorCalendarBuilder] = useState<TypeError>(null);
+    const [dataCalendarBuilder, setDataCalendarBuilder] = useState<TypeDataVersion|null>(null);
+    const [propertiesCalendarBuilder, setPropertiesCalendarBuilder] = useState<TypeApiProperties|null>(null);
     const apiPathCalendarBuilder = '/api/v1/version.json';
 
     /* Location API variables */
-    const [errorLocationApi, setErrorLocationApi] = useState(null);
-    const [loadedLocationApi, setLoadedLocationApi] = useState(false);
-    const [dataLocationApi, setDataLocationApi] = useState([]);
-    const [propertiesLocationApi, setPropertiesLocationApi] = useState([]);
+    const [loadedLocationApi, setLoadedLocationApi] = useState<TypeLoaded>(false);
+    const [errorLocationApi, setErrorLocationApi] = useState<TypeError>(null);
+    const [dataLocationApi, setDataLocationApi] = useState<TypeDataVersion|null>(null);
+    const [propertiesLocationApi, setPropertiesLocationApi] = useState<TypeApiProperties|null>(null);
     const apiPathLocationApi = '/api/v1/version.json';
 
     /**
@@ -147,9 +156,13 @@ const About = () => {
                                                 </li>
                                             </ul>
                                         </div>
-                                        <div className="card-footer fst-italic">
-                                            <small><small>Version {dataCalendarBuilder.version} - {dataCalendarBuilder.date}</small></small>
-                                        </div>
+                                        {
+                                            dataCalendarBuilder ?
+                                                <div className="card-footer fst-italic">
+                                                    <small><small>Version {dataCalendarBuilder.version} - {dataCalendarBuilder.date}</small></small>
+                                                </div> :
+                                                <></>
+                                        }
                                     </div>
                                 </div>
 
@@ -194,9 +207,13 @@ const About = () => {
                                                 </li>
                                             </ul>
                                         </div>
-                                        <div className="card-footer fst-italic">
-                                            <small><small>Version {dataLocationApi.version} - {dataLocationApi.date}</small></small>
-                                        </div>
+                                        {
+                                            dataLocationApi ?
+                                                <div className="card-footer fst-italic">
+                                                    <small><small>Version {dataLocationApi.version} - {dataLocationApi.date}</small></small>
+                                                </div> :
+                                                <></>
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -209,8 +226,8 @@ const About = () => {
                         errorCalendarBuilder === null && errorLocationApi === null ?
                             <Loader/> : (
                                 errorCalendarBuilder !== null ?
-                                    <Error error={errorCalendarBuilder} apiPath={propertiesCalendarBuilder['api-url']} /> :
-                                    <Error error={errorLocationApi} apiPath={propertiesLocationApi['api-url']} />
+                                    <Error error={errorCalendarBuilder} apiPath={propertiesCalendarBuilder ? propertiesCalendarBuilder['api-url'] : 'Unknown'} /> :
+                                    <Error error={errorLocationApi} apiPath={propertiesLocationApi ? propertiesLocationApi['api-url']: 'Unknown'} />
                             )
                     )}
                 </div>

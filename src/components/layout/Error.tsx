@@ -1,11 +1,10 @@
 import React from "react";
 
-interface keyable {
-    [message: string]: string
-}
+/* Import types */
+import {TypeError} from "../../types/Types.ts";
 
 type ErrorProps = {
-    error: keyable,
+    error: TypeError,
     apiPath: string,
 }
 
@@ -20,7 +19,7 @@ const Error = ({error, apiPath}: ErrorProps) => {
                     <div className="card-text text-center text-danger">
                         Fehler beim Versuch, den Api-Endpunkt abzurufen.<br/>
                         API: <a href={apiPath} target="_blank" rel="noreferrer">{apiPath}</a><br/>
-                        Fehler: {error.message}
+                        Fehler: {error ? error.message : 'Unknown error'}<br/>
                     </div>
                 </div>
             </div>

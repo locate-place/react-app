@@ -6,7 +6,7 @@ import redirect from "./redirect/Redirect.ts";
 import addOnScrollListener from "./functions/AddOnScrollListener.ts";
 
 /* Add components */
-import About from "./components/pages/About";
+import About from "./components/pages/About.tsx";
 import Calendars from "./components/pages/Calendars";
 import Calendar from "./components/pages/Calendar";
 import Contact from "./components/pages/Contact.tsx";

@@ -2,16 +2,19 @@ import React from "react";
 import axios from "axios";
 import semver from "semver";
 
+/* Import types. */
+import {TypeApiProperties, TypeDataVersion, TypeError, TypeLoaded} from "../types/Types.ts";
+
 /**
  * API data load function.
  */
 const loadApiData = (
     type: string,
     path: string,
-    setLoaded: React.FC,
-    setError: React.FC,
-    setData: React.FC,
-    setProperties: React.FC
+    setLoaded: React.Dispatch<React.SetStateAction<TypeLoaded>>,
+    setError: React.Dispatch<React.SetStateAction<TypeError>>,
+    setData: React.Dispatch<React.SetStateAction<TypeDataVersion|null>>,
+    setProperties: React.Dispatch<React.SetStateAction<TypeApiProperties|null>>
 ) =>
 {
     let url: string|null = null;
@@ -84,17 +87,17 @@ const loadApiData = (
 
             if (setProperties) {
                 setProperties({
-                    'date': data['date'],
-                    'given': data['given'],
-                    'memory-taken': data['memory-taken'],
-                    'time-taken': data['time-taken'],
-                    'valid': data['valid'],
-                    'version': data['version'],
-                    'name': name,
-                    'url': url,
-                    'path': path,
-                    'type': type,
-                    'api-url': apiUrl
+                    "date": data['date'],
+                    "given": data['given'],
+                    "memory-taken": data['memory-taken'],
+                    "time-taken": data['time-taken'],
+                    "valid": data['valid'],
+                    "version": data['version'],
+                    "name": name,
+                    "url": url,
+                    "path": path,
+                    "type": type,
+                    "api-url": apiUrl
                 });
             }
         })
@@ -102,11 +105,12 @@ const loadApiData = (
             setLoaded(false);
             setError(error);
             setProperties({
-                'name': name,
-                'url': url,
-                'path': path,
-                'type': type,
-                'api-url': apiUrl
+                "valid": false,
+                "name": name,
+                "url": url,
+                "path": path,
+                "type": type,
+                "api-url": apiUrl
             });
         });
 }

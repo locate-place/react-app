@@ -1,33 +1,33 @@
 type TypeValue = {
-    'value': number;
-    'unit': string;
-    'value-formatted': string;
+    "value": number;
+    "unit": string;
+    "value-formatted": string;
 }
 
 type TypeDistance = {
-    'meters': TypeValue,
-    'kilometers': TypeValue
+    "meters": TypeValue,
+    "kilometers": TypeValue
 }
 
 type TypePosition = {
-    'decimal': number,
-    'dms': string,
+    "decimal": number,
+    "dms": string,
 }
 
 type TypeDirection = {
-    'degrees': number,
-    'cardinal-direction': string,
-    'cardinal-direction-translated': string
+    "degrees": number,
+    "cardinal-direction": string,
+    "cardinal-direction-translated": string
 }
 
 type TypeCoordinate = {
-    'latitude': TypePosition,
-    'longitude': TypePosition,
-    'srid': number,
-    'distance': TypeDistance,
-    'direction': TypeDirection
-    'distance-user': TypeDistance,
-    'direction-user': TypeDirection
+    "latitude": TypePosition,
+    "longitude": TypePosition,
+    "srid": number,
+    "distance": TypeDistance,
+    "direction": TypeDirection
+    "distance-user": TypeDistance,
+    "direction-user": TypeDirection
 }
 
 type TypeLocation = {
@@ -35,65 +35,90 @@ type TypeLocation = {
 }
 
 type TypeSrcSet = {
-    'srcSet': string;
-    'media': string;
+    "srcSet": string;
+    "media": string;
 }
 
 type TypeBirthday = {
-    'date': string;
-    'name': string;
-    'name_short': string;
+    "date": string;
+    "name": string;
+    "name_short": string;
 };
 
 type TypeHoliday = {
-    'date': string;
-    'name': string;
-    'name_short': string;
+    "date": string;
+    "name": string;
+    "name_short": string;
 };
 
 type TypeBirthdays = {
-    'birthdays': TypeBirthday[][];
+    "birthdays": TypeBirthday[][];
 }
 
 type TypeHolidays = {
-    'holidays': TypeHoliday[];
+    "holidays": TypeHoliday[];
 }
 
 type TypeProperties = {
-    'elevation'?: TypeValue;
-    'population'?: TypeValue;
-    'country': string;
+    "elevation"?: TypeValue;
+    "population"?: TypeValue;
+    "country": string;
 }
 
 type TypeFeature = {
-    'code': string;
-    'code-name': string;
-    'class': string;
-    'class-name': string;
+    "code": string;
+    "code-name": string;
+    "class": string;
+    "class-name": string;
 }
 
 type TypePlace = {
-    'geoname-id': number;
-    'name': string;
-    'updated-at': string;
-    'properties': TypeProperties;
-    'feature': TypeFeature;
+    "geoname-id": number;
+    "name": string;
+    "updated-at": string;
+    "properties": TypeProperties;
+    "feature": TypeFeature;
 }
 
 type TypeFilterConfig = {
-    'q'?: string;
-    'c'?: string;
-    'country'?: string;
-    'language'?: string;
-    'distance'?: string;
-    'limit'?: string;
-    's'?: string;
-    'next_places'?: string;
+    "q"?: string;
+    "c"?: string;
+    "country"?: string;
+    "language"?: string;
+    "distance"?: string;
+    "limit"?: string;
+    "s"?: string;
+    "next_places"?: string;
 }
 
 type TypeQuerFeatureCode = {
-    code: string;
-    translated: string;
+    "code": string;
+    "translated": string;
+}
+
+type TypeError = {
+    "message": string
+}|null;
+
+type TypeLoaded = boolean;
+
+type TypeDataVersion = {
+    "version": string;
+    "date": string;
+}
+
+type TypeApiProperties = {
+    "date"?: string;
+    "given"?: string;
+    "memory-taken"?: string;
+    "time-taken"?: string;
+    "valid": boolean;
+    "version"?: string;
+    "name": string|null;
+    "url": string|null;
+    "path": string;
+    "type": string;
+    "api-url": string;
 }
 
 /*
@@ -114,5 +139,9 @@ export {
     TypeFeature,
     TypePlace,
     TypeFilterConfig,
-    TypeQuerFeatureCode
+    TypeQuerFeatureCode,
+    TypeError,
+    TypeLoaded,
+    TypeDataVersion,
+    TypeApiProperties
 }

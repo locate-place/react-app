@@ -54,7 +54,8 @@ const NextPlaces = ({nextPlaces}: NextPlacesProps) =>
                 <p><small>
                     <strong>Suchparameter</strong>:&nbsp;
                     Abstand {convertMeterToKilometer(nextPlaces.config['distance-meter'])} -&nbsp;
-                    Limitierung {nextPlaces.config['limit']}
+                    Limitierung {nextPlaces.config['limit']} -&nbsp;
+                    Sortiert nach Entfernung zur Suche
                 </small></p>
                 <table className="table table-last-line">
                     <tbody>

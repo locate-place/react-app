@@ -90,7 +90,7 @@ const SearchMetrics = ({
                                             data-bs-parent="#accordion"
                                             id="parsedQuery"
                                         >
-                                            <h3><GraphUp size={sizeIcon.H3}/> Such-Metriken</h3>
+                                            <h3 className="mt-3"><GraphUp size={sizeIcon.H3}/> Such-Metriken</h3>
                                             <div className="card card-hover mb-4"
                                                  style={{'backgroundColor': 'rgb(233, 235, 228)'}}>
                                                 <div className="card-header">
@@ -148,7 +148,9 @@ const SearchMetrics = ({
                                                         <strong>Query</strong>: <span
                                                         className="fst-italic">"{parsedQuery.raw}"</span>
                                                         <br/>
-                                                        <strong>Performance</strong>: {properties['time-taken']}, {properties['memory-taken']} - <strong>{properties['name']}</strong>: Version {properties['version']}
+                                                        <strong>Performance</strong>: {properties['time-taken']}, {properties['memory-taken']}
+                                                        <br/>
+                                                        <strong>{properties['name']}</strong>: Version {properties['version']}
                                                     </small></small>
                                                 </div>
                                             </div>
@@ -164,7 +166,7 @@ const SearchMetrics = ({
                                             data-bs-parent="#accordion"
                                             id="currentPosition"
                                         >
-                                            <h3>Aktuelle Position</h3>
+                                            <h3 className="mt-3">Aktuelle Position</h3>
                                             <LocationCard
                                                 location={properties.given.coordinate.location}
                                                 properties={properties}

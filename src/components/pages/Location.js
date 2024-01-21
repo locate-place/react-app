@@ -181,7 +181,7 @@ const Location = () =>
                                     <div className="disc" id="compassDisc"></div>
                                 </div>
 
-                                <h2>
+                                <h2 className="mt-3">
                                     <Flag country={propertyCountryCode} size="20"
                                           title={translateCountryCode(propertyCountryCode)}/> &nbsp;
                                     {data.name}

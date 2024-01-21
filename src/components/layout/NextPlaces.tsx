@@ -4,6 +4,7 @@ import React from "react";
 import {convertMeterToKilometer} from "../../functions/Distance.ts";
 import {getDms} from "../../functions/Coordinate.ts";
 import {getElevation, getPopulation} from "../../functions/Properties.ts";
+import {addSoftHyphens} from "../../functions/Text.ts";
 
 type NextPlacesProps = {
     nextPlaces: any,
@@ -68,7 +69,7 @@ const NextPlaces = ({nextPlaces}: NextPlacesProps) =>
                                 </td>
                                 <td className="column-name">
                                     <small>
-                                    <kbd className="shadow-own">{place.feature['code']}</kbd> <strong>{index + 1}) {place.name}</strong><br/>
+                                    <kbd className="shadow-own">{place.feature['code']}</kbd> <br className="d-block d-sm-none" /><strong dangerouslySetInnerHTML={{__html: (index + 1) + ') ' + addSoftHyphens(place.name)}} /><br/>
                                         {place.feature['code-name']}
                                         {getElevation(place, ' - ')}
                                         {getPopulation(place, ' - ')}

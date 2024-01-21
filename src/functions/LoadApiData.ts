@@ -14,7 +14,8 @@ const loadApiData = (
     setLoaded: React.Dispatch<React.SetStateAction<TypeLoaded>>,
     setError: React.Dispatch<React.SetStateAction<TypeError>>,
     setData: React.Dispatch<React.SetStateAction<TypeDataVersion|null>>,
-    setProperties: React.Dispatch<React.SetStateAction<TypeApiProperties|null>>
+    setProperties: React.Dispatch<React.SetStateAction<TypeApiProperties|null>>,
+    callback: Function|null = null
 ) =>
 {
     let url: string|null = null;
@@ -99,6 +100,10 @@ const loadApiData = (
                     "type": type,
                     "api-url": apiUrl
                 });
+            }
+
+            if (callback !== null) {
+                callback();
             }
         })
         .catch(error => {

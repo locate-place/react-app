@@ -61,10 +61,14 @@ const NextPlaces = ({nextPlaces}: NextPlacesProps) =>
                     <tbody>
                         {nextPlaces.places.map((place: any, index: string) =>
                             <tr key={'place-' + nextPlaces.feature['class-name'] + '-' + index}>
-                                <td className="column-compass"></td>
+                                <td className="table-compass">
+                                    <div className="compass compass-direction shadow-own">
+                                        <div className="arrow arrow-direction" data-degree={place.coordinate.direction['degree']}></div>
+                                    </div>
+                                </td>
                                 <td className="column-name">
                                     <small>
-                                        <kbd className="shadow-own">{place.feature['code']}</kbd> <strong>{index + 1}) {place.name}</strong><br/>
+                                    <kbd className="shadow-own">{place.feature['code']}</kbd> <strong>{index + 1}) {place.name}</strong><br/>
                                         {place.feature['code-name']}
                                         {getElevation(place, ' - ')}
                                         {getPopulation(place, ' - ')}

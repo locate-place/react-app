@@ -191,8 +191,12 @@ const redirectCurrentPosition = (): void =>
     let filter: TypeFilterConfig = {};
 
     navigator.geolocation.getCurrentPosition((position) => {
-        filter[nameParameterQuery] = getPosition(position);
+        let coordinate: string = getPosition(position);
+
+        filter[nameParameterQuery] = coordinate;
+        filter[nameParameterCoordinates] = coordinate;
         filter[nameParameterNextPlaces] = '1';
+
         window.location.href = reactPathLocation + '?' + convertFilterToQueryString(filter);
     });
 }

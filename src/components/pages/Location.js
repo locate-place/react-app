@@ -14,6 +14,7 @@ import {
 } from "../../functions/Query.ts";
 import {convertToGermanFormat} from "../../functions/Date.ts";
 import {translateCountryCode} from "../../functions/Country.ts";
+import initializeCompass from "../../functions/Compass.ts";
 
 /* Add component parts */
 import Error from "../layout/Error.tsx";
@@ -129,7 +130,10 @@ const Location = () =>
             setLoaded,
             setError,
             setData,
-            setProperties
+            setProperties,
+            () => {
+                initializeCompass();
+            }
         );
     }, [typeLocationApi, apiPathWithParameter]);
 
@@ -153,8 +157,14 @@ const Location = () =>
                             <SearchMetrics properties={properties} />
 
                             <div>
+                                <div className="compass" id="compass">
+                                    <div className="arrow"></div>
+                                    <div className="disc" id="compassDisc"></div>
+                                </div>
+
                                 <h2>
-                                    <Flag country={propertyCountryCode} size="20" title={translateCountryCode(propertyCountryCode)} /> &nbsp;
+                                    <Flag country={propertyCountryCode} size="20"
+                                          title={translateCountryCode(propertyCountryCode)}/> &nbsp;
                                     {data.name}
                                 </h2>
 
@@ -162,72 +172,74 @@ const Location = () =>
 
                                 <table
                                     className="table table-last-line shadow-own mb-5 location-detail"
-                                    border={1}
                                     style={{borderCollapse: 'collapse'}}
                                 >
                                     <tbody>
-                                        {
-                                            locationDistrictLocality ? <tr>
-                                                <td className="fw-bold">Stadtteil / Ortschaft</td>
-                                                <td colSpan={2}>{locationDistrictLocality.name}</td>
-                                            </tr> : <></>
-                                        }
-                                        {
-                                            locationCityMunicipality ? <tr>
-                                                <td className="fw-bold">Stadt / Gemeinde</td>
-                                                <td colSpan={2}>{locationCityMunicipality.name}</td>
-                                            </tr> : <></>
-                                        }
-                                        {
-                                            locationState ? <tr>
-                                                <td className="fw-bold">Bundesland</td>
-                                                <td colSpan={2}>{locationState.name}</td>
-                                            </tr> : <></>
-                                        }
-                                        {
-                                            locationCountry ? <tr>
-                                                <td className="fw-bold">Land</td>
-                                                <td colSpan={2}>{locationCountry.name}</td>
-                                            </tr> : <></>
-                                        }
-                                        <tr>
-                                            <td className="fw-bold">Ländercode</td>
-                                            <td colSpan={2}>{propertyCountryCode}</td>
-                                        </tr>
-                                        {
-                                            hasPropertyElevation ? <tr>
-                                                <td className="fw-bold">Höhe</td>
-                                                <td colSpan={2}>{propertyElevation}</td>
-                                            </tr> : <></>
-                                        }
-                                        {
-                                            coordinateLatitudeDecimal ? <tr>
-                                                <td className="fw-bold">Latitude</td>
-                                                <td>{coordinateLatitudeDms}</td>
-                                                <td>{coordinateLatitudeDecimal}°</td>
-                                            </tr> : <></>
-                                        }
-                                        {
-                                            coordinateLongitudeDecimal ? <tr>
-                                                <td className="fw-bold">Longitude</td>
-                                                <td>{coordinateLongitudeDms}</td>
-                                                <td>{coordinateLongitudeDecimal}°</td>
-                                            </tr> : <></>
-                                        }
-                                        {
-                                            distanceInKilometers ?
-                                                <tr>
-                                                    <td className="fw-bold">Entfernung</td>
-                                                    <td colSpan={2} title={distanceText}>
-                                                        {distanceInKilometers}&nbsp;
-                                                        <sup><small>({distanceText})</small></sup>
-                                                    </td>
-                                                </tr> :
-                                                <tr>
-                                                    <td className="fw-bold">Entfernung</td>
-                                                    <td title={distanceText} colSpan={2}>
-                                                        <table className="w-100"><tr>
-                                                            <td className="table-left">Aktuelle Position ist unbekannt.</td>
+                                    {
+                                        locationDistrictLocality ? <tr>
+                                            <td className="fw-bold">Stadtteil / Ortschaft</td>
+                                            <td colSpan={2}>{locationDistrictLocality.name}</td>
+                                        </tr> : <></>
+                                    }
+                                    {
+                                        locationCityMunicipality ? <tr>
+                                            <td className="fw-bold">Stadt / Gemeinde</td>
+                                            <td colSpan={2}>{locationCityMunicipality.name}</td>
+                                        </tr> : <></>
+                                    }
+                                    {
+                                        locationState ? <tr>
+                                            <td className="fw-bold">Bundesland</td>
+                                            <td colSpan={2}>{locationState.name}</td>
+                                        </tr> : <></>
+                                    }
+                                    {
+                                        locationCountry ? <tr>
+                                            <td className="fw-bold">Land</td>
+                                            <td colSpan={2}>{locationCountry.name}</td>
+                                        </tr> : <></>
+                                    }
+                                    <tr>
+                                        <td className="fw-bold">Ländercode</td>
+                                        <td colSpan={2}>{propertyCountryCode}</td>
+                                    </tr>
+                                    {
+                                        hasPropertyElevation ? <tr>
+                                            <td className="fw-bold">Höhe</td>
+                                            <td colSpan={2}>{propertyElevation}</td>
+                                        </tr> : <></>
+                                    }
+                                    {
+                                        coordinateLatitudeDecimal ? <tr>
+                                            <td className="fw-bold">Latitude</td>
+                                            <td>{coordinateLatitudeDms}</td>
+                                            <td>{coordinateLatitudeDecimal}°</td>
+                                        </tr> : <></>
+                                    }
+                                    {
+                                        coordinateLongitudeDecimal ? <tr>
+                                            <td className="fw-bold">Longitude</td>
+                                            <td>{coordinateLongitudeDms}</td>
+                                            <td>{coordinateLongitudeDecimal}°</td>
+                                        </tr> : <></>
+                                    }
+                                    {
+                                        distanceInKilometers ?
+                                            <tr>
+                                                <td className="fw-bold">Entfernung</td>
+                                                <td colSpan={2} title={distanceText}>
+                                                    {distanceInKilometers}&nbsp;
+                                                    <sup><small>({distanceText})</small></sup>
+                                                </td>
+                                            </tr> :
+                                            <tr>
+                                                <td className="fw-bold">Entfernung</td>
+                                                <td title={distanceText} colSpan={2}>
+                                                    <table className="w-100"><tbody>
+                                                        <tr>
+                                                            <td className="table-left">
+                                                                Nutzerstandort ist unbekannt.
+                                                            </td>
                                                             <td className="table-right">
                                                                 <button
                                                                     className="btn btn-outline-primary shadow-own mt-2 mb-2 button-own-position"
@@ -238,43 +250,43 @@ const Location = () =>
                                                                 </button>
                                                             </td>
                                                         </tr>
-                                                        </table>
-                                                    </td>
-                                                </tr>
-                                        }
-                                        {
-                                            featureClass ? <tr>
-                                                <td className="fw-bold">Oberschlüssel</td>
-                                                <td><code>{featureClass}</code></td>
-                                                <td>{featureClassName}</td>
-                                            </tr> : <></>
-                                        }
-                                        {
-                                            featureCode ? <tr>
-                                                <td className="fw-bold">Schlüssel</td>
-                                                <td><code>{featureCode}</code></td>
-                                                <td>{featureCodeName}</td>
-                                            </tr> : <></>
-                                        }
-                                        {
-                                            hasTimezone ? <tr>
-                                                <td className="fw-bold">Zeitzone</td>
-                                                <td colSpan={2}>{timezone} <code>{timezoneOffset}</code></td>
-                                            </tr> : <></>
-                                        }
-                                        <tr>
-                                            <td className="fw-bold">Geoname ID</td>
-                                            <td colSpan={2}>{data['geoname-id']}</td>
-                                        </tr>
-                                        <tr>
-                                            <td className="fw-bold">Letztes Update</td>
-                                            <td colSpan={2}>{convertToGermanFormat(data['updated-at'])}</td>
-                                        </tr>
+                                                    </tbody></table>
+                                                </td>
+                                            </tr>
+                                    }
+                                    {
+                                        featureClass ? <tr>
+                                            <td className="fw-bold">Oberschlüssel</td>
+                                            <td><code>{featureClass}</code></td>
+                                            <td>{featureClassName}</td>
+                                        </tr> : <></>
+                                    }
+                                    {
+                                        featureCode ? <tr>
+                                            <td className="fw-bold">Schlüssel</td>
+                                            <td><code>{featureCode}</code></td>
+                                            <td>{featureCodeName}</td>
+                                        </tr> : <></>
+                                    }
+                                    {
+                                        hasTimezone ? <tr>
+                                            <td className="fw-bold">Zeitzone</td>
+                                            <td colSpan={2}>{timezone} <code>{timezoneOffset}</code></td>
+                                        </tr> : <></>
+                                    }
+                                    <tr>
+                                        <td className="fw-bold">Geoname ID</td>
+                                        <td colSpan={2}>{data['geoname-id']}</td>
+                                    </tr>
+                                    <tr>
+                                        <td className="fw-bold">Letztes Update</td>
+                                        <td colSpan={2}>{convertToGermanFormat(data['updated-at'])}</td>
+                                    </tr>
                                     </tbody>
                                 </table>
                             </div>
 
-                            {hasNextPlacesA ? <NextPlaces nextPlaces={nextPlacesA} /> : <></>}
+                            {hasNextPlacesA ? <NextPlaces nextPlaces={nextPlacesA}/> : <></>}
                             {hasNextPlacesP ? <NextPlaces nextPlaces={nextPlacesP} /> : <></>}
                             {hasNextPlacesH ? <NextPlaces nextPlaces={nextPlacesH} /> : <></>}
                             {hasNextPlacesL ? <NextPlaces nextPlaces={nextPlacesL} /> : <></>}

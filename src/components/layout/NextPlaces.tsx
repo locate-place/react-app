@@ -78,7 +78,7 @@ const NextPlaces = ({nextPlaces}: NextPlacesProps) =>
                                                     className="btn btn-primary"
                                                     href={place.links.maps.google}
                                                     target={'_blank'}
-                                                    rel='noreferrer'
+                                                    rel="noreferrer"
                                                     title={
                                                         'Abstand und Richtung entsprechend ' +
                                                         (

@@ -104,7 +104,7 @@ const About = () => {
                                             Build on top of <a
                                                 href={'https://react.dev/blog/2022/03/29/react-v18'}
                                                 target={'_blank'}
-                                                rel='noreferrer'
+                                                rel="noreferrer"
                                             >
                                                 React
                                             </a> 18.2.0
@@ -112,7 +112,7 @@ const About = () => {
                                         <li>Repository: <a
                                             href={'https://github.com/twelvepics-com/react-calendar-viewer/blob/main/CHANGELOG.md'}
                                             target={'_blank'}
-                                            rel='noreferrer'
+                                            rel="noreferrer"
                                         >React Calendar Viewer</a></li>
                                     </ul>
                                 </div>
@@ -141,7 +141,7 @@ const About = () => {
                                                 <li>
                                                     Verwendete API: <a
                                                         href={process.env.REACT_APP_CALENDAR_BUILDER_URL + '/api/v1/version.json'}
-                                                        target={'_blank'} rel='noreferrer'
+                                                        target={'_blank'} rel="noreferrer"
                                                     >
                                                         version.json
                                                     </a> (<code>JSON</code>)
@@ -149,7 +149,7 @@ const About = () => {
                                                 <li>
                                                     Repository: <a
                                                     href={'https://github.com/twelvepics-com/php-calendar-builder/blob/main/CHANGELOG.md'}
-                                                    target={'_blank'} rel='noreferrer'
+                                                    target={'_blank'} rel="noreferrer"
                                                 >
                                                     PHP Calendar Builder
                                                 </a>
@@ -182,7 +182,7 @@ const About = () => {
                                                     Verwendete API: <a
                                                         href={process.env.REACT_APP_LOCATION_API_URL + '/api/v1/version.json'}
                                                         target={'_blank'}
-                                                        rel='noreferrer'
+                                                        rel="noreferrer"
                                                     >
                                                         version.json
                                                     </a> (<code>JSON</code>)
@@ -191,7 +191,7 @@ const About = () => {
                                                     Unterstützte Länder: <a
                                                         href={process.env.REACT_APP_LOCATION_API_URL + '/api/v1/import.json'}
                                                         target={'_blank'}
-                                                        rel='noreferrer'
+                                                        rel="noreferrer"
                                                     >
                                                         import.json
                                                     </a> (<code>JSON</code>)
@@ -200,7 +200,7 @@ const About = () => {
                                                     Repository: <a
                                                     href={'https://github.com/twelvepics-com/php-location-api/blob/main/CHANGELOG.md'}
                                                     target={'_blank'}
-                                                    rel='noreferrer'
+                                                    rel="noreferrer"
                                                 >
                                                     PHP Location API
                                                 </a>

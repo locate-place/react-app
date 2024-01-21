@@ -1,14 +1,14 @@
-/*
- * Configurations
- */
+/* Import types */
 import {TypeFilterConfig, TypeQuerFeatureCode} from "../types/Types.ts";
 
-const reactPathLocations = '/locations.html';
-const reactPathLocation = '/location.html';
-const apiPathQuerySearch = '/api/v1/location.json';
-const apiPathExampleSearch = '/api/v1/location/examples.json';
-const apiPathDetail = '/api/v1/location/coordinate.json';
+/* Configurations */
+const reactPathLocations: string = '/locations.html';
+const reactPathLocation: string = '/location.html';
+const apiPathQuerySearch: string = '/api/v1/location.json';
+const apiPathExampleSearch: string = '/api/v1/location/examples.json';
+const apiPathDetail: string = '/api/v1/location/coordinate.json';
 
+/* Parameter names */
 const nameParameterQuery: 'q' = 'q';
 const nameParameterCoordinates: 'c' = 'c';
 const nameParameterCountry: 'country' = 'country';
@@ -17,6 +17,11 @@ const nameParameterDistance: 'distance' = 'distance';
 const nameParameterLimit: 'limit' = 'limit';
 const nameParameterSort: 's' = 's';
 const nameParameterNextPlaces: 'next_places' = 'next_places';
+
+/* Sort names */
+const nameSortDistance: 'distance' = 'distance';
+const nameSortRelevance: 'relevance' ='relevance';
+const nameSortName: 'name' = 'name';
 
 /**
  * Returns the coordinate string from the search parameters.
@@ -37,7 +42,7 @@ const getCoordinate = (searchParams: URLSearchParams): string|null =>
  */
 const getQuery = (searchParams: URLSearchParams): string|null =>
 {
-    return searchParams.get('q');
+    return searchParams.get(nameParameterQuery);
 };
 
 /**
@@ -48,7 +53,7 @@ const getQuery = (searchParams: URLSearchParams): string|null =>
  */
 const getSort = (searchParams: URLSearchParams): string|null =>
 {
-    let sort = searchParams.get('s');
+    let sort = searchParams.get(nameParameterSort);
 
     if (sort) {
         return sort;
@@ -56,7 +61,7 @@ const getSort = (searchParams: URLSearchParams): string|null =>
 
     let query = getQuery(searchParams);
 
-    return (query ? 'relevance' : 'name');
+    return (query ? nameSortRelevance : nameSortName);
 };
 
 /**
@@ -138,7 +143,7 @@ const redirectSortBy = (filterConfig: TypeFilterConfig, sortName: string): void 
     /* Create a copy of the object. Do not use the reference. */
     let filter = { ...filterConfig };
 
-    filter['s'] = sortName;
+    filter[nameParameterSort] = sortName;
     window.location.href = reactPathLocations + '?' + convertFilterToQueryString(filter);
 }
 
@@ -153,7 +158,7 @@ const redirectSortByWithCurrentPosition = (filterConfig: TypeFilterConfig, sortN
     /* Create a copy of the object. Do not use the reference. */
     let filter = { ...filterConfig };
 
-    filter['s'] = sortName;
+    filter[nameParameterSort] = sortName;
 
     if (filter.hasOwnProperty(nameParameterCoordinates)) {
         window.location.href = reactPathLocations + '?' + convertFilterToQueryString(filter);
@@ -251,8 +256,6 @@ const getPosition = (position: GeolocationPosition): string =>
  */
 const getParsedQueryFeatureCodes = (parsedQueryFeatureCodes: TypeQuerFeatureCode[]): string[]|null =>
 {
-    console.log(parsedQueryFeatureCodes);
-    
     let hasParsedQueryFeatureCodes = !!parsedQueryFeatureCodes;
 
     if (!hasParsedQueryFeatureCodes) {
@@ -268,10 +271,126 @@ const getParsedQueryFeatureCodes = (parsedQueryFeatureCodes: TypeQuerFeatureCode
     return data;
 }
 
-const sortByDistance = (filterConfig: TypeFilterConfig) => redirectSortBy(filterConfig, 'distance');
+/**
+ * Returns if the query contains a geoname id.
+ *
+ * Examples:
+ * ---------
+ * - "6543921"
+ * - etc.
+ *
+ * @param query
+ */
+const hasQueryGeonameId = (query: string): boolean =>
+{
+    const regexp: RegExp = /^([0-9]{4,8})$/;
+
+    let match: RegExpMatchArray|null = regexp.exec(query);
+
+    return match !== null;
+}
+
+/**
+ * Returns if the query contains a decimal coordinate.
+ *
+ * Examples:
+ * ---------
+ * - "51.061155,13.740668"
+ * - "51.061155, 13.740668"
+ * - "51.061155 13.740668"
+ * - etc.
+ *
+ * @param query
+ */
+const hasQueryCoordinateDecimal = (query: string): boolean =>
+{
+    const regexp: RegExp = /^([0-9]+).([0-9]+)([ ,]+)([0-9]+).([0-9]+)$/;
+
+    let match: RegExpMatchArray|null = regexp.exec(query);
+
+    return match !== null;
+}
+
+/**
+ * Returns if the query contains a dms coordinate.
+ *
+ * Examples:
+ * ---------
+ * - "52°31′14.322″N,13°24′35.2044″E"
+ * - "52°31′14.322″N, 13°24′35.2044″E"
+ * - "52°31′14.322″N 13°24′35.2044″E"
+ * - etc.
+ *
+ * @param query
+ */
+const hasQueryCoordinateDms = (query: string): boolean =>
+{
+    const regexpCoordinate: string = '([0-9]+)°([0-9]+)′([0-9]+)(.([0-9]+))?″';
+
+    const regexp: RegExp = new RegExp(
+        '^' + regexpCoordinate + '[NS]([ ,]+)' + regexpCoordinate + '[WE]$',
+        'i'
+    );
+
+    let match: RegExpMatchArray|null = regexp.exec(query);
+
+    return match !== null;
+}
+
+/**
+ * Checks for given location or geoname id within the search query and returns the
+ * location or locations path.
+ *
+ * Location examples:
+ * ------------------
+ * - "6543921"
+ * - "51.061155,13.740668"
+ * - "51.061155, 13.740668"
+ * - "52°31′14.322″N,13°24′35.2044″E"
+ * - "52°31′14.322″N, 13°24′35.2044″E"
+ * - etc.
+ *
+ * All others will be a locations search.
+ *
+ * @param {string} query
+ * @return {string}
+ */
+const getPathLocationApi = (query: string): string =>
+{
+    query = trimString(query);
+
+    /* A "location" string was found. */
+    if (hasQueryGeonameId(query)) {
+        return reactPathLocation;
+    }
+
+    /* A "decimal coordinate" string was found. */
+    if (hasQueryCoordinateDecimal(query)) {
+        return reactPathLocation;
+    }
+
+    /* A "dms coordinate" string was found. */
+    if (hasQueryCoordinateDms(query)) {
+        return reactPathLocation;
+    }
+
+    return reactPathLocations;
+}
+
+/**
+ * Removes all non-visible characters from string.
+ *
+ * @param inputString
+ */
+const trimString = (inputString: string): string =>
+{
+    return inputString.replace(/^\s+|\s+$/g, '');
+}
+
+const sortByDistance = (filterConfig: TypeFilterConfig) => redirectSortBy(filterConfig, nameSortDistance);
 const sortByDistanceUser = (filterConfig: TypeFilterConfig) => redirectSortByWithCurrentPosition(filterConfig, 'distance-user');
-const sortByName = (filterConfig: TypeFilterConfig) => redirectSortBy(filterConfig, 'name');
-const sortByRelevance = (filterConfig: TypeFilterConfig) => redirectSortBy(filterConfig, 'relevance');
+const sortByName = (filterConfig: TypeFilterConfig) => redirectSortBy(filterConfig, nameSortName);
+const sortByRelevance = (filterConfig: TypeFilterConfig) => redirectSortBy(filterConfig, nameSortRelevance);
 const sortByRelevanceUser = (filterConfig: TypeFilterConfig) => redirectSortByWithCurrentPosition(filterConfig, 'relevance-user');
 
 
@@ -295,5 +414,8 @@ export {
     sortByDistanceUser,
     sortByName,
     sortByRelevance,
-    sortByRelevanceUser
+    sortByRelevanceUser,
+
+    getPathLocationApi,
+    trimString
 }

@@ -108,15 +108,10 @@ const Location = () =>
     let hasNextPlacesV = hasNextPlaces && data['next-places']['V'];
     let nextPlacesV = hasNextPlacesV? data['next-places']['V'] : null;
 
-    console.log(data);
-
-
     let filterConfig = getFilterConfig(searchParams);
     let addCurrentPosition = (e) => {
         addCurrentPositionToQuery(filterConfig);
     }
-
-    console.log(data);
 
     /**
      * useEffect function.
@@ -143,8 +138,8 @@ const Location = () =>
                     <div className="col-12 col-md-10 offset-md-1 col-xl-8 offset-xl-2">
                         {/* Renders the search form. */}
                         <SearchForm
-                            query={query}
-                            routePath={routePath}
+                            queryDefault={query}
+                            routePathDefault={routePath}
                         />
 
                         {loaded ? <>

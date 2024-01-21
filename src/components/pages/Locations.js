@@ -103,8 +103,8 @@ const Locations = () =>
                     <div className="col-12 col-md-10 offset-md-1 col-xl-8 offset-xl-2">
                         {/* Renders the search form. */}
                         <SearchForm
-                            query={query}
-                            routePath={routePath}
+                            queryDefault={query}
+                            routePathDefault={routePath}
                         />
 
                         {loaded ? <>

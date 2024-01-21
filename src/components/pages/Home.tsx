@@ -1,3 +1,5 @@
+import React from "react";
+
 /* Add component parts */
 import Error from "../layout/Error.tsx";
 import Header from "../layout/Header.tsx";

@@ -10,7 +10,7 @@ import About from "./components/pages/About.tsx";
 import Calendars from "./components/pages/Calendars";
 import Calendar from "./components/pages/Calendar";
 import Contact from "./components/pages/Contact.tsx";
-import Home from "./components/pages/Home";
+import Home from "./components/pages/Home.tsx";
 import Locations from "./components/pages/Locations";
 import Location from "./components/pages/Location";
 import NotFound from "./components/pages/NotFound.tsx";

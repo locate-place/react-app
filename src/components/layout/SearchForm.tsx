@@ -4,7 +4,7 @@ import React, {useState} from "react";
 import {sizeIcon} from "../../config/Config.ts";
 
 /* Bootstrap icons; see https://icons.getbootstrap.com/?q=sort#usage */
-import {GlobeAmericas, Bullseye} from "react-bootstrap-icons";
+import {GlobeAmericas, CursorFill} from "react-bootstrap-icons";
 import {getPathLocationApi, redirectCurrentPosition} from "../../functions/Query.ts";
 
 type SearchFormProps = {
@@ -50,14 +50,24 @@ const SearchForm = ({routePathDefault, queryDefault}: SearchFormProps) =>
         <>
             <h3><GlobeAmericas size={sizeIcon.H3}/> Location Suche</h3>
 
-            <form id="searchForm" action={routePath} onSubmit={onSubmit}>
-                <div className="d-flex justify-content-center w-100 mb-4">
-                    <div className="input-group w-100">
+            <form
+                id="searchForm"
+                action={routePath}
+                onSubmit={onSubmit}
+            >
+                <div
+                    className="d-flex justify-content-center w-100 mb-4 shadow-own"
+                >
+                    <div
+                        className="input-group w-100"
+                        style={{backgroundColor: "transparent"}}
+                    >
                         <input
                             name="q"
                             id="query"
                             type="text"
-                            className="form-control"
+                            style={{borderColor: '#6c757d'}}
+                            className="form-control shadow-none"
                             placeholder="52°31′14.322″N, 13°24′35.2044″E"
                             aria-label="Location Suche"
                             aria-describedby="location-send"
@@ -65,12 +75,12 @@ const SearchForm = ({routePathDefault, queryDefault}: SearchFormProps) =>
                             onChange={handleChange}
                         />
                         <button
-                            className="btn btn-outline-primary"
+                            className="btn btn-outline-primary button-own-position"
                             title="Suche nach aktuellem Standort"
                             type="button"
                             onClick={redirectCurrentPosition}
                         >
-                            <Bullseye size={sizeIcon.H3} />
+                            <CursorFill size={sizeIcon.H3} />
                         </button>
 
                         <button

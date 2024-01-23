@@ -38,6 +38,7 @@ import {
     ListTask,
     CursorFill
 } from "react-bootstrap-icons";
+import initializeCompass from "../../functions/Compass";
 
 /**
  * This is the app locations component.
@@ -78,7 +79,6 @@ const Locations = () =>
     let hasResults = !!properties.results;
     let numberResults = hasResults && properties.results.results;
     let numberTotal = hasResults && properties.results.total;
-    let page = hasResults && properties.results.page;
 
 
     /**
@@ -91,7 +91,10 @@ const Locations = () =>
             setLoaded,
             setError,
             setData,
-            setProperties
+            setProperties,
+            () => {
+                initializeCompass();
+            }
         );
     }, [typeLocationApi, apiPathWithParameter]);
 

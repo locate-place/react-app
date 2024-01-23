@@ -1,19 +1,19 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 
 /* Add functions */
-import loadApiData from "../../functions/LoadApiData.ts";
+import loadApiData from "../../functions/LoadApiData";
 
 /* Add component parts */
-import Error from "../layout/Error.tsx";
-import Header from "../layout/Header.tsx";
-import Loader from "../layout/Loader.tsx";
+import Error from "../layout/Error";
+import Header from "../layout/Header";
+import Loader from "../layout/Loader";
 
 /* Add font awesome icons: https://fontawesome.com/icons */
 import {faDatabase, faImages, faIndustry} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 /* Import types. */
-import {TypeApiProperties, TypeDataVersion, TypeError, TypeLoaded} from "../../types/Types.ts";
+import {TypeApiProperties, TypeDataVersion, TypeError, TypeLoaded} from "../../types/Types";
 
 /**
  * This is the about page.
@@ -173,7 +173,7 @@ const About = () => {
                                         <div className="card-body">
                                             <ul className="mb-0">
                                                 <li>
-                                                    Stellt eine Lokalisierungs-API bereit (GeoInfoAPI) mit aktuell rund 6,5 Millionen Einträgen weltweit
+                                                    Stellt eine Lokalisierungs-API bereit (GeoInfoAPI) mit aktuell rund 6,5 Millionen Einträgen weltweit (Größe des SQL Dumps: &gt; 1,8 GB)
                                                 </li>
                                                 <li>
                                                     ca. 200ms Abrufzeit bei vollen Informationen (100ms bei Basisinformationen)

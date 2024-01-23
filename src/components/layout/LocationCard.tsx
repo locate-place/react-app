@@ -8,12 +8,12 @@ import {faMapLocation, faMaximize, faMinimize} from "@fortawesome/free-solid-svg
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 /* Add functions */
-import {convertToGermanFormat} from "../../functions/Date.ts";
-import {translateCountryCode} from "../../functions/Country.ts";
+import {convertToGermanFormat} from "../../functions/Date";
+import {translateCountryCode} from "../../functions/Country";
 
 /* Add component parts */
-import CoordinateDistanceDirection from "./CoordinateDistanceDirection.tsx";
-import {getAirportCodeIata, getElevation, getPopulation} from "../../functions/Properties.ts";
+import CoordinateDistanceDirection from "./CoordinateDistanceDirection";
+import {getAirportCodeIata, getElevation, getPopulation} from "../../functions/Properties";
 
 type LocationCardProps = {
     location: any,
@@ -46,7 +46,12 @@ const LocationCard = ({location, properties, showOwnPosition}: LocationCardProps
     let ownPositionLatitudeDecimal = hasOwnPosition ? ownPosition.latitude.decimal : null;
     let ownPositionLongitudeDecimal = hasOwnPosition ? ownPosition.longitude.decimal : null;
 
+    let hasUserCoordinate = location.coordinate && location.coordinate['direction-user'];
+    let userDegree = hasUserCoordinate? location.coordinate['direction-user'].degree : null;
+
     let airportCodeIata = getAirportCodeIata(location);
+
+    console.log(location);
 
     type TypeTranslation = {
         'airports': string,
@@ -87,13 +92,15 @@ const LocationCard = ({location, properties, showOwnPosition}: LocationCardProps
 
     return (
         <>
-            <div className={'card card-hover w-100 mb-4'} style={showOwnPosition ? {'backgroundColor': 'rgb(235, 233, 228)'} : {'backgroundColor': 'rgb(228, 235, 233)'}}>
+            <div className={'card card-hover w-100 mb-4'}
+                 style={showOwnPosition ? {'backgroundColor': 'rgb(235, 233, 228)'} : {'backgroundColor': 'rgb(228, 235, 233)'}}>
                 <div className="card-header">
-                    <Flag country={location.properties.country} size={20} title={translateCountryCode(location.properties.country)} /> &nbsp;
+                    <Flag country={location.properties.country} size={20}
+                          title={translateCountryCode(location.properties.country)}/> &nbsp;
                     {
                         showOwnPosition ?
-                        <span><span className="fw-bold">{location['name-full']}</span></span> :
-                        <span><span className="fw-bold">Treffer</span>: {location.name}</span>
+                            <span><span className="fw-bold">{location['name-full']}</span></span> :
+                            <span><span className="fw-bold">Treffer</span>: {location.name}</span>
                     }
                     {
                         airportCodeIata !== null ?
@@ -109,11 +116,12 @@ const LocationCard = ({location, properties, showOwnPosition}: LocationCardProps
                                 <p className="m-0">
                                     <a
                                         href={fullQueryNextPlaces}
-                                    ><span className="text-nowrap"><FontAwesomeIcon icon={faMaximize} style={{'color': 'rgb(114, 135, 42)'}}/> Vollständig</span></a>, <a
+                                    ><span className="text-nowrap"><FontAwesomeIcon icon={faMaximize}
+                                                                                    style={{'color': 'rgb(114, 135, 42)'}}/> Vollständig</span></a>, <a
                                     href={fullQuery}
                                 >
                                     <span className="text-nowrap"><FontAwesomeIcon icon={faMinimize}
-                                                           style={{'color': 'rgb(114, 135, 42)'}}/> Einfach
+                                                                                   style={{'color': 'rgb(114, 135, 42)'}}/> Einfach
                                     </span>
                                 </a>
                                 </p>
@@ -137,15 +145,17 @@ const LocationCard = ({location, properties, showOwnPosition}: LocationCardProps
                             <div className="col-12 col-md-6 col-lg-4">
                                 <h4>Maps</h4>
                                 <p className="m-0">
-                                <a
+                                    <a
                                         href={linkGoogleMaps}
                                         target="_blank"
                                         rel="noreferrer"
-                                    ><span className="text-nowrap"><FontAwesomeIcon icon={faMapLocation} style={{'color': 'rgb(23, 34, 52)'}}/> Google Maps</span></a>, <a
-                                        href={linkOpenStreetMaps}
-                                        target="_blank"
-                                        rel="noreferrer"
-                                    ><span className="text-nowrap"><FontAwesomeIcon icon={faMapLocation} style={{'color': 'rgb(23, 34, 52)'}}/> OpenStreetMap</span></a>
+                                    ><span className="text-nowrap"><FontAwesomeIcon icon={faMapLocation}
+                                                                                    style={{'color': 'rgb(23, 34, 52)'}}/> Google Maps</span></a>, <a
+                                    href={linkOpenStreetMaps}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                ><span className="text-nowrap"><FontAwesomeIcon icon={faMapLocation}
+                                                                                style={{'color': 'rgb(23, 34, 52)'}}/> OpenStreetMap</span></a>
                                 </p>
                             </div>
                         </div>
@@ -187,6 +197,19 @@ const LocationCard = ({location, properties, showOwnPosition}: LocationCardProps
                         </span>
                     </small></small>
                 </div>
+                {
+                    hasUserCoordinate ?
+                        <>
+                            <div className="card-footer compass-area">
+                                <div className="compass compass-direction shadow-own">
+                                    <div className="arrow arrow-direction"
+                                         data-degree={userDegree}
+                                    ></div>
+                                </div>
+                            </div>
+                        </> :
+                        <></>
+                }
             </div>
         </>
     )

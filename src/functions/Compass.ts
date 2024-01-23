@@ -5,11 +5,23 @@ const displayCompass = (): void =>
 {
     let compass: HTMLElement|null = document.getElementById('compass');
 
-    if (compass === null) {
-        return;
+    if (compass !== null) {
+        compass.style.display = 'block';
     }
 
-    compass.style.display = 'block';
+
+
+    let compassArea: HTMLCollectionOf<HTMLElement> = document.getElementsByClassName('compass-area') as HTMLCollectionOf<HTMLElement>;
+
+    for (let i = 0; i < compassArea.length; i++) {
+        let item: HTMLElement|null = compassArea.item(i);
+
+        if (item === null) {
+            continue;
+        }
+
+        item.style.display = 'block';
+    }
 
     let compassDirection: HTMLCollectionOf<HTMLElement> = document.getElementsByClassName('compass-direction') as HTMLCollectionOf<HTMLElement>;
 

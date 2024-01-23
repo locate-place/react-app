@@ -1,10 +1,10 @@
 import React from "react";
 
 /* Add functions */
-import {convertMeterToKilometer} from "../../functions/Distance.ts";
-import {getDms} from "../../functions/Coordinate.ts";
-import {getElevation, getPopulation} from "../../functions/Properties.ts";
-import {addSoftHyphens} from "../../functions/Text.ts";
+import {convertMeterToKilometer} from "../../functions/Distance";
+import {getDms} from "../../functions/Coordinate";
+import {getElevation, getPopulation} from "../../functions/Properties";
+import {addSoftHyphens} from "../../functions/Text";
 
 type NextPlacesProps = {
     nextPlaces: any,

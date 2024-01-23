@@ -69,14 +69,6 @@ const initializeCompass = (): void =>
     // displayCompass();
     // setDirection(-135);
 
-    // http://localhost:3001/locations.html?q=AIRP%2028.14208,%20-15.43344&distance=200000&limit=10&language=de&country=DE
-    // http://localhost:3001/locations.html?q=AIRP%2028.14208,%20-15.43344
-    // http://localhost:3001/locations.html?q=AIRP+28.14208%2C+-15.43344
-    // http://localhost:3001/locations.html?q=AIRP+28.14208%2C+-15.43344&distance=200000&limit=10&language=de&country=DE
-
-    // https://www.location-api.localhost/api/v1/location.json?q=AIRP%2028.14208%2C%20-15.43344&country=DE&language=de&distance=200000&limit=10
-    // https://www.location-api.localhost/api/v1/location.json?q=AIRP%2028.14208%2C%20-15.43344&country=DE&language=de
-
     if (window.DeviceOrientationEvent && 'ontouchstart' in window) {
         displayCompass();
         setDirection(0);

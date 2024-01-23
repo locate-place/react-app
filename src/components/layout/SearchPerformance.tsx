@@ -1,4 +1,5 @@
 import React from "react";
+import {addSoftHyphens} from "../../functions/Text";
 
 type SearchPerformanceProps = {
     properties: any
@@ -22,9 +23,13 @@ const SearchPerformance = ({
                     <strong>Query</strong>: {properties['time-taken']}, {properties['memory-taken']} - <strong>{properties['name']}</strong>:
                     Version {properties['version']}
                     <br/>
-                    <strong>API</strong>: <a href={process.env.REACT_APP_LOCATION_API_URL + apiPathWithParameter}
-                                             target="_blank"
-                                             rel="noreferrer">{process.env.REACT_APP_LOCATION_API_URL + apiPathWithoutParameter}</a>
+                    <strong>API</strong>:&nbsp;
+                    <a
+                        href={process.env.REACT_APP_LOCATION_API_URL + apiPathWithParameter}
+                        target="_blank"
+                        rel="noreferrer"
+                        dangerouslySetInnerHTML={{__html: addSoftHyphens(process.env.REACT_APP_LOCATION_API_URL + apiPathWithoutParameter)}}
+                    />
                 </small></small>
             </div>
         </>

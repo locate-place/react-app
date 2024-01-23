@@ -1,17 +1,17 @@
 import React from "react";
 
 /* Add configurations */
-import {sizeIcon} from "../../config/Config.ts";
+import {sizeIcon} from "../../config/Config";
 
 /* Add functions */
-import {getParsedQueryFeatureCodes} from "../../functions/Query.ts";
-import {searchTypeTranslations, TypeSearchTypeTranslations} from "../../functions/SearchType.ts";
+import {getParsedQueryFeatureCodes} from "../../functions/Query";
+import {searchTypeTranslations, TypeSearchTypeTranslations} from "../../functions/SearchType";
 
 /* Bootstrap icons; see https://icons.getbootstrap.com/?q=sort#usage */
 import {GraphUp, HouseFill} from "react-bootstrap-icons";
 
 /* Add component parts */
-import LocationCard from "./LocationCard.tsx";
+import LocationCard from "./LocationCard";
 
 type SearchMetricsProps = {
     properties: any

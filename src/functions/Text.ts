@@ -15,8 +15,8 @@ const trimString = (inputString: string): string =>
  */
 const addSoftHyphens = (text: string): string =>
 {
-    text = text.replace('/', '/&#8203;');
-    text = text.replace('-', '-&#8203;');
+    text = text.replaceAll('/', '/&#8203;');
+    text = text.replaceAll('-', '-&#8203;');
 
     return text;
 }

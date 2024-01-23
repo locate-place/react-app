@@ -9,8 +9,6 @@ const displayCompass = (): void =>
         compass.style.display = 'block';
     }
 
-
-
     let compassArea: HTMLCollectionOf<HTMLElement> = document.getElementsByClassName('compass-area') as HTMLCollectionOf<HTMLElement>;
 
     for (let i = 0; i < compassArea.length; i++) {

@@ -43,11 +43,9 @@ const setDirection = (direction: number): void =>
 {
     let compassDisc: HTMLElement|null = document.getElementById('compassDisc');
 
-    if (compassDisc === null) {
-        return;
+    if (compassDisc !== null) {
+        compassDisc.style.transform = `rotate(${direction}deg)`;
     }
-
-    compassDisc.style.transform = `rotate(${direction}deg)`;
 
     let arrowDirection: HTMLCollectionOf<HTMLElement> = document.getElementsByClassName('arrow-direction') as HTMLCollectionOf<HTMLElement>;
 

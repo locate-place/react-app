@@ -2,7 +2,7 @@
 import {TypePlace} from "../types/Types.ts";
 
 /**
- * Returns if the elevation should be shown for the given feature code.
+ * Returns if the elevation should be shown for the given feature class.
  *
  * @param featureCode
  */
@@ -38,7 +38,7 @@ const getElevation = (place: TypePlace, separator: string): string|null =>
 }
 
 /**
- * Returns if the population should be shown for the given feature code.
+ * Returns if the population should be shown for the given feature class.
  *
  * @param featureClass
  */
@@ -76,6 +76,44 @@ const getPopulation = (place: TypePlace, separator: string): string|null =>
     return separator + place.properties.population['value-formatted'] + ' Einwohner';
 }
 
+/**
+ * Returns if the airport code should be shown for the given feature code.
+ *
+ * @param {string} featureCode
+ */
+const showAirportCode = (featureCode: string): boolean =>
+{
+    return [
+        'AIRP'
+    ].includes(featureCode);
+}
+
+/**
+ * Returns the population for the given place.
+ *
+ * @param place
+ * @param separator
+ * @returns {*|null}
+ */
+const getAirportCodeIata = (place: TypePlace, separator: string|null = null): string|null =>
+{
+    let showMissingAirportCode: boolean = false;
+
+    let featureCode: string = place.feature['code'];
+
+    if (!showAirportCode(featureCode)) {
+        return null;
+    }
+
+    if (!place.properties['airport_codes']?.iata) {
+        return showMissingAirportCode ?
+            separator + 'Kein IATA Code angegeben' :
+            null;
+    }
+
+    return (separator ? separator : '') + place.properties['airport_codes']?.iata;
+}
+
 /*
  * Export functions.
  */
@@ -83,5 +121,7 @@ export {
     showElevation,
     getElevation,
     showPopulation,
-    getPopulation
+    getPopulation,
+    showAirportCode,
+    getAirportCodeIata
 }

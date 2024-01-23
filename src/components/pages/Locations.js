@@ -75,7 +75,11 @@ const Locations = () =>
 
     let isCoordinateSearch = getIsCoordinateSearch(properties);
 
-    let numberResults = data.constructor === Array ? data.length : 0;
+    let hasResults = !!properties.results;
+    let numberResults = hasResults && properties.results.results;
+    let numberTotal = hasResults && properties.results.total;
+    let page = hasResults && properties.results.page;
+
 
     /**
      * useEffect function.
@@ -113,7 +117,7 @@ const Locations = () =>
                             {
                                 isQuerySearch ?
                                     <>
-                                        <h3><ListTask size={sizeIcon.H3}/> Suchergebnis</h3>
+                                        <h3><ListTask size={sizeIcon.H3}/> Suchergebnisse</h3>
                                     </> :
                                     <>
                                         <p>Oder starte mit den nachfolgenden Beispielen.</p>
@@ -190,22 +194,13 @@ const Locations = () =>
                             <div className="clearfix"></div>
 
                             {
-                                numberResults <= 0 ?
+                                hasResults ?
                                     <>
-                                        <div>
+                                        <div className="mt-5">
                                             {
                                                 query ?
-                                                    <p>Keine Ergebnisse für "{query}" gefunden.</p> :
-                                                    <p>Keine Ergebnisse gefunden.</p>
-                                            }
-                                        </div>
-                                    </> :
-                                    <>
-                                        <div>
-                                            {
-                                                query ?
-                                                    <p>{numberResults} Ergebnisse für "{query}" gefunden.</p> :
-                                                    <p>{numberResults} Ergebnisse gefunden.</p>
+                                                    <p>{numberTotal} Ergebnisse für "{query}" gefunden. Zeige {numberResults}.</p> :
+                                                    <p>{numberTotal} Ergebnisse gefunden. Zeige {numberResults}.</p>
                                             }
                                         </div>
 
@@ -217,6 +212,15 @@ const Locations = () =>
                                                 showOwnPosition={false}
                                             />
                                         ))}
+                                    </>:
+                                    <>
+                                        <div>
+                                            {
+                                                query ?
+                                                    <p>Keine Ergebnisse für "{query}" gefunden.</p> :
+                                                    <p>Keine Ergebnisse gefunden.</p>
+                                            }
+                                        </div>
                                     </>
                             }
 

@@ -87,7 +87,7 @@ const loadApiData = (
             setLoaded(true);
 
             if (setProperties) {
-                setProperties({
+                let propertiesApi: TypeApiProperties = {
                     "date": data['date'],
                     "given": data['given'],
                     "memory-taken": data['memory-taken'],
@@ -99,7 +99,13 @@ const loadApiData = (
                     "path": path,
                     "type": type,
                     "api-url": apiUrl
-                });
+                };
+
+                if (data['results']) {
+                    propertiesApi['results'] = data['results'];
+                }
+
+                setProperties(propertiesApi);
             }
 
             if (callback !== null) {

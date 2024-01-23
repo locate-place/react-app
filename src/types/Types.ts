@@ -59,9 +59,15 @@ type TypeHolidays = {
     "holidays": TypeHoliday[];
 }
 
+type TypeAirportCodes = {
+    "iata"?: string;
+    "icao"?: string;
+}
+
 type TypeProperties = {
     "elevation"?: TypeValue;
     "population"?: TypeValue;
+    "airport_codes"?: TypeAirportCodes;
     "country": string;
 }
 
@@ -87,6 +93,7 @@ type TypeFilterConfig = {
     "language"?: string;
     "distance"?: string;
     "limit"?: string;
+    "page"?: string;
     "s"?: string;
     "next_places"?: string;
 }
@@ -107,6 +114,12 @@ type TypeDataVersion = {
     "date": string;
 }
 
+type TypeResults = {
+    "total": number;
+    "results": number;
+    "page": number;
+}
+
 type TypeApiProperties = {
     "date"?: string;
     "given"?: string;
@@ -119,6 +132,7 @@ type TypeApiProperties = {
     "path": string;
     "type": string;
     "api-url": string;
+    "results"?: TypeResults;
 }
 
 /*
@@ -143,5 +157,6 @@ export {
     TypeError,
     TypeLoaded,
     TypeDataVersion,
-    TypeApiProperties
+    TypeApiProperties,
+    TypeAirportCodes
 }

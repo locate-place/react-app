@@ -13,6 +13,7 @@ import {translateCountryCode} from "../../functions/Country.ts";
 
 /* Add component parts */
 import CoordinateDistanceDirection from "./CoordinateDistanceDirection.tsx";
+import {getAirportCodeIata, getElevation, getPopulation} from "../../functions/Properties.ts";
 
 type LocationCardProps = {
     location: any,
@@ -45,12 +46,15 @@ const LocationCard = ({location, properties, showOwnPosition}: LocationCardProps
     let ownPositionLatitudeDecimal = hasOwnPosition ? ownPosition.latitude.decimal : null;
     let ownPositionLongitudeDecimal = hasOwnPosition ? ownPosition.longitude.decimal : null;
 
+    let airportCodeIata = getAirportCodeIata(location);
+
     type TypeTranslation = {
         'airports': string,
         'churches': string,
         'cinemas': string,
         'cities': string,
         'parks': string,
+        'stations': string,
         'waters': string,
     }
 
@@ -60,6 +64,7 @@ const LocationCard = ({location, properties, showOwnPosition}: LocationCardProps
         'cinemas': 'Kinos',
         'cities': 'Städte',
         'parks': 'Parke',
+        'stations': 'Haltestellen',
         'waters': 'Gewässer',
     }
 
@@ -89,6 +94,11 @@ const LocationCard = ({location, properties, showOwnPosition}: LocationCardProps
                         showOwnPosition ?
                         <span><span className="fw-bold">{location['name-full']}</span></span> :
                         <span><span className="fw-bold">Treffer</span>: {location.name}</span>
+                    }
+                    {
+                        airportCodeIata !== null ?
+                            <><span> - </span><code title="IATA-Code">{airportCodeIata}</code></> :
+                            <></>
                     }
                 </div>
                 <div className="card-body">
@@ -145,7 +155,15 @@ const LocationCard = ({location, properties, showOwnPosition}: LocationCardProps
                     <small><small>
                         <strong>
                             {location['name-full'] ? location['name-full'] : location.name}
-                        </strong><br/>
+                        </strong>
+                        {getElevation(location, ' - ')}
+                        {getPopulation(location, ' - ')}
+                        {
+                            airportCodeIata !== null ?
+                                <><span> - </span><code title="IATA-Code">{airportCodeIata}</code></> :
+                                <></>
+                        }
+                        <br/>
                         <span>
                             <strong>{location.feature['code-name']}</strong>: {location.feature['class-name']} - <code>{location.feature.class + '::' + location.feature.code}</code>
                         </span>

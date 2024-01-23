@@ -20,6 +20,7 @@ const nameParameterCountry: 'country' = 'country';
 const nameParameterLanguage: 'language' = 'language';
 const nameParameterDistance: 'distance' = 'distance';
 const nameParameterLimit: 'limit' = 'limit';
+const nameParameterPage: 'page' = 'page';
 const nameParameterSort: 's' = 's';
 const nameParameterNextPlaces: 'next_places' = 'next_places';
 
@@ -89,6 +90,7 @@ const getFilterConfig = (searchParams: URLSearchParams): TypeFilterConfig =>
     const language: string|null = searchParams.get(nameParameterLanguage);
     const distance: string|null = searchParams.get(nameParameterDistance);
     const limit: string|null = searchParams.get(nameParameterLimit);
+    const page: string|null = searchParams.get(nameParameterPage);
     const sort: string|null = searchParams.get(nameParameterSort);
     const nextPlaces: string|null = searchParams.get(nameParameterNextPlaces);
 
@@ -111,6 +113,9 @@ const getFilterConfig = (searchParams: URLSearchParams): TypeFilterConfig =>
 
     /* Add parameter "limit". */
     limit && (filterConfig[nameParameterLimit] = limit);
+
+    /* Add parameter "limit". */
+    page && (filterConfig[nameParameterPage] = page);
 
     /* Add parameter "sort". */
     sort && (filterConfig[nameParameterSort] = sort);

@@ -7,6 +7,28 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Changelogs
 
+### [0.1.19] - 2023-01-23
+
+* Add card area to location page (refactoring)
+* Add the direction to location page
+* Location mobile optimisations
+* Add compass functionality
+* Search form refactoring
+* Add current position search button
+* Add next places sort information
+* Detect location or locations search according to given query (geoname id, coordinate search or other)
+* HTML refactoring
+* Add elevation and population to next places
+* Add timezone to location page
+* Add new configuration files
+  * Add API types
+  * Add types as separated file
+* Adopt to location api 0.1.38
+  * Read results from locations endpoint requests
+* Add the first version of typescript
+  * Migrate first files from js to typescript
+  * etc.
+
 ### [0.1.18] - 2023-01-20
 
 * Add user and location distance

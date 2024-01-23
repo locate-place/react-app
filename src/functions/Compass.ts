@@ -70,17 +70,19 @@ const initializeCompass = (): void =>
     // setDirection(-135);
 
     if (window.DeviceOrientationEvent && 'ontouchstart' in window) {
-        displayCompass();
-        setDirection(0);
+        setTimeout(() => {
+            displayCompass();
+            setDirection(0);
 
-        window.addEventListener('deviceorientationabsolute', (eventData) => {
-            let orientationEvent = eventData as DeviceOrientationEvent;
-            let alpha = orientationEvent.alpha;
+            window.addEventListener('deviceorientationabsolute', (eventData) => {
+                let orientationEvent = eventData as DeviceOrientationEvent;
+                let alpha = orientationEvent.alpha;
 
-            if (alpha !== null) {
-                setDirection(alpha);
-            }
-        }, true);
+                if (alpha !== null) {
+                    setDirection(alpha);
+                }
+            }, true);
+        }, 250);
     }
 }
 

@@ -80,6 +80,7 @@ const Location = () =>
 
     /* Get coordinate parts */
     let hasCoordinate = !!data['coordinate'];
+    let hasDistance = hasCoordinate && data.coordinate['distance-user'];
     let coordinateLatitudeDecimal = hasCoordinate && data.coordinate.latitude ? data.coordinate.latitude.decimal : null;
     let coordinateLatitudeDms = hasCoordinate && data.coordinate.latitude ? data.coordinate.latitude.dms : null;
     let coordinateLongitudeDecimal = hasCoordinate && data.coordinate.longitude ? data.coordinate.longitude.decimal : null;
@@ -187,151 +188,190 @@ const Location = () =>
                                     {data.name}
                                 </h2>
 
-                                <p>{data['name-full']}</p>
-
-                                <table
-                                    className="table table-responsive table-last-line shadow-own mb-5 location-detail"
-                                    style={{borderCollapse: 'collapse'}}
-                                >
-                                    <tbody>
-                                    {
-                                        locationDistrictLocality ? <tr>
-                                            <td className={classNamesFirstRow.join(' ')}>Stadtteil / Ortschaft</td>
-                                            <td className={classNamesSecondRow.join([' '])} colSpan={2}>{locationDistrictLocality.name}</td>
-                                        </tr> : <></>
-                                    }
-                                    {
-                                        locationCityMunicipality ? <tr>
-                                            <td className={classNamesFirstRow.join(' ')}>Stadt / Gemeinde</td>
-                                            <td className={classNamesSecondRow.join([' '])} colSpan={2}>{locationCityMunicipality.name}</td>
-                                        </tr> : <></>
-                                    }
-                                    {
-                                        locationState ? <tr>
-                                            <td className={classNamesFirstRow.join(' ')}>Bundesland</td>
-                                            <td className={classNamesSecondRow.join([' '])} colSpan={2}>{locationState.name}</td>
-                                        </tr> : <></>
-                                    }
-                                    {
-                                        locationCountry ? <tr>
-                                            <td className={classNamesFirstRow.join(' ')}>Land</td>
-                                            <td className={classNamesSecondRow.join([' '])} colSpan={2}>{locationCountry.name}</td>
-                                        </tr> : <></>
-                                    }
-                                    <tr>
-                                        <td className={classNamesFirstRow.join(' ')}>Ländercode</td>
-                                        <td className={classNamesSecondRow.join([' '])} colSpan={2}>{propertyCountryCode}</td>
-                                    </tr>
-                                    {
-                                        hasPropertyElevation ? <tr>
-                                            <td className={classNamesFirstRow.join(' ')}>Höhe</td>
-                                            <td className={classNamesSecondRow.join([' '])} colSpan={2}>{propertyElevation}</td>
-                                        </tr> : <></>
-                                    }
-                                    {
-                                        coordinateLatitudeDms && coordinateLongitudeDms ? <tr>
-                                            <td className={classNamesFirstRow.join(' ')}>Latitude</td>
-                                            <td className={classNamesSecondRow.join([' '])} colSpan={2}>{coordinateLatitudeDms}, {coordinateLongitudeDms}</td>
-                                        </tr> : <></>
-                                    }
-                                    {
-                                        coordinateLatitudeDecimal && coordinateLongitudeDecimal ? <tr>
-                                            <td className={classNamesFirstRow.join(' ')}>Longitude</td>
-                                            <td className={classNamesSecondRow.join([' '])} colSpan={2}>{coordinateLatitudeDecimal}, {coordinateLongitudeDecimal}</td>
-                                        </tr> : <></>
-                                    }
-                                    {
-                                        hasCoordinate ?
-                                            <>
-                                                {
-                                                    distanceInKilometers > 0 ?
-                                                        <>
-                                                            <tr>
-                                                                <td className={classNamesFirstRow.join(' ')}>Entfernung</td>
-                                                                <td className={classNamesSecondRow.join([' '])}
-                                                                    colSpan={2}
-                                                                    title={distanceText}>
-                                                                    {distanceInKilometersFormatted}&nbsp;
-                                                                    <sup><small>({distanceText})</small></sup>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td className={classNamesFirstRow.join(' ')}>Richtung</td>
-                                                                <td className={classNamesSecondRow.join([' '])}
-                                                                    title={distanceText}
-                                                                >
-                                                                    {directionTranslation[directionTranslated] ?? 'Unbekannt'}
-                                                                </td>
-                                                                <td className={classNamesSecondRow.join([' '])} style={{display: "flex", justifyContent: "flex-end"}}>
-                                                                    <div
-                                                                        className="compass compass-direction shadow-own">
-                                                                        <div className="arrow arrow-direction"
-                                                                             data-degree={directionDegree}></div>
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-                                                        </> :
-                                                        <>
-                                                        </>
-                                                }
-                                            </>
-                                            :
+                                <div className="card card-hover mb-5"
+                                     style={{'backgroundColor': 'rgb(233, 235, 228)'}}>
+                                    <div className="card-header">
+                                        <p className="mb-0 fw-bold">{data['name-full']}</p>
+                                    </div>
+                                    <div className="card-body p-0">
+                                        <table
+                                            className="table table-responsive table-last-line location-detail mb-0"
+                                            style={{
+                                                borderCollapse: 'collapse',
+                                                backgroundColor: "transparent"
+                                            }}
+                                        >
+                                            <tbody>
+                                            {
+                                                locationDistrictLocality ? <tr>
+                                                    <td className={classNamesFirstRow.join(' ')}>Stadtteil / Ortschaft
+                                                    </td>
+                                                    <td className={classNamesSecondRow.join([' '])}
+                                                        colSpan={2}>{locationDistrictLocality.name}</td>
+                                                </tr> : <></>
+                                            }
+                                            {
+                                                locationCityMunicipality ? <tr>
+                                                    <td className={classNamesFirstRow.join(' ')}>Stadt / Gemeinde</td>
+                                                    <td className={classNamesSecondRow.join([' '])}
+                                                        colSpan={2}>{locationCityMunicipality.name}</td>
+                                                </tr> : <></>
+                                            }
+                                            {
+                                                locationState ? <tr>
+                                                    <td className={classNamesFirstRow.join(' ')}>Bundesland</td>
+                                                    <td className={classNamesSecondRow.join([' '])}
+                                                        colSpan={2}>{locationState.name}</td>
+                                                </tr> : <></>
+                                            }
+                                            {
+                                                locationCountry ? <tr>
+                                                    <td className={classNamesFirstRow.join(' ')}>Land</td>
+                                                    <td className={classNamesSecondRow.join([' '])}
+                                                        colSpan={2}>{locationCountry.name}</td>
+                                                </tr> : <></>
+                                            }
                                             <tr>
-                                                <td className={classNamesFirstRow.join(' ')}>Entfernung</td>
-                                                <td className={classNamesSecondRow.join([' '])} title={distanceText}>
-                                                    Standort des Nutzers ist unbekannt.
-                                                </td>
-                                                <td className={classNamesSecondRow.join([' '])} title={distanceText} style={{textAlign: 'right'}}>
-                                                    <button
-                                                        className="btn btn-outline-primary shadow-own mt-2 mb-2 button-own-position button-minimized"
-                                                        onClick={addCurrentPosition}
-                                                        title="Bestimme aktuelle Position"
-                                                    >
-                                                        <CursorFill size={sizeIcon.H3}/>
-                                                    </button>
-                                                </td>
+                                                <td className={classNamesFirstRow.join(' ')}>Ländercode</td>
+                                                <td className={classNamesSecondRow.join([' '])}
+                                                    colSpan={2}>{propertyCountryCode}</td>
                                             </tr>
-                                    }
-                                    {
-                                        featureClass ? <tr>
-                                            <td className={classNamesFirstRow.join(' ')}>Oberschlüssel</td>
-                                            <td className={classNamesSecondRow.join([' '])} colSpan={2}>
-                                                <code>{featureClass}</code> - {featureClassName}</td>
-                                        </tr> : <></>
-                                    }
-                                    {
-                                        featureCode ? <tr>
-                                            <td className={classNamesFirstRow.join(' ')}>Schlüssel</td>
-                                            <td className={classNamesSecondRow.join([' '])} colSpan={2}><code>{featureCode}</code> - {featureCodeName}</td>
-                                        </tr> : <></>
-                                    }
-                                    {
-                                        hasTimezone ? <tr>
-                                            <td className={classNamesFirstRow.join(' ')}>Zeitzone</td>
-                                            <td className={classNamesSecondRow.join([' '])} colSpan={2}>{timezone} <code>{timezoneOffset}</code></td>
-                                        </tr> : <></>
-                                    }
-                                    <tr>
-                                        <td className={classNamesFirstRow.join(' ')}>Geoname ID</td>
-                                        <td className={classNamesSecondRow.join([' '])} colSpan={2}>{data['geoname-id']}</td>
-                                    </tr>
-                                    <tr>
-                                        <td className={classNamesFirstRow.join(' ')}>Letztes Update</td>
-                                        <td className={classNamesSecondRow.join([' '])} colSpan={2}>{convertToGermanFormat(data['updated-at'])}</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
+                                            {
+                                                hasPropertyElevation ? <tr>
+                                                    <td className={classNamesFirstRow.join(' ')}>Höhe</td>
+                                                    <td className={classNamesSecondRow.join([' '])}
+                                                        colSpan={2}>{propertyElevation}</td>
+                                                </tr> : <></>
+                                            }
+                                            {
+                                                coordinateLatitudeDms && coordinateLongitudeDms ? <tr>
+                                                    <td className={classNamesFirstRow.join(' ')}>Latitude</td>
+                                                    <td className={classNamesSecondRow.join([' '])}
+                                                        colSpan={2}>{coordinateLatitudeDms}, {coordinateLongitudeDms}</td>
+                                                </tr> : <></>
+                                            }
+                                            {
+                                                coordinateLatitudeDecimal && coordinateLongitudeDecimal ? <tr>
+                                                    <td className={classNamesFirstRow.join(' ')}>Longitude</td>
+                                                    <td className={classNamesSecondRow.join([' '])}
+                                                        colSpan={2}>{coordinateLatitudeDecimal}, {coordinateLongitudeDecimal}</td>
+                                                </tr> : <></>
+                                            }
+                                            {
+                                                hasDistance ?
+                                                    <>
+                                                        {
+                                                            distanceInKilometers > 0 ?
+                                                                <>
+                                                                    <tr>
+                                                                        <td className={classNamesFirstRow.join(' ')}>Entfernung</td>
+                                                                        <td className={classNamesSecondRow.join([' '])}
+                                                                            colSpan={2}
+                                                                            title={distanceText}>
+                                                                            {distanceInKilometersFormatted}<sup>*)</sup>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td className={classNamesFirstRow.join(' ')}>Richtung</td>
+                                                                        <td className={classNamesSecondRow.join([' '])}
+                                                                            title={distanceText}
+                                                                        >
+                                                                            {directionTranslation[directionTranslated] ?? 'Unbekannt'}<sup>*)</sup>
+                                                                        </td>
+                                                                        <td className={classNamesSecondRow.join([' '])}
+                                                                            style={{
+                                                                                display: "flex",
+                                                                                justifyContent: "flex-end"
+                                                                            }}>
+                                                                            <div
+                                                                                className="compass compass-direction shadow-own">
+                                                                                <div className="arrow arrow-direction"
+                                                                                     data-degree={directionDegree}></div>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                </> :
+                                                                <>
+                                                                </>
+                                                        }
+                                                    </>
+                                                    :
+                                                    <tr>
+                                                        <td className={classNamesFirstRow.join(' ')}>Entfernung</td>
+                                                        <td className={classNamesSecondRow.join([' '])}
+                                                            title={distanceText}>
+                                                            Standort des Nutzers ist unbekannt.
+                                                        </td>
+                                                        <td className={classNamesSecondRow.join([' '])}
+                                                            title={distanceText} style={{textAlign: 'right'}}>
+                                                            <button
+                                                                className="btn btn-outline-primary shadow-own mt-2 mb-2 button-own-position button-minimized"
+                                                                onClick={addCurrentPosition}
+                                                                title="Bestimme aktuelle Position"
+                                                            >
+                                                                <CursorFill size={sizeIcon.H3}/>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                            }
+                                            {
+                                                featureClass ? <tr>
+                                                    <td className={classNamesFirstRow.join(' ')}>Oberschlüssel</td>
+                                                    <td className={classNamesSecondRow.join([' '])} colSpan={2}>
+                                                        <code>{featureClass}</code> - {featureClassName}</td>
+                                                </tr> : <></>
+                                            }
+                                            {
+                                                featureCode ? <tr>
+                                                    <td className={classNamesFirstRow.join(' ')}>Schlüssel</td>
+                                                    <td className={classNamesSecondRow.join([' '])} colSpan={2}>
+                                                        <code>{featureCode}</code> - {featureCodeName}</td>
+                                                </tr> : <></>
+                                            }
+                                            {
+                                                hasTimezone ? <tr>
+                                                    <td className={classNamesFirstRow.join(' ')}>Zeitzone</td>
+                                                    <td className={classNamesSecondRow.join([' '])}
+                                                        colSpan={2}>{timezone} <code>{timezoneOffset}</code></td>
+                                                </tr> : <></>
+                                            }
+                                            <tr>
+                                                <td className={classNamesFirstRow.join(' ')}>Geoname ID</td>
+                                                <td className={classNamesSecondRow.join([' '])}
+                                                    colSpan={2}>{data['geoname-id']}</td>
+                                            </tr>
+                                            <tr>
+                                                <td className={classNamesFirstRow.join(' ')}>Letztes Update</td>
+                                                <td className={classNamesSecondRow.join([' '])}
+                                                    colSpan={2}>{convertToGermanFormat(data['updated-at'])}</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div className="card-footer">
+                                        <small><small>
+                                            {
+                                                distanceInKilometers > 0 ?
+                                                    <>
+                                                        <sup>*)</sup>&nbsp;
+                                                        {distanceText}
+                                                    </> :
+                                                    null
+                                            }
+                                        </small></small>
+                                    </div>
+                                </div>
                             </div>
 
                             {hasNextPlacesA ? <NextPlaces nextPlaces={nextPlacesA}/> : <></>}
-                            {hasNextPlacesP ? <NextPlaces nextPlaces={nextPlacesP} /> : <></>}
-                            {hasNextPlacesH ? <NextPlaces nextPlaces={nextPlacesH} /> : <></>}
-                            {hasNextPlacesL ? <NextPlaces nextPlaces={nextPlacesL} /> : <></>}
-                            {hasNextPlacesR ? <NextPlaces nextPlaces={nextPlacesR} /> : <></>}
-                            {hasNextPlacesS ? <NextPlaces nextPlaces={nextPlacesS} /> : <></>}
-                            {hasNextPlacesT ? <NextPlaces nextPlaces={nextPlacesT} /> : <></>}
-                            {hasNextPlacesU ? <NextPlaces nextPlaces={nextPlacesU} /> : <></>}
-                            {hasNextPlacesV ? <NextPlaces nextPlaces={nextPlacesV} /> : <></>}
+                            {hasNextPlacesP ? <NextPlaces nextPlaces={nextPlacesP}/> : <></>}
+                            {hasNextPlacesH ? <NextPlaces nextPlaces={nextPlacesH}/> : <></>}
+                            {hasNextPlacesL ? <NextPlaces nextPlaces={nextPlacesL}/> : <></>}
+                            {hasNextPlacesR ? <NextPlaces nextPlaces={nextPlacesR}/> : <></>}
+                            {hasNextPlacesS ? <NextPlaces nextPlaces={nextPlacesS}/> : <></>}
+                            {hasNextPlacesT ? <NextPlaces nextPlaces={nextPlacesT}/> : <></>}
+                            {hasNextPlacesU ? <NextPlaces nextPlaces={nextPlacesU}/> : <></>}
+                            {hasNextPlacesV ? <NextPlaces nextPlaces={nextPlacesV}/> : <></>}
 
                             {/* Renders the search performance part. */}
                             <SearchPerformance

@@ -198,7 +198,7 @@ const LocationCard = ({location, properties, showOwnPosition}: LocationCardProps
                     </small></small>
                 </div>
                 {
-                    hasUserCoordinate ?
+                    hasUserCoordinate && !showOwnPosition ?
                         <>
                             <div className="card-footer compass-area">
                                 <div className="compass compass-direction shadow-own">

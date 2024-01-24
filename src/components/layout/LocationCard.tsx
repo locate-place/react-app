@@ -53,9 +53,13 @@ const LocationCard = ({location, properties, showOwnPosition}: LocationCardProps
 
     type TypeTranslation = {
         'airports': string,
+        'beaches': string,
         'churches': string,
         'cinemas': string,
         'cities': string,
+        'hospitals': string,
+        'hotels': string,
+        'mountains': string,
         'parks': string,
         'stations': string,
         'waters': string,
@@ -63,9 +67,13 @@ const LocationCard = ({location, properties, showOwnPosition}: LocationCardProps
 
     let translations: TypeTranslation = {
         'airports': 'Flughäfen',
+        'beaches': 'Strände',
         'churches': 'Kirchen',
         'cinemas': 'Kinos',
         'cities': 'Städte',
+        'hospitals': 'Krankenhäuser',
+        'hotels': 'Hotels',
+        'mountains': 'Berge, Hügel, Bergkämme',
         'parks': 'Parke',
         'stations': 'Haltestellen',
         'waters': 'Gewässer',
@@ -134,7 +142,7 @@ const LocationCard = ({location, properties, showOwnPosition}: LocationCardProps
                                                 <a
                                                     key={'next-place-' + key}
                                                     href={'/locations.html?q=' + nextPlaces[key]['feature_codes'].join('|') + '%20' + location.coordinate.latitude.decimal + ',%20' + location.coordinate.longitude.decimal + '&distance=' + nextPlaces[key]['distance'] + '&limit=' + nextPlaces[key]['limit'] + '&language=de&country=DE'}
-                                                >{(translations[key as keyof TypeTranslation] ?? 'Unbekannt')}</a>
+                                                >{(translations[key as keyof TypeTranslation] ?? <span title={key}>{'Unbekannt'}</span>)}</a>
                                             </span>
                                         );
                                     })}

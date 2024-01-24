@@ -180,36 +180,21 @@ const LocationCard = ({location, properties, showOwnPosition}: LocationCardProps
 
                         <br/>
                         <span>
-                            {
-                                showOwnPosition ?
-                                    <>
-                                        <strong>Position</strong>: <span
-                                        title={latitudeDecimal}>{latitudeDms}</span>, <span
-                                        title={longitudeDecimal}>{longitudeDms}</span>
-                                    </> :
-                                    <CoordinateDistanceDirection location={location}/>
-                            }
-                        </span>
-
-                        <br/>
-                        <span>
                             <strong>Letztes Update</strong>: {convertToGermanFormat(location['updated-at'])}
                         </span>
                     </small></small>
                 </div>
-                {
-                    hasUserCoordinate && !showOwnPosition ?
-                        <>
-                            <div className="card-footer compass-area">
-                                <div className="compass compass-direction shadow-own">
-                                    <div className="arrow arrow-direction"
-                                         data-degree={userDegree}
-                                    ></div>
-                                </div>
-                            </div>
-                        </> :
-                        <></>
-                }
+                <div className="card-footer"><small><small>
+                    {
+                        showOwnPosition ?
+                            <>
+                                <strong>Position</strong>: <span
+                                title={latitudeDecimal}>{latitudeDms}</span>, <span
+                                title={longitudeDecimal}>{longitudeDms}</span>
+                            </> :
+                            <CoordinateDistanceDirection location={location}/>
+                    }
+                </small></small></div>
             </div>
         </>
     )

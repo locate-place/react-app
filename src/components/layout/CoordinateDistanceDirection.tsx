@@ -1,7 +1,7 @@
 import React from "react";
 
 /* Add configurations */
-import {sizeIcon} from "../../config/Config.ts";
+import {sizeIcon} from "../../config/Config";
 
 /* Bootstrap icons; see https://icons.getbootstrap.com/?q=sort#usage */
 import {
@@ -10,7 +10,7 @@ import {
 } from "react-bootstrap-icons";
 
 /* Import types */
-import {TypeLocation} from "../../types/Types.ts";
+import {TypeLocation} from "../../types/Types";
 
 type CoordinateDistanceDirectionProps = {
     location: TypeLocation,
@@ -43,6 +43,34 @@ const CoordinateDistanceDirection = ({location}: CoordinateDistanceDirectionProp
     return (
         hasCoordinate ?
             <>
+                {
+                    hasDirection || hasDirectionUser ?
+                        <>
+                            {
+                                hasDirectionUser ?
+                                    <>
+                                        <div className="compass-area float-end" style={{marginLeft: '1rem'}}>
+                                            <div className="compass compass-direction shadow-own">
+                                                <div className="arrow arrow-direction"
+                                                     data-degree={directionUser}
+                                                ></div>
+                                            </div>
+                                        </div>
+                                    </> :
+                                    <>
+                                        <div className="compass-area">
+                                            <div className="compass compass-direction shadow-own">
+                                                <div className="arrow arrow-direction"
+                                                     data-degree={direction}
+                                                ></div>
+                                            </div>
+                                        </div>
+                                    </>
+                            }
+                        </> :
+                        <></>
+                }
+
                 <strong>Position</strong>:&nbsp;
                 <span style={{lineHeight: '10px'}}><Geo size={sizeIcon.TextSmall}/></span>&nbsp;
                 <span title={latitudeDecimal}>{latitudeDms}</span>,&nbsp;
@@ -74,7 +102,7 @@ const CoordinateDistanceDirection = ({location}: CoordinateDistanceDirectionProp
                             <br/>
                             <span title="Abstand und Richtung zur eigenen Position">
                                 <strong>Abstand eigene Postion</strong>:&nbsp;
-                                <Compass size={sizeIcon.TextSmall} />&nbsp;
+                                <Compass size={sizeIcon.TextSmall}/>&nbsp;
                             </span>
                             {
                                 hasDistanceUser ?

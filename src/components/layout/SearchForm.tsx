@@ -1,13 +1,13 @@
 import React, {useState} from "react";
 
 /* Add configurations */
-import {sizeIcon} from "../../config/Config.ts";
+import {sizeIcon} from "../../config/Config";
 
 /* Bootstrap icons; see https://icons.getbootstrap.com/?q=sort#usage */
 import {GlobeAmericas, CursorFill} from "react-bootstrap-icons";
 
 /* Import functions */
-import {getPathLocationApi, redirectCurrentPosition} from "../../functions/Query.ts";
+import {getPathLocationApi, redirectCurrentPosition} from "../../functions/Query";
 
 type SearchFormProps = {
     routePathDefault: string,

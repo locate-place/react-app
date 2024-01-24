@@ -245,14 +245,14 @@ const Location = () =>
                                             }
                                             {
                                                 coordinateLatitudeDms && coordinateLongitudeDms ? <tr>
-                                                    <td className={classNamesFirstRow.join(' ')}>Latitude</td>
+                                                    <td className={classNamesFirstRow.join(' ')}>DMS</td>
                                                     <td className={classNamesSecondRow.join([' '])}
                                                         colSpan={2}>{coordinateLatitudeDms}, {coordinateLongitudeDms}</td>
                                                 </tr> : <></>
                                             }
                                             {
                                                 coordinateLatitudeDecimal && coordinateLongitudeDecimal ? <tr>
-                                                    <td className={classNamesFirstRow.join(' ')}>Longitude</td>
+                                                    <td className={classNamesFirstRow.join(' ')}>Decimal</td>
                                                     <td className={classNamesSecondRow.join([' '])}
                                                         colSpan={2}>{coordinateLatitudeDecimal}, {coordinateLongitudeDecimal}</td>
                                                 </tr> : <></>

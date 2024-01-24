@@ -51,8 +51,6 @@ const LocationCard = ({location, properties, showOwnPosition}: LocationCardProps
 
     let airportCodeIata = getAirportCodeIata(location);
 
-    console.log(location);
-
     type TypeTranslation = {
         'airports': string,
         'churches': string,

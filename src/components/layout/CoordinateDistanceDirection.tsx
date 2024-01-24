@@ -32,6 +32,7 @@ const CoordinateDistanceDirection = ({location}: CoordinateDistanceDirectionProp
     const distance: string = hasDistance ? location.coordinate[nameDistance].kilometers['value-formatted'] : '';
     const hasDirection: boolean =!!location.coordinate[nameDirection];
     const direction: string = hasDirection? location.coordinate[nameDirection]['cardinal-direction'] : '';
+    const degree: number|null = hasDirection? location.coordinate[nameDirection]['degree'] : null;
 
     const nameDistanceUser: 'distance-user' = 'distance-user';
     const nameDirectionUser: 'direction-user' = 'direction-user';
@@ -39,6 +40,7 @@ const CoordinateDistanceDirection = ({location}: CoordinateDistanceDirectionProp
     const distanceUser: string = hasDistanceUser? location.coordinate[nameDistanceUser].kilometers['value-formatted'] : '';
     const hasDirectionUser: boolean =!!location.coordinate[nameDirectionUser];
     const directionUser: string = hasDirectionUser? location.coordinate[nameDirectionUser]['cardinal-direction'] : '';
+    const degreeUser: number|null = hasDirectionUser? location.coordinate[nameDirectionUser]['degree'] : null;
 
     return (
         hasCoordinate ?
@@ -52,7 +54,7 @@ const CoordinateDistanceDirection = ({location}: CoordinateDistanceDirectionProp
                                         <div className="compass-area float-end" style={{marginLeft: '1rem'}}>
                                             <div className="compass compass-direction shadow-own">
                                                 <div className="arrow arrow-direction"
-                                                     data-degree={directionUser}
+                                                     data-degree={degreeUser}
                                                 ></div>
                                             </div>
                                         </div>
@@ -61,7 +63,7 @@ const CoordinateDistanceDirection = ({location}: CoordinateDistanceDirectionProp
                                         <div className="compass-area">
                                             <div className="compass compass-direction shadow-own">
                                                 <div className="arrow arrow-direction"
-                                                     data-degree={direction}
+                                                     data-degree={degree}
                                                 ></div>
                                             </div>
                                         </div>

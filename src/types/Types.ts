@@ -15,7 +15,7 @@ type TypePosition = {
 }
 
 type TypeDirection = {
-    "degrees": number,
+    "degree": number,
     "cardinal-direction": string,
     "cardinal-direction-translated": string
 }

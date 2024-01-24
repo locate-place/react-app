@@ -1,10 +1,10 @@
 import React from "react";
 
 /* Import types */
-import {TypeFilterConfig, TypeQuerFeatureCode} from "../types/Types.ts";
+import {TypeFilterConfig, TypeQuerFeatureCode} from "../types/Types";
 
 /* Import search types */
-import {searchTypeCoordinate, searchTypeListWithFeatures} from "./SearchType.ts";
+import {searchTypeCoordinate, searchTypeListWithFeatures} from "./SearchType";
 
 /* Configurations */
 const reactPathLocations: string = '/locations.html';
@@ -339,7 +339,7 @@ const hasQueryGeonameId = (query: string): boolean =>
  */
 const hasQueryCoordinateDecimal = (query: string): boolean =>
 {
-    const regexp: RegExp = /^([0-9]+).([0-9]+)([ ,]+)([0-9]+).([0-9]+)$/;
+    const regexp: RegExp = /^(-?[0-9]+).([0-9]+)([ ,]+)(-?[0-9]+).([0-9]+)$/;
 
     let match: RegExpMatchArray|null = regexp.exec(query);
 

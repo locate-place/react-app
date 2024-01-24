@@ -1,5 +1,5 @@
 /* Import types. */
-import {TypePlace} from "../types/Types.ts";
+import {TypePlace} from "../types/Types";
 
 /**
  * Returns if the elevation should be shown for the given feature class.

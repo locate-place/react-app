@@ -3,7 +3,7 @@ import axios from "axios";
 import semver from "semver";
 
 /* Import types. */
-import {TypeApiProperties, TypeDataVersion, TypeError, TypeLoaded} from "../types/Types.ts";
+import {TypeApiProperties, TypeDataVersion, TypeError, TypeLoaded} from "../types/Types";
 
 /**
  * API data load function.

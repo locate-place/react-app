@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Changelogs
 
+### [0.1.20] - 2023-01-26
+
+* Add pager
+
 ### [0.1.19] - 2023-01-23
 
 * Add card area to location page (refactoring)

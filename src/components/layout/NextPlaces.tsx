@@ -1,10 +1,12 @@
 import React from "react";
+import {useSearchParams} from "react-router-dom";
 
 /* Add functions */
 import {convertMeterToKilometer} from "../../functions/Distance";
 import {getDms} from "../../functions/Coordinate";
 import {getElevation, getPopulation} from "../../functions/Properties";
 import {addSoftHyphens} from "../../functions/Text";
+import {addCurrentPositionToQuery, getFilterConfig, redirectNextPlacesList} from "../../functions/Query";
 
 type NextPlacesProps = {
     nextPlaces: any,
@@ -37,6 +39,11 @@ const NextPlaces = ({nextPlaces}: NextPlacesProps) =>
         V: 'Wälder oder Heiden'
     };
 
+    /* Memorized variables. */
+    const [searchParams] = useSearchParams();
+
+    let filterConfig = getFilterConfig(searchParams);
+
     return (
         nextPlaces.places.length > 0 ?
             <>
@@ -56,7 +63,16 @@ const NextPlaces = ({nextPlaces}: NextPlacesProps) =>
                     <strong>Suchparameter</strong>:&nbsp;
                     Abstand {convertMeterToKilometer(nextPlaces.config['distance-meter'])} -&nbsp;
                     Limitierung {nextPlaces.config['limit']} -&nbsp;
-                    Sortiert nach Entfernung zur Suche
+                    Sortiert nach Entfernung zur Suche -&nbsp;
+                    <a href="#" onClick={(e) => {
+                        redirectNextPlacesList(
+                            filterConfig,
+                            nextPlaces.feature['class'],
+                            nextPlaces.config['distance-meter'],
+                            nextPlaces.config['limit']
+                        );
+                        e.preventDefault();
+                    }}>Zeige Liste</a>
                 </small></p>
                 <table className="table table-last-line">
                     <tbody>

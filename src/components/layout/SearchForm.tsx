@@ -1,13 +1,14 @@
 import React, {useState} from "react";
+import {useSearchParams} from "react-router-dom";
 
 /* Add configurations */
 import {sizeIcon} from "../../config/Config";
 
 /* Bootstrap icons; see https://icons.getbootstrap.com/?q=sort#usage */
-import {GlobeAmericas, CursorFill} from "react-bootstrap-icons";
+import {GlobeAmericas, CursorFill, HouseFill} from "react-bootstrap-icons";
 
 /* Import functions */
-import {getPathLocationApi, redirectCurrentPosition} from "../../functions/Query";
+import {getPathLocationApi, hasOwnPosition, redirectCurrentPosition} from "../../functions/Query";
 
 type SearchFormProps = {
     routePathDefault: string,
@@ -21,6 +22,9 @@ const SearchForm = ({routePathDefault, queryDefault}: SearchFormProps) =>
 {
     const [query, setQuery] = useState<string>(queryDefault);
     const [routePath, setRoutePath] = useState<string>(routePathDefault);
+
+    /* Memorized variables. */
+    const [searchParams] = useSearchParams();
 
     /**
      * Handles the search form submit.
@@ -50,7 +54,11 @@ const SearchForm = ({routePathDefault, queryDefault}: SearchFormProps) =>
 
     return (
         <>
-            <h3><GlobeAmericas size={sizeIcon.H3}/> Location Suche</h3>
+            <h3><GlobeAmericas size={sizeIcon.H3}/> Location Suche {
+                hasOwnPosition(searchParams) ? <sup>
+                    <small><small><small><HouseFill size={sizeIcon.ButtonSmall} /> Akt. Position wird verwendet</small></small></small>
+                </sup> : null
+            }</h3>
 
             <form
                 id="searchForm"

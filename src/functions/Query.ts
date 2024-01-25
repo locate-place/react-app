@@ -1,5 +1,3 @@
-import React from "react";
-
 /* Import types */
 import {TypeFilterConfig, TypeQuerFeatureCode} from "../types/Types";
 
@@ -30,6 +28,28 @@ const nameSortDistanceUser: 'distance-user' = 'distance-user';
 const nameSortRelevance: 'relevance' ='relevance';
 const nameSortRelevanceUser: 'relevance-user' ='relevance-user';
 const nameSortName: 'name' = 'name';
+
+/**
+ * Returns if the own position was given
+ *
+ * @param {URLSearchParams} searchParams
+ * @returns {boolean}
+ */
+const hasOwnPosition = (searchParams: URLSearchParams): boolean =>
+{
+    return searchParams.has(nameParameterCoordinates);
+};
+
+/**
+ * Returns if the own position was given
+ *
+ * @param {URLSearchParams} searchParams
+ * @returns {boolean}
+ */
+const hasCoordinate = (searchParams: URLSearchParams): boolean =>
+{
+    return searchParams.has(nameParameterCoordinates);
+};
 
 /**
  * Returns the coordinate string from the search parameters.
@@ -160,7 +180,78 @@ const redirectSortBy = (filterConfig: TypeFilterConfig, sortName: string): void 
     let filter = { ...filterConfig };
 
     filter[nameParameterSort] = sortName;
+    filter[nameParameterPage] = '1';
     window.location.href = reactPathLocations + '?' + convertFilterToQueryString(filter);
+}
+
+/**
+ * Redirects to given filter configuration.
+ *
+ * @param {TypeFilterConfig} filterConfig
+ */
+const redirectToFilter = (filterConfig: TypeFilterConfig): void =>
+{
+    window.location.href = reactPathLocations + '?' + convertFilterToQueryString(filterConfig);
+}
+
+/**
+ * Redirects the user to the sort by page.
+ *
+ * @param {TypeFilterConfig} filterConfig
+ * @param {string} featureClass
+ * @param {string} distance
+ * @param {string} limit
+ */
+const redirectNextPlacesList = (
+    filterConfig: TypeFilterConfig,
+    featureClass: string,
+    distance: string,
+    limit: string
+): void =>
+{
+    let filter = { ...filterConfig };
+
+    /* Own position was given. */
+    if (nameParameterCoordinates in filter) {
+        filter[nameParameterQuery] = featureClass + ' ' + filterConfig[nameParameterQuery];
+        filter[nameParameterDistance] = distance;
+        filter[nameParameterLimit] = limit;
+        filter[nameParameterSort] = nameSortRelevanceUser;
+        filter[nameParameterPage] = '1';
+
+        redirectToFilter(filter);
+    }
+
+    navigator.geolocation.getCurrentPosition((position) => {
+        let positionString = getPosition(position);
+
+        filter[nameParameterQuery] = featureClass + ' ' + positionString;
+        filter[nameParameterDistance] = distance;
+        filter[nameParameterLimit] = limit;
+        filter[nameParameterSort] = nameSortRelevanceUser;
+        filter[nameParameterPage] = '1';
+        filter[nameParameterCoordinates] = positionString;
+
+        redirectToFilter(filter);
+    });
+}
+
+/**
+ * Redirects to the next page.
+ *
+ * @param {TypeFilterConfig} filterConfig
+ * @param {string} page
+ */
+const redirectNextPage = (
+    filterConfig: TypeFilterConfig,
+    page: number
+): void =>
+{
+    let filter = { ...filterConfig };
+
+    filter[nameParameterPage] = page.toString();
+
+    redirectToFilter(filter);
 }
 
 /**
@@ -175,6 +266,7 @@ const redirectSortByWithCurrentPosition = (filterConfig: TypeFilterConfig, sortN
     let filter = { ...filterConfig };
 
     filter[nameParameterSort] = sortName;
+    filter[nameParameterPage] = '1';
 
     if (filter.hasOwnProperty(nameParameterCoordinates)) {
         window.location.href = reactPathLocations + '?' + convertFilterToQueryString(filter);
@@ -415,12 +507,26 @@ const getPathLocationApi = (query: string): string =>
 /**
  * Returns if this search is a coordinate search.
  *
- * @param properties
+ * @param {any} properties
+ * @param {TypeFilterConfig} filterConfig
  */
-const getIsCoordinateSearch = (properties: any): boolean =>
+const getIsCoordinateSearch = (properties: any, filterConfig: TypeFilterConfig): boolean =>
 {
     let hasQuery = properties.given && properties.given.query;
-    return  hasQuery && [searchTypeListWithFeatures, searchTypeCoordinate].includes(properties.given.query.parsed.type);
+
+    if (hasQuery && [searchTypeListWithFeatures, searchTypeCoordinate].includes(properties.given.query.parsed.type)) {
+        return true;
+    }
+
+    if (filterConfig === undefined) {
+        return false;
+    }
+
+    if (nameParameterCoordinates in filterConfig) {
+        return true;
+    }
+
+    return false;
 }
 
 /**
@@ -445,11 +551,15 @@ const sortByRelevanceUser = (filterConfig: TypeFilterConfig) => redirectSortByWi
  * Export functions.
  */
 export {
+    hasOwnPosition,
+    hasCoordinate,
     getCoordinate,
     getQuery,
     getSort,
     getFilterConfig,
     redirectSortBy,
+    redirectNextPlacesList,
+    redirectNextPage,
     redirectSortByWithCurrentPosition,
     redirectCurrentPosition,
     addCurrentPositionToQuery,

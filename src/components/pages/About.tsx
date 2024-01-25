@@ -18,7 +18,8 @@ import {TypeApiProperties, TypeDataVersion, TypeError, TypeLoaded} from "../../t
 /**
  * This is the about page.
  */
-const About = () => {
+const About = () =>
+{
     /* API types */
     const typeCalendarBuilder: string = useMemo(() => {
         return process.env.REACT_APP_TYPE_CALENDAR_BUILDER !== undefined ?
@@ -91,7 +92,7 @@ const About = () => {
                                 Übersicht über die Versionen dieser verwendeten App.
                             </p>
 
-                            <div className="card w-100">
+                            <div className="card w-100 shadow-own">
                                 <div className="card-header fw-bold">
                                     <FontAwesomeIcon icon={faImages} style={{'color': 'rgb(255, 90, 55)'}}/>&nbsp; React Calendar Viewer
                                 </div>
@@ -128,7 +129,7 @@ const About = () => {
 
                             <div className="row g-3 mb-5">
                                 <div className="col-12 col-lg-6 d-flex align-items-stretch">
-                                    <div className="card w-100">
+                                    <div className="card w-100 shadow-own">
                                         <div className="card-header fw-bold"><FontAwesomeIcon icon={faIndustry} style={{'color': 'rgb(114, 126, 174)'}}/>&nbsp; PHP Calendar Builder</div>
                                         <div className="card-body">
                                             <ul className="mb-0">
@@ -168,7 +169,7 @@ const About = () => {
 
 
                                 <div className="col-12 col-lg-6 d-flex align-items-stretch">
-                                    <div className="card w-100">
+                                    <div className="card w-100 shadow-own">
                                         <div className="card-header fw-bold"><FontAwesomeIcon icon={faDatabase} style={{'color': 'rgb(75, 123, 107)'}} />&nbsp; PHP Location API</div>
                                         <div className="card-body">
                                             <ul className="mb-0">

@@ -39,6 +39,7 @@ import {
     CursorFill
 } from "react-bootstrap-icons";
 import initializeCompass from "../../functions/Compass";
+import Pager from "../layout/Pager";
 
 /**
  * This is the app locations component.
@@ -74,12 +75,15 @@ const Locations = () =>
     let hasOwnPosition = properties.given && properties.given.coordinate && properties.given.coordinate.location;
     let ownPosition = hasOwnPosition ? (properties.given.coordinate.parsed.latitude.dms + ', ' + properties.given.coordinate.parsed.longitude.dms) : null;
 
-    let isCoordinateSearch = getIsCoordinateSearch(properties);
+    let isCoordinateSearch = getIsCoordinateSearch(properties, filterConfig);
 
     let hasResults = !!properties.results;
     let numberResults = hasResults && properties.results.results;
     let numberTotal = hasResults && properties.results.total;
+    let numberPage = hasResults ? properties.results.page : 1;
 
+    console.log(data);
+    console.log(properties);
 
     /**
      * useEffect function.
@@ -151,19 +155,19 @@ const Locations = () =>
                                     {
                                         isCoordinateSearch ?
                                             <button
-                                                className={'btn ' + (sort === 'distance' ? 'btn-secondary' : 'btn-outline-secondary')}
+                                                className={'btn ' + ((sort === 'distance-user' || sort === 'distance') ? 'btn-secondary' : 'btn-outline-secondary')}
                                                 onClick={() => sortByDistance(filterConfig)}
                                                 title="Sortieren nach Distanz"
                                             >
+                                                <CursorFill size={sizeIcon.ButtonSmall}/>&nbsp;
                                                 <SortNumericDown size={sizeIcon.Button}/>&nbsp;
                                                 <sup><small>km</small></sup>
                                             </button> :
                                             <button
-                                                className={'btn ' + (sort === 'distance-user' ? 'btn-secondary' : 'btn-outline-secondary')}
+                                                className={'btn ' + ((sort === 'distance-user' || sort === 'distance') ? 'btn-secondary' : 'btn-outline-secondary')}
                                                 onClick={() => sortByDistanceUser(filterConfig)}
                                                 title="Sortieren nach Distanz vom User"
                                             >
-                                                <CursorFill size={sizeIcon.ButtonSmall}/>&nbsp;
                                                 <SortNumericDown size={sizeIcon.Button}/>&nbsp;
                                                 <sup><small>km</small></sup>
                                             </button>
@@ -173,18 +177,18 @@ const Locations = () =>
                                             (
                                                 isCoordinateSearch ?
                                                     <button
-                                                        className={'btn ' + (sort === 'relevance' ? 'btn-secondary' : 'btn-outline-secondary')}
+                                                        className={'btn ' + ((sort === 'relevance-user' || sort === 'relevance') ? 'btn-secondary' : 'btn-outline-secondary')}
                                                         onClick={() => sortByRelevance(filterConfig)}
                                                         title="Sortieren nach Relevanz"
                                                     >
+                                                        <CursorFill size={sizeIcon.ButtonSmall}/>&nbsp;
                                                         <SortDown size={sizeIcon.Button}/> <sup><small>Relevanz</small></sup>
                                                     </button> :
                                                     <button
-                                                        className={'btn ' + (sort === 'relevance-user' ? 'btn-secondary' : 'btn-outline-secondary')}
+                                                        className={'btn ' + ((sort === 'relevance-user' || sort === 'relevance') ? 'btn-secondary' : 'btn-outline-secondary')}
                                                         onClick={() => sortByRelevanceUser(filterConfig)}
                                                         title="Sortieren nach Relevanz vom User"
                                                     >
-                                                        <CursorFill size={sizeIcon.ButtonSmall}/>&nbsp;
                                                         <SortDown size={sizeIcon.Button}/>&nbsp;
                                                         <sup><small>Relevanz</small></sup>
                                                     </button>
@@ -202,7 +206,7 @@ const Locations = () =>
                                         <div className="mt-5">
                                             {
                                                 query ?
-                                                    <p>{numberTotal} Ergebnisse für "{query}" gefunden. Zeige {numberResults}.</p> :
+                                                    <p>{numberTotal} Ergebnisse für "{query}" gefunden. Zeige {(numberPage - 1) * numberResults + 1} - {numberResults * numberPage}.</p> :
                                                     <p>{numberTotal} Ergebnisse gefunden. Zeige {numberResults}.</p>
                                             }
                                         </div>
@@ -226,6 +230,14 @@ const Locations = () =>
                                         </div>
                                     </>
                             }
+
+                            {/* Renders the pager part. */}
+                            <Pager
+                                page={numberPage}
+                                results={numberResults}
+                                total={numberTotal}
+                                filterConfig={filterConfig}
+                            />
 
                             {/* Renders the search performance part. */}
                             <SearchPerformance

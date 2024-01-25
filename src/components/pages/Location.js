@@ -188,7 +188,7 @@ const Location = () =>
                                     {data.name}
                                 </h2>
 
-                                <div className="card card-hover mb-5"
+                                <div className="card shadow-own mb-5"
                                      style={{'backgroundColor': 'rgb(233, 235, 228)'}}>
                                     <div className="card-header">
                                         <p className="mb-0 fw-bold">{data['name-full']}</p>

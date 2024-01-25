@@ -91,7 +91,7 @@ const getSort = (searchParams: URLSearchParams, properties: any): string|null =>
     let query = getQuery(searchParams);
 
     return (query ?
-        (properties !== null && getIsCoordinateSearch(properties) ? nameSortRelevance : nameSortRelevanceUser) :
+        (properties !== null && getIsCoordinateSearch(properties, getFilterConfig(searchParams)) ? nameSortRelevance : nameSortRelevanceUser) :
         nameSortName
     );
 };

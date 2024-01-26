@@ -132,6 +132,11 @@ const Location = () =>
     let hasNextPlacesV = hasNextPlaces && data['next-places']['V'];
     let nextPlacesV = hasNextPlacesV? data['next-places']['V'] : null;
 
+    let hasLinks = !!data['links'];
+    let hasWikipedia = hasLinks && !!data['links']['wikipedia'];
+    let hasWikipediaThis = hasWikipedia && !!data['links']['wikipedia']['this'];
+    let wikipediaLink = hasWikipediaThis ? data['links']['wikipedia']['this'] : null;
+
     let filterConfig = getFilterConfig(searchParams);
     let addCurrentPosition = (e) => {
         addCurrentPositionToQuery(filterConfig);
@@ -333,6 +338,12 @@ const Location = () =>
                                                     <td className={classNamesFirstRow.join(' ')}>Zeitzone</td>
                                                     <td className={classNamesSecondRow.join([' '])}
                                                         colSpan={2}>{timezone} <code>{timezoneOffset}</code></td>
+                                                </tr> : <></>
+                                            }
+                                            {
+                                                hasWikipediaThis ? <tr>
+                                                    <td className={classNamesFirstRow.join(' ')}>Wikipedia</td>
+                                                    <td className={classNamesSecondRow.join([' '])} colSpan={2}><a href={wikipediaLink} target={'_blank'} rel="noreferrer">{wikipediaLink}</a></td>
                                                 </tr> : <></>
                                             }
                                             <tr>

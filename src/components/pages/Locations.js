@@ -82,9 +82,6 @@ const Locations = () =>
     let numberTotal = hasResults && properties.results.total;
     let numberPage = hasResults ? properties.results.page : 1;
 
-    console.log(data);
-    console.log(properties);
-
     /**
      * useEffect function.
      */

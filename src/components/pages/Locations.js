@@ -217,6 +217,7 @@ const Locations = () =>
                                                 location={location}
                                                 properties={properties}
                                                 showOwnPosition={false}
+                                                index={index}
                                             />
                                         ))}
                                     </>:

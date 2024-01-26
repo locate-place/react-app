@@ -19,6 +19,7 @@ type LocationCardProps = {
     location: any,
     properties: any,
     showOwnPosition: boolean,
+    index?: number
 }
 
 /**
@@ -26,7 +27,7 @@ type LocationCardProps = {
  *
  * - ownPosition - Use own position instead of the one from the given location.
  */
-const LocationCard = ({location, properties, showOwnPosition}: LocationCardProps) => {
+const LocationCard = ({location, properties, showOwnPosition, index}: LocationCardProps) => {
     /* true - use geoname id as query; false - use coordinate as query */
     let useGeonameIdAsQuery = true;
 
@@ -45,9 +46,6 @@ const LocationCard = ({location, properties, showOwnPosition}: LocationCardProps
     let ownPosition = hasOwnPosition ? properties.given.coordinate.parsed : null;
     let ownPositionLatitudeDecimal = hasOwnPosition ? ownPosition.latitude.decimal : null;
     let ownPositionLongitudeDecimal = hasOwnPosition ? ownPosition.longitude.decimal : null;
-
-    let hasUserCoordinate = location.coordinate && location.coordinate['direction-user'];
-    let userDegree = hasUserCoordinate? location.coordinate['direction-user'].degree : null;
 
     let airportCodeIata = getAirportCodeIata(location);
 
@@ -96,6 +94,8 @@ const LocationCard = ({location, properties, showOwnPosition}: LocationCardProps
     ;
     let fullQueryNextPlaces = fullQuery + '&next_places=1';
 
+    let name = location['name-full'] || location.name;
+
     return (
         <>
             <div className={'card card-hover w-100 mb-4'}
@@ -105,8 +105,8 @@ const LocationCard = ({location, properties, showOwnPosition}: LocationCardProps
                           title={translateCountryCode(location.properties.country)}/> &nbsp;
                     {
                         showOwnPosition ?
-                            <span><span className="fw-bold">{location['name-full']}</span></span> :
-                            <span><span className="fw-bold">Treffer</span>: {location.name}</span>
+                            <span><span className="fw-bold">{name}</span></span> :
+                            <span><span className="fw-bold">{name}</span>{index !== undefined ? <sup>&nbsp;(#{index + 1})</sup> : null}</span>
                     }
                     {
                         airportCodeIata !== null ?
@@ -122,14 +122,10 @@ const LocationCard = ({location, properties, showOwnPosition}: LocationCardProps
                                 <p className="m-0">
                                     <a
                                         href={fullQueryNextPlaces}
-                                    ><span className="text-nowrap"><FontAwesomeIcon icon={faMaximize}
-                                                                                    style={{'color': 'rgb(114, 135, 42)'}}/> Vollständig</span></a>, <a
-                                    href={fullQuery}
-                                >
-                                    <span className="text-nowrap"><FontAwesomeIcon icon={faMinimize}
-                                                                                   style={{'color': 'rgb(114, 135, 42)'}}/> Einfach
-                                    </span>
-                                </a>
+                                    ><span><FontAwesomeIcon
+                                        icon={faMaximize}
+                                        style={{'color': 'rgb(114, 135, 42)'}}
+                                    /> {name}</span></a>
                                 </p>
                             </div>
                             <div className="col-12 col-md-6 col-lg-4 mb-3">

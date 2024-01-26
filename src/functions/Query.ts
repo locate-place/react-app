@@ -237,6 +237,34 @@ const redirectNextPlacesList = (
 }
 
 /**
+ * Redirects the user to the sort by page with given coordinate.
+ *
+ * @param {string} coordinate
+ * @param {TypeFilterConfig} filterConfig
+ * @param {string} featureClass
+ * @param {string} distance
+ * @param {string} limit
+ */
+const redirectNextPlacesListWithCoordinate = (
+    coordinate: string,
+    filterConfig: TypeFilterConfig,
+    featureClass: string,
+    distance: string,
+    limit: string
+): void =>
+{
+    let filter = { ...filterConfig };
+
+    filter[nameParameterQuery] = featureClass + ' ' + coordinate;
+    filter[nameParameterDistance] = distance;
+    filter[nameParameterLimit] = limit;
+    filter[nameParameterSort] = nameSortRelevanceUser;
+    filter[nameParameterPage] = '1';
+
+    redirectToFilter(filter);
+}
+
+/**
  * Redirects to the next page.
  *
  * @param {TypeFilterConfig} filterConfig
@@ -559,6 +587,7 @@ export {
     getFilterConfig,
     redirectSortBy,
     redirectNextPlacesList,
+    redirectNextPlacesListWithCoordinate,
     redirectNextPage,
     redirectSortByWithCurrentPosition,
     redirectCurrentPosition,

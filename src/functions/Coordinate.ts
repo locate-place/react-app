@@ -1,5 +1,5 @@
 /* Import types */
-import {TypeCoordinate} from "../types/Types.ts";
+import {TypeCoordinate} from "../types/Types";
 
 /**
  * Returns the decimal format of the given coordinate.

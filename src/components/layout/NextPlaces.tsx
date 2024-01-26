@@ -3,10 +3,10 @@ import {useSearchParams} from "react-router-dom";
 
 /* Add functions */
 import {convertMeterToKilometer} from "../../functions/Distance";
-import {getDms} from "../../functions/Coordinate";
+import {getDecimal, getDms} from "../../functions/Coordinate";
 import {getElevation, getPopulation} from "../../functions/Properties";
 import {addSoftHyphens} from "../../functions/Text";
-import {addCurrentPositionToQuery, getFilterConfig, redirectNextPlacesList} from "../../functions/Query";
+import {getFilterConfig, redirectNextPlacesList, redirectNextPlacesListWithCoordinate} from "../../functions/Query";
 
 type NextPlacesProps = {
     nextPlaces: any,
@@ -65,12 +65,22 @@ const NextPlaces = ({nextPlaces}: NextPlacesProps) =>
                     Limitierung {nextPlaces.config['limit']} -&nbsp;
                     Sortiert nach Entfernung zur Suche -&nbsp;
                     <a href="#" onClick={(e) => {
-                        redirectNextPlacesList(
-                            filterConfig,
-                            nextPlaces.feature['class'],
-                            nextPlaces.config['distance-meter'],
-                            nextPlaces.config['limit']
-                        );
+
+                        nextPlaces.config['coordinate-type'] === 'location' ?
+                            redirectNextPlacesListWithCoordinate(
+                                getDecimal(nextPlaces.config['coordinate']),
+                                filterConfig,
+                                nextPlaces.feature['class'],
+                                nextPlaces.config['distance-meter'],
+                                nextPlaces.config['limit']
+                            ) :
+                            redirectNextPlacesList(
+                                filterConfig,
+                                nextPlaces.feature['class'],
+                                nextPlaces.config['distance-meter'],
+                                nextPlaces.config['limit']
+                            )
+                        ;
                         e.preventDefault();
                     }}>Zeige Liste</a>
                 </small></p>

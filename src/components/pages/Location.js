@@ -30,6 +30,7 @@ import Flag from "react-flagkit";
 
 /* Bootstrap icons; see https://icons.getbootstrap.com/?q=sort#usage */
 import {CursorFill} from "react-bootstrap-icons";
+import {addSoftHyphens} from "../../functions/Text";
 
 /**
  * This is the app locations component.
@@ -343,7 +344,7 @@ const Location = () =>
                                             {
                                                 hasWikipediaThis ? <tr>
                                                     <td className={classNamesFirstRow.join(' ')}>Wikipedia</td>
-                                                    <td className={classNamesSecondRow.join([' '])} colSpan={2}><a href={wikipediaLink} target={'_blank'} rel="noreferrer">{wikipediaLink}</a></td>
+                                                    <td className={classNamesSecondRow.join([' '])} colSpan={2}><a href={wikipediaLink} target={'_blank'} rel="noreferrer">{addSoftHyphens(wikipediaLink)}</a></td>
                                                 </tr> : <></>
                                             }
                                             <tr>

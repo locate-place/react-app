@@ -344,7 +344,7 @@ const Location = () =>
                                             {
                                                 hasWikipediaThis ? <tr>
                                                     <td className={classNamesFirstRow.join(' ')}>Wikipedia</td>
-                                                    <td className={classNamesSecondRow.join([' '])} colSpan={2}><a href={wikipediaLink} target={'_blank'} rel="noreferrer">{addSoftHyphens(wikipediaLink)}</a></td>
+                                                    <td className={classNamesSecondRow.join([' '])} colSpan={2}><a href={wikipediaLink} target={'_blank'} rel="noreferrer" dangerouslySetInnerHTML={{__html: addSoftHyphens(wikipediaLink)}} /></td>
                                                 </tr> : <></>
                                             }
                                             <tr>

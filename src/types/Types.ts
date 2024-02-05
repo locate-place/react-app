@@ -138,21 +138,28 @@ type TypeApiProperties = {
 /* Full API Types.
  */
 
+const typeLocation: string = 'location';
+
+const typeLocations: string = 'locations';
+
 type TypeDataLicence = {
     "full": string,
     "short": string,
     "url": string
 }
 
+type TypePerformance = object;
+
 type TypeApiData = {
     "data-licence": TypeDataLicence,
     "time-taken": string;
     "memory-taken": string;
-    "performance": object;
-    "data": object;
-    "given"?: object;
+    "performance": TypePerformance;
+    "results"?: object;
+    "data": object|Array<object>;
+    "given": object;
     "valid": boolean;
-    "date"?: string;
+    "date": string;
     "version": string;
 }
 
@@ -183,5 +190,9 @@ export {
 
     /* Full API Types. */
     TypeDataLicence,
-    TypeApiData
+    TypePerformance,
+    TypeApiData,
+
+    typeLocations,
+    typeLocation
 }

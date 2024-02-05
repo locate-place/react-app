@@ -1,4 +1,10 @@
-import {TypeApiData, TypeDataLicence} from "../types/Types";
+import {
+    TypeApiData,
+    TypeDataLicence,
+    TypePerformance,
+    typeLocation,
+    typeLocations
+} from "../types/Types";
 
 class LocationApiWrapper
 {
@@ -15,11 +21,75 @@ class LocationApiWrapper
     }
 
     /**
+     * Returns the type of the api data.
+     */
+    getType(): string
+    {
+        return Array.isArray(this.apiData.data) ? typeLocations : typeLocation;
+    }
+
+    /**
+     * Returns the type of the api data is an array.
+     */
+    isLocations(): boolean
+    {
+        return Array.isArray(this.apiData.data);
+    }
+
+    /**
+     * Returns the type of the api data is not an array.
+     */
+    isLocation(): boolean
+    {
+        return !Array.isArray(this.apiData.data);
+    }
+
+    /**
      * Returns the data license.
      */
     getDataLicence(): TypeDataLicence
     {
         return this.apiData["data-licence"];
+    }
+
+    /**
+     * Returns the time taken value.
+     */
+    getTimeTaken(): string
+    {
+        return this.apiData["time-taken"];
+    }
+
+    /**
+     * Returns the memory taken value.
+     */
+    getMemoryTaken(): string
+    {
+        return this.apiData["memory-taken"];
+    }
+
+    /**
+     * Returns the performance date.
+     */
+    getPerformance(): TypePerformance
+    {
+        return this.apiData.performance;
+    }
+
+    /**
+     * Returns if the request is valid.
+     */
+    getValid(): boolean
+    {
+        return this.apiData.valid;
+    }
+
+    /**
+     * Returns the date of the api data.
+     */
+    getDate(): string
+    {
+        return this.apiData.date;
     }
 
     /**

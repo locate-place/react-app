@@ -64,7 +64,7 @@ const NextPlaces = ({nextPlaces}: NextPlacesProps) =>
                     Abstand {convertMeterToKilometer(nextPlaces.config['distance-meter'])} -&nbsp;
                     Limitierung {nextPlaces.config['limit']} -&nbsp;
                     Sortiert nach Entfernung zur Suche -&nbsp;
-                    <a href="#" onClick={(e) => {
+                    <button className="link-button" onClick={(e) => {
 
                         nextPlaces.config['coordinate-type'] === 'location' ?
                             redirectNextPlacesListWithCoordinate(
@@ -82,7 +82,7 @@ const NextPlaces = ({nextPlaces}: NextPlacesProps) =>
                             )
                         ;
                         e.preventDefault();
-                    }}>Zeige Liste</a>
+                    }}>Zeige Liste</button>
                 </small></p>
                 <table className="table table-last-line">
                     <tbody>

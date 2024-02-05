@@ -4,7 +4,7 @@ import React from "react";
 import Flag from 'react-flagkit';
 
 /* Add font awesome icons */
-import {faMapLocation, faMaximize, faMinimize} from "@fortawesome/free-solid-svg-icons";
+import {faMapLocation, faMaximize} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 /* Add functions */

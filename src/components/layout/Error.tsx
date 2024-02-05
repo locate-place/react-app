@@ -1,7 +1,7 @@
 import React from "react";
 
 /* Import types */
-import {TypeError} from "../../types/Types.ts";
+import {TypeError} from "../../types/Types";
 
 type ErrorProps = {
     error: TypeError,

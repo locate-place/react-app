@@ -1,9 +1,9 @@
 import React from "react";
 
 /* Add component parts */
-import Error from "../layout/Error.tsx";
-import Header from "../layout/Header.tsx";
-import Loader from "../layout/Loader.tsx";
+import Error from "../layout/Error";
+import Header from "../layout/Header";
+import Loader from "../layout/Loader";
 
 /**
  * This is the app home page.

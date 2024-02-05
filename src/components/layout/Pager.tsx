@@ -28,13 +28,13 @@ const Pager = ({
     return (
         <>
             <div className="mb-3 float-end">
-                <a href="#" onClick={(e) => {
+                <button className="link-button" onClick={(e) => {
                     redirectNextPage(
                         filterConfig,
                         page + 1
                     );
                     e.preventDefault();
-                }}>Zeige nächste Seite</a>
+                }}>Zeige nächste Seite</button>
             </div>
 
             <div className="clearfix"></div>

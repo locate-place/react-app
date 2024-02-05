@@ -135,6 +135,21 @@ type TypeApiProperties = {
     "results"?: TypeResults;
 }
 
+type TypeApiData = {
+    "date"?: string;
+    "given"?: string;
+    "memory-taken"?: string;
+    "time-taken"?: string;
+    "valid": boolean;
+    "version"?: string;
+    "name": string|null;
+    "url": string|null;
+    "path": string;
+    "type": string;
+    "api-url": string;
+    "results"?: TypeResults;
+}
+
 /*
  * Export functions.
  */
@@ -158,5 +173,6 @@ export {
     TypeLoaded,
     TypeDataVersion,
     TypeApiProperties,
-    TypeAirportCodes
+    TypeAirportCodes,
+    TypeApiData
 }

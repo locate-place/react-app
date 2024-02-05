@@ -1,7 +1,7 @@
 import React from "react";
 
 /* Add component parts */
-import Header from "../layout/Header.tsx";
+import Header from "../layout/Header";
 
 /**
  * This is the not found page.

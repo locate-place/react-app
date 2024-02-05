@@ -35,6 +35,20 @@ body {
         }
     }
 
+    .link-button {
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        display: inline;
+        margin: 0;
+        padding: 0;
+        color: rgb(13, 110, 253);
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
     .table-compass {
         padding: .5rem 0;
         width: 0;

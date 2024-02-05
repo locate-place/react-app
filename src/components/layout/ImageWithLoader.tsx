@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 /* Add types */
-import {TypeSrcSet} from "../../types/Types.ts";
+import {TypeSrcSet} from "../../types/Types";
 
 type ImageWithLoaderProps = {
     src: string,

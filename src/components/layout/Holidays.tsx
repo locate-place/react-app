@@ -1,10 +1,10 @@
 import React from "react";
 
 /* Import functions */
-import {convertToGermanFormatFromDate} from "../../functions/Date.ts";
+import {convertToGermanFormatFromDate} from "../../functions/Date";
 
 /* Import types */
-import {TypeHolidays} from "../../types/Types.ts";
+import {TypeHolidays} from "../../types/Types";
 
 type HolidaysProps = {
     data: TypeHolidays

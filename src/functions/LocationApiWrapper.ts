@@ -1,17 +1,33 @@
-import {TypeApiData} from "../types/Types";
+import {TypeApiData, TypeDataLicence} from "../types/Types";
 
 class LocationApiWrapper
 {
-    private apiData: TypeApiData;
+    private readonly apiData: TypeApiData;
 
+    /**
+     * LocationApiWrapper constructor.
+     *
+     * @param apiData {TypeApiData}
+     */
     constructor(apiData: TypeApiData)
     {
         this.apiData = apiData;
     }
 
-    getType(): string
+    /**
+     * Returns the data license.
+     */
+    getDataLicence(): TypeDataLicence
     {
-        return 'location';
+        return this.apiData["data-licence"];
+    }
+
+    /**
+     * Returns the version of the API.
+     */
+    getVersion(): string
+    {
+        return this.apiData.version;
     }
 }
 

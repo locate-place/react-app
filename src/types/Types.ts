@@ -135,19 +135,25 @@ type TypeApiProperties = {
     "results"?: TypeResults;
 }
 
+/* Full API Types.
+ */
+
+type TypeDataLicence = {
+    "full": string,
+    "short": string,
+    "url": string
+}
+
 type TypeApiData = {
-    "date"?: string;
-    "given"?: string;
-    "memory-taken"?: string;
-    "time-taken"?: string;
+    "data-licence": TypeDataLicence,
+    "time-taken": string;
+    "memory-taken": string;
+    "performance": object;
+    "data": object;
+    "given"?: object;
     "valid": boolean;
-    "version"?: string;
-    "name": string|null;
-    "url": string|null;
-    "path": string;
-    "type": string;
-    "api-url": string;
-    "results"?: TypeResults;
+    "date"?: string;
+    "version": string;
 }
 
 /*
@@ -174,5 +180,8 @@ export {
     TypeDataVersion,
     TypeApiProperties,
     TypeAirportCodes,
+
+    /* Full API Types. */
+    TypeDataLicence,
     TypeApiData
 }

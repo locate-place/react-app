@@ -114,12 +114,6 @@ type TypeDataVersion = {
     "date": string;
 }
 
-type TypeResults = {
-    "total": number;
-    "results": number;
-    "page": number;
-}
-
 type TypeApiProperties = {
     "date"?: string;
     "given"?: string;
@@ -150,12 +144,18 @@ type TypeDataLicence = {
 
 type TypePerformance = object;
 
+type TypeResults = {
+    "total": number;
+    "results": number;
+    "page": number;
+}
+
 type TypeApiData = {
     "data-licence": TypeDataLicence,
     "time-taken": string;
     "memory-taken": string;
     "performance": TypePerformance;
-    "results"?: object;
+    "results"?: TypeResults;
     "data": object|Array<object>;
     "given": object;
     "valid": boolean;
@@ -191,6 +191,7 @@ export {
     /* Full API Types. */
     TypeDataLicence,
     TypePerformance,
+    TypeResults,
     TypeApiData,
 
     typeLocations,

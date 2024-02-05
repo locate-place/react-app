@@ -3,7 +3,7 @@ import {
     TypeDataLicence,
     TypePerformance,
     typeLocation,
-    typeLocations
+    typeLocations, TypeResults
 } from "../types/Types";
 
 class LocationApiWrapper
@@ -74,6 +74,15 @@ class LocationApiWrapper
     getPerformance(): TypePerformance
     {
         return this.apiData.performance;
+    }
+
+    getResults(): TypeResults|null
+    {
+        if (this.isLocations() && this.apiData.results !== undefined) {
+            return this.apiData.results;
+        }
+
+        return null;
     }
 
     /**

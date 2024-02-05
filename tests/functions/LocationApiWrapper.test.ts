@@ -19,19 +19,22 @@ test('LocationApiWrapper: Test location GeoNameSearch', () => {
     expect(locationApiWrapper.getDataLicence()['short']).toBe('CC-BY 4.0');
     expect(locationApiWrapper.getDataLicence()['url']).toBe('https://download.geonames.org/export/dump/readme.txt');
 
-    /* Time taken */
+    /* Test time taken */
     expect(locationApiWrapper.getTimeTaken()).toBe('293ms');
 
-    /* Memory taken */
+    /* Test memory taken */
     expect(locationApiWrapper.getMemoryTaken()).toBe('4.54 MB');
 
-    /* Performance */
+    /* Test performance */
     expect(typeof locationApiWrapper.getPerformance()).toBe('object');
 
-    /* Valid */
+    /* Test results */
+    expect(locationApiWrapper.getResults()).toBeNull();
+
+    /* Test valid */
     expect(locationApiWrapper.getValid()).toBe(true);
 
-    /* Date */
+    /* Test date */
     expect(locationApiWrapper.getDate()).toBe('2024-02-05T20:01:31+00:00');
 
     /* Test version parameter. */
@@ -54,19 +57,22 @@ test('LocationApiWrapper: Test locations PlaceSearch', () => {
     expect(locationApiWrapper.getDataLicence()['short']).toBe('CC-BY 4.0');
     expect(locationApiWrapper.getDataLicence()['url']).toBe('https://download.geonames.org/export/dump/readme.txt');
 
-    /* Time taken */
+    /* Test time taken */
     expect(locationApiWrapper.getTimeTaken()).toBe('111ms');
 
-    /* Memory taken */
+    /* Test memory taken */
     expect(locationApiWrapper.getMemoryTaken()).toBe('2.37 MB');
 
-    /* Performance */
+    /* Test performance */
     expect(typeof locationApiWrapper.getPerformance()).toBe('object');
 
-    /* Valid */
+    /* Test results */
+    expect(locationApiWrapper.getResults()).not.toBeNull();
+
+    /* Test valid */
     expect(locationApiWrapper.getValid()).toBe(true);
 
-    /* Date */
+    /* Test date */
     expect(locationApiWrapper.getDate()).toBe('2024-02-05T22:30:26+00:00');
 
     /* Test version parameter. */

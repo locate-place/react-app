@@ -15,7 +15,7 @@ import Loader from "../layout/Loader.tsx";
 /**
  * This is the image page.
  */
-const Page = () => {
+const CalendarPage = () => {
     /* API types */
     const typeCalendarBuilder = useMemo(() => {
         return process.env.REACT_APP_TYPE_CALENDAR_BUILDER;
@@ -73,6 +73,7 @@ const Page = () => {
                             </div>
                             <p>
                                 Koordinate (Google Maps): {data.google_maps !== null ? <a href={data.google_maps} target="_blank" rel="noreferrer">{data.coordinate_dms}</a> : data.coordinate}<br/>
+                                Koordinate (Location API): {data.coordinate_decimal !== null ? <a href={'location.html?q=' + data.coordinate_decimal.replace(/, /, ', ')}>{data.coordinate_decimal}</a> : data.coordinate_decimal}<br/>
                                 Koordinate (Twelvepics API): {data.coordinate_decimal !== null ? <a href={'https://twelvepics.com/location/' + data.coordinate_decimal.replace(/, /, '/')} target="_blank" rel="noreferrer">{data.coordinate_decimal}</a> : data.coordinate_decimal}<br/>
                                 Kalenderblatt: {data.year}/{data.month === 0 ? 'Titelblatt' : data.month}<br/>
                             </p>
@@ -129,4 +130,4 @@ const Page = () => {
     );
 }
 
-export default Page;
+export default CalendarPage;

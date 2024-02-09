@@ -3,7 +3,7 @@ import {
     TypeDataLicence,
     TypePerformance,
     typeLocation,
-    typeLocations, TypeResults
+    typeLocations, TypeResults, TypeLocation
 } from "../types/Types";
 
 class LocationApiWrapper
@@ -21,14 +21,6 @@ class LocationApiWrapper
     }
 
     /**
-     * Returns the type of the api data.
-     */
-    getType(): string
-    {
-        return Array.isArray(this.apiData.data) ? typeLocations : typeLocation;
-    }
-
-    /**
      * Returns the type of the api data is an array.
      */
     isLocations(): boolean
@@ -42,6 +34,14 @@ class LocationApiWrapper
     isLocation(): boolean
     {
         return !Array.isArray(this.apiData.data);
+    }
+
+    /**
+     * Returns the type of the api data.
+     */
+    getType(): string
+    {
+        return this.isLocations() ? typeLocations : typeLocation;
     }
 
     /**
@@ -76,10 +76,45 @@ class LocationApiWrapper
         return this.apiData.performance;
     }
 
+    /**
+     * Returns the result data.
+     */
     getResults(): TypeResults|null
     {
         if (this.isLocations() && this.apiData.results !== undefined) {
             return this.apiData.results;
+        }
+
+        return null;
+    }
+
+    /**
+     * Returns the data.
+     */
+    getData(): TypeLocation|Array<TypeLocation>
+    {
+        return this.apiData.data;
+    }
+
+    /**
+     * Returns the current location if it is a location search. Otherwise, null.
+     */
+    getLocation(): TypeLocation|null
+    {
+        if (this.isLocation() && !Array.isArray(this.apiData.data)) {
+            return this.apiData.data;
+        }
+
+        return null;
+    }
+
+    /**
+     * Returns the current locations if the data is a list search. Otherwise, null.
+     */
+    getLocations(): Array<TypeLocation>|null
+    {
+        if (this.isLocation() && Array.isArray(this.apiData.data)) {
+            return this.apiData.data;
         }
 
         return null;

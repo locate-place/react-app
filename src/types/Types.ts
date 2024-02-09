@@ -20,17 +20,7 @@ type TypeDirection = {
     "cardinal-direction-translated": string
 }
 
-type TypeCoordinate = {
-    "latitude": TypePosition,
-    "longitude": TypePosition,
-    "srid": number,
-    "distance": TypeDistance,
-    "direction": TypeDirection
-    "distance-user": TypeDistance,
-    "direction-user": TypeDirection
-}
-
-type TypeLocation = {
+type TypeLocationCoordinate = {
     coordinate: TypeCoordinate
 }
 
@@ -62,20 +52,6 @@ type TypeHolidays = {
 type TypeAirportCodes = {
     "iata"?: string;
     "icao"?: string;
-}
-
-type TypeProperties = {
-    "elevation"?: TypeValue;
-    "population"?: TypeValue;
-    "airport_codes"?: TypeAirportCodes;
-    "country": string;
-}
-
-type TypeFeature = {
-    "code": string;
-    "code-name": string;
-    "class": string;
-    "class-name": string;
 }
 
 type TypePlace = {
@@ -150,13 +126,52 @@ type TypeResults = {
     "page": number;
 }
 
+type TypeProperties = {
+    "elevation"?: TypeValue;
+    "population"?: TypeValue;
+    "airport_codes"?: TypeAirportCodes;
+    "country": string;
+}
+
+type TypeFeature = {
+    "code": string;
+    "code-name": string;
+    "class": string;
+    "class-name": string;
+}
+
+type TypeCoordinate = {
+    "latitude": TypePosition,
+    "longitude": TypePosition,
+    "srid": number,
+    "distance"?: TypeDistance,
+    "direction"?: TypeDirection
+    "distance-user"?: TypeDistance,
+    "direction-user"?: TypeDirection
+}
+
+type TypeLocation = {
+    "geoname-id": number,
+    "name": string,
+    "name-full"?: string,
+    "updated-at": string,
+    "properties": TypeProperties,
+    "feature": TypeFeature,
+    "coordinate": TypeCoordinate
+    "timezone": object,
+    "links": object,
+    "next-places-config": object,
+    "locations"?: object,
+    "next-places"?: object
+}
+
 type TypeApiData = {
     "data-licence": TypeDataLicence,
     "time-taken": string;
     "memory-taken": string;
     "performance": TypePerformance;
     "results"?: TypeResults;
-    "data": object|Array<object>;
+    "data": TypeLocation|Array<TypeLocation>;
     "given": object;
     "valid": boolean;
     "date": string;
@@ -171,14 +186,12 @@ export {
     TypeDistance,
     TypePosition,
     TypeDirection,
-    TypeCoordinate,
-    TypeLocation,
+    TypeLocationCoordinate,
     TypeSrcSet,
     TypeBirthday,
     TypeBirthdays,
     TypeHoliday,
     TypeHolidays,
-    TypeFeature,
     TypePlace,
     TypeFilterConfig,
     TypeQuerFeatureCode,
@@ -192,6 +205,10 @@ export {
     TypeDataLicence,
     TypePerformance,
     TypeResults,
+    TypeProperties,
+    TypeFeature,
+    TypeCoordinate,
+    TypeLocation,
     TypeApiData,
 
     typeLocations,

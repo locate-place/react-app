@@ -14,7 +14,7 @@ import Home from "./components/pages/Home.tsx";
 import Locations from "./components/pages/Locations";
 import Location from "./components/pages/Location";
 import NotFound from "./components/pages/NotFound.tsx";
-import Page from "./components/pages/Page";
+import CalendarPage from "./components/pages/CalendarPage";
 
 /* Add component parts */
 import Footer from "./components/layout/Footer.tsx";
@@ -57,7 +57,7 @@ const App = () => {
 
                 <Route path="/index.html" element={<Calendars />} />
                 <Route path="/calendar.html" element={<Calendar />} />
-                <Route path="/page.html" element={<Page />} />
+                <Route path="/page.html" element={<CalendarPage />} />
 
                 <Route path="/home.html" element={<Home />} />
                 <Route path="/contact.html" element={<Contact />} />

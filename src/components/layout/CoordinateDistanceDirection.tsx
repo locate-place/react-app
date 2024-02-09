@@ -10,10 +10,10 @@ import {
 } from "react-bootstrap-icons";
 
 /* Import types */
-import {TypeLocation} from "../../types/Types";
+import {TypeLocationCoordinate} from "../../types/Types";
 
 type CoordinateDistanceDirectionProps = {
-    location: TypeLocation,
+    location: TypeLocationCoordinate,
 }
 
 /**
@@ -29,18 +29,18 @@ const CoordinateDistanceDirection = ({location}: CoordinateDistanceDirectionProp
     const nameDistance: 'distance' = 'distance';
     const nameDirection: 'direction' = 'direction';
     const hasDistance: boolean = !!location.coordinate[nameDistance];
-    const distance: string = hasDistance ? location.coordinate[nameDistance].kilometers['value-formatted'] : '';
-    const hasDirection: boolean =!!location.coordinate[nameDirection];
-    const direction: string = hasDirection? location.coordinate[nameDirection]['cardinal-direction'] : '';
-    const degree: number|null = hasDirection? location.coordinate[nameDirection]['degree'] : null;
+    const distance: string = !!location.coordinate[nameDistance] ? location.coordinate[nameDistance].kilometers['value-formatted'] : '';
+    const hasDirection: boolean = !!location.coordinate[nameDirection];
+    const direction: string = !!location.coordinate[nameDirection]? location.coordinate[nameDirection]['cardinal-direction'] : '';
+    const degree: number|null = !!location.coordinate[nameDirection] ? location.coordinate[nameDirection]['degree'] : null;
 
     const nameDistanceUser: 'distance-user' = 'distance-user';
     const nameDirectionUser: 'direction-user' = 'direction-user';
     const hasDistanceUser: boolean = !!location.coordinate[nameDistanceUser];
-    const distanceUser: string = hasDistanceUser? location.coordinate[nameDistanceUser].kilometers['value-formatted'] : '';
-    const hasDirectionUser: boolean =!!location.coordinate[nameDirectionUser];
-    const directionUser: string = hasDirectionUser? location.coordinate[nameDirectionUser]['cardinal-direction'] : '';
-    const degreeUser: number|null = hasDirectionUser? location.coordinate[nameDirectionUser]['degree'] : null;
+    const distanceUser: string = !!location.coordinate[nameDistanceUser] ? location.coordinate[nameDistanceUser].kilometers['value-formatted'] : '';
+    const hasDirectionUser: boolean = !!location.coordinate[nameDirectionUser];
+    const directionUser: string = !!location.coordinate[nameDirectionUser] ? location.coordinate[nameDirectionUser]['cardinal-direction'] : '';
+    const degreeUser: number|null = !!location.coordinate[nameDirectionUser] ? location.coordinate[nameDirectionUser]['degree'] : null;
 
     return (
         hasCoordinate ?

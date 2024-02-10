@@ -13,8 +13,12 @@ import {
     getFilterConfig,
 } from "../../functions/QueryFunctions";
 import {convertToGermanFormat} from "../../functions/Date";
+import {addSoftHyphens} from "../../functions/Text";
 
-/* Translations */
+/* Import classes */
+import {Query} from "../../classes/Query";
+
+/* Import translations */
 import {translateCountryCode} from "../../translations/Country";
 import {directionTranslation} from "../../translations/Direction";
 
@@ -32,7 +36,6 @@ import Flag from "react-flagkit";
 
 /* Bootstrap icons; see https://icons.getbootstrap.com/?q=sort#usage */
 import {CursorFill} from "react-bootstrap-icons";
-import {addSoftHyphens} from "../../functions/Text";
 
 /**
  * This is the app locations component.
@@ -43,8 +46,8 @@ const Location = () =>
     const routePath = '/location.html';
 
     /* API types */
-    const typeLocationApi = useMemo(() => {
-        return process.env.REACT_APP_TYPE_LOCATION_API;
+    const env = useMemo(() => {
+        return process.env;
     }, []);
 
     /* State variables */
@@ -61,7 +64,7 @@ const Location = () =>
     /* Get variables according to the search parameters. */
     let apiPathWithParameter = getApiPathDetail(searchParams, true);
     let apiPathWithoutParameter = getApiPathDetail(searchParams, false);
-    let query = getQuery(searchParams);
+    let queryString = getQuery(searchParams);
 
     /* Get generell parts */
     let hasDataProperties = !!data['properties'];
@@ -133,19 +136,32 @@ const Location = () =>
         addCurrentPositionToQuery(filterConfig);
     }
 
+    /* Gets the api url */
+    let query = new Query(searchParams, env);
+    const apiPath = query.getApiUrl();
+    const apiPathWithFilter = query.getApiUrlWithFilter();
+    const apiType = query.getApiType();
+
+    console.log('---');
+    console.log(apiPath);
+    console.log(apiPathWithFilter);
+    console.log(apiPathWithoutParameter);
+    console.log(apiPathWithParameter);
+    console.log('---');
+
     /**
      * useEffect function.
      */
     useEffect(() => {
         loadApiData({
-            type: typeLocationApi,
+            type: apiType,
             path: apiPathWithParameter,
             setLoaded: setLoaded,
             setError: setError,
             setDataLocation: setData,
             setProperties: setProperties
         });
-    }, [typeLocationApi, apiPathWithParameter]);
+    }, [apiType, apiPathWithParameter]);
 
     const classNamesFirstRow = ['fw-bold', 'pb-3', 'pt-3', 'px-3', 'text-responsive'];
     const classNamesSecondRow = ['pb-3', 'pt-3', 'px-3', 'text-responsive', 'text-minimized'];
@@ -161,7 +177,7 @@ const Location = () =>
                     <div className="col-12 col-md-10 offset-md-1 col-xl-8 offset-xl-2">
                         {/* Renders the search form. */}
                         <SearchForm
-                            queryDefault={query}
+                            queryDefault={queryString}
                             routePathDefault={routePath}
                         />
 

@@ -1,23 +1,27 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import { useSearchParams } from 'react-router-dom';
 
-/* Add functions */
+/* Import functions */
 import loadApiData from "../../functions/LoadApiData";
 
-/* Add component parts */
-import Birthdays from "../layout/Birthdays";
-import Error from "../layout/Error";
-import HeaderCalendar from "../layout/HeaderCalendar";
-import Holidays from "../layout/Holidays";
-import ImageWithLoader from "../layout/ImageWithLoader";
-import Loader from "../layout/Loader";
+/* Import classes */
+import {Query} from "../../classes/Query";
+
+/* Import types */
 import {
     TypeApiProperties,
     TypeDataCalendar,
     TypeError,
     TypeLoaded
 } from "../../types/Types";
-import {Query} from "../../functions/Query";
+
+/* Import component parts */
+import Birthdays from "../layout/Birthdays";
+import Error from "../layout/Error";
+import HeaderCalendar from "../layout/HeaderCalendar";
+import Holidays from "../layout/Holidays";
+import ImageWithLoader from "../layout/ImageWithLoader";
+import Loader from "../layout/Loader";
 
 /**
  * This is the "calendar" component.

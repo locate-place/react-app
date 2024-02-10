@@ -1,7 +1,5 @@
-import {
-    TypeFilterConfig
-} from "../types/Types";
-import {isString} from "node:util";
+/* Import types. */
+import {TypeFilterConfig} from "../types/Types";
 
 /* Routing paths */
 const reactPathHome: string = '/index.html';
@@ -161,10 +159,23 @@ class Query
                 return apiPathCalendar.
                     replace('%calendar%', this.filterConfig[nameParameterCalendar]);
 
+            /* Location. */
+            case reactPathLocation:
+                return apiPathDetail;
+
+            /* Locations. */
+            case reactPathLocations:
+                return apiPathQuerySearch;
+
             /* Unknown path. */
             default:
                 throw new Error('Invalid path given: ' + window.location.pathname);
         }
+    }
+
+    getApiUrlWithFilter(): string
+    {
+        return this.getApiUrl();
     }
 
     /**
@@ -178,23 +189,35 @@ class Query
             throw new Error('Can not use getApiType without an environment object.');
         }
 
+        let keyName: string = '';
+        let value: string = '';
+
         switch (window.location.pathname) {
             /* Use the calendar builder api. */
             case reactPathHome:
             case reactPathCalendars:
             case reactPathCalendar:
             case reactPathCalendarPage:
-                let keyName = 'REACT_APP_TYPE_CALENDAR_BUILDER'
+                keyName = 'REACT_APP_TYPE_CALENDAR_BUILDER'
 
                 if (!this.env.hasOwnProperty(keyName)) {
                     throw new Error(keyName + ' environment variable is missing within the .env file.');
                 }
 
-                let value = this.env[keyName];
+                value = this.env[keyName];
 
-                if (typeof value !== 'string') {
-                    throw new Error(keyName + ' environment variable is not a string.');
+                return value;
+
+            /* Use the location api. */
+            case reactPathLocation:
+            case reactPathLocations:
+                keyName = 'REACT_APP_TYPE_LOCATION_API'
+
+                if (!this.env.hasOwnProperty(keyName)) {
+                    throw new Error(keyName + ' environment variable is missing within the .env file.');
                 }
+
+                value = this.env[keyName];
 
                 return value;
 

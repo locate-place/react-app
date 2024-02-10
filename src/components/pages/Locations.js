@@ -1,10 +1,10 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import {useSearchParams} from "react-router-dom";
 
-/* Add configurations */
+/* Import configurations */
 import {sizeIcon} from "../../config/Config";
 
-/* Add functions */
+/* Import functions */
 import loadApiData from "../../functions/LoadApiData";
 import {
     getQuery,
@@ -19,7 +19,10 @@ import {
     getIsCoordinateSearch
 } from "../../functions/QueryFunctions";
 
-/* Add component parts */
+/* Import classes */
+import {Query} from "../../classes/Query";
+
+/* Import component parts */
 import Error from "../layout/Error.tsx";
 import HeaderSmall from "../layout/HeaderSmall.tsx";
 import Loader from "../layout/Loader.tsx";
@@ -38,7 +41,6 @@ import {
     ListTask,
     CursorFill
 } from "react-bootstrap-icons";
-import initializeCompass from "../../functions/Compass";
 import Pager from "../layout/Pager";
 
 /**
@@ -50,8 +52,8 @@ const Locations = () =>
     const routePath = '/locations.html';
 
     /* API types */
-    const typeLocationApi = useMemo(() => {
-        return process.env.REACT_APP_TYPE_LOCATION_API;
+    const env = useMemo(() => {
+        return process.env;
     }, []);
 
     /* State variables */
@@ -67,9 +69,9 @@ const Locations = () =>
     let filterConfig = getFilterConfig(searchParams);
     let apiPathWithParameter = getApiPathList(searchParams, true);
     let apiPathWithoutParameter = getApiPathList(searchParams, false);
-    let query = getQuery(searchParams);
-    let sort = getSort(searchParams, properties);
-    let isQuerySearch = !!query;
+    let queryString = getQuery(searchParams);
+    let sortString = getSort(searchParams, properties);
+    let isQuerySearch = !!queryString;
 
     /* Check if the current position has been given. */
     let hasOwnPosition = properties.given && properties.given.coordinate && properties.given.coordinate.location;
@@ -82,19 +84,32 @@ const Locations = () =>
     let numberTotal = hasResults && properties.results.total;
     let numberPage = hasResults ? properties.results.page : 1;
 
+    /* Gets the api url */
+    let query = new Query(searchParams, env);
+    const apiPath = query.getApiUrl();
+    const apiPathWithFilter = query.getApiUrlWithFilter();
+    const apiType = query.getApiType();
+
+    console.log('---');
+    console.log(apiPath);
+    console.log(apiPathWithFilter);
+    console.log(apiPathWithoutParameter);
+    console.log(apiPathWithParameter);
+    console.log('---');
+
     /**
      * useEffect function.
      */
     useEffect(() => {
         loadApiData({
-            type: typeLocationApi,
+            type: apiType,
             path: apiPathWithParameter,
             setLoaded: setLoaded,
             setError: setError,
             setDataLocations: setData,
             setProperties: setProperties,
         });
-    }, [typeLocationApi, apiPathWithParameter]);
+    }, [apiType, apiPathWithParameter]);
 
     /**
      * The render function.
@@ -107,7 +122,7 @@ const Locations = () =>
                     <div className="col-12 col-md-10 offset-md-1 col-xl-8 offset-xl-2">
                         {/* Renders the search form. */}
                         <SearchForm
-                            queryDefault={query}
+                            queryDefault={queryString}
                             routePathDefault={routePath}
                         />
 
@@ -142,14 +157,14 @@ const Locations = () =>
                                         <sup><small>Sortierung</small></sup>
                                     </button>
                                     <button
-                                        className={'btn ' + (sort === 'name' ? 'btn-secondary' : 'btn-outline-secondary')}
+                                        className={'btn ' + (sortString === 'name' ? 'btn-secondary' : 'btn-outline-secondary')}
                                         onClick={() => sortByName(filterConfig)} title="Sortieren nach Name">
                                         <SortAlphaDown size={sizeIcon.Button} /> <sup><small>Name</small></sup>
                                     </button>
                                     {
                                         isCoordinateSearch ?
                                             <button
-                                                className={'btn ' + ((sort === 'distance-user' || sort === 'distance') ? 'btn-secondary' : 'btn-outline-secondary')}
+                                                className={'btn ' + ((sortString === 'distance-user' || sortString === 'distance') ? 'btn-secondary' : 'btn-outline-secondary')}
                                                 onClick={() => sortByDistance(filterConfig)}
                                                 title="Sortieren nach Distanz"
                                             >
@@ -158,7 +173,7 @@ const Locations = () =>
                                                 <sup><small>km</small></sup>
                                             </button> :
                                             <button
-                                                className={'btn ' + ((sort === 'distance-user' || sort === 'distance') ? 'btn-secondary' : 'btn-outline-secondary')}
+                                                className={'btn ' + ((sortString === 'distance-user' || sortString === 'distance') ? 'btn-secondary' : 'btn-outline-secondary')}
                                                 onClick={() => sortByDistanceUser(filterConfig)}
                                                 title="Sortieren nach Distanz vom User"
                                             >
@@ -171,7 +186,7 @@ const Locations = () =>
                                             (
                                                 isCoordinateSearch ?
                                                     <button
-                                                        className={'btn ' + ((sort === 'relevance-user' || sort === 'relevance') ? 'btn-secondary' : 'btn-outline-secondary')}
+                                                        className={'btn ' + ((sortString === 'relevance-user' || sortString === 'relevance') ? 'btn-secondary' : 'btn-outline-secondary')}
                                                         onClick={() => sortByRelevance(filterConfig)}
                                                         title="Sortieren nach Relevanz"
                                                     >
@@ -179,7 +194,7 @@ const Locations = () =>
                                                         <SortDown size={sizeIcon.Button}/> <sup><small>Relevanz</small></sup>
                                                     </button> :
                                                     <button
-                                                        className={'btn ' + ((sort === 'relevance-user' || sort === 'relevance') ? 'btn-secondary' : 'btn-outline-secondary')}
+                                                        className={'btn ' + ((sortString === 'relevance-user' || sortString === 'relevance') ? 'btn-secondary' : 'btn-outline-secondary')}
                                                         onClick={() => sortByRelevanceUser(filterConfig)}
                                                         title="Sortieren nach Relevanz vom User"
                                                     >
@@ -199,8 +214,8 @@ const Locations = () =>
                                     <>
                                         <div className="mt-5">
                                             {
-                                                query ?
-                                                    <p>{numberTotal} Ergebnisse für "{query}" gefunden. Zeige {(numberPage - 1) * numberResults + 1} - {numberResults * numberPage}.</p> :
+                                                queryString ?
+                                                    <p>{numberTotal} Ergebnisse für "{queryString}" gefunden. Zeige {(numberPage - 1) * numberResults + 1} - {numberResults * numberPage}.</p> :
                                                     <p>{numberTotal} Ergebnisse gefunden. Zeige {numberResults}.</p>
                                             }
                                         </div>
@@ -218,8 +233,8 @@ const Locations = () =>
                                     <>
                                         <div>
                                             {
-                                                query ?
-                                                    <p>Keine Ergebnisse für "{query}" gefunden.</p> :
+                                                queryString ?
+                                                    <p>Keine Ergebnisse für "{queryString}" gefunden.</p> :
                                                     <p>Keine Ergebnisse gefunden.</p>
                                             }
                                         </div>

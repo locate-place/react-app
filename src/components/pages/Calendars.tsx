@@ -36,8 +36,6 @@ const Calendars = () =>
     const apiPath = query.getApiUrl();
     const apiType = query.getApiType();
 
-    console.log(apiType);
-
     /**
      * useEffect function.
      */

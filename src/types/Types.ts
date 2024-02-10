@@ -156,6 +156,8 @@ type TypeLoadApiArguments = {
     setDataCalendarPage?: React.Dispatch<React.SetStateAction<TypeDataCalendarPage|null>>,
     setDataCalendar?: React.Dispatch<React.SetStateAction<TypeDataCalendar|null>>,
     setDataCalendars?: React.Dispatch<React.SetStateAction<TypeDataCalendars|null>>,
+    setDataLocation?: React.Dispatch<React.SetStateAction<TypeLocation|null>>,
+    setDataLocations?: React.Dispatch<React.SetStateAction<TypeLocations|null>>,
     callback?: Function,
 }
 
@@ -219,6 +221,8 @@ type TypeLocation = {
     "next-places"?: object
 }
 
+type TypeLocations = TypeLocation[];
+
 type TypeApiData = {
     "data-licence": TypeDataLicence,
     "time-taken": string,
@@ -267,6 +271,7 @@ export {
     TypeFeature,
     TypeCoordinate,
     TypeLocation,
+    TypeLocations,
     TypeApiData,
 
     typeLocations,

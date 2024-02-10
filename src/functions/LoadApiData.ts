@@ -24,6 +24,8 @@ const loadApiData = (
     const setDataCalendarPage = parameters.setDataCalendarPage ?? null;
     const setDataCalendar = parameters.setDataCalendar ?? null;
     const setDataCalendars = parameters.setDataCalendars ?? null;
+    const setDataLocation = parameters.setDataLocation ?? null;
+    const setDataLocations = parameters.setDataLocations ?? null;
     const callback = parameters.callback ?? null;
 
     let url: string|null = null;
@@ -78,6 +80,12 @@ const loadApiData = (
                 if (setDataCalendars !== null) {
                     setDataCalendars(data);
                 }
+                if (setDataLocation !== null) {
+                    setDataLocation(data);
+                }
+                if (setDataLocations !== null) {
+                    setDataLocations(data);
+                }
 
                 return;
             }
@@ -117,6 +125,12 @@ const loadApiData = (
             }
             if (setDataCalendars !== null) {
                 setDataCalendars(data.data);
+            }
+            if (setDataLocation !== null) {
+                setDataLocation(data.data);
+            }
+            if (setDataLocations !== null) {
+                setDataLocations(data.data);
             }
 
             if (setProperties) {

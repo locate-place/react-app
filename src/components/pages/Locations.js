@@ -91,7 +91,7 @@ const Locations = () =>
             path: apiPathWithParameter,
             setLoaded: setLoaded,
             setError: setError,
-            setDataCalendarPage: setData,
+            setDataLocations: setData,
             setProperties: setProperties,
         });
     }, [typeLocationApi, apiPathWithParameter]);

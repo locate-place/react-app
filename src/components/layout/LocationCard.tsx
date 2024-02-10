@@ -9,7 +9,9 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 /* Add functions */
 import {convertToGermanFormat} from "../../functions/Date";
-import {translateCountryCode} from "../../functions/Country";
+
+/* Add translations */
+import {translateCountryCode} from "../../translations/Country";
 
 /* Add component parts */
 import CoordinateDistanceDirection from "./CoordinateDistanceDirection";

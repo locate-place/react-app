@@ -13,8 +13,10 @@ import {
     getFilterConfig,
 } from "../../functions/QueryFunctions";
 import {convertToGermanFormat} from "../../functions/Date";
-import {translateCountryCode} from "../../functions/Country";
-import initializeCompass from "../../functions/Compass";
+
+/* Translations */
+import {translateCountryCode} from "../../translations/Country";
+import {directionTranslation} from "../../translations/Direction";
 
 /* Add component parts */
 import Error from "../layout/Error.tsx";
@@ -39,18 +41,6 @@ const Location = () =>
 {
     /* Routes variables */
     const routePath = '/location.html';
-
-    /* Direction translation */
-    let directionTranslation = {
-        "N": "Norden",
-        "NE": "Nordosten",
-        "E": "Osten",
-        "SE": "Südosten",
-        "S": "Süden",
-        "SW": "Südwesten",
-        "W": "Westen",
-        "NW": "Nordwesten",
-    };
 
     /* API types */
     const typeLocationApi = useMemo(() => {
@@ -152,7 +142,7 @@ const Location = () =>
             path: apiPathWithParameter,
             setLoaded: setLoaded,
             setError: setError,
-            setDataCalendarPage: setData,
+            setDataLocation: setData,
             setProperties: setProperties
         });
     }, [typeLocationApi, apiPathWithParameter]);

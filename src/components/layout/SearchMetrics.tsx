@@ -3,9 +3,14 @@ import React from "react";
 /* Add configurations */
 import {sizeIcon} from "../../config/Config";
 
-/* Add functions */
+/* Import types */
+import {TypeSearchTypeTranslation} from "../../types/Types";
+
+/* Import translations */
+import {searchTypeTranslation} from "../../translations/SearchType";
+
+/* Import functions */
 import {getParsedQueryFeatureCodes} from "../../functions/QueryFunctions";
-import {searchTypeTranslations, TypeSearchTypeTranslations} from "../../functions/SearchType";
 
 /* Bootstrap icons; see https://icons.getbootstrap.com/?q=sort#usage */
 import {GraphUp, HouseFill} from "react-bootstrap-icons";
@@ -95,7 +100,7 @@ const SearchMetrics = ({
                                                  style={{'backgroundColor': 'rgb(233, 235, 228)'}}>
                                                 <div className="card-header">
                                                         <span className="fw-bold"><GraphUp size={sizeIcon.Caption}/>&nbsp;
-                                                            {searchTypeTranslations[parsedQuery.parsed.type as keyof TypeSearchTypeTranslations] ?? 'Unbekannte Suche "' + parsedQuery.parsed.type + '"'}
+                                                            {searchTypeTranslation[parsedQuery.parsed.type as keyof TypeSearchTypeTranslation] ?? 'Unbekannte Suche "' + parsedQuery.parsed.type + '"'}
                                                         </span>
                                                 </div>
                                                 <div className="card-body">

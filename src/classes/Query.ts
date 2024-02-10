@@ -1,15 +1,19 @@
 /* Import types. */
 import {TypeApiProperties, TypeFilterConfig} from "../types/Types";
-import {searchTypeCoordinate, searchTypeListWithFeatures} from "../functions/SearchType";
-import {ApiResponseProperty} from "./ApiResponseProperty";
 
-/* Routing paths */
-const reactPathHome: string = '/index.html';
-const reactPathCalendars: string = '/index.html';
-const reactPathCalendar: string = '/calendar.html';
-const reactPathCalendarPage: string = '/page.html';
-const reactPathLocations: string = '/locations.html';
-const reactPathLocation: string = '/location.html';
+/* Import configurations. */
+import {
+    routePathCalendar,
+    routePathCalendarPage,
+    routePathCalendars,
+    routePathHome,
+    routePathLocation,
+    routePathLocations
+} from "../config/Route";
+import {searchTypeCoordinate, searchTypeListWithFeatures} from "../config/SearchType";
+
+/* Import classes. */
+import {ApiResponseProperty} from "./ApiResponseProperty";
 
 /* API paths */
 const apiPathCalendars: string = '/v.json';
@@ -150,12 +154,12 @@ class Query
     {
         switch (window.location.pathname) {
             /* Default api paths. */
-            case reactPathHome:
-            case reactPathCalendars:
+            case routePathHome:
+            case routePathCalendars:
                 return apiPathCalendars;
 
             /* Calendar page. */
-            case reactPathCalendarPage:
+            case routePathCalendarPage:
                 if (!this.filterConfig[nameParameterCalendar]) {
                     throw new Error('Calendar parameter is missing.');
                 }
@@ -168,7 +172,7 @@ class Query
                     replace('%month%', this.filterConfig[nameParameterMonth]);
 
             /* Calendar. */
-            case reactPathCalendar:
+            case routePathCalendar:
                 if (!this.filterConfig[nameParameterCalendar]) {
                     throw new Error('Calendar parameter is missing.');
                 }
@@ -177,11 +181,11 @@ class Query
                     replace('%calendar%', this.filterConfig[nameParameterCalendar]);
 
             /* Location. */
-            case reactPathLocation:
+            case routePathLocation:
                 return apiPathDetail;
 
             /* Locations. */
-            case reactPathLocations:
+            case routePathLocations:
                 return this.isQuerySearch() ? apiPathQuerySearch : apiPathExampleSearch;
 
             /* Unknown path. */
@@ -218,10 +222,10 @@ class Query
 
         switch (window.location.pathname) {
             /* Use the calendar builder api. */
-            case reactPathHome:
-            case reactPathCalendars:
-            case reactPathCalendar:
-            case reactPathCalendarPage:
+            case routePathHome:
+            case routePathCalendars:
+            case routePathCalendar:
+            case routePathCalendarPage:
                 keyName = 'REACT_APP_TYPE_CALENDAR_BUILDER'
 
                 if (!this.env.hasOwnProperty(keyName)) {
@@ -233,8 +237,8 @@ class Query
                 return value;
 
             /* Use the location api. */
-            case reactPathLocation:
-            case reactPathLocations:
+            case routePathLocation:
+            case routePathLocations:
                 keyName = 'REACT_APP_TYPE_LOCATION_API'
 
                 if (!this.env.hasOwnProperty(keyName)) {

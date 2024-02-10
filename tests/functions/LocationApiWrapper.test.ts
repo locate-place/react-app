@@ -11,7 +11,8 @@ import {LocationApiWrapper} from "../../src/classes/LocationApiWrapper";
 /**
  * Check location GeoNameSearch
  */
-test('LocationApiWrapper: Test location GeoNameSearch', () => {
+test('LocationApiWrapper: Test location GeoNameSearch', () =>
+{
     let locationApiWrapper = new LocationApiWrapper(GeoNameSearch);
 
     /* Test the type of the api data. */
@@ -49,7 +50,8 @@ test('LocationApiWrapper: Test location GeoNameSearch', () => {
 /**
  * Check locations PlaceSearch
  */
-test('LocationApiWrapper: Test locations PlaceSearch', () => {
+test('LocationApiWrapper: Test locations PlaceSearch', () =>
+{
     let locationApiWrapper = new LocationApiWrapper(PlaceSearch);
 
     /* Test the type of the api data. */

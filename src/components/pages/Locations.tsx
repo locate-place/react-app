@@ -11,6 +11,7 @@ import {
 
 /* Import configurations */
 import {sizeIcon} from "../../config/Config";
+import {routePathLocations} from "../../config/Route";
 
 /* Import functions */
 import loadApiData from "../../functions/LoadApiData";
@@ -53,9 +54,6 @@ import {
  */
 const Locations = () =>
 {
-    /* Routes variables */
-    const routePath = '/locations.html';
-
     /* API types */
     const env = useMemo(() => {
         return process.env;
@@ -127,7 +125,7 @@ const Locations = () =>
                         {/* Renders the search form. */}
                         <SearchForm
                             queryDefault={queryString}
-                            routePathDefault={routePath}
+                            routePathDefault={routePathLocations}
                         />
 
                         {loaded ? <>

@@ -2,7 +2,7 @@
 import {TypeFilterConfig, TypeQuerFeatureCode} from "../types/Types";
 
 /* Import search types */
-import {searchTypeCoordinate, searchTypeListWithFeatures} from "./SearchType";
+import {searchTypeCoordinate, searchTypeListWithFeatures} from "../config/SearchType";
 
 /* Configurations */
 const reactPathLocations: string = '/locations.html';

@@ -181,6 +181,15 @@ type TypeLoadApiArguments = {
     callback?: Function,
 }
 
+/* Other types.
+ */
+type TypeSearchTypeTranslation = {
+    'search-list-general': string,
+    'search-list-with-features': string,
+    'search-geoname-id': string,
+    'search-coordinate': string,
+}
+
 /* Full API Types.
  */
 
@@ -281,6 +290,7 @@ export {
     TypeDataCalendars,
     TypeApiProperties,
     TypeLoadApiArguments,
+    TypeSearchTypeTranslation,
     TypeAirportCodes,
 
     /* Full API Types. */

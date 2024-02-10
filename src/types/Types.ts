@@ -111,6 +111,21 @@ type TypeDataCalendarPage = {
     year: number;
 }
 
+type TypeDataCalendar = {
+    birthdays?: TypeBirthdays,
+    holidays?: TypeHolidays,
+    identifier: string,
+    image: string,
+    name?: string,
+    pages?: TypeDataCalendarPage[],
+    public: boolean,
+    subtitle: string,
+    title: string,
+    url?: string
+}
+
+type TypeDataCalendars = TypeDataCalendar[];
+
 type TypeApiProperties = {
     "date"?: string;
     "given"?: string;
@@ -137,6 +152,8 @@ type TypeLoadApiArguments = {
     /* Optional types */
     setDataVersion?: React.Dispatch<React.SetStateAction<TypeDataVersion|null>>;
     setDataCalendarPage?: React.Dispatch<React.SetStateAction<TypeDataCalendarPage|null>>;
+    setDataCalendar?: React.Dispatch<React.SetStateAction<TypeDataCalendar|null>>;
+    setDataCalendars?: React.Dispatch<React.SetStateAction<TypeDataCalendars|null>>;
     callback?: Function;
 }
 
@@ -234,6 +251,8 @@ export {
     TypeLoaded,
     TypeDataVersion,
     TypeDataCalendarPage,
+    TypeDataCalendar,
+    TypeDataCalendars,
     TypeApiProperties,
     TypeLoadApiArguments,
     TypeAirportCodes,

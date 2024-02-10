@@ -40,6 +40,8 @@ const Calendars = () => {
         });
     }, [typeCalendarBuilder, apiPath]);
 
+    console.log(data);
+
     /**
      * The render function.
      */

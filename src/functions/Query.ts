@@ -14,6 +14,7 @@ const reactPathLocation: string = '/location.html';
 /* API paths */
 const apiPathCalendars: string = '/v.json';
 const apiPathCalendarPage: string = '/v/%calendar%/%month%.json';
+const apiPathCalendar: string = '/v/%calendar%.json';
 const apiPathQuerySearch: string = '/api/v1/location.json';
 const apiPathExampleSearch: string = '/api/v1/location/examples.json';
 const apiPathDetail: string = '/api/v1/location/coordinate.json';
@@ -151,6 +152,16 @@ class Query
                     replace('%calendar%', this.filterConfig[nameParameterCalendar]).
                     replace('%month%', this.filterConfig[nameParameterMonth]);
 
+            /* Calendar. */
+            case reactPathCalendar:
+                if (!this.filterConfig[nameParameterCalendar]) {
+                    throw new Error('Calendar parameter is missing.');
+                }
+
+                return apiPathCalendar.
+                    replace('%calendar%', this.filterConfig[nameParameterCalendar]);
+
+            /* Unknown path. */
             default:
                 throw new Error('Invalid path given: ' + window.location.pathname);
         }

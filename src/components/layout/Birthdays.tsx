@@ -7,7 +7,7 @@ import {convertToGermanFormatFromDate} from "../../functions/Date";
 import {TypeBirthdays} from "../../types/Types";
 
 type HolidaysProps = {
-    data: TypeBirthdays
+    data: TypeBirthdays|undefined
 }
 
 /**

@@ -2,52 +2,63 @@ import React, {useEffect, useMemo, useState} from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 /* Add functions */
-import loadApiData from "../../functions/LoadApiData.ts";
+import loadApiData from "../../functions/LoadApiData";
 
 /* Add component parts */
-import Birthdays from "../layout/Birthdays.tsx";
-import Error from "../layout/Error.tsx";
-import HeaderCalendar from "../layout/HeaderCalendar.tsx";
-import Holidays from "../layout/Holidays.tsx";
-import ImageWithLoader from "../layout/ImageWithLoader.tsx";
-import Loader from "../layout/Loader.tsx";
+import Birthdays from "../layout/Birthdays";
+import Error from "../layout/Error";
+import HeaderCalendar from "../layout/HeaderCalendar";
+import Holidays from "../layout/Holidays";
+import ImageWithLoader from "../layout/ImageWithLoader";
+import Loader from "../layout/Loader";
+import {
+    TypeApiProperties,
+    TypeDataCalendar,
+    TypeError,
+    TypeLoaded
+} from "../../types/Types";
+import {Query} from "../../functions/Query";
 
 /**
  * This is the calendar page.
  */
 const Calendar = () => {
-    /* API types */
-    const typeCalendarBuilder = useMemo(() => {
-        return process.env.REACT_APP_TYPE_CALENDAR_BUILDER;
+    /* Get env variables */
+    const env = useMemo(() => {
+        return process.env;
     }, []);
 
     /* State variables */
-    const [error, setError] = useState(null);
-    const [loaded, setLoaded] = useState(false);
-    const [data, setData] = useState([]);
-    const [properties, setProperties] = useState([]);
+    const [error, setError] = useState<TypeError>(null);
+    const [loaded, setLoaded] = useState<TypeLoaded>(false);
+    const [data, setData] = useState<TypeDataCalendar|null>(null);
+    const [properties, setProperties] = useState<TypeApiProperties|null>(null);
 
     /* Memorized variables. */
     const [searchParams] = useSearchParams();
-    const calendar = useMemo(() => {
-        return searchParams.get('c');
-    }, [searchParams]);
 
-    const apiPath = '/v/' + calendar + '.json';
+    /* Gets the api url */
+    let query = new Query(searchParams, env);
+    const apiPath = query.getApiUrl();
+    const apiType = query.getApiType();
 
     /**
      * useEffect function.
      */
     useEffect(() => {
         loadApiData({
-            type: typeCalendarBuilder,
+            type: apiType,
             path: apiPath,
             setLoaded: setLoaded,
             setError: setError,
-            setDataCalendarPage: setData,
+            setDataCalendar: setData,
             setProperties: setProperties
         });
-    }, [typeCalendarBuilder, apiPath]);
+    }, [apiType, apiPath]);
+
+    if (data === null || properties === null) {
+        return <></>;
+    }
 
     /**
      * The render function.
@@ -62,7 +73,7 @@ const Calendar = () => {
                             <h2>{data.title}</h2>
                             <p>{data.subtitle}</p>
                         </div>
-                        { 'pages' in data ? data.pages.map((item, index) => (
+                        { !!data.pages ? data.pages.map((item, index) => (
                             <div className="col-12 col-lg-6 col-xl-4 d-flex align-items-stretch" key={'image-' + index}>
                                 <div className="card card-hover">
                                     <a

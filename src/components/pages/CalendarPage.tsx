@@ -28,8 +28,10 @@ const CalendarPage = () =>
     const [error, setError] = useState<TypeError>(null);
     const [loaded, setLoaded] = useState<TypeLoaded>(false);
     const [data, setData] = useState<TypeDataCalendarPage|null>(null);
-    const [searchParams] = useSearchParams();
     const [properties, setProperties] = useState<TypeApiProperties|null>(null);
+
+    /* Memorized variables. */
+    const [searchParams] = useSearchParams();
 
     /* Gets the api url */
     let query = new Query(searchParams, env);

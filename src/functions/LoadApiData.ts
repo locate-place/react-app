@@ -22,6 +22,8 @@ const loadApiData = (
 
     const setDataVersion = parameters.setDataVersion ?? null;
     const setDataCalendarPage = parameters.setDataCalendarPage ?? null;
+    const setDataCalendar = parameters.setDataCalendar ?? null;
+    const setDataCalendars = parameters.setDataCalendars ?? null;
     const callback = parameters.callback ?? null;
 
     let url: string|null = null;
@@ -67,9 +69,14 @@ const loadApiData = (
                 if (setDataVersion !== null) {
                     setDataVersion(data);
                 }
-
                 if (setDataCalendarPage !== null) {
                     setDataCalendarPage(data);
+                }
+                if (setDataCalendar !== null) {
+                    setDataCalendar(data);
+                }
+                if (setDataCalendars !== null) {
+                    setDataCalendars(data);
                 }
 
                 return;
@@ -102,11 +109,15 @@ const loadApiData = (
             if (setDataVersion !== null) {
                 setDataVersion(data.data);
             }
-
             if (setDataCalendarPage !== null) {
                 setDataCalendarPage(data.data);
             }
-
+            if (setDataCalendar !== null) {
+                setDataCalendar(data.data);
+            }
+            if (setDataCalendars !== null) {
+                setDataCalendars(data.data);
+            }
 
             if (setProperties) {
                 let propertiesApi: TypeApiProperties = {

@@ -2,23 +2,23 @@ import React, {useEffect, useMemo} from 'react';
 import {Route, Routes, useNavigate } from 'react-router-dom';
 
 /* Add functions */
-import addOnScrollListener from "./functions/AddOnScrollListener.ts";
-import redirect from "./redirect/Redirect.ts";
+import addOnScrollListener from "./functions/AddOnScrollListener";
+import redirect from "./redirect/Redirect";
 
 /* Add components */
-import About from "./components/pages/About.tsx";
+import About from "./components/pages/About";
 import Calendars from "./components/pages/Calendars";
 import Calendar from "./components/pages/Calendar";
-import Contact from "./components/pages/Contact.tsx";
-import Home from "./components/pages/Home.tsx";
+import Contact from "./components/pages/Contact";
+import Home from "./components/pages/Home";
 import Locations from "./components/pages/Locations";
 import Location from "./components/pages/Location";
-import NotFound from "./components/pages/NotFound.tsx";
+import NotFound from "./components/pages/NotFound";
 import CalendarPage from "./components/pages/CalendarPage";
 
 /* Add component parts */
-import Footer from "./components/layout/Footer.tsx";
-import Navigation from "./components/layout/Navigation.tsx";
+import Footer from "./components/layout/Footer";
+import Navigation from "./components/layout/Navigation";
 
 /* Add styles */
 import './scss/bootstrap.scss';

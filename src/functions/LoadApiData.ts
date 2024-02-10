@@ -1,30 +1,29 @@
-import React from "react";
 import axios from "axios";
 import semver from "semver";
 
 /* Import types. */
 import {
     TypeApiProperties,
-    TypeDataCalendarPage,
-    TypeDataVersion,
-    TypeError,
-    TypeLoaded
+    TypeLoadApiArguments
 } from "../types/Types";
 
 /**
  * API data load function.
  */
 const loadApiData = (
-    type: string,
-    path: string,
-    setLoaded: React.Dispatch<React.SetStateAction<TypeLoaded>>,
-    setError: React.Dispatch<React.SetStateAction<TypeError>>,
-    setDataVersion: React.Dispatch<React.SetStateAction<TypeDataVersion|null>>|null,
-    setDataCalendarPage: React.Dispatch<React.SetStateAction<TypeDataCalendarPage|null>>|null,
-    setProperties: React.Dispatch<React.SetStateAction<TypeApiProperties|null>>,
-    callback: Function|null = null
+    parameters: TypeLoadApiArguments
 ) =>
 {
+    const type = parameters.type;
+    const path = parameters.path;
+    const setLoaded = parameters.setLoaded;
+    const setError = parameters.setError;
+    const setProperties = parameters.setProperties;
+
+    const setDataVersion = parameters.setDataVersion ?? null;
+    const setDataCalendarPage = parameters.setDataCalendarPage ?? null;
+    const callback = parameters.callback ?? null;
+
     let url: string|null = null;
     let name: string|null = null;
 

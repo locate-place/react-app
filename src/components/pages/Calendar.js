@@ -39,15 +39,14 @@ const Calendar = () => {
      * useEffect function.
      */
     useEffect(() => {
-        loadApiData(
-            typeCalendarBuilder,
-            apiPath,
-            setLoaded,
-            setError,
-            null,
-            setData,
-            setProperties
-        );
+        loadApiData({
+            type: typeCalendarBuilder,
+            path: apiPath,
+            setLoaded: setLoaded,
+            setError: setError,
+            setDataCalendarPage: setData,
+            setProperties: setProperties
+        });
     }, [typeCalendarBuilder, apiPath]);
 
     /**

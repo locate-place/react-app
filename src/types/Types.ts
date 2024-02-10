@@ -1,3 +1,5 @@
+import React from "react";
+
 type TypeValue = {
     "value": number;
     "unit": string;
@@ -124,6 +126,20 @@ type TypeApiProperties = {
     "results"?: TypeResults;
 }
 
+type TypeLoadApiArguments = {
+    /* Required types */
+    type: string;
+    path: string;
+    setLoaded: React.Dispatch<React.SetStateAction<TypeLoaded>>;
+    setError: React.Dispatch<React.SetStateAction<TypeError>>;
+    setProperties: React.Dispatch<React.SetStateAction<TypeApiProperties|null>>;
+
+    /* Optional types */
+    setDataVersion?: React.Dispatch<React.SetStateAction<TypeDataVersion|null>>;
+    setDataCalendarPage?: React.Dispatch<React.SetStateAction<TypeDataCalendarPage|null>>;
+    callback?: Function;
+}
+
 /* Full API Types.
  */
 
@@ -219,6 +235,7 @@ export {
     TypeDataVersion,
     TypeDataCalendarPage,
     TypeApiProperties,
+    TypeLoadApiArguments,
     TypeAirportCodes,
 
     /* Full API Types. */

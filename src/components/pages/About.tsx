@@ -52,24 +52,22 @@ const About = () =>
      * useEffect function.
      */
     useEffect(() => {
-        loadApiData(
-            typeCalendarBuilder,
-            apiPathCalendarBuilder,
-            setLoadedCalendarBuilder,
-            setErrorCalendarBuilder,
-            setDataCalendarBuilder,
-            null,
-            setPropertiesCalendarBuilder
-        );
-        loadApiData(
-            typeLocationApi,
-            apiPathLocationApi,
-            setLoadedLocationApi,
-            setErrorLocationApi,
-            setDataLocationApi,
-            null,
-            setPropertiesLocationApi
-        );
+        loadApiData({
+            type: typeCalendarBuilder,
+            path: apiPathCalendarBuilder,
+            setLoaded: setLoadedCalendarBuilder,
+            setError: setErrorCalendarBuilder,
+            setDataVersion: setDataCalendarBuilder,
+            setProperties: setPropertiesCalendarBuilder
+        });
+        loadApiData({
+            type: typeLocationApi,
+            path: apiPathLocationApi,
+            setLoaded: setLoadedLocationApi,
+            setError: setErrorLocationApi,
+            setDataVersion: setDataLocationApi,
+            setProperties: setPropertiesLocationApi
+        });
     }, [apiPathCalendarBuilder, apiPathLocationApi, typeCalendarBuilder, typeLocationApi]);
 
     /**

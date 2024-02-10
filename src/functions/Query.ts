@@ -161,7 +161,7 @@ class Query
      *
      * @returns {string}
      */
-    getApiType(): string 
+    getApiType(): string
     {
         if (this.env === null) {
             throw new Error('Can not use getApiType without an environment object.');

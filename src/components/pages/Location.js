@@ -147,18 +147,14 @@ const Location = () =>
      * useEffect function.
      */
     useEffect(() => {
-        loadApiData(
-            typeLocationApi,
-            apiPathWithParameter,
-            setLoaded,
-            setError,
-            null,
-            setData,
-            setProperties,
-            () => {
-                initializeCompass();
-            }
-        );
+        loadApiData({
+            type: typeLocationApi,
+            path: apiPathWithParameter,
+            setLoaded: setLoaded,
+            setError: setError,
+            setDataCalendarPage: setData,
+            setProperties: setProperties
+        });
     }, [typeLocationApi, apiPathWithParameter]);
 
     const classNamesFirstRow = ['fw-bold', 'pb-3', 'pt-3', 'px-3', 'text-responsive'];

@@ -86,18 +86,14 @@ const Locations = () =>
      * useEffect function.
      */
     useEffect(() => {
-        loadApiData(
-            typeLocationApi,
-            apiPathWithParameter,
-            setLoaded,
-            setError,
-            null,
-            setData,
-            setProperties,
-            () => {
-                initializeCompass();
-            }
-        );
+        loadApiData({
+            type: typeLocationApi,
+            path: apiPathWithParameter,
+            setLoaded: setLoaded,
+            setError: setError,
+            setDataCalendarPage: setData,
+            setProperties: setProperties,
+        });
     }, [typeLocationApi, apiPathWithParameter]);
 
     /**

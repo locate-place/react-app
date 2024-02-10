@@ -40,15 +40,14 @@ const CalendarPage = () =>
      * useEffect function.
      */
     useEffect(() => {
-        loadApiData(
-            apiType,
-            apiPath,
-            setLoaded,
-            setError,
-            null,
-            setData,
-            setProperties
-        );
+        loadApiData({
+            type: apiType,
+            path: apiPath,
+            setLoaded: setLoaded,
+            setError: setError,
+            setDataCalendarPage: setData,
+            setProperties: setProperties
+        });
     }, [apiType, apiPath]);
 
     if (data === null || properties === null) {

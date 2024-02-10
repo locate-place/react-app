@@ -1,6 +1,9 @@
 import React from "react";
 import {useSearchParams} from "react-router-dom";
 
+/* Add types. */
+import {TypeNextPlaces} from "../../types/Types";
+
 /* Add functions */
 import {convertMeterToKilometer} from "../../functions/Distance";
 import {getDecimal, getDms} from "../../functions/Coordinate";
@@ -9,7 +12,7 @@ import {addSoftHyphens} from "../../functions/Text";
 import {getFilterConfig, redirectNextPlacesList, redirectNextPlacesListWithCoordinate} from "../../functions/QueryFunctions";
 
 type NextPlacesProps = {
-    nextPlaces: any,
+    nextPlaces: TypeNextPlaces,
 }
 
 /**

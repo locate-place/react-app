@@ -23,54 +23,70 @@ import {translateCountryCode} from "../../translations/Country";
 import {directionTranslation} from "../../translations/Direction";
 
 /* Add component parts */
-import Error from "../layout/Error.tsx";
-import HeaderSmall from "../layout/HeaderSmall.tsx";
-import Loader from "../layout/Loader.tsx";
-import NextPlaces from "../layout/NextPlaces.tsx";
-import SearchForm from "../layout/SearchForm.tsx";
-import SearchMetrics from "../layout/SearchMetrics.tsx";
-import SearchPerformance from "../layout/SearchPerformance.tsx";
+import Error from "../layout/Error";
+import HeaderSmall from "../layout/HeaderSmall";
+import Loader from "../layout/Loader";
+import NextPlaces from "../layout/NextPlaces";
+import SearchForm from "../layout/SearchForm";
+import SearchMetrics from "../layout/SearchMetrics";
+import SearchPerformance from "../layout/SearchPerformance";
 
 /* Flag icons; see https://github.com/stephenway/react-flagkit */
 import Flag from "react-flagkit";
 
 /* Bootstrap icons; see https://icons.getbootstrap.com/?q=sort#usage */
 import {CursorFill} from "react-bootstrap-icons";
+import {TypeApiProperties, TypeError, TypeLoaded, TypeLocation} from "../../types/Types";
+import {routePathLocation} from "../../config/Route";
 
 /**
  * This is the app locations component.
  */
 const Location = () =>
 {
-    /* Routes variables */
-    const routePath = '/location.html';
-
     /* API types */
     const env = useMemo(() => {
         return process.env;
     }, []);
 
     /* State variables */
-    const [error, setError] = useState(null);
-    const [loaded, setLoaded] = useState(false);
-    const [data, setData] = useState([]);
-    const [properties, setProperties] = useState([]);
+    const [error, setError] = useState<TypeError>(null);
+    const [loaded, setLoaded] = useState<TypeLoaded>(false);
+    const [data, setData] = useState<TypeLocation|null>(null);
+    const [properties, setProperties] = useState<TypeApiProperties|null>(null);
 
     /* Memorized variables. */
     const [searchParams] = useSearchParams();
 
-    let hasOwnPosition = properties.given && properties.given.coordinate && properties.given.coordinate.location;
+    /* Gets the api url */
+    let query = new Query(searchParams, env);
+    const apiPath = query.getApiUrl();
+    const apiPathWithFilter = query.getApiUrlWithFilter();
+    const apiType = query.getApiType();
 
-    /* Get variables according to the search parameters. */
-    let apiPathWithParameter = getApiPathDetail(searchParams, true);
-    let apiPathWithoutParameter = getApiPathDetail(searchParams, false);
-    let queryString = getQuery(searchParams);
+    /**
+     * useEffect function.
+     */
+    useEffect(() => {
+        loadApiData({
+            type: apiType,
+            path: apiPathWithFilter,
+            setLoaded: setLoaded,
+            setError: setError,
+            setDataLocation: setData,
+            setProperties: setProperties
+        });
+    }, [apiType, apiPathWithFilter]);
+
+    /* Skip empty data */
+    if (data === null || properties === null) {
+        return <></>;
+    }
 
     /* Get generell parts */
-    let hasDataProperties = !!data['properties'];
-    let propertyCountryCode = hasDataProperties && data.properties.country ? data.properties.country : null;
-    let hasPropertyElevation = hasDataProperties && data.properties.elevation && data.properties.elevation['value-formatted'];
-    let propertyElevation = hasPropertyElevation ? data.properties.elevation['value-formatted'] : null;
+    let propertyCountryCode = !!data.properties.country ? data.properties.country : 'DE';
+    let hasPropertyElevation = !!data.properties.elevation && data.properties.elevation['value-formatted'];
+    let propertyElevation = !!data.properties.elevation ? data.properties.elevation['value-formatted'] : null;
 
     /* Get coordinate parts */
     let hasCoordinate = !!data['coordinate'];
@@ -80,11 +96,11 @@ const Location = () =>
     let coordinateLongitudeDecimal = hasCoordinate && data.coordinate.longitude ? data.coordinate.longitude.decimal : null;
     let coordinateLongitudeDms = hasCoordinate && data.coordinate.longitude ? data.coordinate.longitude.dms : null;
     let distanceInKilometersFormatted = hasCoordinate && data.coordinate['distance-user'] ? data.coordinate['distance-user'].kilometers['value-formatted'] : null;
-    let distanceInKilometers = hasCoordinate && data.coordinate['distance-user'] ? data.coordinate['distance-user'].kilometers['value'] : null;
+    let distanceInKilometers = hasCoordinate && data.coordinate['distance-user'] ? data.coordinate['distance-user'].kilometers['value'] : 0;
     let directionTranslated = hasCoordinate && data.coordinate['direction-user'] ? data.coordinate['direction-user']['cardinal-direction'] : null;
     let directionDegree = hasCoordinate && data.coordinate['direction-user'] ? data.coordinate['direction-user']['degree'] : null;
 
-    let distanceText = hasOwnPosition ? ('Von aktueller Position ' + properties.given.coordinate.parsed.latitude.dms + ', ' + properties.given.coordinate.parsed.longitude.dms) : '';
+    let distanceText = properties.given && properties.given.coordinate ? ('Von aktueller Position ' + properties.given.coordinate.parsed.latitude.dms + ', ' + properties.given.coordinate.parsed.longitude.dms) : '';
 
     /* Get feature parts */
     let hasFeature = !!data['feature'];
@@ -94,74 +110,42 @@ const Location = () =>
     let featureCodeName = hasFeature && data.feature['code-name']? data.feature['code-name'] : null;
 
     /* Get location parts */
-    let hasLocations = !!data['locations'];
-    let locationDistrictLocality = hasLocations && data.locations['district-locality'] ? data.locations['district-locality'] : null;
-    let locationCityMunicipality = hasLocations && data.locations['city-municipality'] ? data.locations['city-municipality'] : null;
-    let locationState = hasLocations && data.locations['state'] ? data.locations['state'] : null;
-    let locationCountry = hasLocations && data.locations['country'] ? data.locations['country'] : null;
+    let locationDistrictLocality = !!data.locations && data.locations['district-locality'] ? data.locations['district-locality'] : null;
+    let locationCityMunicipality = !!data.locations && data.locations['city-municipality'] ? data.locations['city-municipality'] : null;
+    let locationState = !!data.locations && data.locations['state'] ? data.locations['state'] : null;
+    let locationCountry = !!data.locations && data.locations['country'] ? data.locations['country'] : null;
 
     /* Get timezone parts */
     let hasTimezone = !!data['timezone'];
-    let timezone = hasTimezone ? data['timezone'].timezone : null;
-    let timezoneOffset = hasTimezone ? data['timezone'].offset : null;
+    let timezone = !!data['timezone'] ? data['timezone'].timezone : null;
+    let timezoneOffset = !!data['timezone'] ? data['timezone'].offset : null;
 
     /* Get next places parts */
-    let hasNextPlaces = !!data['next-places'];
-    let hasNextPlacesA = hasNextPlaces && data['next-places']['A'];
-    let nextPlacesA = hasNextPlacesA ? data['next-places']['A'] : null;
-    let hasNextPlacesH = hasNextPlaces && data['next-places']['H'];
-    let nextPlacesH = hasNextPlacesH ? data['next-places']['H'] : null;
-    let hasNextPlacesL = hasNextPlaces && data['next-places']['L'];
-    let nextPlacesL = hasNextPlacesL ? data['next-places']['L'] : null;
-    let hasNextPlacesP = hasNextPlaces && data['next-places']['P'];
-    let nextPlacesP = hasNextPlacesP? data['next-places']['P'] : null;
-    let hasNextPlacesR = hasNextPlaces && data['next-places']['R'];
-    let nextPlacesR = hasNextPlacesR? data['next-places']['R'] : null;
-    let hasNextPlacesS = hasNextPlaces && data['next-places']['S'];
-    let nextPlacesS = hasNextPlacesS? data['next-places']['S'] : null;
-    let hasNextPlacesT = hasNextPlaces && data['next-places']['T'];
-    let nextPlacesT = hasNextPlacesT? data['next-places']['T'] : null;
-    let hasNextPlacesU = hasNextPlaces && data['next-places']['U'];
-    let nextPlacesU = hasNextPlacesU? data['next-places']['U'] : null;
-    let hasNextPlacesV = hasNextPlaces && data['next-places']['V'];
-    let nextPlacesV = hasNextPlacesV? data['next-places']['V'] : null;
+    let hasNextPlacesA = !!data['next-places'] && data['next-places']['A'];
+    let nextPlacesA = !!data['next-places'] ? data['next-places']['A'] : null;
+    let hasNextPlacesH = !!data['next-places'] && data['next-places']['H'];
+    let nextPlacesH = !!data['next-places'] ? data['next-places']['H'] : null;
+    let hasNextPlacesL = !!data['next-places'] && data['next-places']['L'];
+    let nextPlacesL = !!data['next-places'] ? data['next-places']['L'] : null;
+    let hasNextPlacesP = !!data['next-places'] && data['next-places']['P'];
+    let nextPlacesP = !!data['next-places']? data['next-places']['P'] : null;
+    let hasNextPlacesR = !!data['next-places'] && data['next-places']['R'];
+    let nextPlacesR = !!data['next-places'] ? data['next-places']['R'] : null;
+    let hasNextPlacesS = !!data['next-places'] && data['next-places']['S'];
+    let nextPlacesS = !!data['next-places'] ? data['next-places']['S'] : null;
+    let hasNextPlacesT = !!data['next-places'] && data['next-places']['T'];
+    let nextPlacesT = !!data['next-places'] ? data['next-places']['T'] : null;
+    let hasNextPlacesU = !!data['next-places'] && data['next-places']['U'];
+    let nextPlacesU = !!data['next-places'] ? data['next-places']['U'] : null;
+    let hasNextPlacesV = !!data['next-places'] && data['next-places']['V'];
+    let nextPlacesV = !!data['next-places'] ? data['next-places']['V'] : null;
 
-    let hasLinks = !!data['links'];
-    let hasWikipedia = hasLinks && !!data['links']['wikipedia'];
-    let hasWikipediaThis = hasWikipedia && !!data['links']['wikipedia']['this'];
-    let wikipediaLink = hasWikipediaThis ? data['links']['wikipedia']['this'] : null;
+    let wikipediaLink = data['links']['wikipedia']['this'] ?? null;
 
     let filterConfig = getFilterConfig(searchParams);
-    let addCurrentPosition = (e) => {
+    let addCurrentPosition = () => {
         addCurrentPositionToQuery(filterConfig);
     }
-
-    /* Gets the api url */
-    let query = new Query(searchParams, env);
-    const apiPath = query.getApiUrl();
-    const apiPathWithFilter = query.getApiUrlWithFilter();
-    const apiType = query.getApiType();
-
-    console.log('---');
-    console.log(apiPath);
-    console.log(apiPathWithFilter);
-    console.log(apiPathWithoutParameter);
-    console.log(apiPathWithParameter);
-    console.log('---');
-
-    /**
-     * useEffect function.
-     */
-    useEffect(() => {
-        loadApiData({
-            type: apiType,
-            path: apiPathWithParameter,
-            setLoaded: setLoaded,
-            setError: setError,
-            setDataLocation: setData,
-            setProperties: setProperties
-        });
-    }, [apiType, apiPathWithParameter]);
 
     const classNamesFirstRow = ['fw-bold', 'pb-3', 'pt-3', 'px-3', 'text-responsive'];
     const classNamesSecondRow = ['pb-3', 'pt-3', 'px-3', 'text-responsive', 'text-minimized'];
@@ -177,8 +161,8 @@ const Location = () =>
                     <div className="col-12 col-md-10 offset-md-1 col-xl-8 offset-xl-2">
                         {/* Renders the search form. */}
                         <SearchForm
-                            queryDefault={queryString}
-                            routePathDefault={routePath}
+                            queryDefault={query.getQuery()}
+                            routePathDefault={routePathLocation}
                         />
 
                         {loaded ? <>
@@ -192,7 +176,7 @@ const Location = () =>
                                 </div>
 
                                 <h2 className="mt-3">
-                                    <Flag country={propertyCountryCode} size="20"
+                                    <Flag country={propertyCountryCode} size={20}
                                           title={translateCountryCode(propertyCountryCode)}/> &nbsp;
                                     {data.name}
                                 </h2>
@@ -215,54 +199,54 @@ const Location = () =>
                                                 locationDistrictLocality ? <tr>
                                                     <td className={classNamesFirstRow.join(' ')}>Stadtteil / Ortschaft
                                                     </td>
-                                                    <td className={classNamesSecondRow.join([' '])}
+                                                    <td className={classNamesSecondRow.join(' ')}
                                                         colSpan={2}>{locationDistrictLocality.name}</td>
                                                 </tr> : <></>
                                             }
                                             {
                                                 locationCityMunicipality ? <tr>
                                                     <td className={classNamesFirstRow.join(' ')}>Stadt / Gemeinde</td>
-                                                    <td className={classNamesSecondRow.join([' '])}
+                                                    <td className={classNamesSecondRow.join(' ')}
                                                         colSpan={2}>{locationCityMunicipality.name}</td>
                                                 </tr> : <></>
                                             }
                                             {
                                                 locationState ? <tr>
                                                     <td className={classNamesFirstRow.join(' ')}>Bundesland</td>
-                                                    <td className={classNamesSecondRow.join([' '])}
+                                                    <td className={classNamesSecondRow.join(' ')}
                                                         colSpan={2}>{locationState.name}</td>
                                                 </tr> : <></>
                                             }
                                             {
                                                 locationCountry ? <tr>
                                                     <td className={classNamesFirstRow.join(' ')}>Land</td>
-                                                    <td className={classNamesSecondRow.join([' '])}
+                                                    <td className={classNamesSecondRow.join(' ')}
                                                         colSpan={2}>{locationCountry.name}</td>
                                                 </tr> : <></>
                                             }
                                             <tr>
                                                 <td className={classNamesFirstRow.join(' ')}>Ländercode</td>
-                                                <td className={classNamesSecondRow.join([' '])}
+                                                <td className={classNamesSecondRow.join(' ')}
                                                     colSpan={2}>{propertyCountryCode}</td>
                                             </tr>
                                             {
                                                 hasPropertyElevation ? <tr>
                                                     <td className={classNamesFirstRow.join(' ')}>Höhe</td>
-                                                    <td className={classNamesSecondRow.join([' '])}
+                                                    <td className={classNamesSecondRow.join(' ')}
                                                         colSpan={2}>{propertyElevation}</td>
                                                 </tr> : <></>
                                             }
                                             {
                                                 coordinateLatitudeDms && coordinateLongitudeDms ? <tr>
                                                     <td className={classNamesFirstRow.join(' ')}>DMS</td>
-                                                    <td className={classNamesSecondRow.join([' '])}
+                                                    <td className={classNamesSecondRow.join(' ')}
                                                         colSpan={2}>{coordinateLatitudeDms}, {coordinateLongitudeDms}</td>
                                                 </tr> : <></>
                                             }
                                             {
                                                 coordinateLatitudeDecimal && coordinateLongitudeDecimal ? <tr>
                                                     <td className={classNamesFirstRow.join(' ')}>Decimal</td>
-                                                    <td className={classNamesSecondRow.join([' '])}
+                                                    <td className={classNamesSecondRow.join(' ')}
                                                         colSpan={2}>{coordinateLatitudeDecimal}, {coordinateLongitudeDecimal}</td>
                                                 </tr> : <></>
                                             }
@@ -274,7 +258,7 @@ const Location = () =>
                                                                 <>
                                                                     <tr>
                                                                         <td className={classNamesFirstRow.join(' ')}>Entfernung</td>
-                                                                        <td className={classNamesSecondRow.join([' '])}
+                                                                        <td className={classNamesSecondRow.join(' ')}
                                                                             colSpan={2}
                                                                             title={distanceText}>
                                                                             {distanceInKilometersFormatted}<sup>*)</sup>
@@ -282,12 +266,12 @@ const Location = () =>
                                                                     </tr>
                                                                     <tr>
                                                                         <td className={classNamesFirstRow.join(' ')}>Richtung</td>
-                                                                        <td className={classNamesSecondRow.join([' '])}
+                                                                        <td className={classNamesSecondRow.join(' ')}
                                                                             title={distanceText}
                                                                         >
-                                                                            {directionTranslation[directionTranslated] ?? 'Unbekannt'}<sup>*)</sup>
+                                                                            {directionTranslation[directionTranslated ?? ''] ?? 'Unbekannt'}<sup>*)</sup>
                                                                         </td>
-                                                                        <td className={classNamesSecondRow.join([' '])}
+                                                                        <td className={classNamesSecondRow.join(' ')}
                                                                             style={{
                                                                                 display: "flex",
                                                                                 justifyContent: "flex-end"
@@ -307,11 +291,11 @@ const Location = () =>
                                                     :
                                                     <tr>
                                                         <td className={classNamesFirstRow.join(' ')}>Entfernung</td>
-                                                        <td className={classNamesSecondRow.join([' '])}
+                                                        <td className={classNamesSecondRow.join(' ')}
                                                             title={distanceText}>
                                                             Standort des Nutzers ist unbekannt.
                                                         </td>
-                                                        <td className={classNamesSecondRow.join([' '])}
+                                                        <td className={classNamesSecondRow.join(' ')}
                                                             title={distanceText} style={{textAlign: 'right'}}>
                                                             <button
                                                                 className="btn btn-outline-primary shadow-own mt-2 mb-2 button-own-position button-minimized"
@@ -326,38 +310,38 @@ const Location = () =>
                                             {
                                                 featureClass ? <tr>
                                                     <td className={classNamesFirstRow.join(' ')}>Oberschlüssel</td>
-                                                    <td className={classNamesSecondRow.join([' '])} colSpan={2}>
+                                                    <td className={classNamesSecondRow.join(' ')} colSpan={2}>
                                                         <code>{featureClass}</code> - {featureClassName}</td>
                                                 </tr> : <></>
                                             }
                                             {
                                                 featureCode ? <tr>
                                                     <td className={classNamesFirstRow.join(' ')}>Schlüssel</td>
-                                                    <td className={classNamesSecondRow.join([' '])} colSpan={2}>
+                                                    <td className={classNamesSecondRow.join(' ')} colSpan={2}>
                                                         <code>{featureCode}</code> - {featureCodeName}</td>
                                                 </tr> : <></>
                                             }
                                             {
                                                 hasTimezone ? <tr>
                                                     <td className={classNamesFirstRow.join(' ')}>Zeitzone</td>
-                                                    <td className={classNamesSecondRow.join([' '])}
+                                                    <td className={classNamesSecondRow.join(' ')}
                                                         colSpan={2}>{timezone} <code>{timezoneOffset}</code></td>
                                                 </tr> : <></>
                                             }
                                             {
-                                                hasWikipediaThis ? <tr>
+                                                wikipediaLink ? <tr>
                                                     <td className={classNamesFirstRow.join(' ')}>Wikipedia</td>
-                                                    <td className={classNamesSecondRow.join([' '])} colSpan={2}><a href={wikipediaLink} target={'_blank'} rel="noreferrer" dangerouslySetInnerHTML={{__html: addSoftHyphens(wikipediaLink)}} /></td>
+                                                    <td className={classNamesSecondRow.join(' ')} colSpan={2}><a href={wikipediaLink} target={'_blank'} rel="noreferrer" dangerouslySetInnerHTML={{__html: addSoftHyphens(wikipediaLink)}} /></td>
                                                 </tr> : <></>
                                             }
                                             <tr>
                                                 <td className={classNamesFirstRow.join(' ')}>Geoname ID</td>
-                                                <td className={classNamesSecondRow.join([' '])}
+                                                <td className={classNamesSecondRow.join(' ')}
                                                     colSpan={2}>{data['geoname-id']}</td>
                                             </tr>
                                             <tr>
                                                 <td className={classNamesFirstRow.join(' ')}>Letztes Update</td>
-                                                <td className={classNamesSecondRow.join([' '])}
+                                                <td className={classNamesSecondRow.join(' ')}
                                                     colSpan={2}>{convertToGermanFormat(data['updated-at'])}</td>
                                             </tr>
                                             </tbody>
@@ -391,8 +375,8 @@ const Location = () =>
                             {/* Renders the search performance part. */}
                             <SearchPerformance
                                 properties={properties}
-                                apiPathWithoutParameter={apiPathWithoutParameter}
-                                apiPathWithParameter={apiPathWithParameter}
+                                apiPathWithoutParameter={apiPath}
+                                apiPathWithParameter={apiPathWithFilter}
                             />
                         </> : (error !== null ? <Error error={error} apiPath={properties['api-url']}/> : <Loader/>)}
                     </div>

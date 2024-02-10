@@ -235,19 +235,51 @@ type TypeCoordinate = {
     "direction-user"?: TypeDirection
 }
 
+type TypeNextPlaces = any;
+
 type TypeLocation = {
+    "coordinate": TypeCoordinate,
+    "feature": TypeFeature,
     "geoname-id": number,
+    "links": {
+        "wikipedia": {
+            "this": string,
+        }
+    },
+    "locations"?: {
+        "district-locality": {
+            name: string
+        },
+        "city-municipality": {
+            name: string
+        },
+        "state": {
+            name: string
+        },
+        "country": {
+            name: string
+        }
+    },
     "name": string,
     "name-full"?: string,
-    "updated-at": string,
-    "properties": TypeProperties,
-    "feature": TypeFeature,
-    "coordinate": TypeCoordinate
-    "timezone": object,
-    "links": object,
+    "next-places"?: {
+        A: TypeNextPlaces,
+        H: TypeNextPlaces,
+        L: TypeNextPlaces,
+        P: TypeNextPlaces,
+        R: TypeNextPlaces,
+        S: TypeNextPlaces,
+        T: TypeNextPlaces,
+        U: TypeNextPlaces,
+        V: TypeNextPlaces,
+    }
     "next-places-config": object,
-    "locations"?: object,
-    "next-places"?: object
+    "properties": TypeProperties,
+    "timezone": {
+        timezone: string,
+        offset: string
+    },
+    "updated-at": string,
 }
 
 type TypeLocations = TypeLocation[];
@@ -300,6 +332,7 @@ export {
     TypeProperties,
     TypeFeature,
     TypeCoordinate,
+    TypeNextPlaces,
     TypeLocation,
     TypeLocations,
     TypeApiData,

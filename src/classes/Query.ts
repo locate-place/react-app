@@ -10,10 +10,19 @@ import {
     routePathLocation,
     routePathLocations
 } from "../config/Route";
-import {searchTypeCoordinate, searchTypeListWithFeatures} from "../config/SearchType";
+import {
+    searchTypeCoordinate,
+    searchTypeListWithFeatures
+} from "../config/SearchType";
+import {
+    nameSortName,
+    nameSortRelevance,
+    nameSortRelevanceUser
+} from "../config/NameSort";
 
 /* Import classes. */
 import {ApiResponseProperty} from "./ApiResponseProperty";
+import React from "react";
 
 /* API paths */
 const apiPathCalendars: string = '/v.json';
@@ -36,13 +45,6 @@ const nameParameterPage: 'page' = 'page';
 const nameParameterSort: 's' = 's';
 const nameParameterNextPlaces: 'next_places' = 'next_places';
 
-/* Sort names */
-const nameSortDistance: 'distance' = 'distance';
-const nameSortDistanceUser: 'distance-user' = 'distance-user';
-const nameSortRelevance: 'relevance' ='relevance';
-const nameSortRelevanceUser: 'relevance-user' ='relevance-user';
-const nameSortName: 'name' = 'name';
-
 /* Countries */
 const countryDe: string = 'DE';
 
@@ -57,7 +59,7 @@ class Query
 
     private filterConfig: TypeFilterConfig = {};
 
-    private property: ApiResponseProperty|null = null;
+    private apiResponseProperty: ApiResponseProperty|null = null;
 
     /**
      * Query constructor.
@@ -79,11 +81,11 @@ class Query
     /**
      * Sets the api response property class.
      *
-     * @param property
+     * @param apiResponseProperty
      */
-    setApiResponseProperty(property: ApiResponseProperty): void
+    setApiResponseProperty(apiResponseProperty: ApiResponseProperty): void
     {
-        this.property = property;
+        this.apiResponseProperty = apiResponseProperty;
     }
 
     /**
@@ -255,11 +257,79 @@ class Query
     }
 
     /**
+     * Returns if the query parameter was given.
+     *
+     * @return {boolean}
+     */
+    hasQuery = (): boolean =>
+    {
+        return !!this.filterConfig[nameParameterQuery];
+    }
+
+    /**
      * Returns the query parameter.
+     *
+     * @return {string|null}
      */
     getQuery = (): string|null =>
     {
         return this.filterConfig[nameParameterQuery] ?? null;
+    }
+
+    getQueryResultText = (): string =>
+    {
+        const textResult: string = '%numberTotal% Ergebnisse gefunden. Zeige %numberResults%.';
+
+        const textResultQuery: string = '%numberTotal% Ergebnisse für "%query%" gefunden. Zeige %numberFirstItem% - %numberLastItem%.';
+
+        const textNoResult = 'Keine Ergebnisse gefunden.';
+
+        const textNoResultQuery = 'Keine Ergebnisse für "%query%" gefunden.';
+
+        if (this.apiResponseProperty === null) {
+            throw new Error('The property class must be set before using isCoordinateSearch.');
+        }
+
+        if (!this.apiResponseProperty.hasResults()) {
+            if (!this.hasQuery()) {
+                return textNoResult;
+            }
+
+            return textNoResultQuery.
+                replace('%query%', this.getQuery() ?? '');
+            ;
+        }
+
+        if (!this.hasQuery()) {
+            return textResult.
+                replace('%numberTotal%', this.apiResponseProperty.getNumberTotal().toString()).
+                replace('%numberResults%', this.apiResponseProperty.getNumberResults().toString())
+            ;
+        }
+
+        const numberFirstItem = (this.apiResponseProperty.getNumberPage() - 1) * this.apiResponseProperty.getNumberResults() + 1;
+        const numberLastItem = this.apiResponseProperty.getNumberResults() * this.apiResponseProperty.getNumberPage();
+
+        return textResultQuery.
+            replace('%numberTotal%', this.apiResponseProperty.getNumberTotal().toString()).
+            replace('%query%', this.getQuery() ?? '').
+            replace('%numberFirstItem%', numberFirstItem.toString()).
+            replace('%numberLastItem%', numberLastItem.toString())
+        ;
+    }
+
+    /**
+     * Returns if one of the given sort values are equal to the current sort.
+     *
+     * @param sort {string|string[]}
+     */
+    isSort = (sort: string|string[]): boolean =>
+    {
+        if (typeof sort ==='string') {
+            sort = [sort];
+        }
+
+        return sort.includes(this.getSort());
     }
 
     /**
@@ -269,11 +339,11 @@ class Query
      */
     getSort = (): string =>
     {
-        if (this.property === null) {
+        if (this.apiResponseProperty === null) {
             throw new Error('The property class must be set before using isCoordinateSearch.');
         }
 
-        const properties = this.property.getProperties();
+        const properties = this.apiResponseProperty.getProperties();
 
         if (this.filterConfig[nameParameterSort]) {
             return this.filterConfig[nameParameterSort];
@@ -323,11 +393,11 @@ class Query
      */
     isCoordinateSearch = (): boolean =>
     {
-        if (this.property === null) {
+        if (this.apiResponseProperty === null) {
             throw new Error('The property class must be set before using isCoordinateSearch.');
         }
 
-        let properties: TypeApiProperties = this.property.getProperties();
+        let properties: TypeApiProperties = this.apiResponseProperty.getProperties();
 
         if (
             properties.given &&

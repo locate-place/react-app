@@ -48,6 +48,13 @@ import {
     ListTask,
     CursorFill
 } from "react-bootstrap-icons";
+import {
+    nameSortDistance,
+    nameSortDistanceUser,
+    nameSortName,
+    nameSortRelevance,
+    nameSortRelevanceUser
+} from "../../config/NameSort";
 
 /**
  * This is the app locations component.
@@ -96,19 +103,11 @@ const Locations = () =>
         return <></>;
     }
 
+    /* Add apiResponseProperty to query class, to get more information. */
     const apiResponseProperty = new ApiResponseProperty(properties);
     query.setApiResponseProperty(apiResponseProperty);
 
-    /* Get filter values. */
-    const isQuerySearch = query.isQuerySearch();
-    const isCoordinateSearch = query.isCoordinateSearch();
-    const queryString = query.getQuery();
-    const sortString = query.getSort();
-
     /* Get property values (from api query response). */
-    const isOwnPosition = apiResponseProperty.isOwnPosition();
-    const ownPosition = apiResponseProperty.getOwnPosition();
-    const hasResults = apiResponseProperty.hasResults();
     const numberResults = apiResponseProperty.getNumberResults();
     const numberTotal = apiResponseProperty.getNumberTotal();
     const numberPage = apiResponseProperty.getNumberPage();
@@ -124,16 +123,16 @@ const Locations = () =>
                     <div className="col-12 col-md-10 offset-md-1 col-xl-8 offset-xl-2">
                         {/* Renders the search form. */}
                         <SearchForm
-                            queryDefault={queryString}
+                            queryDefault={query.getQuery()}
                             routePathDefault={routePathLocations}
                         />
 
                         {loaded ? <>
                             {/* Renders the search metrics part. */}
-                            <SearchMetrics properties={properties} />
+                            <SearchMetrics properties={properties}/>
 
                             {
-                                isQuerySearch ?
+                                query.isQuerySearch() ?
                                     <>
                                         <h3><ListTask size={sizeIcon.H3}/> Suchergebnisse</h3>
                                     </> :
@@ -146,27 +145,27 @@ const Locations = () =>
 
                             <div className="float-end pb-3">
                                 <div className="btn-group shadow-own">
-                                {/* Own position indicator */}
+                                    {/* Own position indicator */}
                                     <button
                                         className="btn btn-outline-secondary without-hover"
-                                        title={isOwnPosition ? ('Aktuelle Position "' + ownPosition + '" wird verwendet.') : 'Aktuelle Position wird nicht verwendet.'}
+                                        title={apiResponseProperty.isOwnPosition() ? ('Aktuelle Position "' + apiResponseProperty.getOwnPosition() + '" wird verwendet.') : 'Aktuelle Position wird nicht verwendet.'}
                                     >
                                         {
-                                            isOwnPosition ?
-                                                <HouseFill size={sizeIcon.Button} /> :
-                                                <HouseSlashFill size={sizeIcon.Button} />
+                                            apiResponseProperty.isOwnPosition() ?
+                                                <HouseFill size={sizeIcon.Button}/> :
+                                                <HouseSlashFill size={sizeIcon.Button}/>
                                         }&nbsp;
                                         <sup><small>Sortierung</small></sup>
                                     </button>
                                     <button
-                                        className={'btn ' + (sortString === 'name' ? 'btn-secondary' : 'btn-outline-secondary')}
+                                        className={'btn ' + (query.isSort(nameSortName) ? 'btn-secondary' : 'btn-outline-secondary')}
                                         onClick={() => sortByName(filterConfig)} title="Sortieren nach Name">
-                                        <SortAlphaDown size={sizeIcon.Button} /> <sup><small>Name</small></sup>
+                                        <SortAlphaDown size={sizeIcon.Button}/> <sup><small>Name</small></sup>
                                     </button>
                                     {
-                                        isCoordinateSearch ?
+                                        query.isCoordinateSearch() ?
                                             <button
-                                                className={'btn ' + ((sortString === 'distance-user' || sortString === 'distance') ? 'btn-secondary' : 'btn-outline-secondary')}
+                                                className={'btn ' + (query.isSort([nameSortDistanceUser, nameSortDistance]) ? 'btn-secondary' : 'btn-outline-secondary')}
                                                 onClick={() => sortByDistance(filterConfig)}
                                                 title="Sortieren nach Distanz"
                                             >
@@ -175,7 +174,7 @@ const Locations = () =>
                                                 <sup><small>km</small></sup>
                                             </button> :
                                             <button
-                                                className={'btn ' + ((sortString === 'distance-user' || sortString === 'distance') ? 'btn-secondary' : 'btn-outline-secondary')}
+                                                className={'btn ' + (query.isSort([nameSortDistanceUser, nameSortDistance]) ? 'btn-secondary' : 'btn-outline-secondary')}
                                                 onClick={() => sortByDistanceUser(filterConfig)}
                                                 title="Sortieren nach Distanz vom User"
                                             >
@@ -184,11 +183,11 @@ const Locations = () =>
                                             </button>
                                     }
                                     {
-                                        isQuerySearch ?
+                                        query.isQuerySearch() ?
                                             (
-                                                isCoordinateSearch ?
+                                                query.isCoordinateSearch() ?
                                                     <button
-                                                        className={'btn ' + ((sortString === 'relevance-user' || sortString === 'relevance') ? 'btn-secondary' : 'btn-outline-secondary')}
+                                                        className={'btn ' + (query.isSort([nameSortRelevanceUser, nameSortRelevance]) ? 'btn-secondary' : 'btn-outline-secondary')}
                                                         onClick={() => sortByRelevance(filterConfig)}
                                                         title="Sortieren nach Relevanz"
                                                     >
@@ -196,7 +195,7 @@ const Locations = () =>
                                                         <SortDown size={sizeIcon.Button}/> <sup><small>Relevanz</small></sup>
                                                     </button> :
                                                     <button
-                                                        className={'btn ' + ((sortString === 'relevance-user' || sortString === 'relevance') ? 'btn-secondary' : 'btn-outline-secondary')}
+                                                        className={'btn ' + (query.isSort([nameSortRelevanceUser, nameSortRelevance]) ? 'btn-secondary' : 'btn-outline-secondary')}
                                                         onClick={() => sortByRelevanceUser(filterConfig)}
                                                         title="Sortieren nach Relevanz vom User"
                                                     >
@@ -211,17 +210,12 @@ const Locations = () =>
 
                             <div className="clearfix"></div>
 
-                            {
-                                hasResults ?
-                                    <>
-                                        <div className="mt-5">
-                                            {
-                                                queryString ?
-                                                    <p>{numberTotal} Ergebnisse für "{queryString}" gefunden. Zeige {(numberPage - 1) * numberResults + 1} - {numberResults * numberPage}.</p> :
-                                                    <p>{numberTotal} Ergebnisse gefunden. Zeige {numberResults}.</p>
-                                            }
-                                        </div>
+                            {/* Show the results. */}
+                            <div className="mt-5"><p>{query.getQueryResultText()}</p></div>
 
+                            {
+                                apiResponseProperty.hasResults() ?
+                                    <>
                                         {data.map((location, index) => (
                                             <LocationCard
                                                 key={'location-card-' + index}
@@ -231,25 +225,17 @@ const Locations = () =>
                                                 index={index}
                                             />
                                         ))}
-                                    </>:
-                                    <>
-                                        <div>
-                                            {
-                                                queryString ?
-                                                    <p>Keine Ergebnisse für "{queryString}" gefunden.</p> :
-                                                    <p>Keine Ergebnisse gefunden.</p>
-                                            }
-                                        </div>
-                                    </>
-                            }
 
-                            {/* Renders the pager part. */}
-                            <Pager
-                                page={numberPage}
-                                results={numberResults}
-                                total={numberTotal}
-                                filterConfig={filterConfig}
-                            />
+                                        {/* Renders the pager part. */}
+                                        <Pager
+                                            page={numberPage}
+                                            results={numberResults}
+                                            total={numberTotal}
+                                            filterConfig={filterConfig}
+                                        />
+                                    </> :
+                                    null
+                            }
 
                             {/* Renders the search performance part. */}
                             <SearchPerformance

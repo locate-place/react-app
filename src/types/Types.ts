@@ -1,14 +1,14 @@
 import React from "react";
 
 type TypeValue = {
-    "value": number;
-    "unit": string;
-    "value-formatted": string;
+    "value": number,
+    "unit": string,
+    "value-formatted": string,
 }
 
 type TypeDistance = {
     "meters": TypeValue,
-    "kilometers": TypeValue
+    "kilometers": TypeValue,
 }
 
 type TypePosition = {
@@ -19,28 +19,28 @@ type TypePosition = {
 type TypeDirection = {
     "degree": number,
     "cardinal-direction": string,
-    "cardinal-direction-translated": string
+    "cardinal-direction-translated": string,
 }
 
 type TypeLocationCoordinate = {
-    coordinate: TypeCoordinate
+    coordinate: TypeCoordinate,
 }
 
 type TypeSrcSet = {
-    "srcSet": string;
-    "media": string;
+    "srcSet": string,
+    "media": string,
 }
 
 type TypeBirthday = {
-    "date": string;
-    "name": string;
-    "name_short": string;
+    "date": string,
+    "name": string,
+    "name_short": string,
 };
 
 type TypeHoliday = {
-    "date": string;
-    "name": string;
-    "name_short": string;
+    "date": string,
+    "name": string,
+    "name_short": string,
 };
 
 type TypeBirthdays = TypeBirthday[][];
@@ -48,67 +48,67 @@ type TypeBirthdays = TypeBirthday[][];
 type TypeHolidays = TypeHoliday[];
 
 type TypeAirportCodes = {
-    "iata"?: string;
-    "icao"?: string;
+    "iata"?: string,
+    "icao"?: string,
 }
 
 type TypePlace = {
-    "geoname-id": number;
-    "name": string;
-    "updated-at": string;
-    "properties": TypeProperties;
-    "feature": TypeFeature;
+    "geoname-id": number,
+    "name": string,
+    "updated-at": string,
+    "properties": TypeProperties,
+    "feature": TypeFeature,
 }
 
 type TypeFilterConfig = {
-    "c"?: string;           /* Calendar parameter */
-    "m"?: string;           /* Month parameter */
-    "q"?: string;           /* Query parameter */
-    "p"?: string;           /* Current position parameter */
-    "country"?: string;     /* Country parameter */
-    "language"?: string;    /* Language parameter */
-    "distance"?: string;    /* Distance parameter */
-    "limit"?: string;       /* Limit parameter */
-    "page"?: string;        /* Page parameter */
-    "s"?: string;           /* Sort parameter */
-    "next_places"?: string; /* Next places parameter */
+    "c"?: string,           /* Calendar parameter */
+    "m"?: string,           /* Month parameter */
+    "q"?: string,           /* Query parameter */
+    "p"?: string,           /* Current position parameter */
+    "country"?: string,     /* Country parameter */
+    "language"?: string,    /* Language parameter */
+    "distance"?: string,    /* Distance parameter */
+    "limit"?: string,       /* Limit parameter */
+    "page"?: string,        /* Page parameter */
+    "s"?: string,           /* Sort parameter */
+    "next_places"?: string, /* Next places parameter */
 }
 
 type TypeQuerFeatureCode = {
-    "code": string;
-    "translated": string;
+    "code": string,
+    "translated": string,
 }
 
 type TypeError = {
-    "message": string
+    "message": string,
 }|null;
 
 type TypeLoaded = boolean;
 
 type TypeDataVersion = {
-    "version": string;
-    "date": string;
+    "version": string,
+    "date": string,
 }
 
 type TypeDataCalendarPage = {
-    birthdays: TypeBirthdays;
-    color: string;
-    colors: string[];
-    coordinate: string;
-    coordinate_decimal: string;
-    coordinate_dms: string;
-    google_maps: string;
-    holidays: TypeHolidays;
-    identifier: string;
-    month: number;
-    page_title: string;
-    description?: string;
-    path: string;
-    source: string;
-    subtitle: string;
-    target: string;
-    title: string;
-    year: number;
+    birthdays: TypeBirthdays,
+    color: string,
+    colors: string[],
+    coordinate: string,
+    coordinate_decimal: string,
+    coordinate_dms: string,
+    google_maps: string,
+    holidays: TypeHolidays,
+    identifier: string,
+    month: number,
+    page_title: string,
+    description?: string,
+    path: string,
+    source: string,
+    subtitle: string,
+    target: string,
+    title: string,
+    year: number,
 }
 
 type TypeDataCalendar = {
@@ -124,37 +124,39 @@ type TypeDataCalendar = {
     url?: string
 }
 
-type TypeDataCalendars = TypeDataCalendar[];
+type TypeDataCalendars = {
+    calendars: TypeDataCalendar[],
+};
 
 type TypeApiProperties = {
-    "date"?: string;
-    "given"?: string;
-    "memory-taken"?: string;
-    "time-taken"?: string;
-    "valid": boolean;
-    "version"?: string;
-    "name": string|null;
-    "url": string|null;
-    "path": string;
-    "type": string;
-    "api-url": string;
-    "results"?: TypeResults;
+    "date"?: string,
+    "given"?: string,
+    "memory-taken"?: string,
+    "time-taken"?: string,
+    "valid": boolean,
+    "version"?: string,
+    "name": string|null,
+    "url": string|null,
+    "path": string,
+    "type": string,
+    "api-url": string,
+    "results"?: TypeResults,
 }
 
 type TypeLoadApiArguments = {
     /* Required types */
-    type: string;
-    path: string;
-    setLoaded: React.Dispatch<React.SetStateAction<TypeLoaded>>;
-    setError: React.Dispatch<React.SetStateAction<TypeError>>;
-    setProperties: React.Dispatch<React.SetStateAction<TypeApiProperties|null>>;
+    type: string,
+    path: string,
+    setLoaded: React.Dispatch<React.SetStateAction<TypeLoaded>>,
+    setError: React.Dispatch<React.SetStateAction<TypeError>>,
+    setProperties: React.Dispatch<React.SetStateAction<TypeApiProperties|null>>,
 
     /* Optional types */
-    setDataVersion?: React.Dispatch<React.SetStateAction<TypeDataVersion|null>>;
-    setDataCalendarPage?: React.Dispatch<React.SetStateAction<TypeDataCalendarPage|null>>;
-    setDataCalendar?: React.Dispatch<React.SetStateAction<TypeDataCalendar|null>>;
-    setDataCalendars?: React.Dispatch<React.SetStateAction<TypeDataCalendars|null>>;
-    callback?: Function;
+    setDataVersion?: React.Dispatch<React.SetStateAction<TypeDataVersion|null>>,
+    setDataCalendarPage?: React.Dispatch<React.SetStateAction<TypeDataCalendarPage|null>>,
+    setDataCalendar?: React.Dispatch<React.SetStateAction<TypeDataCalendar|null>>,
+    setDataCalendars?: React.Dispatch<React.SetStateAction<TypeDataCalendars|null>>,
+    callback?: Function,
 }
 
 /* Full API Types.
@@ -173,23 +175,23 @@ type TypeDataLicence = {
 type TypePerformance = object;
 
 type TypeResults = {
-    "total": number;
-    "results": number;
-    "page": number;
+    "total": number,
+    "results": number,
+    "page": number,
 }
 
 type TypeProperties = {
-    "elevation"?: TypeValue;
-    "population"?: TypeValue;
-    "airport_codes"?: TypeAirportCodes;
-    "country": string;
+    "elevation"?: TypeValue,
+    "population"?: TypeValue,
+    "airport_codes"?: TypeAirportCodes,
+    "country": string,
 }
 
 type TypeFeature = {
-    "code": string;
-    "code-name": string;
-    "class": string;
-    "class-name": string;
+    "code": string,
+    "code-name": string,
+    "class": string,
+    "class-name": string,
 }
 
 type TypeCoordinate = {
@@ -219,15 +221,15 @@ type TypeLocation = {
 
 type TypeApiData = {
     "data-licence": TypeDataLicence,
-    "time-taken": string;
-    "memory-taken": string;
-    "performance": TypePerformance;
-    "results"?: TypeResults;
-    "data": TypeLocation|Array<TypeLocation>;
-    "given": object;
-    "valid": boolean;
-    "date": string;
-    "version": string;
+    "time-taken": string,
+    "memory-taken": string,
+    "performance": TypePerformance,
+    "results"?: TypeResults,
+    "data": TypeLocation|Array<TypeLocation>,
+    "given": object,
+    "valid": boolean,
+    "date": string,
+    "version": string,
 }
 
 /*

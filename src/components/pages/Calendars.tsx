@@ -1,46 +1,61 @@
 import React, {useEffect, useMemo, useState} from 'react';
 
 /* Add functions */
-import loadApiData from "../../functions/LoadApiData.ts";
+import loadApiData from "../../functions/LoadApiData";
 
 /* Add component parts */
-import Error from "../layout/Error.tsx";
-import Header from "../layout/Header.tsx";
-import ImageWithLoader from "../layout/ImageWithLoader.tsx";
-import Loader from "../layout/Loader.tsx";
+import Error from "../layout/Error";
+import Header from "../layout/Header";
+import ImageWithLoader from "../layout/ImageWithLoader";
+import Loader from "../layout/Loader";
+import {TypeApiProperties, TypeDataCalendars, TypeError, TypeLoaded} from "../../types/Types";
+import {useSearchParams} from "react-router-dom";
+import {Query} from "../../functions/Query";
 
 /**
- * This is the app main component.
+ * This is the "calendars" component.
  */
-const Calendars = () => {
+const Calendars = () =>
+{
     /* API types */
-    const typeCalendarBuilder = useMemo(() => {
-        return process.env.REACT_APP_TYPE_CALENDAR_BUILDER;
+    const env = useMemo(() => {
+        return process.env;
     }, []);
 
     /* State variables */
-    const [error, setError] = useState(null);
-    const [loaded, setLoaded] = useState(false);
-    const [data, setData] = useState([]);
-    const [properties, setProperties] = useState([]);
+    const [error, setError] = useState<TypeError>(null);
+    const [loaded, setLoaded] = useState<TypeLoaded>(false);
+    const [data, setData] = useState<TypeDataCalendars|null>(null);
+    const [properties, setProperties] = useState<TypeApiProperties|null>(null);
 
-    const apiPath = '/v.json';
+    /* Memorized variables. */
+    const [searchParams] = useSearchParams();
+
+    /* Gets the api url */
+    let query = new Query(searchParams, env);
+    const apiPath = query.getApiUrl();
+    const apiType = query.getApiType();
+
+    console.log(apiType);
 
     /**
      * useEffect function.
      */
     useEffect(() => {
         loadApiData({
-            type: typeCalendarBuilder,
+            type: apiType,
             path: apiPath,
             setLoaded: setLoaded,
             setError: setError,
-            setDataCalendarPage: setData,
+            setDataCalendars: setData,
             setProperties: setProperties
         });
-    }, [typeCalendarBuilder, apiPath]);
+    }, [apiType, apiPath]);
 
-    console.log(data);
+    /* Skip empty data */
+    if (data === null || properties === null) {
+        return <></>;
+    }
 
     /**
      * The render function.

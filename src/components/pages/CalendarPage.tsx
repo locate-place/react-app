@@ -15,7 +15,7 @@ import {Query} from "../../functions/Query";
 import {TypeApiProperties, TypeDataCalendarPage, TypeError, TypeLoaded} from "../../types/Types";
 
 /**
- * This is the image page.
+ * This is the "calendar page" component.
  */
 const CalendarPage = () =>
 {
@@ -52,6 +52,7 @@ const CalendarPage = () =>
         });
     }, [apiType, apiPath]);
 
+    /* Skip empty data */
     if (data === null || properties === null) {
         return <></>;
     }

@@ -20,7 +20,7 @@ import {
 import {Query} from "../../functions/Query";
 
 /**
- * This is the calendar page.
+ * This is the "calendar" component.
  */
 const Calendar = () => {
     /* Get env variables */
@@ -56,6 +56,7 @@ const Calendar = () => {
         });
     }, [apiType, apiPath]);
 
+    /* Skip empty data */
     if (data === null || properties === null) {
         return <></>;
     }

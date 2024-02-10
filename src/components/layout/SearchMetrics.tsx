@@ -4,7 +4,7 @@ import React from "react";
 import {sizeIcon} from "../../config/Config";
 
 /* Add functions */
-import {getParsedQueryFeatureCodes} from "../../functions/Query";
+import {getParsedQueryFeatureCodes} from "../../functions/QueryFunctions";
 import {searchTypeTranslations, TypeSearchTypeTranslations} from "../../functions/SearchType";
 
 /* Bootstrap icons; see https://icons.getbootstrap.com/?q=sort#usage */

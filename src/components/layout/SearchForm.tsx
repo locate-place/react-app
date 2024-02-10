@@ -8,7 +8,7 @@ import {sizeIcon} from "../../config/Config";
 import {GlobeAmericas, CursorFill, HouseFill} from "react-bootstrap-icons";
 
 /* Import functions */
-import {getPathLocationApi, hasOwnPosition, redirectCurrentPosition} from "../../functions/Query";
+import {getPathLocationApi, hasOwnPosition, redirectCurrentPosition} from "../../functions/QueryFunctions";
 
 type SearchFormProps = {
     routePathDefault: string,

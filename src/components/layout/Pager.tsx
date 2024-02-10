@@ -2,7 +2,7 @@ import React from "react";
 
 /* Import types */
 import {TypeFilterConfig} from "../../types/Types";
-import {redirectNextPage} from "../../functions/Query";
+import {redirectNextPage} from "../../functions/QueryFunctions";
 
 type PagerProps = {
     page: number

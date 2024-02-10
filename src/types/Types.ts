@@ -41,13 +41,9 @@ type TypeHoliday = {
     "name_short": string;
 };
 
-type TypeBirthdays = {
-    "birthdays": TypeBirthday[][];
-}
+type TypeBirthdays = TypeBirthday[][];
 
-type TypeHolidays = {
-    "holidays": TypeHoliday[];
-}
+type TypeHolidays = TypeHoliday[];
 
 type TypeAirportCodes = {
     "iata"?: string;
@@ -63,15 +59,17 @@ type TypePlace = {
 }
 
 type TypeFilterConfig = {
-    "q"?: string;
-    "c"?: string;
-    "country"?: string;
-    "language"?: string;
-    "distance"?: string;
-    "limit"?: string;
-    "page"?: string;
-    "s"?: string;
-    "next_places"?: string;
+    "c"?: string;           /* Calendar parameter */
+    "m"?: string;           /* Month parameter */
+    "q"?: string;           /* Query parameter */
+    "p"?: string;           /* Current position parameter */
+    "country"?: string;     /* Country parameter */
+    "language"?: string;    /* Language parameter */
+    "distance"?: string;    /* Distance parameter */
+    "limit"?: string;       /* Limit parameter */
+    "page"?: string;        /* Page parameter */
+    "s"?: string;           /* Sort parameter */
+    "next_places"?: string; /* Next places parameter */
 }
 
 type TypeQuerFeatureCode = {
@@ -88,6 +86,27 @@ type TypeLoaded = boolean;
 type TypeDataVersion = {
     "version": string;
     "date": string;
+}
+
+type TypeDataCalendarPage = {
+    birthdays: TypeBirthdays;
+    color: string;
+    colors: string[];
+    coordinate: string;
+    coordinate_decimal: string;
+    coordinate_dms: string;
+    google_maps: string;
+    holidays: TypeHolidays;
+    identifier: string;
+    month: number;
+    page_title: string;
+    description?: string;
+    path: string;
+    source: string;
+    subtitle: string;
+    target: string;
+    title: string;
+    year: number;
 }
 
 type TypeApiProperties = {
@@ -198,6 +217,7 @@ export {
     TypeError,
     TypeLoaded,
     TypeDataVersion,
+    TypeDataCalendarPage,
     TypeApiProperties,
     TypeAirportCodes,
 

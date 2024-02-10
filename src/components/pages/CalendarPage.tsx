@@ -2,57 +2,58 @@ import React, {useEffect, useMemo, useState} from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 /* Add functions */
-import loadApiData from "../../functions/LoadApiData.ts";
+import loadApiData from "../../functions/LoadApiData";
 
 /* Add component parts */
-import Birthdays from "../layout/Birthdays.tsx";
-import Error from "../layout/Error.tsx";
-import HeaderImage from "../layout/HeaderImage.tsx";
-import Holidays from "../layout/Holidays.tsx";
-import ImageWithLoader from "../layout/ImageWithLoader.tsx";
-import Loader from "../layout/Loader.tsx";
+import Birthdays from "../layout/Birthdays";
+import Error from "../layout/Error";
+import HeaderImage from "../layout/HeaderImage";
+import Holidays from "../layout/Holidays";
+import ImageWithLoader from "../layout/ImageWithLoader";
+import Loader from "../layout/Loader";
+import {Query} from "../../functions/Query";
+import {TypeApiProperties, TypeDataCalendarPage, TypeError, TypeLoaded} from "../../types/Types";
 
 /**
  * This is the image page.
  */
-const CalendarPage = () => {
-    /* API types */
-    const typeCalendarBuilder = useMemo(() => {
-        return process.env.REACT_APP_TYPE_CALENDAR_BUILDER;
+const CalendarPage = () =>
+{
+    /* Get env variables */
+    const env = useMemo(() => {
+        return process.env;
     }, []);
 
     /* State variables */
-    const [error, setError] = useState(null);
-    const [loaded, setLoaded] = useState(false);
-    const [data, setData] = useState([]);
+    const [error, setError] = useState<TypeError>(null);
+    const [loaded, setLoaded] = useState<TypeLoaded>(false);
+    const [data, setData] = useState<TypeDataCalendarPage|null>(null);
     const [searchParams] = useSearchParams();
-    const [properties, setProperties] = useState([]);
+    const [properties, setProperties] = useState<TypeApiProperties|null>(null);
 
-    /**
-     * Memorized variables.
-     */
-    const calendar = useMemo(() => {
-        return searchParams.get('c');
-    }, [searchParams]);
-    const month = useMemo(() => {
-        return searchParams.get('m');
-    }, [searchParams]);
-
-    const apiPath = '/v/' + calendar + '/' + month + '.json';
+    /* Gets the api url */
+    let query = new Query(searchParams, env);
+    const apiPath = query.getApiUrl();
+    const apiType = query.getApiType();
 
     /**
      * useEffect function.
      */
     useEffect(() => {
         loadApiData(
-            typeCalendarBuilder,
+            apiType,
             apiPath,
             setLoaded,
             setError,
+            null,
             setData,
             setProperties
         );
-    }, [typeCalendarBuilder, apiPath]);
+    }, [apiType, apiPath]);
+
+    if (data === null || properties === null) {
+        return <></>;
+    }
 
     /**
      * The render function.
@@ -117,8 +118,8 @@ const CalendarPage = () => {
                                     })}
                                 </p>
                             </> : null}
-                            <Birthdays data={data}/>
-                            <Holidays data={data}/>
+                            <Birthdays data={data.birthdays} />
+                            <Holidays data={data.holidays} />
                             <div className="mt-5">
                                 <p><a href={'calendar.html?c=' + data.identifier}>zurück zum Kalender</a></p>
                             </div>

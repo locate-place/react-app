@@ -2,10 +2,10 @@ import React, {useEffect, useMemo, useState} from 'react';
 import {useSearchParams} from "react-router-dom";
 
 /* Add configurations */
-import {sizeIcon} from "../../config/Config.ts";
+import {sizeIcon} from "../../config/Config";
 
 /* Add functions */
-import loadApiData from "../../functions/LoadApiData.ts";
+import loadApiData from "../../functions/LoadApiData";
 import {
     getQuery,
     getSort,
@@ -17,7 +17,7 @@ import {
     sortByDistance,
     sortByRelevance,
     getIsCoordinateSearch
-} from "../../functions/Query.ts";
+} from "../../functions/QueryFunctions";
 
 /* Add component parts */
 import Error from "../layout/Error.tsx";
@@ -91,6 +91,7 @@ const Locations = () =>
             apiPathWithParameter,
             setLoaded,
             setError,
+            null,
             setData,
             setProperties,
             () => {

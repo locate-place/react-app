@@ -6,7 +6,7 @@ import {convertMeterToKilometer} from "../../functions/Distance";
 import {getDecimal, getDms} from "../../functions/Coordinate";
 import {getElevation, getPopulation} from "../../functions/Properties";
 import {addSoftHyphens} from "../../functions/Text";
-import {getFilterConfig, redirectNextPlacesList, redirectNextPlacesListWithCoordinate} from "../../functions/Query";
+import {getFilterConfig, redirectNextPlacesList, redirectNextPlacesListWithCoordinate} from "../../functions/QueryFunctions";
 
 type NextPlacesProps = {
     nextPlaces: any,

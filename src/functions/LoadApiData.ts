@@ -3,7 +3,13 @@ import axios from "axios";
 import semver from "semver";
 
 /* Import types. */
-import {TypeApiProperties, TypeDataVersion, TypeError, TypeLoaded} from "../types/Types";
+import {
+    TypeApiProperties,
+    TypeDataCalendarPage,
+    TypeDataVersion,
+    TypeError,
+    TypeLoaded
+} from "../types/Types";
 
 /**
  * API data load function.
@@ -13,7 +19,8 @@ const loadApiData = (
     path: string,
     setLoaded: React.Dispatch<React.SetStateAction<TypeLoaded>>,
     setError: React.Dispatch<React.SetStateAction<TypeError>>,
-    setData: React.Dispatch<React.SetStateAction<TypeDataVersion|null>>,
+    setDataVersion: React.Dispatch<React.SetStateAction<TypeDataVersion|null>>|null,
+    setDataCalendarPage: React.Dispatch<React.SetStateAction<TypeDataCalendarPage|null>>|null,
     setProperties: React.Dispatch<React.SetStateAction<TypeApiProperties|null>>,
     callback: Function|null = null
 ) =>
@@ -57,7 +64,15 @@ const loadApiData = (
             /* Use raw data */
             if (versionResponse) {
                 setLoaded(true);
-                setData(data);
+
+                if (setDataVersion !== null) {
+                    setDataVersion(data);
+                }
+
+                if (setDataCalendarPage !== null) {
+                    setDataCalendarPage(data);
+                }
+
                 return;
             }
 
@@ -83,8 +98,16 @@ const loadApiData = (
             }
 
             /* Set data */
-            setData(data.data);
             setLoaded(true);
+
+            if (setDataVersion !== null) {
+                setDataVersion(data.data);
+            }
+
+            if (setDataCalendarPage !== null) {
+                setDataCalendarPage(data.data);
+            }
+
 
             if (setProperties) {
                 let propertiesApi: TypeApiProperties = {

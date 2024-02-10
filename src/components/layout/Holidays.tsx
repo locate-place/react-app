@@ -15,14 +15,12 @@ type HolidaysProps = {
  */
 const Holidays = ({data}: HolidaysProps) =>
 {
-    if (data === undefined || data.holidays === undefined || Object.keys(data.holidays).length <= 0) {
+    if (data === undefined || Object.keys(data).length <= 0) {
         return <></>
     }
 
-    console.log(data);
-
-    let hasHolidays = !!data.holidays;
-    let holidays = hasHolidays ? data.holidays : [];
+    let hasHolidays = !!data;
+    let holidays = hasHolidays ? data : [];
 
     return (
         <>

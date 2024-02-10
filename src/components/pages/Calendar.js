@@ -44,6 +44,7 @@ const Calendar = () => {
             apiPath,
             setLoaded,
             setError,
+            null,
             setData,
             setProperties
         );
@@ -90,8 +91,8 @@ const Calendar = () => {
                             </div>
                         )) : null}
                         <div className="col-12">
-                            <Birthdays data={data} />
-                            <Holidays data={data} />
+                            <Birthdays data={data.birthdays} />
+                            <Holidays data={data.holidays} />
                         </div>
                     </> : (error !== null ? <Error error={error} apiPath={apiPath} /> : <Loader />)}
                 </div>

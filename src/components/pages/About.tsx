@@ -58,6 +58,7 @@ const About = () =>
             setLoadedCalendarBuilder,
             setErrorCalendarBuilder,
             setDataCalendarBuilder,
+            null,
             setPropertiesCalendarBuilder
         );
         loadApiData(
@@ -66,6 +67,7 @@ const About = () =>
             setLoadedLocationApi,
             setErrorLocationApi,
             setDataLocationApi,
+            null,
             setPropertiesLocationApi
         );
     }, [apiPathCalendarBuilder, apiPathLocationApi, typeCalendarBuilder, typeLocationApi]);

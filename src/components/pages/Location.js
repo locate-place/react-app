@@ -2,19 +2,19 @@ import React, {useEffect, useMemo, useState} from 'react';
 import {useSearchParams} from "react-router-dom";
 
 /* Add configurations */
-import {sizeIcon} from "../../config/Config.ts";
+import {sizeIcon} from "../../config/Config";
 
 /* Add functions */
-import loadApiData from "../../functions/LoadApiData.ts";
+import loadApiData from "../../functions/LoadApiData";
 import {
     getQuery,
     getApiPathDetail,
     addCurrentPositionToQuery,
     getFilterConfig,
-} from "../../functions/Query.ts";
-import {convertToGermanFormat} from "../../functions/Date.ts";
-import {translateCountryCode} from "../../functions/Country.ts";
-import initializeCompass from "../../functions/Compass.ts";
+} from "../../functions/QueryFunctions";
+import {convertToGermanFormat} from "../../functions/Date";
+import {translateCountryCode} from "../../functions/Country";
+import initializeCompass from "../../functions/Compass";
 
 /* Add component parts */
 import Error from "../layout/Error.tsx";
@@ -152,6 +152,7 @@ const Location = () =>
             apiPathWithParameter,
             setLoaded,
             setError,
+            null,
             setData,
             setProperties,
             () => {

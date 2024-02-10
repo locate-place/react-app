@@ -227,12 +227,7 @@ const Locations = () =>
                                         ))}
 
                                         {/* Renders the pager part. */}
-                                        <Pager
-                                            page={numberPage}
-                                            results={numberResults}
-                                            total={numberTotal}
-                                            filterConfig={filterConfig}
-                                        />
+                                        <Pager query={query} />
                                     </> :
                                     null
                             }

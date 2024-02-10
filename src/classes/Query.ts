@@ -79,6 +79,14 @@ class Query
     }
 
     /**
+     * Returns the filter config.
+     */
+    getFilterConfig(): TypeFilterConfig
+    {
+        return this.filterConfig;
+    }
+
+    /**
      * Sets the api response property class.
      *
      * @param apiResponseProperty
@@ -86,6 +94,30 @@ class Query
     setApiResponseProperty(apiResponseProperty: ApiResponseProperty): void
     {
         this.apiResponseProperty = apiResponseProperty;
+    }
+
+    /**
+     * Returns the api response property class.
+     */
+    getApiResponseProperty(): ApiResponseProperty
+    {
+        if (this.apiResponseProperty === null) {
+            throw new Error('The property class must be set before using isCoordinateSearch.');
+        }
+
+        return this.apiResponseProperty;
+    }
+
+    /**
+     * Returns the env variable.
+     */
+    getEnv(): {[index: string]:any}
+    {
+        if (this.env === null) {
+            throw new Error('Can not use getApiType without an environment object.');
+        }
+
+        return this.env;
     }
 
     /**

@@ -1,26 +1,26 @@
 import React from "react";
 
-/* Import types */
-import {TypeFilterConfig} from "../../types/Types";
+/* Import functions. */
 import {redirectNextPage} from "../../functions/QueryFunctions";
 
+/* Import classes. */
+import {Query} from "../../classes/Query";
+
+/* Pager properties. */
 type PagerProps = {
-    page: number
-    results: number
-    total: number,
-    filterConfig: TypeFilterConfig
+    query: Query
 }
 
 /**
  * This renders the pager part.
  */
-const Pager = ({
-    page,
-    results,
-    total,
-    filterConfig
-}: PagerProps) =>
+const Pager = ({query}: PagerProps) =>
 {
+    const page = query.getApiResponseProperty().getNumberPage();
+    const results = query.getApiResponseProperty().getNumberResults();
+    const total = query.getApiResponseProperty().getNumberTotal();
+    const filterConfig = query.getFilterConfig();
+
     if ((page * results) > total) {
         return <></>;
     }

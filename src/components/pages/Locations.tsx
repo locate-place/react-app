@@ -107,11 +107,6 @@ const Locations = () =>
     const apiResponseProperty = new ApiResponseProperty(properties);
     query.setApiResponseProperty(apiResponseProperty);
 
-    /* Get property values (from api query response). */
-    const numberResults = apiResponseProperty.getNumberResults();
-    const numberTotal = apiResponseProperty.getNumberTotal();
-    const numberPage = apiResponseProperty.getNumberPage();
-
     /**
      * The render function.
      */

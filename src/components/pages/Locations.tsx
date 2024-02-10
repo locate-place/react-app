@@ -1,6 +1,14 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import {useSearchParams} from "react-router-dom";
 
+/* Import types. */
+import {
+    TypeApiProperties,
+    TypeError,
+    TypeLoaded,
+    TypeLocations
+} from "../../types/Types";
+
 /* Import configurations */
 import {sizeIcon} from "../../config/Config";
 
@@ -23,13 +31,14 @@ import {
 import {Query} from "../../classes/Query";
 
 /* Import component parts */
-import Error from "../layout/Error.tsx";
-import HeaderSmall from "../layout/HeaderSmall.tsx";
-import Loader from "../layout/Loader.tsx";
-import LocationCard from "../layout/LocationCard.tsx";
-import SearchForm from "../layout/SearchForm.tsx";
-import SearchMetrics from "../layout/SearchMetrics.tsx";
-import SearchPerformance from "../layout/SearchPerformance.tsx";
+import Error from "../layout/Error";
+import HeaderSmall from "../layout/HeaderSmall";
+import Loader from "../layout/Loader";
+import LocationCard from "../layout/LocationCard";
+import SearchForm from "../layout/SearchForm";
+import SearchMetrics from "../layout/SearchMetrics";
+import SearchPerformance from "../layout/SearchPerformance";
+import Pager from "../layout/Pager";
 
 /* Bootstrap icons; see https://icons.getbootstrap.com/?q=sort#usage */
 import {
@@ -41,7 +50,6 @@ import {
     ListTask,
     CursorFill
 } from "react-bootstrap-icons";
-import Pager from "../layout/Pager";
 
 /**
  * This is the app locations component.
@@ -57,32 +65,16 @@ const Locations = () =>
     }, []);
 
     /* State variables */
-    const [error, setError] = useState(null);
-    const [loaded, setLoaded] = useState(false);
-    const [data, setData] = useState([]);
-    const [properties, setProperties] = useState([]);
+    const [error, setError] = useState<TypeError>(null);
+    const [loaded, setLoaded] = useState<TypeLoaded>(false);
+    const [data, setData] = useState<TypeLocations|null>(null);
+    const [properties, setProperties] = useState<TypeApiProperties|null>(null);
 
     /* Memorized variables. */
     const [searchParams] = useSearchParams();
 
     /* Get variables according to the search parameters. */
     let filterConfig = getFilterConfig(searchParams);
-    let apiPathWithParameter = getApiPathList(searchParams, true);
-    let apiPathWithoutParameter = getApiPathList(searchParams, false);
-    let queryString = getQuery(searchParams);
-    let sortString = getSort(searchParams, properties);
-    let isQuerySearch = !!queryString;
-
-    /* Check if the current position has been given. */
-    let hasOwnPosition = properties.given && properties.given.coordinate && properties.given.coordinate.location;
-    let ownPosition = hasOwnPosition ? (properties.given.coordinate.parsed.latitude.dms + ', ' + properties.given.coordinate.parsed.longitude.dms) : null;
-
-    let isCoordinateSearch = getIsCoordinateSearch(properties, filterConfig);
-
-    let hasResults = !!properties.results;
-    let numberResults = hasResults && properties.results.results;
-    let numberTotal = hasResults && properties.results.total;
-    let numberPage = hasResults ? properties.results.page : 1;
 
     /* Gets the api url */
     let query = new Query(searchParams, env);
@@ -90,26 +82,39 @@ const Locations = () =>
     const apiPathWithFilter = query.getApiUrlWithFilter();
     const apiType = query.getApiType();
 
-    console.log('---');
-    console.log(apiPath);
-    console.log(apiPathWithFilter);
-    console.log(apiPathWithoutParameter);
-    console.log(apiPathWithParameter);
-    console.log('---');
-
     /**
      * useEffect function.
      */
     useEffect(() => {
         loadApiData({
             type: apiType,
-            path: apiPathWithParameter,
+            path: apiPathWithFilter,
             setLoaded: setLoaded,
             setError: setError,
             setDataLocations: setData,
             setProperties: setProperties,
         });
-    }, [apiType, apiPathWithParameter]);
+    }, [apiType, apiPathWithFilter]);
+
+    /* Skip empty data */
+    if (data === null || properties === null) {
+        return <></>;
+    }
+
+    /* Get filter values. */
+    const isQuerySearch = query.isQuerySearch();
+    const isCoordinateSearch = query.isCoordinateSearch(properties);
+    const queryString = query.getQuery();
+    const sortString = query.getSort(properties);
+
+    /* Check if the current position has been given. */
+    let hasOwnPosition = properties.given && properties.given.coordinate;
+    let ownPosition = !!properties.given && !!properties.given.coordinate ? (properties.given.coordinate.parsed.latitude.dms + ', ' + properties.given.coordinate.parsed.longitude.dms) : null;
+
+    let hasResults = !!properties.results;
+    let numberResults = (!!properties.results && properties.results.results) ? properties.results.results : 0;
+    let numberTotal = (!!properties.results && properties.results.total) ? properties.results.total : 0;
+    let numberPage = !!properties.results ? properties.results.page : 1;
 
     /**
      * The render function.
@@ -252,8 +257,8 @@ const Locations = () =>
                             {/* Renders the search performance part. */}
                             <SearchPerformance
                                 properties={properties}
-                                apiPathWithoutParameter={apiPathWithoutParameter}
-                                apiPathWithParameter={apiPathWithParameter}
+                                apiPathWithoutParameter={apiPath}
+                                apiPathWithParameter={apiPathWithFilter}
                             />
                         </> : (error !== null ? <Error error={error} apiPath={properties['api-url']}/> : <Loader/>)}
                     </div>

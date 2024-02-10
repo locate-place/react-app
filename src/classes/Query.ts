@@ -1,5 +1,6 @@
 /* Import types. */
 import {TypeFilterConfig} from "../types/Types";
+import {searchTypeCoordinate, searchTypeListWithFeatures} from "../functions/SearchType";
 
 /* Routing paths */
 const reactPathHome: string = '/index.html';
@@ -57,7 +58,10 @@ class Query
      * @param searchParams {URLSearchParams}
      * @param env {{[index: string]:any}|null}
      */
-    constructor(searchParams: URLSearchParams|null = null, env: {[index: string]:any}|null = null)
+    constructor(
+        searchParams: URLSearchParams|null = null,
+        env: {[index: string]:any}|null = null
+    )
     {
         this.searchParams = searchParams;
         this.env = env;
@@ -90,12 +94,6 @@ class Query
         const sort: string|null = this.searchParams.get(nameParameterSort);
         const nextPlaces: string|null = this.searchParams.get(nameParameterNextPlaces);
 
-        /* Add parameter "country". */
-        this.filterConfig[nameParameterCountry] = (country ? country : countryDe);
-
-        /* Add parameter "language". */
-        this.filterConfig[nameParameterLanguage] = (language? language : languageDe);
-
         /* Add calendar parameter. */
         calendar && (this.filterConfig[nameParameterCalendar] = calendar);
 
@@ -119,6 +117,12 @@ class Query
 
         /* Add parameter "sort". */
         sort && (this.filterConfig[nameParameterSort] = sort);
+
+        /* Add parameter "country". */
+        this.filterConfig[nameParameterCountry] = (country ? country : countryDe);
+
+        /* Add parameter "language". */
+        this.filterConfig[nameParameterLanguage] = (language? language : languageDe);
 
         /* Add parameter "next_places". */
         nextPlaces && (this.filterConfig[nameParameterNextPlaces] = '1');
@@ -165,7 +169,7 @@ class Query
 
             /* Locations. */
             case reactPathLocations:
-                return apiPathQuerySearch;
+                return this.isQuerySearch() ? apiPathQuerySearch : apiPathExampleSearch;
 
             /* Unknown path. */
             default:
@@ -173,9 +177,16 @@ class Query
         }
     }
 
+    /**
+     * Returns the current api query with filter.
+     *
+     * @returns {string}
+     */
     getApiUrlWithFilter(): string
     {
-        return this.getApiUrl();
+        let apiUrl = this.getApiUrl();
+
+        return apiUrl += '?' + this.getConvertedFilterQueryString();
     }
 
     /**
@@ -224,6 +235,102 @@ class Query
             default:
                 throw new Error('Invalid path given: ' + window.location.pathname);
         }
+    }
+
+    /**
+     * Returns the query parameter.
+     */
+    getQuery = (): string|null =>
+    {
+        return this.filterConfig[nameParameterQuery] ?? null;
+    }
+
+    /**
+     * Returns the query parameter.
+     */
+    getSort = (properties: any = null): string =>
+    {
+        if (this.filterConfig[nameParameterSort]) {
+            return this.filterConfig[nameParameterSort];
+        }
+
+        if (!this.isQuerySearch()) {
+            return nameSortName;
+        }
+
+        return properties !== null && this.isCoordinateSearch(properties) ? nameSortRelevance : nameSortRelevanceUser;
+    }
+
+    /**
+     * Returns if the query filter was given.
+     *
+     * @returns {boolean}
+     */
+    isQuerySearch = (): boolean =>
+    {
+        return !!this.filterConfig[nameParameterQuery];
+    }
+
+    /**
+     * Returns if the sort filter was given.
+     *
+     * @returns {boolean}
+     */
+    isSortSearch = (): boolean =>
+    {
+        return !!this.filterConfig[nameParameterSort];
+    }
+
+    /**
+     * Returns if the current position filter was given.
+     *
+     * @returns {boolean}
+     */
+    isCurrentPositionSearch = (): boolean =>
+    {
+        return !!this.filterConfig[nameParameterCurrentPosition];
+    }
+
+    /**
+     * Returns if at least one coordinate was given
+     *
+     * @param {any} properties
+     */
+    isCoordinateSearch = (properties: any): boolean =>
+    {
+        let hasQuery = properties.given && properties.given.query;
+
+        if (hasQuery && [searchTypeListWithFeatures, searchTypeCoordinate].includes(properties.given.query.parsed.type)) {
+            return true;
+        }
+
+        if (!!this.filterConfig[nameParameterCurrentPosition]) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Converts the filter configuration into a query string.
+     *
+     * @return string
+     */
+    getConvertedFilterQueryString = (): string =>
+    {
+        const keyValuePairs = [];
+
+        for (let key in this.filterConfig) {
+            let value: string | null = this.filterConfig[key as keyof TypeFilterConfig] ?? null;
+
+            if (value === null) {
+                continue;
+            }
+
+            keyValuePairs.push(key + '=' + encodeURIComponent(value));
+        }
+
+        return keyValuePairs.join('&');
     }
 }
 

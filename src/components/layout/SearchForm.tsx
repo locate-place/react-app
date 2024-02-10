@@ -12,7 +12,7 @@ import {getPathLocationApi, hasOwnPosition, redirectCurrentPosition} from "../..
 
 type SearchFormProps = {
     routePathDefault: string,
-    queryDefault: string,
+    queryDefault: string|null,
 }
 
 /**
@@ -20,7 +20,7 @@ type SearchFormProps = {
  */
 const SearchForm = ({routePathDefault, queryDefault}: SearchFormProps) =>
 {
-    const [query, setQuery] = useState<string>(queryDefault);
+    const [query, setQuery] = useState<string>(queryDefault ?? '');
     const [routePath, setRoutePath] = useState<string>(routePathDefault);
 
     /* Memorized variables. */

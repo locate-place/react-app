@@ -65,12 +65,12 @@ type TypeFilterConfig = {
     "m"?: string,           /* Month parameter */
     "q"?: string,           /* Query parameter */
     "p"?: string,           /* Current position parameter */
-    "country"?: string,     /* Country parameter */
-    "language"?: string,    /* Language parameter */
     "distance"?: string,    /* Distance parameter */
     "limit"?: string,       /* Limit parameter */
     "page"?: string,        /* Page parameter */
     "s"?: string,           /* Sort parameter */
+    "country"?: string,     /* Country parameter */
+    "language"?: string,    /* Language parameter */
     "next_places"?: string, /* Next places parameter */
 }
 
@@ -128,9 +128,22 @@ type TypeDataCalendars = {
     calendars: TypeDataCalendar[],
 };
 
+type TypeApiPropertiesGiven = {
+    "coordinate"?: {
+        "parsed": {
+            "latitude": TypePosition,
+            "longitude": TypePosition,
+            "links": {
+                [index: string]: string
+            }
+        },
+        "location": TypeLocation,
+    },
+}
+
 type TypeApiProperties = {
     "date"?: string,
-    "given"?: string,
+    "given"?: TypeApiPropertiesGiven,
     "memory-taken"?: string,
     "time-taken"?: string,
     "valid": boolean,

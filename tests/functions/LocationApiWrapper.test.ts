@@ -1,7 +1,12 @@
-import {LocationApiWrapper} from "../../src/functions/LocationApiWrapper";
+/* Import mocks. */
 import GeoNameSearch from "../../mocks/location/GeoNameSearch";
 import PlaceSearch from "../../mocks/locations/PlaceSearch";
+
+/* Import types. */
 import {typeLocation, typeLocations} from "../../src/types/Types";
+
+/* Import classes. */
+import {LocationApiWrapper} from "../../src/classes/LocationApiWrapper";
 
 /**
  * Check location GeoNameSearch

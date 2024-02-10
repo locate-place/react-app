@@ -2,9 +2,9 @@ const searchTypeListGeneral: 'search-list-general' = 'search-list-general';
 
 const searchTypeListWithFeatures: 'search-list-with-features' = 'search-list-with-features';
 
-const searchTypeGeonameId: 'search-geoname-id' = 'search-geoname-id';
+const searchTypeGeonameId: string = 'search-geoname-id';
 
-const searchTypeCoordinate: 'search-coordinate' = 'search-coordinate';
+const searchTypeCoordinate: string = 'search-coordinate';
 
 type TypeSearchTypeTranslations = {
     'search-list-general': string,

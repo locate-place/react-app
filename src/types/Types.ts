@@ -139,21 +139,28 @@ type TypeApiPropertiesGiven = {
         },
         "location": TypeLocation,
     },
+    "query"?: {
+        "raw": string,
+        "parsed": {
+            "type": string,
+            "search": string,
+        },
+    }
 }
 
 type TypeApiProperties = {
+    "api-url": string,
     "date"?: string,
     "given"?: TypeApiPropertiesGiven,
     "memory-taken"?: string,
+    "name": string|null,
+    "path": string,
+    "results"?: TypeResults,
     "time-taken"?: string,
+    "type": string,
+    "url": string|null,
     "valid": boolean,
     "version"?: string,
-    "name": string|null,
-    "url": string|null,
-    "path": string,
-    "type": string,
-    "api-url": string,
-    "results"?: TypeResults,
 }
 
 type TypeLoadApiArguments = {

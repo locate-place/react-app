@@ -1,6 +1,7 @@
 /* Import types. */
-import {TypeFilterConfig} from "../types/Types";
+import {TypeApiProperties, TypeFilterConfig} from "../types/Types";
 import {searchTypeCoordinate, searchTypeListWithFeatures} from "../functions/SearchType";
+import {ApiResponseProperty} from "./ApiResponseProperty";
 
 /* Routing paths */
 const reactPathHome: string = '/index.html';
@@ -52,6 +53,8 @@ class Query
 
     private filterConfig: TypeFilterConfig = {};
 
+    private property: ApiResponseProperty|null = null;
+
     /**
      * Query constructor.
      *
@@ -67,6 +70,16 @@ class Query
         this.env = env;
 
         this.setFilterConfigBySearchParams();
+    }
+
+    /**
+     * Sets the api response property class.
+     *
+     * @param property
+     */
+    setApiResponseProperty(property: ApiResponseProperty): void
+    {
+        this.property = property;
     }
 
     /**
@@ -247,9 +260,17 @@ class Query
 
     /**
      * Returns the query parameter.
+     *
+     * @return {string}
      */
-    getSort = (properties: any = null): string =>
+    getSort = (): string =>
     {
+        if (this.property === null) {
+            throw new Error('The property class must be set before using isCoordinateSearch.');
+        }
+
+        const properties = this.property.getProperties();
+
         if (this.filterConfig[nameParameterSort]) {
             return this.filterConfig[nameParameterSort];
         }
@@ -258,7 +279,7 @@ class Query
             return nameSortName;
         }
 
-        return properties !== null && this.isCoordinateSearch(properties) ? nameSortRelevance : nameSortRelevanceUser;
+        return properties !== null && this.isCoordinateSearch() ? nameSortRelevance : nameSortRelevanceUser;
     }
 
     /**
@@ -294,21 +315,25 @@ class Query
     /**
      * Returns if at least one coordinate was given
      *
-     * @param {any} properties
+     * @return {boolean}
      */
-    isCoordinateSearch = (properties: any): boolean =>
+    isCoordinateSearch = (): boolean =>
     {
-        let hasQuery = properties.given && properties.given.query;
+        if (this.property === null) {
+            throw new Error('The property class must be set before using isCoordinateSearch.');
+        }
 
-        if (hasQuery && [searchTypeListWithFeatures, searchTypeCoordinate].includes(properties.given.query.parsed.type)) {
+        let properties: TypeApiProperties = this.property.getProperties();
+
+        if (
+            properties.given &&
+            properties.given.query &&
+            [searchTypeListWithFeatures, searchTypeCoordinate].includes(properties.given.query.parsed.type)
+        ) {
             return true;
         }
 
-        if (!!this.filterConfig[nameParameterCurrentPosition]) {
-            return true;
-        }
-
-        return false;
+        return !!this.filterConfig[nameParameterCurrentPosition];
     }
 
     /**

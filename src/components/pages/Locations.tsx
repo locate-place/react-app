@@ -15,20 +15,17 @@ import {sizeIcon} from "../../config/Config";
 /* Import functions */
 import loadApiData from "../../functions/LoadApiData";
 import {
-    getQuery,
-    getSort,
     getFilterConfig,
-    getApiPathList,
     sortByName,
     sortByRelevanceUser,
     sortByDistanceUser,
     sortByDistance,
-    sortByRelevance,
-    getIsCoordinateSearch
+    sortByRelevance
 } from "../../functions/QueryFunctions";
 
 /* Import classes */
 import {Query} from "../../classes/Query";
+import {ApiResponseProperty} from "../../classes/ApiResponseProperty";
 
 /* Import component parts */
 import Error from "../layout/Error";
@@ -74,10 +71,10 @@ const Locations = () =>
     const [searchParams] = useSearchParams();
 
     /* Get variables according to the search parameters. */
-    let filterConfig = getFilterConfig(searchParams);
+    const filterConfig = getFilterConfig(searchParams);
 
     /* Gets the api url */
-    let query = new Query(searchParams, env);
+    const query = new Query(searchParams, env);
     const apiPath = query.getApiUrl();
     const apiPathWithFilter = query.getApiUrlWithFilter();
     const apiType = query.getApiType();
@@ -101,20 +98,22 @@ const Locations = () =>
         return <></>;
     }
 
+    const apiResponseProperty = new ApiResponseProperty(properties);
+    query.setApiResponseProperty(apiResponseProperty);
+
     /* Get filter values. */
     const isQuerySearch = query.isQuerySearch();
-    const isCoordinateSearch = query.isCoordinateSearch(properties);
+    const isCoordinateSearch = query.isCoordinateSearch();
     const queryString = query.getQuery();
-    const sortString = query.getSort(properties);
+    const sortString = query.getSort();
 
-    /* Check if the current position has been given. */
-    let hasOwnPosition = properties.given && properties.given.coordinate;
-    let ownPosition = !!properties.given && !!properties.given.coordinate ? (properties.given.coordinate.parsed.latitude.dms + ', ' + properties.given.coordinate.parsed.longitude.dms) : null;
-
-    let hasResults = !!properties.results;
-    let numberResults = (!!properties.results && properties.results.results) ? properties.results.results : 0;
-    let numberTotal = (!!properties.results && properties.results.total) ? properties.results.total : 0;
-    let numberPage = !!properties.results ? properties.results.page : 1;
+    /* Get property values (from api query response). */
+    const isOwnPosition = apiResponseProperty.isOwnPosition();
+    const ownPosition = apiResponseProperty.getOwnPosition();
+    const hasResults = apiResponseProperty.hasResults();
+    const numberResults = apiResponseProperty.getNumberResults();
+    const numberTotal = apiResponseProperty.getNumberTotal();
+    const numberPage = apiResponseProperty.getNumberPage();
 
     /**
      * The render function.
@@ -152,10 +151,10 @@ const Locations = () =>
                                 {/* Own position indicator */}
                                     <button
                                         className="btn btn-outline-secondary without-hover"
-                                        title={hasOwnPosition ? ('Aktuelle Position "' + ownPosition + '" wird verwendet.') : 'Aktuelle Position wird nicht verwendet.'}
+                                        title={isOwnPosition ? ('Aktuelle Position "' + ownPosition + '" wird verwendet.') : 'Aktuelle Position wird nicht verwendet.'}
                                     >
                                         {
-                                            hasOwnPosition ?
+                                            isOwnPosition ?
                                                 <HouseFill size={sizeIcon.Button} /> :
                                                 <HouseSlashFill size={sizeIcon.Button} />
                                         }&nbsp;

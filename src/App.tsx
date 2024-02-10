@@ -26,7 +26,7 @@ import './scss/app.scss';
 import './scss/fonts.scss';
 
 /* Add javascript */
-import 'bootstrap/dist/js/bootstrap.min.js';
+import 'bootstrap';
 
 /**
  * This is the app main component.

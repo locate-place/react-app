@@ -13,7 +13,7 @@ const redirect = (navigate: NavigateFunction) => {
     let regexImage = /^\/d\/([a-zA-Z0-9]+)\/([0-9]+)$/;
     let regexRoot = /^\/$/;
 
-    /* Redirect calendar page */
+    /* Redirect to root page */
     let matchRoot = regexRoot.exec(path);
     if (matchRoot) {
         navigate('/index.html');

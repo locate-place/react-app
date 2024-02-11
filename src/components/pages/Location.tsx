@@ -140,7 +140,7 @@ const Location = () =>
     let hasNextPlacesV = !!data['next-places'] && data['next-places']['V'];
     let nextPlacesV = !!data['next-places'] ? data['next-places']['V'] : null;
 
-    let wikipediaLink = data['links']['wikipedia']['this'] ?? null;
+    let wikipediaLink = !!data['links']['wikipedia'] && !!data['links']['wikipedia']['this'] ? data['links']['wikipedia']['this'] :  null;
 
     let filterConfig = getFilterConfig(searchParams);
     let addCurrentPosition = () => {

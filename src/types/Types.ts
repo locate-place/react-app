@@ -242,42 +242,51 @@ type TypeLocation = {
     "feature": TypeFeature,
     "geoname-id": number,
     "links": {
-        "wikipedia": {
-            "this": string,
+        "wikipedia"?: {
+            "this"?: string,
+            "locations"?: {
+                "city-municipality" : string,
+                "state": string,
+                "country" :string
+            },
+            "next-places"?: {
+                [index: string]: {
+                    "link": string,
+                    "number": number
+                }[]
+            }
+        }
+        "maps"?: {
+            [index: string]: string
         }
     },
     "locations"?: {
-        "district-locality": {
-            name: string
-        },
-        "city-municipality": {
-            name: string
-        },
-        "state": {
-            name: string
-        },
-        "country": {
-            name: string
-        }
+        [index: string]: TypeLocation
     },
     "name": string,
     "name-full"?: string,
     "next-places"?: {
-        A: TypeNextPlaces,
-        H: TypeNextPlaces,
-        L: TypeNextPlaces,
-        P: TypeNextPlaces,
-        R: TypeNextPlaces,
-        S: TypeNextPlaces,
-        T: TypeNextPlaces,
-        U: TypeNextPlaces,
-        V: TypeNextPlaces,
+        A?: TypeNextPlaces,
+        H?: TypeNextPlaces,
+        L?: TypeNextPlaces,
+        P?: TypeNextPlaces,
+        R?: TypeNextPlaces,
+        S?: TypeNextPlaces,
+        T?: TypeNextPlaces,
+        U?: TypeNextPlaces,
+        V?: TypeNextPlaces,
     }
     "next-places-config": object,
     "properties": TypeProperties,
-    "timezone": {
+    "timezone"?: {
         timezone: string,
         offset: string
+        country: string,
+        "current-time": {
+            "timezone": string,
+            "utc": string
+        }
+        coordinate: TypeCoordinate
     },
     "updated-at": string,
 }

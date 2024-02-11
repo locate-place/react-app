@@ -61,9 +61,9 @@ test('LocationApiWrapper: Test location GeoNameSearch', () =>
     expect(locationApiWrapper.getLocation().getState()?.getName()).toEqual('Sachsen');
     expect(locationApiWrapper.getLocation().getCountry()?.getName()).toEqual('Deutschland');
 
-    expect(locationApiWrapper.getLocation().getCountryCode()).toEqual('DE');
-    expect(locationApiWrapper.getLocation().getElevation()).toEqual({"value": 116, "unit": "m", "value-formatted": "116 m"});
-    
+    expect(locationApiWrapper.getLocation().getProperties().getCountryCode()).toEqual('DE');
+    expect(locationApiWrapper.getLocation().getProperties().getElevation()).toEqual({"value": 116, "unit": "m", "value-formatted": "116 m"});
+
     expect(locationApiWrapper.getLocation().getCoordinate().getDMS()).toEqual('51°3′3.204″N, 13°44′17.952″E');
     expect(locationApiWrapper.getLocation().getCoordinate().getDecimal()).toEqual('51.05089, 13.73832');
     expect(locationApiWrapper.getLocation().getCoordinate().getDistance()).toEqual(null);
@@ -116,8 +116,8 @@ test('LocationApiWrapper: Test location GeoNameSearch with current location', ()
     expect(locationApiWrapper.getLocation().getState()?.getName()).toEqual('North Rhine-Westphalia');
     expect(locationApiWrapper.getLocation().getCountry()?.getName()).toEqual('Germany');
 
-    expect(locationApiWrapper.getLocation().getCountryCode()).toEqual('DE');
-    expect(locationApiWrapper.getLocation().getElevation()).toEqual({"value": 62, "unit": "m", "value-formatted": "62 m"});
+    expect(locationApiWrapper.getLocation().getProperties().getCountryCode()).toEqual('DE');
+    expect(locationApiWrapper.getLocation().getProperties().getElevation()).toEqual({"value": 62, "unit": "m", "value-formatted": "62 m"});
 
     expect(locationApiWrapper.getLocation().getCoordinate().getDMS()).toEqual('50°56′28.428″N, 6°57′29.628″E');
     expect(locationApiWrapper.getLocation().getCoordinate().getDecimal()).toEqual('50.94123, 6.95823');

@@ -1,7 +1,7 @@
 /* Import types. */
 import {
     TypeAdministrativeLocations,
-    TypeLocation,
+    TypeLocation, TypeProperties,
     TypeValue,
 } from "../../types/Types";
 
@@ -16,6 +16,7 @@ import {
 /* Import classes. */
 import {FeatureWrapper} from "./Feature/FeatureWrapper";
 import {CoordinateWrapper} from "./Coordinate/CoordinateWrapper";
+import {PropertiesWrapper} from "./Properties/PropertiesWrapper";
 
 class LocationWrapper
 {
@@ -122,21 +123,7 @@ class LocationWrapper
         return this.getAdministrativeLocation(administrativeLocationCountry);
     }
 
-    /**
-     * Return the country code from location.
-     */
-    getCountryCode(): string
-    {
-        return this.location.properties.country;
-    }
 
-    /**
-     * Return the country code from location.
-     */
-    getElevation(): TypeValue|null
-    {
-        return this.location.properties.elevation ?? null;
-    }
 
     /**
      * Returns the coordinate of the location.
@@ -152,6 +139,14 @@ class LocationWrapper
     getFeature(): FeatureWrapper
     {
         return new FeatureWrapper(this.location.feature);
+    }
+
+    /**
+     * Returns the properties of the location
+     */
+    getProperties(): PropertiesWrapper
+    {
+        return new PropertiesWrapper(this.location.properties);
     }
 }
 

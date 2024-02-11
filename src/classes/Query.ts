@@ -19,10 +19,22 @@ import {
     nameSortRelevance,
     nameSortRelevanceUser
 } from "../config/NameSort";
+import {
+    nameParameterCalendar,
+    nameParameterCountry,
+    nameParameterCurrentPosition,
+    nameParameterDistance,
+    nameParameterLanguage,
+    nameParameterLimit,
+    nameParameterMonth,
+    nameParameterNextPlaces,
+    nameParameterPage,
+    nameParameterQuery,
+    nameParameterSort
+} from "../config/NameParameter";
 
 /* Import classes. */
 import {ApiResponseProperty} from "./ApiResponseProperty";
-import React from "react";
 
 /* API paths */
 const apiPathCalendars: string = '/v.json';
@@ -31,19 +43,6 @@ const apiPathCalendar: string = '/v/%calendar%.json';
 const apiPathQuerySearch: string = '/api/v1/location.json';
 const apiPathExampleSearch: string = '/api/v1/location/examples.json';
 const apiPathDetail: string = '/api/v1/location/coordinate.json';
-
-/* Parameter names */
-const nameParameterMonth: 'm' = 'm';
-const nameParameterCalendar: 'c' = 'c';
-const nameParameterQuery: 'q' = 'q';
-const nameParameterCurrentPosition: 'p' = 'p';
-const nameParameterCountry: 'country' = 'country';
-const nameParameterLanguage: 'language' = 'language';
-const nameParameterDistance: 'distance' = 'distance';
-const nameParameterLimit: 'limit' = 'limit';
-const nameParameterPage: 'page' = 'page';
-const nameParameterSort: 's' = 's';
-const nameParameterNextPlaces: 'next_places' = 'next_places';
 
 /* Countries */
 const countryDe: string = 'DE';

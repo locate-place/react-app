@@ -9,6 +9,7 @@ import {GlobeAmericas, CursorFill, HouseFill} from "react-bootstrap-icons";
 
 /* Import functions */
 import {getPathLocationApi, hasOwnPosition, redirectCurrentPosition} from "../../functions/QueryFunctions";
+import {useTranslation} from "react-i18next";
 
 type SearchFormProps = {
     routePathDefault: string,
@@ -20,6 +21,10 @@ type SearchFormProps = {
  */
 const SearchForm = ({routePathDefault, queryDefault}: SearchFormProps) =>
 {
+    /* Import translation. */
+    const { t } = useTranslation();
+
+    /* State variables */
     const [query, setQuery] = useState<string>(queryDefault ?? '');
     const [routePath, setRoutePath] = useState<string>(routePathDefault);
 
@@ -54,7 +59,7 @@ const SearchForm = ({routePathDefault, queryDefault}: SearchFormProps) =>
 
     return (
         <>
-            <h3><GlobeAmericas size={sizeIcon.H3}/> Location Suche {
+            <h3><GlobeAmericas size={sizeIcon.H3}/> {t('TEXT_LOCATION_SEARCH_HEADER')} {
                 hasOwnPosition(searchParams) ? <sup>
                     <small><small><small><HouseFill size={sizeIcon.ButtonSmall} /> Akt. Position wird verwendet</small></small></small>
                 </sup> : null

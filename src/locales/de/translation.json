@@ -1,0 +1,14 @@
+{
+  "TEXT_EXAMPLE_DESCRIPTION": "Oder starte mit den nachfolgenden Beispielen.",
+  "TEXT_EXAMPLE_HEADER": "Location Beispiele",
+
+  "TEXT_LOCATION_SEARCH_HEADER": "Location Suche",
+
+  "TEXT_NO_RESULT": "Keine Ergebnisse gefunden.",
+  "TEXT_NO_RESULT_QUERY": "Keine Ergebnisse für \"{{query}}\" gefunden.",
+
+  "TEXT_RESULT": "{{numberTotal}} Ergebnisse gefunden. Zeige {{numberResults}}.",
+  "TEXT_RESULT_QUERY": "{{numberTotal}} Ergebnisse für \"{{query}}\" gefunden. Zeige {{numberFirstItem}} - {{numberLastItem}}.",
+
+  "TEXT_SEARCH_RESULTS": "Suchergebnisse"
+}

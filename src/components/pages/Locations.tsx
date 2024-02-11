@@ -1,6 +1,9 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import {useSearchParams} from "react-router-dom";
 
+/* Import translation libraries. */
+import {useTranslation} from "react-i18next";
+
 /* Import types. */
 import {
     TypeApiProperties,
@@ -61,6 +64,9 @@ import {
  */
 const Locations = () =>
 {
+    /* Import translation. */
+    const { t } = useTranslation();
+
     /* API types */
     const env = useMemo(() => {
         return process.env;
@@ -129,12 +135,11 @@ const Locations = () =>
                             {
                                 query.isQuerySearch() ?
                                     <>
-                                        <h3><ListTask size={sizeIcon.H3}/> Suchergebnisse</h3>
+                                        <h3><ListTask size={sizeIcon.H3}/> {t('TEXT_SEARCH_RESULTS')}</h3>
                                     </> :
                                     <>
-                                        <p>Oder starte mit den nachfolgenden Beispielen.</p>
-
-                                        <h3><ListTask size={sizeIcon.H3}/> Location Beispiele</h3>
+                                        <p>{t('TEXT_EXAMPLE_DESCRIPTION')}</p>
+                                        <h3><ListTask size={sizeIcon.H3}/> {t('TEXT_EXAMPLE_HEADER')}</h3>
                                     </>
                             }
 

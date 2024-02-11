@@ -1,5 +1,8 @@
 import React, {useEffect, useMemo} from 'react';
-import {Route, Routes, useNavigate } from 'react-router-dom';
+import {Route, Routes, useNavigate, useSearchParams} from 'react-router-dom';
+
+/* Import configurations. */
+import {nameParameterLanguage} from "./config/NameParameter";
 
 /* Import functions. */
 import addOnScrollListener from "./functions/AddOnScrollListener";
@@ -30,6 +33,9 @@ import './scss/fonts.scss';
 /* Add javascript */
 import 'bootstrap';
 
+/* Import translation libraries. */
+import {i18n, languageDefault} from "./functions/i18n";
+
 /**
  * This is the app main component.
  */
@@ -50,6 +56,13 @@ const App = () => {
         addOnScrollListener();
         redirect(navigate);
     }, [navigate]);
+
+    /* Memorized variables. */
+    const [searchParams] = useSearchParams();
+    const language = searchParams.get(nameParameterLanguage) ?? languageDefault;
+
+    /* Change language to german. */
+    i18n.changeLanguage(language).then();
 
     return (
         <div className="App">

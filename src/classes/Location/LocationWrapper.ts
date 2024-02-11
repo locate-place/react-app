@@ -76,6 +76,14 @@ class LocationWrapper
         return this.location["geoname-id"];
     }
 
+    /**
+     * Returns the updated at of the location.
+     */
+    getUpdateAt(): string
+    {
+        return this.location["updated-at"];
+    }
+
 
 
     /**

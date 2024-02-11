@@ -91,7 +91,7 @@ const SearchForm = ({routePathDefault, queryDefault}: SearchFormProps) =>
                         />
                         <button
                             className="btn btn-outline-primary button-own-position button-own-position-search"
-                            title="Suche nach aktuellem Standort"
+                            title={t('TEXT_TITLE_SEARCH_BY_CURRENT_POSITION')}
                             type="button"
                             onClick={redirectCurrentPosition}
                         >
@@ -100,12 +100,11 @@ const SearchForm = ({routePathDefault, queryDefault}: SearchFormProps) =>
 
                         <button
                             className="btn btn-primary"
+                            title={t('TEXT_TITLE_START_SEARCH')}
                             type="submit"
                             id="location-send"
                             data-mdb-ripple-color="dark"
-                        >
-                            Suche
-                        </button>
+                        >{t('TEXT_ACTION_SEARCH')}</button>
                     </div>
                 </div>
             </form>

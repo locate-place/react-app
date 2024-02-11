@@ -10,5 +10,22 @@
   "TEXT_RESULT": "{{numberTotal}} Ergebnisse gefunden. Zeige {{numberResults}}.",
   "TEXT_RESULT_QUERY": "{{numberTotal}} Ergebnisse für \"{{query}}\" gefunden. Zeige {{numberFirstItem}} - {{numberLastItem}}.",
 
-  "TEXT_SEARCH_RESULTS": "Suchergebnisse"
+  "TEXT_SEARCH_RESULTS": "Suchergebnisse",
+
+  "TEXT_ACTION_KM": "km",
+  "TEXT_ACTION_NAME": "Name",
+  "TEXT_ACTION_RELEVANCE": "Relevanz",
+  "TEXT_ACTION_SEARCH": "Suche",
+  "TEXT_ACTION_SHOW_NEXT_PAGE": "Zeige nächste Seite",
+  "TEXT_ACTION_SORTING": "Sortierung",
+
+  "TEXT_TITLE_SEARCH_BY_CURRENT_POSITION": "Suche nach aktuellem Standort",
+  "TEXT_TITLE_SORT_BY_DISTANCE": "Sortieren nach Distanz",
+  "TEXT_TITLE_SORT_BY_DISTANCE_FROM_USER": "Sortieren nach Distanz vom User",
+  "TEXT_TITLE_SORT_BY_NAME": "Sortieren nach Name",
+  "TEXT_TITLE_SORT_BY_RELEVANCE": "Sortieren nach Relevanz",
+  "TEXT_TITLE_SORT_BY_RELEVANCE_OF_THE_USER": "Sortieren nach Relevanz vom User",
+  "TEXT_TITLE_START_SEARCH": "Starte Suche",
+  "TEXT_TITLE_CURRENT_POSITION_USED": "Aktuelle Position \"{{currentPosition}}\" wird verwendet.",
+  "TEXT_TITLE_CURRENT_POSITION_NOT_USED": "Aktuelle Position wird nicht verwendet."
 }

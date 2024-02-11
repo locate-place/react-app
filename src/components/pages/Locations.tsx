@@ -155,31 +155,31 @@ const Locations = () =>
                                                 <HouseFill size={sizeIcon.Button}/> :
                                                 <HouseSlashFill size={sizeIcon.Button}/>
                                         }&nbsp;
-                                        <sup><small>Sortierung</small></sup>
+                                        <sup><small>{t('TEXT_ACTION_SORTING')}</small></sup>
                                     </button>
                                     <button
                                         className={'btn ' + (query.isSort(nameSortName) ? 'btn-secondary' : 'btn-outline-secondary')}
-                                        onClick={() => sortByName(filterConfig)} title="Sortieren nach Name">
-                                        <SortAlphaDown size={sizeIcon.Button}/> <sup><small>Name</small></sup>
+                                        onClick={() => sortByName(filterConfig)} title={t('TEXT_TITLE_SORT_BY_NAME')}>
+                                        <SortAlphaDown size={sizeIcon.Button}/> <sup><small>{t('TEXT_ACTION_NAME')}</small></sup>
                                     </button>
                                     {
                                         query.isCoordinateSearch() ?
                                             <button
                                                 className={'btn ' + (query.isSort([nameSortDistanceUser, nameSortDistance]) ? 'btn-secondary' : 'btn-outline-secondary')}
                                                 onClick={() => sortByDistance(filterConfig)}
-                                                title="Sortieren nach Distanz"
+                                                title={t('TEXT_TITLE_SORT_BY_DISTANCE')}
                                             >
                                                 <CursorFill size={sizeIcon.ButtonSmall}/>&nbsp;
                                                 <SortNumericDown size={sizeIcon.Button}/>&nbsp;
-                                                <sup><small>km</small></sup>
+                                                <sup><small>{t('TEXT_ACTION_KM')}</small></sup>
                                             </button> :
                                             <button
                                                 className={'btn ' + (query.isSort([nameSortDistanceUser, nameSortDistance]) ? 'btn-secondary' : 'btn-outline-secondary')}
                                                 onClick={() => sortByDistanceUser(filterConfig)}
-                                                title="Sortieren nach Distanz vom User"
+                                                title={t('TEXT_TITLE_SORT_BY_DISTANCE_FROM_USER')}
                                             >
                                                 <SortNumericDown size={sizeIcon.Button}/>&nbsp;
-                                                <sup><small>km</small></sup>
+                                                <sup><small>{t('TEXT_ACTION_KM')}</small></sup>
                                             </button>
                                     }
                                     {
@@ -189,18 +189,18 @@ const Locations = () =>
                                                     <button
                                                         className={'btn ' + (query.isSort([nameSortRelevanceUser, nameSortRelevance]) ? 'btn-secondary' : 'btn-outline-secondary')}
                                                         onClick={() => sortByRelevance(filterConfig)}
-                                                        title="Sortieren nach Relevanz"
+                                                        title={t('TEXT_TITLE_SORT_BY_RELEVANCE')}
                                                     >
                                                         <CursorFill size={sizeIcon.ButtonSmall}/>&nbsp;
-                                                        <SortDown size={sizeIcon.Button}/> <sup><small>Relevanz</small></sup>
+                                                        <SortDown size={sizeIcon.Button}/> <sup><small>{t('TEXT_ACTION_RELEVANCE')}</small></sup>
                                                     </button> :
                                                     <button
                                                         className={'btn ' + (query.isSort([nameSortRelevanceUser, nameSortRelevance]) ? 'btn-secondary' : 'btn-outline-secondary')}
                                                         onClick={() => sortByRelevanceUser(filterConfig)}
-                                                        title="Sortieren nach Relevanz vom User"
+                                                        title={t('TEXT_TITLE_SORT_BY_RELEVANCE_OF_THE_USER')}
                                                     >
                                                         <SortDown size={sizeIcon.Button}/>&nbsp;
-                                                        <sup><small>Relevanz</small></sup>
+                                                        <sup><small>{t('TEXT_ACTION_RELEVANCE')}</small></sup>
                                                     </button>
                                             ) :
                                             <></>

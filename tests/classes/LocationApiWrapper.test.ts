@@ -54,6 +54,8 @@ test('LocationApiWrapper: Test location GeoNameSearch', () =>
     expect(locationApiWrapper.getLocation().getCountry()).toEqual('Deutschland');
     expect(locationApiWrapper.getLocation().getCountryCode()).toEqual('DE');
     expect(locationApiWrapper.getLocation().getElevation()).toEqual({"value": 116, "unit": "m", "value-formatted": "116 m"});
+    expect(locationApiWrapper.getLocation().getDMS()).toEqual('51°3′3.204″N, 13°44′17.952″E');
+    expect(locationApiWrapper.getLocation().getDecimal()).toEqual('51.05089, 13.73832');
 });
 
 /**

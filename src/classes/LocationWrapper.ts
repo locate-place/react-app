@@ -1,12 +1,15 @@
 /* Import types. */
 import {
     TypeAdministrativeLocations,
-    TypeLocation, TypeValue,
+    TypeCoordinate,
+    TypeLocation,
+    TypeValue,
 } from "../types/Types";
 
 /* Import config. */
 import {
-    administrativeLocationCityMunicipality, administrativeLocationCountry,
+    administrativeLocationCityMunicipality,
+    administrativeLocationCountry,
     administrativeLocationDistrictLocality,
     administrativeLocationState
 } from "../config/AdministrativeLocations";
@@ -112,6 +115,32 @@ class LocationWrapper
     getElevation(): TypeValue|null
     {
         return this.location.properties.elevation ?? null;
+    }
+
+    /**
+     * Returns the coordinate of the location.
+     */
+    getCoordinate(): TypeCoordinate
+    {
+        return this.location.coordinate;
+    }
+
+    /**
+     * Returns the dms string of the location.
+     */
+    getDMS(separator: string = ', '): string
+    {
+        const coordinate = this.getCoordinate();
+        return coordinate.latitude.dms + separator + coordinate.longitude.dms;
+    }
+
+    /**
+     * Returns the decimal value of the location.
+     */
+    getDecimal(separator: string = ', '): string
+    {
+        const coordinate = this.getCoordinate();
+        return coordinate.latitude.decimal + separator + coordinate.longitude.decimal;
     }
 }
 

@@ -8,7 +8,7 @@ import {
     routePathCalendars,
     routePathHome,
     routePathLocation,
-    routePathLocations
+    routePathLocations, routePathRoot
 } from "../config/Route";
 import {
     searchTypeCoordinate,
@@ -188,6 +188,7 @@ class Query
     {
         switch (window.location.pathname) {
             /* Default api paths. */
+            case routePathRoot:
             case routePathHome:
             case routePathCalendars:
                 return apiPathCalendars;
@@ -256,6 +257,7 @@ class Query
 
         switch (window.location.pathname) {
             /* Use the calendar builder api. */
+            case routePathRoot:
             case routePathHome:
             case routePathCalendars:
             case routePathCalendar:

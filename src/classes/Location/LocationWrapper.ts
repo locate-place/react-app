@@ -1,9 +1,6 @@
 /* Import types. */
 import {
     TypeAdministrativeLocations,
-    TypeCoordinate,
-    TypeDirection,
-    TypeDistance,
     TypeLocation,
     TypeValue,
 } from "../../types/Types";
@@ -15,7 +12,10 @@ import {
     administrativeLocationDistrictLocality,
     administrativeLocationState
 } from "../../config/AdministrativeLocations";
+
+/* Import classes. */
 import {FeatureWrapper} from "./Feature/FeatureWrapper";
+import {CoordinateWrapper} from "./Coordinate/CoordinateWrapper";
 
 class LocationWrapper
 {
@@ -123,103 +123,9 @@ class LocationWrapper
     /**
      * Returns the coordinate of the location.
      */
-    getCoordinate(): TypeCoordinate
+    getCoordinate(): CoordinateWrapper
     {
-        return this.location.coordinate;
-    }
-
-    /**
-     * Returns the dms string of the location.
-     */
-    getDMS(separator: string = ', '): string
-    {
-        const coordinate = this.getCoordinate();
-        return coordinate.latitude.dms + separator + coordinate.longitude.dms;
-    }
-
-    /**
-     * Returns the decimal value of the location.
-     */
-    getDecimal(separator: string = ', '): string
-    {
-        const coordinate = this.getCoordinate();
-        return coordinate.latitude.decimal + separator + coordinate.longitude.decimal;
-    }
-
-    /**
-     * Returns the distance of the location.
-     */
-    getDistance(): TypeDistance|null
-    {
-        if (!this.location.coordinate.distance) {
-            return null;
-        }
-
-        return this.location.coordinate.distance;
-    }
-
-    /**
-     * Returns the distance of the location to user.
-     */
-    getDistanceUser(): TypeDistance|null
-    {
-        if (!this.location.coordinate['distance-user']) {
-            return null;
-        }
-
-        return this.location.coordinate['distance-user'];
-    }
-
-    /**
-     * Returns the direction of the location.
-     */
-    getDirection(): TypeDirection|null
-    {
-        if (!this.location.coordinate.direction) {
-            return null;
-        }
-
-        return this.location.coordinate.direction;
-    }
-
-    /**
-     * Returns the cardinal direction of the location.
-     */
-    getDirectionString(): string|null
-    {
-        const direction = this.getDirection();
-
-        if (direction === null) {
-            return null;
-        }
-
-        return direction["cardinal-direction-translated"];
-    }
-
-    /**
-     * Returns the direction of the location to user.
-     */
-    getDirectionUser(): TypeDirection|null
-    {
-        if (!this.location.coordinate['direction-user']) {
-            return null;
-        }
-
-        return this.location.coordinate['direction-user'];
-    }
-
-    /**
-     * Returns the cardinal direction of the location to user.
-     */
-    getDirectionUserString(): string|null
-    {
-        const direction = this.getDirectionUser();
-
-        if (direction === null) {
-            return null;
-        }
-
-        return direction["cardinal-direction-translated"];
+        return new CoordinateWrapper(this.location.coordinate);
     }
 
     /**

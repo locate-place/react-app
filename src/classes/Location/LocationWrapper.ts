@@ -1,10 +1,12 @@
 /* Import types. */
 import {
     TypeAdministrativeLocations,
-    TypeCoordinate, TypeDirection, TypeDistance, TypeFeature, TypeFeatureClass, TypeFeatureCode,
+    TypeCoordinate,
+    TypeDirection,
+    TypeDistance,
     TypeLocation,
     TypeValue,
-} from "../types/Types";
+} from "../../types/Types";
 
 /* Import config. */
 import {
@@ -12,7 +14,8 @@ import {
     administrativeLocationCountry,
     administrativeLocationDistrictLocality,
     administrativeLocationState
-} from "../config/AdministrativeLocations";
+} from "../../config/AdministrativeLocations";
+import {FeatureWrapper} from "./Feature/FeatureWrapper";
 
 class LocationWrapper
 {
@@ -222,31 +225,9 @@ class LocationWrapper
     /**
      * Returns the feature of the location.
      */
-    getFeature(): TypeFeature
+    getFeature(): FeatureWrapper
     {
-        return this.location.feature;
-    }
-
-    /**
-     * Returns the feature class of the location.
-     */
-    getFeatureClass(): TypeFeatureClass
-    {
-        return {
-            'code': this.location.feature['class'],
-            'name': this.location.feature['class-name'],
-        };
-    }
-
-    /**
-     * Returns the feature code of the location.
-     */
-    getFeatureCode(): TypeFeatureCode
-    {
-        return {
-            'code': this.location.feature['code'],
-            'name': this.location.feature['code-name'],
-        };
+        return new FeatureWrapper(this.location.feature);
     }
 }
 

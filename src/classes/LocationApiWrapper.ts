@@ -5,7 +5,7 @@ import {
     typeLocation,
     typeLocations, TypeResults, TypeLocation
 } from "../types/Types";
-import {LocationWrapper} from "./LocationWrapper";
+import {LocationWrapper} from "./Location/LocationWrapper";
 
 class LocationApiWrapper
 {

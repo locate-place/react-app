@@ -1,8 +1,10 @@
 import React, {useEffect, useMemo} from 'react';
 import {Route, Routes, useNavigate } from 'react-router-dom';
 
-/* Add functions */
+/* Import functions. */
 import addOnScrollListener from "./functions/AddOnScrollListener";
+
+/* Import redirect functions. */
 import redirect from "./redirect/Redirect";
 
 /* Add components */

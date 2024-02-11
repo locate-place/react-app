@@ -1,6 +1,9 @@
 import React, {useState} from "react";
 import {useSearchParams} from "react-router-dom";
 
+/* Import translation libraries. */
+import {useTranslation} from "react-i18next";
+
 /* Add configurations */
 import {sizeIcon} from "../../config/Config";
 
@@ -9,8 +12,8 @@ import {GlobeAmericas, CursorFill, HouseFill} from "react-bootstrap-icons";
 
 /* Import functions */
 import {getPathLocationApi, hasOwnPosition, redirectCurrentPosition} from "../../functions/QueryFunctions";
-import {useTranslation} from "react-i18next";
 
+/* Search form properties. */
 type SearchFormProps = {
     routePathDefault: string,
     queryDefault: string|null,
@@ -32,9 +35,9 @@ const SearchForm = ({routePathDefault, queryDefault}: SearchFormProps) =>
     const [searchParams] = useSearchParams();
 
     /**
-     * Handles the search form submit.
+     * Handles the search "form submit".
      *
-     * @param e
+     * @param e {React.SyntheticEvent<HTMLFormElement>}
      */
     const onSubmit = (e: React.SyntheticEvent<HTMLFormElement>): void =>
     {
@@ -59,9 +62,9 @@ const SearchForm = ({routePathDefault, queryDefault}: SearchFormProps) =>
 
     return (
         <>
-            <h3><GlobeAmericas size={sizeIcon.H3}/> {t('TEXT_LOCATION_SEARCH_HEADER')} {
+            <h3><GlobeAmericas size={sizeIcon.H3}/> {t('TEXT_HEADER_LOCATION_SEARCH')} {
                 hasOwnPosition(searchParams) ? <sup>
-                    <small><small><small><HouseFill size={sizeIcon.ButtonSmall} /> Akt. Position wird verwendet</small></small></small>
+                    <small><small><small><HouseFill size={sizeIcon.ButtonSmall} /> {t('TEXT_TITLE_CURRENT_POSITION_IS_USED')}</small></small></small>
                 </sup> : null
             }</h3>
 
@@ -84,7 +87,7 @@ const SearchForm = ({routePathDefault, queryDefault}: SearchFormProps) =>
                             style={{borderColor: '#6c757d'}}
                             className="form-control shadow-none"
                             placeholder="52°31′14.322″N, 13°24′35.2044″E"
-                            aria-label="Location Suche"
+                            aria-label={t('TEXT_HEADER_LOCATION_SEARCH')}
                             aria-describedby="location-send"
                             defaultValue={query ? query : ''}
                             onChange={handleChange}

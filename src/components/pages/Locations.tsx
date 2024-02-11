@@ -223,6 +223,7 @@ const Locations = () =>
                                                 properties={properties}
                                                 showOwnPosition={false}
                                                 index={index}
+                                                useAlwaysName={!query.isQuerySearch()}
                                             />
                                         ))}
 

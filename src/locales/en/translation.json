@@ -2,7 +2,11 @@
   "TEXT_EXAMPLE_DESCRIPTION": "Or start with the following examples.",
   "TEXT_EXAMPLE_HEADER": "Location examples",
 
-  "TEXT_LOCATION_SEARCH_HEADER": "Location Search",
+  "TEXT_HEADER_LOCATION_SEARCH": "Location search",
+  "TEXT_HEADER_CURRENT_LOCATION": "Current location",
+  "TEXT_HEADER_INFORMATION": "Information",
+  "TEXT_HEADER_NEXT_PLACES": "Next places",
+  "TEXT_HEADER_MAPS": "Maps",
 
   "TEXT_NO_RESULT": "No results found.",
   "TEXT_NO_RESULT_QUERY": "No results found for \"{{query}}\".",
@@ -19,6 +23,9 @@
   "TEXT_ACTION_SHOW_NEXT_PAGE": "Show next page",
   "TEXT_ACTION_SORTING": "Sorting",
 
+  "TEXT_ACTION_SHOW_CURRENT_POSITION": "Show current location",
+  "TEXT_ACTION_SHOW_SEARCH_METRICS": "Show search metrics",
+
   "TEXT_TITLE_SEARCH_BY_CURRENT_POSITION": "Search by current location",
   "TEXT_TITLE_SORT_BY_DISTANCE": "Sort by distance",
   "TEXT_TITLE_SORT_BY_DISTANCE_FROM_USER": "Sort by distance from user",
@@ -26,6 +33,7 @@
   "TEXT_TITLE_SORT_BY_RELEVANCE": "Sort by relevance",
   "TEXT_TITLE_SORT_BY_RELEVANCE_OF_THE_USER": "Sort by relevance of the user",
   "TEXT_TITLE_START_SEARCH": "Start search",
+  "TEXT_TITLE_CURRENT_POSITION_IS_USED": "Current position is used",
   "TEXT_TITLE_CURRENT_POSITION_USED": "Current position \"{{currentPosition}}\" is used.",
   "TEXT_TITLE_CURRENT_POSITION_NOT_USED": "Current position is not used."
 }

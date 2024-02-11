@@ -1,5 +1,8 @@
 import React from "react";
 
+/* Import translation libraries. */
+import {useTranslation} from "react-i18next";
+
 /* Add some additional components */
 import Flag from 'react-flagkit';
 
@@ -21,7 +24,8 @@ type LocationCardProps = {
     location: any,
     properties: any,
     showOwnPosition: boolean,
-    index?: number
+    index?: number,
+    useAlwaysName?: boolean
 }
 
 /**
@@ -29,7 +33,11 @@ type LocationCardProps = {
  *
  * - ownPosition - Use own position instead of the one from the given location.
  */
-const LocationCard = ({location, properties, showOwnPosition, index}: LocationCardProps) => {
+const LocationCard = ({location, properties, showOwnPosition, index, useAlwaysName = false}: LocationCardProps) =>
+{
+    /* Import translation. */
+    const { t } = useTranslation();
+
     /* true - use geoname id as query; false - use coordinate as query */
     let useGeonameIdAsQuery = true;
 
@@ -96,7 +104,7 @@ const LocationCard = ({location, properties, showOwnPosition, index}: LocationCa
     ;
     let fullQueryNextPlaces = fullQuery + '&next_places=1';
 
-    let name = location['name-full'] || location.name;
+    let name = useAlwaysName ? location.name : (location['name-full'] || location.name);
 
     return (
         <>
@@ -120,7 +128,7 @@ const LocationCard = ({location, properties, showOwnPosition, index}: LocationCa
                     <div className="container p-0">
                         <div className="row">
                             <div className="col-12 col-md-6 col-lg-4 mb-3">
-                                <h4>Informationen</h4>
+                                <h4>{t('TEXT_HEADER_INFORMATION')}</h4>
                                 <p className="m-0">
                                     <a
                                         href={fullQueryNextPlaces}
@@ -131,7 +139,7 @@ const LocationCard = ({location, properties, showOwnPosition, index}: LocationCa
                                 </p>
                             </div>
                             <div className="col-12 col-md-6 col-lg-4 mb-3">
-                                <h4>Nächste Plätze</h4>
+                                <h4>{t('TEXT_HEADER_NEXT_PLACES')}</h4>
                                 <p className="m-0">
                                     {Object.keys(nextPlaces).map((key, index) => {
                                         return (
@@ -147,7 +155,7 @@ const LocationCard = ({location, properties, showOwnPosition, index}: LocationCa
                                 </p>
                             </div>
                             <div className="col-12 col-md-6 col-lg-4">
-                                <h4>Maps</h4>
+                                <h4>{t('TEXT_HEADER_MAPS')}</h4>
                                 <p className="m-0">
                                     <a
                                         href={linkGoogleMaps}

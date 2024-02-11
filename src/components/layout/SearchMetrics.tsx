@@ -1,5 +1,8 @@
 import React from "react";
 
+/* Import translation libraries. */
+import {useTranslation} from "react-i18next";
+
 /* Add configurations */
 import {sizeIcon} from "../../config/Config";
 
@@ -29,6 +32,9 @@ const SearchMetrics = ({
     properties
 }: SearchMetricsProps) =>
 {
+    /* Import translation. */
+    const { t } = useTranslation();
+
     /* Debugging */
     let isParsedQueryExpanded = false;
     let isCurrentPositionExpanded = false;
@@ -65,8 +71,7 @@ const SearchMetrics = ({
                                             data-bs-toggle="collapse"
                                             data-bs-target="#parsedQuery"
                                         >
-                                            <GraphUp size={sizeIcon.Button}/> <sup><small>Zeige
-                                            Such-Metriken</small></sup>
+                                            <GraphUp size={sizeIcon.Button}/> <sup><small>{t('TEXT_ACTION_SHOW_SEARCH_METRICS')}</small></sup>
                                         </button> :
                                         <></>
                                 }
@@ -77,8 +82,7 @@ const SearchMetrics = ({
                                             data-bs-toggle="collapse"
                                             data-bs-target="#currentPosition"
                                         >
-                                            <HouseFill size={sizeIcon.Button}/> <sup><small>Zeige akt.
-                                            Position</small></sup>
+                                            <HouseFill size={sizeIcon.Button}/> <sup><small>{t('TEXT_ACTION_SHOW_CURRENT_POSITION')}</small></sup>
                                         </button> :
                                         <></>
                                 }
@@ -171,7 +175,7 @@ const SearchMetrics = ({
                                             data-bs-parent="#accordion"
                                             id="currentPosition"
                                         >
-                                            <h3 className="mt-3">Aktuelle Position</h3>
+                                            <h3 className="mt-3">{t('TEXT_HEADER_CURRENT_LOCATION')}</h3>
                                             <LocationCard
                                                 location={properties.given.coordinate.location}
                                                 properties={properties}

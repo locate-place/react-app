@@ -264,30 +264,48 @@ type TypeAdministrativeLocations = {
     [index: string]: TypeLocation
 }
 
+type TypeLinksWikipediaLocations = {
+    "district-locality"?: string,
+    "city-municipality"?: string,
+    "state"?: string,
+    "country"?: string
+};
+
+type TypeLinksWikipediaNextPlace = {
+    "link": string,
+    "number": number
+}
+
+type TypeLinksWikipediaNextPlaces = {
+    A?: TypeLinksWikipediaNextPlace[],
+    H?: TypeLinksWikipediaNextPlace[],
+    L?: TypeLinksWikipediaNextPlace[],
+    P?: TypeLinksWikipediaNextPlace[],
+    R?: TypeLinksWikipediaNextPlace[],
+    S?: TypeLinksWikipediaNextPlace[],
+    T?: TypeLinksWikipediaNextPlace[],
+    U?: TypeLinksWikipediaNextPlace[],
+    V?: TypeLinksWikipediaNextPlace[],
+};
+
+type TypeLinksWikipedia = {
+    "this"?: string,
+    "locations"?: TypeLinksWikipediaLocations,
+    "next-places"?: TypeLinksWikipediaNextPlaces
+}
+
+type TypeLinks = {
+    "wikipedia"?: TypeLinksWikipedia,
+    "maps"?: {
+        [index: string]: string
+    }
+};
+
 type TypeLocation = {
     "coordinate": TypeCoordinate,
     "feature": TypeFeature,
     "geoname-id": number,
-    "links": {
-        "wikipedia"?: {
-            "this"?: string,
-            "locations"?: {
-                "district-locality"?: string,
-                "city-municipality"?: string,
-                "state"?: string,
-                "country"?: string
-            },
-            "next-places"?: {
-                [index: string]: {
-                    "link": string,
-                    "number": number
-                }[]
-            }
-        }
-        "maps"?: {
-            [index: string]: string
-        }
-    },
+    "links": TypeLinks,
     "locations"?: TypeAdministrativeLocations,
     "name": string,
     "name-full"?: string,
@@ -364,6 +382,11 @@ export {
     TypeTimezone,
     TypeNextPlaces,
     TypeAdministrativeLocations,
+    TypeLinksWikipediaLocations,
+    TypeLinksWikipediaNextPlace,
+    TypeLinksWikipediaNextPlaces,
+    TypeLinksWikipedia,
+    TypeLinks,
     TypeLocation,
     TypeLocations,
     TypeApiData,

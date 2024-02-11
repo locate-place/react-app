@@ -7,6 +7,13 @@ import {
 } from "../types/Types";
 import {LocationWrapper} from "./Location/LocationWrapper";
 
+/**
+ * Class LocationApiWrapper
+ *
+ * @author Björn Hempel <bjoern@hempel.li>
+ * @version 0.1.0 (2024-02-11)
+ * @since 0.1.0 (2024-02-11) First version.
+ */
 class LocationApiWrapper
 {
     private readonly apiData: TypeApiData;

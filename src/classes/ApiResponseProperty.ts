@@ -1,12 +1,19 @@
 /* Import types. */
 import {TypeApiProperties} from "../types/Types";
 
+/**
+ * Class ApiResponseProperty
+ *
+ * @author Björn Hempel <bjoern@hempel.li>
+ * @version 0.1.0 (2024-02-11)
+ * @since 0.1.0 (2024-02-11) First version.
+ */
 class ApiResponseProperty
 {
     private readonly properties: TypeApiProperties;
 
     /**
-     * Query constructor.
+     * ApiResponseProperty constructor.
      *
      * @param properties {TypeApiProperties}
      */

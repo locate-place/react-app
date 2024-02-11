@@ -1,8 +1,7 @@
 /* Import types. */
 import {
     TypeAdministrativeLocations,
-    TypeLocation, TypeProperties,
-    TypeValue,
+    TypeLocation,
 } from "../../types/Types";
 
 /* Import config. */
@@ -18,7 +17,15 @@ import {FeatureWrapper} from "./Feature/FeatureWrapper";
 import {CoordinateWrapper} from "./Coordinate/CoordinateWrapper";
 import {PropertiesWrapper} from "./Properties/PropertiesWrapper";
 import {TimezoneWrapper} from "./Timezone/TimezoneWrapper";
+import {LinksWrapper} from "./Links/LinksWrapper";
 
+/**
+ * Class LocationWrapper
+ *
+ * @author Björn Hempel <bjoern@hempel.li>
+ * @version 0.1.0 (2024-02-11)
+ * @since 0.1.0 (2024-02-11) First version.
+ */
 class LocationWrapper
 {
     private readonly location: TypeLocation;
@@ -160,6 +167,14 @@ class LocationWrapper
         }
 
         return new TimezoneWrapper(this.location.timezone);
+    }
+
+    /**
+     * Returns the links of the location.
+     */
+    getLinks(): LinksWrapper
+    {
+        return new LinksWrapper(this.location.links);
     }
 }
 

@@ -51,6 +51,13 @@ const countryDe: string = 'DE';
 /* Languages */
 const languageDe: string = 'de';
 
+/**
+ * Class Query
+ *
+ * @author Björn Hempel <bjoern@hempel.li>
+ * @version 0.1.0 (2024-02-11)
+ * @since 0.1.0 (2024-02-11) First version.
+ */
 class Query
 {
     private readonly searchParams: URLSearchParams|null;

@@ -8,6 +8,11 @@ import {typeLocation, typeLocations} from "../../src/types/Types";
 
 /* Import classes. */
 import {LocationApiWrapper} from "../../src/classes/LocationApiWrapper";
+import {
+    administrativeLocationCityMunicipality, administrativeLocationCountry,
+    administrativeLocationDistrictLocality, administrativeLocationState
+} from "../../src/config/AdministrativeLocations";
+import {featureClassH, featureClassT, featureClassV} from "../../src/config/FeatureClass";
 
 /**
  * General location checker.
@@ -89,6 +94,17 @@ test('LocationApiWrapper: Test location GeoNameSearch', () =>
     /* Test timezone. */
     expect(locationApiWrapper.getLocation().getTimezone()?.getTimezone()).toEqual('Europe/Berlin');
     expect(locationApiWrapper.getLocation().getTimezone()?.getOffset()).toEqual('+01:00');
+
+    /* Test links. */
+    expect(locationApiWrapper.getLocation().getLinks()?.getWikipedia()).toEqual('https://en.wikipedia.org/wiki/Dresden');
+    expect(locationApiWrapper.getLocation().getLinks()?.getWikipediaLocation(administrativeLocationDistrictLocality)).toEqual(null);
+    expect(locationApiWrapper.getLocation().getLinks()?.getWikipediaLocation(administrativeLocationCityMunicipality)).toEqual('https://en.wikipedia.org/wiki/Dresden');
+    expect(locationApiWrapper.getLocation().getLinks()?.getWikipediaLocation(administrativeLocationState)).toEqual('https://en.wikipedia.org/wiki/Saxony');
+    expect(locationApiWrapper.getLocation().getLinks()?.getWikipediaLocation(administrativeLocationCountry)).toEqual('https://en.wikipedia.org/wiki/Germany');
+    expect(locationApiWrapper.getLocation().getLinks()?.getWikipediaNextLocation(featureClassH, 0)).toEqual('https://en.wikipedia.org/wiki/Priessnitz');
+    expect(locationApiWrapper.getLocation().getLinks()?.getWikipediaNextLocation(featureClassH, 1)).toEqual(null);
+    expect(locationApiWrapper.getLocation().getLinks()?.getWikipediaNextLocation(featureClassH, 2)).toEqual('https://en.wikipedia.org/wiki/Wei%C3%9Feritz');
+    expect(locationApiWrapper.getLocation().getLinks()?.getWikipediaNextLocation(featureClassV, 0)).toEqual(null);
 });
 
 /**
@@ -153,6 +169,17 @@ test('LocationApiWrapper: Test location GeoNameSearch with current location', ()
     /* Test timezone. */
     expect(locationApiWrapper.getLocation().getTimezone()?.getTimezone()).toEqual('Europe/Berlin');
     expect(locationApiWrapper.getLocation().getTimezone()?.getOffset()).toEqual('+01:00');
+
+    /* Test links. */
+    expect(locationApiWrapper.getLocation().getLinks()?.getWikipedia()).toEqual('https://en.wikipedia.org/wiki/Cologne_Cathedral');
+    expect(locationApiWrapper.getLocation().getLinks()?.getWikipediaLocation(administrativeLocationDistrictLocality)).toEqual('https://de.wikipedia.org/wiki/K%C3%B6ln-Altstadt-Nord');
+    expect(locationApiWrapper.getLocation().getLinks()?.getWikipediaLocation(administrativeLocationCityMunicipality)).toEqual('https://en.wikipedia.org/wiki/Cologne');
+    expect(locationApiWrapper.getLocation().getLinks()?.getWikipediaLocation(administrativeLocationState)).toEqual('https://en.wikipedia.org/wiki/North_Rhine-Westphalia');
+    expect(locationApiWrapper.getLocation().getLinks()?.getWikipediaLocation(administrativeLocationCountry)).toEqual('https://en.wikipedia.org/wiki/Germany');
+    expect(locationApiWrapper.getLocation().getLinks()?.getWikipediaNextLocation(featureClassT, 2)).toEqual('https://en.wikipedia.org/wiki/Cologne_Lowland');
+    expect(locationApiWrapper.getLocation().getLinks()?.getWikipediaNextLocation(featureClassT, 3)).toEqual(null);
+    expect(locationApiWrapper.getLocation().getLinks()?.getWikipediaNextLocation(featureClassT, 4)).toEqual('https://en.wikipedia.org/wiki/Monte_Troodel%C3%B6h');
+    expect(locationApiWrapper.getLocation().getLinks()?.getWikipediaNextLocation(featureClassV, 0)).toEqual(null);
 });
 
 /**

@@ -5,12 +5,19 @@ import {
     TypeFeatureCode,
 } from "../../../types/Types";
 
+/**
+ * Class FeatureWrapper
+ *
+ * @author Björn Hempel <bjoern@hempel.li>
+ * @version 0.1.0 (2024-02-11)
+ * @since 0.1.0 (2024-02-11) First version.
+ */
 class FeatureWrapper
 {
     private readonly feature: TypeFeature;
 
     /**
-     * LocationApiWrapper constructor.
+     * FeatureWrapper constructor.
      *
      * @param feature {TypeFeature}
      */

@@ -3,12 +3,19 @@ import {
     TypeProperties, TypeValue,
 } from "../../../types/Types";
 
+/**
+ * Class PropertiesWrapper
+ *
+ * @author Björn Hempel <bjoern@hempel.li>
+ * @version 0.1.0 (2024-02-11)
+ * @since 0.1.0 (2024-02-11) First version.
+ */
 class PropertiesWrapper
 {
     private readonly properties: TypeProperties;
 
     /**
-     * LocationApiWrapper constructor.
+     * PropertiesWrapper constructor.
      *
      * @param properties {TypeProperties}
      */

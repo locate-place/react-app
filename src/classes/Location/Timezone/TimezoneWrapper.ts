@@ -19,7 +19,7 @@ class TimezoneWrapper
     private readonly timezone: TypeTimezone;
 
     /**
-     * LocationApiWrapper constructor.
+     * TimezoneWrapper constructor.
      *
      * @param timezone {TypeTimezone}
      */

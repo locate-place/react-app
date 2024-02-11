@@ -1,6 +1,9 @@
 /* Import types. */
 import {
-    TypeCoordinate, TypeDirection, TypeDistance,
+    TypeCoordinate,
+    TypeDirection,
+    TypeDistance,
+    TypePosition,
 } from "../../../types/Types";
 
 class CoordinateWrapper
@@ -23,6 +26,30 @@ class CoordinateWrapper
     get(): TypeCoordinate
     {
         return this.coordinate;
+    }
+
+    /**
+     * Returns the latitude of the location.
+     */
+    getLatitude(): TypePosition
+    {
+        return this.coordinate.latitude;
+    }
+
+    /**
+     * Returns the longitude of the location.
+     */
+    getLongitude(): TypePosition
+    {
+        return this.coordinate.longitude;
+    }
+
+    /**
+     * Returns the srid of the location.
+     */
+    getSrid(): number
+    {
+        return this.coordinate.srid;
     }
 
     /**

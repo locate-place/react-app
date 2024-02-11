@@ -32,11 +32,29 @@ class LocationWrapper
     }
 
     /**
+     * Returns the full location data of the location.
+     */
+    get(): TypeLocation
+    {
+        return this.location;
+    }
+
+    /**
      * Returns the name of the location.
      */
     getName(): string
     {
         return this.location.name;
+    }
+
+    /**
+     * Returns the full name of the location.
+     *
+     * @return {string|null}
+     */
+    getNameFull(): string|null
+    {
+        return this.location['name-full'] ?? null;
     }
 
     /**
@@ -57,7 +75,7 @@ class LocationWrapper
      * @param key {string}
      * @return {TypeLocation|null}
      */
-    getAdministrativeLocation(key: string): TypeLocation|null
+    getAdministrativeLocation(key: string): LocationWrapper|null
     {
         const administrativeLocations = this.getAdministrativeLocations();
 
@@ -69,39 +87,39 @@ class LocationWrapper
             return null;
         }
 
-        return administrativeLocations[key];
+        return new LocationWrapper(administrativeLocations[key]);
     }
 
     /**
      * Returns the district/locality from administrative locations.
      */
-    getDistrictLocality(): string|null
+    getDistrictLocality(): LocationWrapper|null
     {
-        return this.getAdministrativeLocation(administrativeLocationDistrictLocality)?.name ?? null;
+        return this.getAdministrativeLocation(administrativeLocationDistrictLocality);
     }
 
     /**
      * Returns the city/municipality from administrative locations.
      */
-    getCityMunicipality(): string|null
+    getCityMunicipality(): LocationWrapper|null
     {
-        return this.getAdministrativeLocation(administrativeLocationCityMunicipality)?.name ?? null;
+        return this.getAdministrativeLocation(administrativeLocationCityMunicipality);
     }
 
     /**
      * Returns the state from administrative locations.
      */
-    getState(): string|null
+    getState(): LocationWrapper|null
     {
-        return this.getAdministrativeLocation(administrativeLocationState)?.name ?? null;
+        return this.getAdministrativeLocation(administrativeLocationState);
     }
 
     /**
      * Returns the state from administrative locations.
      */
-    getCountry(): string|null
+    getCountry(): LocationWrapper|null
     {
-        return this.getAdministrativeLocation(administrativeLocationCountry)?.name ?? null;
+        return this.getAdministrativeLocation(administrativeLocationCountry);
     }
 
     /**

@@ -55,12 +55,15 @@ test('LocationApiWrapper: Test location GeoNameSearch', () =>
 
     /* Test location. */
     expect(locationApiWrapper.getLocation().getName()).toEqual('Dresden');
-    expect(locationApiWrapper.getLocation().getDistrictLocality()).toEqual('Innere Altstadt');
-    expect(locationApiWrapper.getLocation().getCityMunicipality()).toEqual('Dresden');
-    expect(locationApiWrapper.getLocation().getState()).toEqual('Sachsen');
-    expect(locationApiWrapper.getLocation().getCountry()).toEqual('Deutschland');
+
+    expect(locationApiWrapper.getLocation().getDistrictLocality()?.getName()).toEqual('Innere Altstadt');
+    expect(locationApiWrapper.getLocation().getCityMunicipality()?.getName()).toEqual('Dresden');
+    expect(locationApiWrapper.getLocation().getState()?.getName()).toEqual('Sachsen');
+    expect(locationApiWrapper.getLocation().getCountry()?.getName()).toEqual('Deutschland');
+
     expect(locationApiWrapper.getLocation().getCountryCode()).toEqual('DE');
     expect(locationApiWrapper.getLocation().getElevation()).toEqual({"value": 116, "unit": "m", "value-formatted": "116 m"});
+    
     expect(locationApiWrapper.getLocation().getCoordinate().getDMS()).toEqual('51°3′3.204″N, 13°44′17.952″E');
     expect(locationApiWrapper.getLocation().getCoordinate().getDecimal()).toEqual('51.05089, 13.73832');
     expect(locationApiWrapper.getLocation().getCoordinate().getDistance()).toEqual(null);
@@ -69,6 +72,7 @@ test('LocationApiWrapper: Test location GeoNameSearch', () =>
     expect(locationApiWrapper.getLocation().getCoordinate().getDirectionString()).toEqual(null);
     expect(locationApiWrapper.getLocation().getCoordinate().getDirectionUser()).toEqual(null);
     expect(locationApiWrapper.getLocation().getCoordinate().getDirectionUserString()).toEqual(null);
+
     expect(locationApiWrapper.getLocation().getFeature().getClass()).toEqual({"code": "P", "name": "Städte, Dörfer, etc."});
     expect(locationApiWrapper.getLocation().getFeature().getCode()).toEqual({"code": "PPLA", "name": "Sitz einer Verwaltungseinheit erster Ordnung"});
 });
@@ -106,12 +110,15 @@ test('LocationApiWrapper: Test location GeoNameSearch with current location', ()
 
     /* Test location. */
     expect(locationApiWrapper.getLocation().getName()).toEqual('Cologne Cathedral');
-    expect(locationApiWrapper.getLocation().getDistrictLocality()).toEqual('Altstadt Nord');
-    expect(locationApiWrapper.getLocation().getCityMunicipality()).toEqual('Cologne');
-    expect(locationApiWrapper.getLocation().getState()).toEqual('North Rhine-Westphalia');
-    expect(locationApiWrapper.getLocation().getCountry()).toEqual('Germany');
+
+    expect(locationApiWrapper.getLocation().getDistrictLocality()?.getName()).toEqual('Altstadt Nord');
+    expect(locationApiWrapper.getLocation().getCityMunicipality()?.getName()).toEqual('Cologne');
+    expect(locationApiWrapper.getLocation().getState()?.getName()).toEqual('North Rhine-Westphalia');
+    expect(locationApiWrapper.getLocation().getCountry()?.getName()).toEqual('Germany');
+
     expect(locationApiWrapper.getLocation().getCountryCode()).toEqual('DE');
     expect(locationApiWrapper.getLocation().getElevation()).toEqual({"value": 62, "unit": "m", "value-formatted": "62 m"});
+
     expect(locationApiWrapper.getLocation().getCoordinate().getDMS()).toEqual('50°56′28.428″N, 6°57′29.628″E');
     expect(locationApiWrapper.getLocation().getCoordinate().getDecimal()).toEqual('50.94123, 6.95823');
     expect(locationApiWrapper.getLocation().getCoordinate().getDistance()).toEqual(null);
@@ -120,6 +127,7 @@ test('LocationApiWrapper: Test location GeoNameSearch with current location', ()
     expect(locationApiWrapper.getLocation().getCoordinate().getDirectionString()).toEqual(null);
     expect(locationApiWrapper.getLocation().getCoordinate().getDirectionUser()).toEqual({"cardinal-direction": "W", "cardinal-direction-translated": "West", "degree": -91.01});
     expect(locationApiWrapper.getLocation().getCoordinate().getDirectionUserString()).toEqual('West');
+
     expect(locationApiWrapper.getLocation().getFeature().getClass()).toEqual({"code": "S", "name": "Spots, Buildings, Farms, etc."});
     expect(locationApiWrapper.getLocation().getFeature().getCode()).toEqual({"code": "CH", "name": "Church"});
 });

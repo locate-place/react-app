@@ -1,6 +1,6 @@
 /* Import types. */
 import {
-    TypeAdministrativeLocations,
+    TypeAdministrativeLocations, TypeLinksWikipediaNextPlaces,
     TypeLocation,
 } from "../../types/Types";
 
@@ -18,6 +18,8 @@ import {CoordinateWrapper} from "./Coordinate/CoordinateWrapper";
 import {PropertiesWrapper} from "./Properties/PropertiesWrapper";
 import {TimezoneWrapper} from "./Timezone/TimezoneWrapper";
 import {LinksWrapper} from "./Links/LinksWrapper";
+import {NextPlacesWrapper} from "./NextPlaces/NextPlacesWrapper";
+import {NextPlacesConfigWrapper} from "./NextPlacesConfig/NextPlacesConfigWrapper";
 
 /**
  * Class LocationWrapper
@@ -104,7 +106,7 @@ class LocationWrapper
      * @param key {string}
      * @return {TypeLocation|null}
      */
-    getAdministrativeLocation(key: string): LocationWrapper|null
+    getAdministrativeLocation<K extends keyof TypeAdministrativeLocations>(key: K): LocationWrapper|null
     {
         const administrativeLocations = this.getAdministrativeLocations();
 
@@ -195,6 +197,26 @@ class LocationWrapper
     getLinks(): LinksWrapper
     {
         return new LinksWrapper(this.location.links);
+    }
+
+    /**
+     * Returns the next places of the location.
+     */
+    getNextPlaces(): NextPlacesWrapper|null
+    {
+        if (!this.location["next-places"]) {
+            return null;
+        }
+
+        return new NextPlacesWrapper(this.location["next-places"]);
+    }
+
+    /**
+     * Returns the next places config of the location.
+     */
+    getNextPlacesConfig(): NextPlacesConfigWrapper
+    {
+        return new NextPlacesConfigWrapper(this.location["next-places-config"]);
     }
 }
 

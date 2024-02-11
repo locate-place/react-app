@@ -1,8 +1,8 @@
 /* Administrative locations */
-const administrativeLocationDistrictLocality: string = 'district-locality';
-const administrativeLocationCityMunicipality: string = 'city-municipality';
-const administrativeLocationState: string = 'state';
-const administrativeLocationCountry: string = 'country';
+const administrativeLocationDistrictLocality: 'district-locality' = 'district-locality';
+const administrativeLocationCityMunicipality: 'city-municipality' = 'city-municipality';
+const administrativeLocationState: 'state' = 'state';
+const administrativeLocationCountry: 'country' = 'country';
 
 /*
  * Export functions.

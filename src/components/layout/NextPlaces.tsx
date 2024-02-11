@@ -2,7 +2,7 @@ import React from "react";
 import {useSearchParams} from "react-router-dom";
 
 /* Add types. */
-import {TypeNextPlaces} from "../../types/Types";
+import {TypeNextPlacesFeatureClass} from "../../types/Types";
 
 /* Add functions */
 import {convertMeterToKilometer} from "../../functions/Distance";
@@ -12,7 +12,7 @@ import {addSoftHyphens} from "../../functions/Text";
 import {getFilterConfig, redirectNextPlacesList, redirectNextPlacesListWithCoordinate} from "../../functions/QueryFunctions";
 
 type NextPlacesProps = {
-    nextPlaces: TypeNextPlaces,
+    nextPlaces: TypeNextPlacesFeatureClass,
 }
 
 /**

@@ -1,6 +1,6 @@
 /* Import types. */
 import {
-    TypeLinks,
+    TypeLinks, TypeLinksMaps,
     TypeLinksWikipediaLocations, TypeLinksWikipediaNextPlaces,
 } from "../../../types/Types";
 
@@ -50,7 +50,7 @@ class LinksWrapper
      *
      * @param key {string}
      */
-    getWikipediaLocation(key: string): string|null
+    getWikipediaLocation<K extends keyof TypeLinksWikipediaLocations>(key: K): string|null
     {
         const locations = this.links.wikipedia?.locations ?? null;
 
@@ -73,7 +73,7 @@ class LinksWrapper
      * @param key {string}
      * @param index {number}
      */
-    getWikipediaNextLocation(key: string, index: number): string|null
+    getWikipediaNextLocation<K extends keyof TypeLinksWikipediaNextPlaces>(key: K, index: number): string|null
     {
         const nextPlaces = this.links.wikipedia?.["next-places"] ?? null;
 
@@ -94,6 +94,26 @@ class LinksWrapper
                 link = nextPlacesLink.link;
             }
         });
+
+        return link;
+    }
+
+    /**
+     * Returns a maps link by the given key.
+     */
+    getMaps<K extends keyof TypeLinksMaps>(key: K): string|null
+    {
+        const maps = this.links.maps ?? null;
+
+        if (maps === null) {
+            return null;
+        }
+
+        const link = maps[key as keyof TypeLinksMaps] ?? null;
+
+        if (link === null) {
+            return null;
+        }
 
         return link;
     }

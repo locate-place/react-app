@@ -8,11 +8,19 @@ import {typeLocation, typeLocations} from "../../src/types/Types";
 
 /* Import classes. */
 import {LocationApiWrapper} from "../../src/classes/LocationApiWrapper";
+
+/* Import configuration. */
 import {
-    administrativeLocationCityMunicipality, administrativeLocationCountry,
-    administrativeLocationDistrictLocality, administrativeLocationState
+    administrativeLocationCityMunicipality,
+    administrativeLocationCountry,
+    administrativeLocationDistrictLocality,
+    administrativeLocationState
 } from "../../src/config/AdministrativeLocations";
-import {featureClassH, featureClassT, featureClassV} from "../../src/config/FeatureClass";
+import {
+    featureClassH,
+    featureClassT,
+    featureClassV
+} from "../../src/config/FeatureClass";
 
 /**
  * General location checker.
@@ -107,6 +115,17 @@ test('LocationApiWrapper: Test location GeoNameSearch', () =>
     expect(locationApiWrapper.getLocation().getLinks()?.getWikipediaNextLocation(featureClassH, 1)).toEqual(null);
     expect(locationApiWrapper.getLocation().getLinks()?.getWikipediaNextLocation(featureClassH, 2)).toEqual('https://en.wikipedia.org/wiki/Wei%C3%9Feritz');
     expect(locationApiWrapper.getLocation().getLinks()?.getWikipediaNextLocation(featureClassV, 0)).toEqual(null);
+    expect(locationApiWrapper.getLocation().getLinks()?.getMaps('google')).toEqual('https://www.google.de/maps/place/51.050890+13.738320');
+    expect(locationApiWrapper.getLocation().getLinks()?.getMaps('openstreetmap')).toEqual('https://www.openstreetmap.org/?lat=51.050890&lon=13.738320&mlat=51.050890&mlon=13.738320&zoom=14&layers=M');
+
+    /* Test next places config. */
+    expect(locationApiWrapper.getLocation().getNextPlacesConfig()?.getConfigKeysNextPlaces()).toEqual(["cities", "parks", "airports", "stations", "cinemas", "beaches", "churches", "waters", "hotels", "hospitals", "mountains"]);
+    expect(locationApiWrapper.getLocation().getNextPlacesConfig()?.hasConfigByNexPlace("mountains")).toEqual(true);
+    expect(locationApiWrapper.getLocation().getNextPlacesConfig()?.hasConfigByNexPlace("xyz")).toEqual(false);
+    expect(locationApiWrapper.getLocation().getNextPlacesConfig()?.getConfigByNexPlace("mountains")).toEqual({"distance": 50000, "feature_codes": ["HLL", "MT", "PK"], "limit": 10, "name": "mountains, hills"});
+    expect(locationApiWrapper.getLocation().getNextPlacesConfig()?.getConfigByNexPlace("xyz")).toEqual(null);
+    expect(locationApiWrapper.getLocation().getNextPlacesConfig()?.getEndpoint('coordinate')).toEqual('/api/v1/location/coordinate.json');
+    expect(locationApiWrapper.getLocation().getNextPlacesConfig()?.getEndpoint('list')).toEqual('/api/v1/location.json');
 });
 
 /**
@@ -184,6 +203,17 @@ test('LocationApiWrapper: Test location GeoNameSearch with current location', ()
     expect(locationApiWrapper.getLocation().getLinks()?.getWikipediaNextLocation(featureClassT, 3)).toEqual(null);
     expect(locationApiWrapper.getLocation().getLinks()?.getWikipediaNextLocation(featureClassT, 4)).toEqual('https://en.wikipedia.org/wiki/Monte_Troodel%C3%B6h');
     expect(locationApiWrapper.getLocation().getLinks()?.getWikipediaNextLocation(featureClassV, 0)).toEqual(null);
+    expect(locationApiWrapper.getLocation().getLinks()?.getMaps('google')).toEqual('https://www.google.de/maps/place/50.941230+6.958230');
+    expect(locationApiWrapper.getLocation().getLinks()?.getMaps('openstreetmap')).toEqual('https://www.openstreetmap.org/?lat=50.941230&lon=6.958230&mlat=50.941230&mlon=6.958230&zoom=14&layers=M');
+
+    /* Test next places config. */
+    expect(locationApiWrapper.getLocation().getNextPlacesConfig()?.getConfigKeysNextPlaces()).toEqual(["cities", "parks", "airports", "stations", "cinemas", "beaches", "churches", "waters", "hotels", "hospitals", "mountains"]);
+    expect(locationApiWrapper.getLocation().getNextPlacesConfig()?.hasConfigByNexPlace("mountains")).toEqual(true);
+    expect(locationApiWrapper.getLocation().getNextPlacesConfig()?.hasConfigByNexPlace("abc")).toEqual(false);
+    expect(locationApiWrapper.getLocation().getNextPlacesConfig()?.getConfigByNexPlace("mountains")).toEqual({"distance": 50000, "feature_codes": ["HLL", "MT", "PK"], "limit": 10, "name": "mountains, hills"});
+    expect(locationApiWrapper.getLocation().getNextPlacesConfig()?.getConfigByNexPlace("abc")).toEqual(null);
+    expect(locationApiWrapper.getLocation().getNextPlacesConfig()?.getEndpoint('coordinate')).toEqual('/api/v1/location/coordinate.json');
+    expect(locationApiWrapper.getLocation().getNextPlacesConfig()?.getEndpoint('list')).toEqual('/api/v1/location.json');
 });
 
 /**

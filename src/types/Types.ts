@@ -258,10 +258,11 @@ type TypeTimezone = {
     coordinate: TypeCoordinate
 }
 
-type TypeNextPlaces = any;
-
 type TypeAdministrativeLocations = {
-    [index: string]: TypeLocation
+    "district-locality": TypeLocation,
+    "city-municipality": TypeLocation,
+    "state": TypeLocation,
+    "country": TypeLocation
 }
 
 type TypeLinksWikipediaLocations = {
@@ -294,11 +295,50 @@ type TypeLinksWikipedia = {
     "next-places"?: TypeLinksWikipediaNextPlaces
 }
 
+type TypeLinksMaps = {
+    "google": string,
+    "openstreetmap": string,
+}
+
 type TypeLinks = {
     "wikipedia"?: TypeLinksWikipedia,
-    "maps"?: {
-        [index: string]: string
-    }
+    "maps"?: TypeLinksMaps
+};
+
+type TypeNextPlacesFeatureClass = any;
+
+type TypeNextPlaces = {
+    A?: TypeNextPlacesFeatureClass,
+    H?: TypeNextPlacesFeatureClass,
+    L?: TypeNextPlacesFeatureClass,
+    P?: TypeNextPlacesFeatureClass,
+    R?: TypeNextPlacesFeatureClass,
+    S?: TypeNextPlacesFeatureClass,
+    T?: TypeNextPlacesFeatureClass,
+    U?: TypeNextPlacesFeatureClass,
+    V?: TypeNextPlacesFeatureClass,
+}
+
+type TypeNextPlacesConfigConfigNextPlace = {
+    "distance": number,
+    "limit": number,
+    "name": string,
+    "feature_codes"?: string[],
+    "feature_classes"?: string[]
+}
+
+type TypeNextPlacesConfigConfig = {
+    [index: string]: TypeNextPlacesConfigConfigNextPlace
+};
+
+type TypeNextPlacesConfigEndpoint = {
+    "coordinate": string,
+    "list": string
+};
+
+type TypeNextPlacesConfig = {
+    "config": TypeNextPlacesConfigConfig,
+    "endpoints": TypeNextPlacesConfigEndpoint
 };
 
 type TypeLocation = {
@@ -309,18 +349,8 @@ type TypeLocation = {
     "locations"?: TypeAdministrativeLocations,
     "name": string,
     "name-full"?: string,
-    "next-places"?: {
-        A?: TypeNextPlaces,
-        H?: TypeNextPlaces,
-        L?: TypeNextPlaces,
-        P?: TypeNextPlaces,
-        R?: TypeNextPlaces,
-        S?: TypeNextPlaces,
-        T?: TypeNextPlaces,
-        U?: TypeNextPlaces,
-        V?: TypeNextPlaces,
-    }
-    "next-places-config": object,
+    "next-places"?: TypeNextPlaces,
+    "next-places-config": TypeNextPlacesConfig,
     "properties": TypeProperties,
     "timezone"?: TypeTimezone,
     "updated-at": string,
@@ -380,13 +410,19 @@ export {
     TypeCoordinate,
     TypeCurrentTime,
     TypeTimezone,
-    TypeNextPlaces,
+    TypeNextPlacesFeatureClass,
     TypeAdministrativeLocations,
     TypeLinksWikipediaLocations,
     TypeLinksWikipediaNextPlace,
     TypeLinksWikipediaNextPlaces,
     TypeLinksWikipedia,
+    TypeLinksMaps,
     TypeLinks,
+    TypeNextPlaces,
+    TypeNextPlacesConfigConfigNextPlace,
+    TypeNextPlacesConfigConfig,
+    TypeNextPlacesConfigEndpoint,
+    TypeNextPlacesConfig,
     TypeLocation,
     TypeLocations,
     TypeApiData,

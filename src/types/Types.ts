@@ -237,6 +237,10 @@ type TypeCoordinate = {
 
 type TypeNextPlaces = any;
 
+type TypeAdministrativeLocations = {
+    [index: string]: TypeLocation
+}
+
 type TypeLocation = {
     "coordinate": TypeCoordinate,
     "feature": TypeFeature,
@@ -260,9 +264,7 @@ type TypeLocation = {
             [index: string]: string
         }
     },
-    "locations"?: {
-        [index: string]: TypeLocation
-    },
+    "locations"?: TypeAdministrativeLocations,
     "name": string,
     "name-full"?: string,
     "next-places"?: {
@@ -342,6 +344,7 @@ export {
     TypeFeature,
     TypeCoordinate,
     TypeNextPlaces,
+    TypeAdministrativeLocations,
     TypeLocation,
     TypeLocations,
     TypeApiData,

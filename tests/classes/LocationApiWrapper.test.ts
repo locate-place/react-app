@@ -45,6 +45,14 @@ test('LocationApiWrapper: Test location GeoNameSearch', () =>
 
     /* Test version parameter. */
     expect(locationApiWrapper.getVersion()).toBe('0.1.41');
+
+    /* Test location. */
+    expect(locationApiWrapper.getLocation().getName()).toBe('Dresden');
+    expect(locationApiWrapper.getLocation().getDistrictLocality()).toBe('Innere Altstadt');
+    expect(locationApiWrapper.getLocation().getCityMunicipality()).toBe('Dresden');
+    expect(locationApiWrapper.getLocation().getState()).toBe('Sachsen');
+    expect(locationApiWrapper.getLocation().getCountry()).toBe('Deutschland');
+    expect(locationApiWrapper.getLocation().getCountryCode()).toBe('DE');
 });
 
 /**

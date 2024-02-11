@@ -5,6 +5,7 @@ import {
     typeLocation,
     typeLocations, TypeResults, TypeLocation
 } from "../types/Types";
+import {LocationWrapper} from "./LocationWrapper";
 
 class LocationApiWrapper
 {
@@ -77,7 +78,7 @@ class LocationApiWrapper
     }
 
     /**
-     * Returns the result data.
+     * Returns the result data (listed, total, current page, etc.).
      */
     getResults(): TypeResults|null
     {
@@ -99,13 +100,13 @@ class LocationApiWrapper
     /**
      * Returns the current location if it is a location search. Otherwise, null.
      */
-    getLocation(): TypeLocation|null
+    getLocation(): LocationWrapper
     {
         if (this.isLocation() && !Array.isArray(this.apiData.data)) {
-            return this.apiData.data;
+            return new LocationWrapper(this.apiData.data);
         }
 
-        return null;
+        throw new TypeError("The api response is not a single location response.");
     }
 
     /**

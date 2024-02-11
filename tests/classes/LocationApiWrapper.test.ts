@@ -65,6 +65,7 @@ test('LocationApiWrapper: Test location GeoNameSearch', () =>
 
     /* Test location. */
     expect(locationApiWrapper.getLocation().getName()).toEqual('Dresden');
+    expect(locationApiWrapper.getLocation().getGeonameId()).toEqual(2935022);
 
     /* Test administrative locations. */
     expect(locationApiWrapper.getLocation().getDistrictLocality()?.getName()).toEqual('Innere Altstadt');
@@ -140,6 +141,7 @@ test('LocationApiWrapper: Test location GeoNameSearch with current location', ()
 
     /* Test location. */
     expect(locationApiWrapper.getLocation().getName()).toEqual('Cologne Cathedral');
+    expect(locationApiWrapper.getLocation().getGeonameId()).toEqual(6324464);
 
     /* Test administrative locations. */
     expect(locationApiWrapper.getLocation().getDistrictLocality()?.getName()).toEqual('Altstadt Nord');

@@ -67,6 +67,18 @@ class LocationWrapper
     }
 
     /**
+     * Returns the full name of the location.
+     *
+     * @return {number}
+     */
+    getGeonameId(): number
+    {
+        return this.location["geoname-id"];
+    }
+
+
+
+    /**
      * Returns the administrative locations.
      */
     getAdministrativeLocations(): TypeAdministrativeLocations|null

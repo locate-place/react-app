@@ -18,6 +18,14 @@ class PropertiesWrapper
     }
 
     /**
+     * Returns the property data.
+     */
+    get(): TypeProperties
+    {
+        return this.properties;
+    }
+
+    /**
      * Return the country code from location.
      */
     getCountryCode(): string
@@ -31,6 +39,14 @@ class PropertiesWrapper
     getElevation(): TypeValue|null
     {
         return this.properties.elevation ?? null;
+    }
+
+    /**
+     * Returns the population from location.
+     */
+    getPopulation(): TypeValue|null
+    {
+        return this.properties.population ?? null;
     }
 }
 

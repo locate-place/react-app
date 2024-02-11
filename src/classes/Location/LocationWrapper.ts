@@ -17,6 +17,7 @@ import {
 import {FeatureWrapper} from "./Feature/FeatureWrapper";
 import {CoordinateWrapper} from "./Coordinate/CoordinateWrapper";
 import {PropertiesWrapper} from "./Properties/PropertiesWrapper";
+import {TimezoneWrapper} from "./Timezone/TimezoneWrapper";
 
 class LocationWrapper
 {
@@ -147,6 +148,18 @@ class LocationWrapper
     getProperties(): PropertiesWrapper
     {
         return new PropertiesWrapper(this.location.properties);
+    }
+
+    /**
+     * Returns the timezone of the location.
+     */
+    getTimezone(): TimezoneWrapper|null
+    {
+        if (!this.location.timezone) {
+            return null;
+        }
+
+        return new TimezoneWrapper(this.location.timezone);
     }
 }
 

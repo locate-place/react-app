@@ -245,6 +245,19 @@ type TypeCoordinate = {
     "direction-user"?: TypeDirection
 }
 
+type TypeCurrentTime = {
+    "timezone": string,
+    "utc": string
+}
+
+type TypeTimezone = {
+    timezone: string,
+    offset: string
+    country: string,
+    "current-time": TypeCurrentTime
+    coordinate: TypeCoordinate
+}
+
 type TypeNextPlaces = any;
 
 type TypeAdministrativeLocations = {
@@ -291,16 +304,7 @@ type TypeLocation = {
     }
     "next-places-config": object,
     "properties": TypeProperties,
-    "timezone"?: {
-        timezone: string,
-        offset: string
-        country: string,
-        "current-time": {
-            "timezone": string,
-            "utc": string
-        }
-        coordinate: TypeCoordinate
-    },
+    "timezone"?: TypeTimezone,
     "updated-at": string,
 }
 
@@ -356,6 +360,8 @@ export {
     TypeFeatureClass,
     TypeFeatureCode,
     TypeCoordinate,
+    TypeCurrentTime,
+    TypeTimezone,
     TypeNextPlaces,
     TypeAdministrativeLocations,
     TypeLocation,

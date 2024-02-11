@@ -1,7 +1,7 @@
 /* Import types. */
 import {
     TypeAdministrativeLocations,
-    TypeLocation,
+    TypeLocation, TypeValue,
 } from "../types/Types";
 
 /* Import config. */
@@ -104,6 +104,14 @@ class LocationWrapper
     getCountryCode(): string
     {
         return this.location.properties.country;
+    }
+
+    /**
+     * Return the country code from location.
+     */
+    getElevation(): TypeValue|null
+    {
+        return this.location.properties.elevation ?? null;
     }
 }
 

@@ -1,5 +1,6 @@
 /* Import mocks. */
 import GeoNameSearch from "../../mocks/location/GeoNameSearch";
+import GeoNameSearchWithCurrentPosition from "../../mocks/location/GeoNameSearchWithCurrentPosition";
 import PlaceSearch from "../../mocks/locations/PlaceSearch";
 
 /* Import types. */
@@ -8,13 +9,8 @@ import {typeLocation, typeLocations} from "../../src/types/Types";
 /* Import classes. */
 import {LocationApiWrapper} from "../../src/classes/LocationApiWrapper";
 
-/**
- * Check location GeoNameSearch
- */
-test('LocationApiWrapper: Test location GeoNameSearch', () =>
+const testLocationGeneral = (locationApiWrapper: LocationApiWrapper) =>
 {
-    let locationApiWrapper = new LocationApiWrapper(GeoNameSearch);
-
     /* Test the type of the api data. */
     expect(locationApiWrapper.getType()).toEqual(typeLocation);
     expect(locationApiWrapper.isLocations()).toEqual(false);
@@ -24,6 +20,17 @@ test('LocationApiWrapper: Test location GeoNameSearch', () =>
     expect(locationApiWrapper.getDataLicence()['full']).toEqual('Creative Commons Attribution 4.0 License');
     expect(locationApiWrapper.getDataLicence()['short']).toEqual('CC-BY 4.0');
     expect(locationApiWrapper.getDataLicence()['url']).toEqual('https://download.geonames.org/export/dump/readme.txt');
+}
+
+/**
+ * Check location GeoNameSearch
+ */
+test('LocationApiWrapper: Test location GeoNameSearch', () =>
+{
+    let locationApiWrapper = new LocationApiWrapper(GeoNameSearch);
+
+    /* Test general things from location entity. */
+    testLocationGeneral(locationApiWrapper);
 
     /* Test time taken */
     expect(locationApiWrapper.getTimeTaken()).toEqual('293ms');
@@ -56,6 +63,57 @@ test('LocationApiWrapper: Test location GeoNameSearch', () =>
     expect(locationApiWrapper.getLocation().getElevation()).toEqual({"value": 116, "unit": "m", "value-formatted": "116 m"});
     expect(locationApiWrapper.getLocation().getDMS()).toEqual('51°3′3.204″N, 13°44′17.952″E');
     expect(locationApiWrapper.getLocation().getDecimal()).toEqual('51.05089, 13.73832');
+    expect(locationApiWrapper.getLocation().getDistance()).toEqual(null);
+    expect(locationApiWrapper.getLocation().getDistanceUser()).toEqual(null);
+    expect(locationApiWrapper.getLocation().getDirection()).toEqual(null);
+    expect(locationApiWrapper.getLocation().getDirectionUser()).toEqual(null);
+});
+
+/**
+ * Check location GeoNameSearch (with current location)
+ */
+test('LocationApiWrapper: Test location GeoNameSearch with current location', () =>
+{
+    let locationApiWrapper = new LocationApiWrapper(GeoNameSearchWithCurrentPosition);
+
+    /* Test general things from location entity. */
+    testLocationGeneral(locationApiWrapper);
+
+    /* Test time taken */
+    expect(locationApiWrapper.getTimeTaken()).toEqual('472ms');
+
+    /* Test memory taken */
+    expect(locationApiWrapper.getMemoryTaken()).toEqual('5.07 MB');
+
+    /* Test performance */
+    expect(typeof locationApiWrapper.getPerformance()).toEqual('object');
+
+    /* Test results */
+    expect(locationApiWrapper.getResults()).toBeNull();
+
+    /* Test valid */
+    expect(locationApiWrapper.getValid()).toEqual(true);
+
+    /* Test date */
+    expect(locationApiWrapper.getDate()).toEqual('2024-02-11T15:47:39+00:00');
+
+    /* Test version parameter. */
+    expect(locationApiWrapper.getVersion()).toEqual('0.1.42');
+
+    /* Test location. */
+    expect(locationApiWrapper.getLocation().getName()).toEqual('Cologne Cathedral');
+    expect(locationApiWrapper.getLocation().getDistrictLocality()).toEqual('Altstadt Nord');
+    expect(locationApiWrapper.getLocation().getCityMunicipality()).toEqual('Cologne');
+    expect(locationApiWrapper.getLocation().getState()).toEqual('North Rhine-Westphalia');
+    expect(locationApiWrapper.getLocation().getCountry()).toEqual('Germany');
+    expect(locationApiWrapper.getLocation().getCountryCode()).toEqual('DE');
+    expect(locationApiWrapper.getLocation().getElevation()).toEqual({"value": 62, "unit": "m", "value-formatted": "62 m"});
+    expect(locationApiWrapper.getLocation().getDMS()).toEqual('50°56′28.428″N, 6°57′29.628″E');
+    expect(locationApiWrapper.getLocation().getDecimal()).toEqual('50.94123, 6.95823');
+    expect(locationApiWrapper.getLocation().getDistance()).toEqual(null);
+    expect(locationApiWrapper.getLocation().getDistanceUser()).toEqual({"kilometers": {"unit": "km", "value": 474.627, "value-formatted": "474.627 km"}, "meters": {"unit": "m", "value": 474626.6, "value-formatted": "474,626.6 m"}});
+    expect(locationApiWrapper.getLocation().getDirection()).toEqual(null);
+    expect(locationApiWrapper.getLocation().getDirectionUser()).toEqual({"cardinal-direction": "W", "cardinal-direction-translated": "West", "degree": -91.01});
 });
 
 /**

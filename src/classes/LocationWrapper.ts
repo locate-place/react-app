@@ -1,7 +1,7 @@
 /* Import types. */
 import {
     TypeAdministrativeLocations,
-    TypeCoordinate,
+    TypeCoordinate, TypeDirection, TypeDistance,
     TypeLocation,
     TypeValue,
 } from "../types/Types";
@@ -141,6 +141,54 @@ class LocationWrapper
     {
         const coordinate = this.getCoordinate();
         return coordinate.latitude.decimal + separator + coordinate.longitude.decimal;
+    }
+
+    /**
+     * Returns the distance of the location.
+     */
+    getDistance(): TypeDistance|null
+    {
+        if (!this.location.coordinate.distance) {
+            return null;
+        }
+
+        return this.location.coordinate.distance;
+    }
+
+    /**
+     * Returns the distance of the location to user.
+     */
+    getDistanceUser(): TypeDistance|null
+    {
+        if (!this.location.coordinate['distance-user']) {
+            return null;
+        }
+
+        return this.location.coordinate['distance-user'];
+    }
+
+    /**
+     * Returns the direction of the location.
+     */
+    getDirection(): TypeDirection|null
+    {
+        if (!this.location.coordinate.direction) {
+            return null;
+        }
+
+        return this.location.coordinate.direction;
+    }
+
+    /**
+     * Returns the direction of the location to user.
+     */
+    getDirectionUser(): TypeDirection|null
+    {
+        if (!this.location.coordinate['direction-user']) {
+            return null;
+        }
+
+        return this.location.coordinate['direction-user'];
     }
 }
 

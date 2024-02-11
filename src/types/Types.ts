@@ -249,9 +249,10 @@ type TypeLocation = {
         "wikipedia"?: {
             "this"?: string,
             "locations"?: {
-                "city-municipality" : string,
-                "state": string,
-                "country" :string
+                "district-locality"?: string,
+                "city-municipality"?: string,
+                "state"?: string,
+                "country"?: string
             },
             "next-places"?: {
                 [index: string]: {

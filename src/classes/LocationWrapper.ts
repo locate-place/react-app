@@ -1,7 +1,7 @@
 /* Import types. */
 import {
     TypeAdministrativeLocations,
-    TypeCoordinate, TypeDirection, TypeDistance,
+    TypeCoordinate, TypeDirection, TypeDistance, TypeFeature, TypeFeatureClass, TypeFeatureCode,
     TypeLocation,
     TypeValue,
 } from "../types/Types";
@@ -217,6 +217,36 @@ class LocationWrapper
         }
 
         return direction["cardinal-direction-translated"];
+    }
+
+    /**
+     * Returns the feature of the location.
+     */
+    getFeature(): TypeFeature
+    {
+        return this.location.feature;
+    }
+
+    /**
+     * Returns the feature class of the location.
+     */
+    getFeatureClass(): TypeFeatureClass
+    {
+        return {
+            'code': this.location.feature['class'],
+            'name': this.location.feature['class-name'],
+        };
+    }
+
+    /**
+     * Returns the feature code of the location.
+     */
+    getFeatureCode(): TypeFeatureCode
+    {
+        return {
+            'code': this.location.feature['code'],
+            'name': this.location.feature['code-name'],
+        };
     }
 }
 

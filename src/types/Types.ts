@@ -225,6 +225,16 @@ type TypeFeature = {
     "class-name": string,
 }
 
+type TypeFeatureClass = {
+    "code": string,
+    "name": string,
+}
+
+type TypeFeatureCode = {
+    "code": string,
+    "name": string,
+}
+
 type TypeCoordinate = {
     "latitude": TypePosition,
     "longitude": TypePosition,
@@ -343,6 +353,8 @@ export {
     TypeResults,
     TypeProperties,
     TypeFeature,
+    TypeFeatureClass,
+    TypeFeatureCode,
     TypeCoordinate,
     TypeNextPlaces,
     TypeAdministrativeLocations,

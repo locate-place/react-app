@@ -69,6 +69,8 @@ test('LocationApiWrapper: Test location GeoNameSearch', () =>
     expect(locationApiWrapper.getLocation().getDirectionString()).toEqual(null);
     expect(locationApiWrapper.getLocation().getDirectionUser()).toEqual(null);
     expect(locationApiWrapper.getLocation().getDirectionUserString()).toEqual(null);
+    expect(locationApiWrapper.getLocation().getFeatureClass()).toEqual({"code": "P", "name": "Städte, Dörfer, etc."});
+    expect(locationApiWrapper.getLocation().getFeatureCode()).toEqual({"code": "PPLA", "name": "Sitz einer Verwaltungseinheit erster Ordnung"});
 });
 
 /**
@@ -118,6 +120,8 @@ test('LocationApiWrapper: Test location GeoNameSearch with current location', ()
     expect(locationApiWrapper.getLocation().getDirectionString()).toEqual(null);
     expect(locationApiWrapper.getLocation().getDirectionUser()).toEqual({"cardinal-direction": "W", "cardinal-direction-translated": "West", "degree": -91.01});
     expect(locationApiWrapper.getLocation().getDirectionUserString()).toEqual('West');
+    expect(locationApiWrapper.getLocation().getFeatureClass()).toEqual({"code": "S", "name": "Spots, Buildings, Farms, etc."});
+    expect(locationApiWrapper.getLocation().getFeatureCode()).toEqual({"code": "CH", "name": "Church"});
 });
 
 /**

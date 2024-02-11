@@ -8,6 +8,23 @@
   "TEXT_HEADER_NEXT_PLACES": "Nächste Plätze",
   "TEXT_HEADER_MAPS": "Maps",
 
+  "TEXT_CAPTION_DISTRICT_LOCALITY": "Stadtteil / Ortschaft",
+  "TEXT_CAPTION_CITY_MUNICIPALITY": "Stadt / Gemeinde",
+  "TEXT_CAPTION_STATE": "Bundesland",
+  "TEXT_CAPTION_COUNTRY": "Land",
+  "TEXT_CAPTION_COUNTRY_CODE": "Ländercode",
+  "TEXT_CAPTION_ELEVATION": "Höhe",
+  "TEXT_CAPTION_DMS": "DMS",
+  "TEXT_CAPTION_DECIMAL": "Dezimal",
+  "TEXT_CAPTION_DISTANCE": "Distance",
+  "TEXT_CAPTION_DIRECTION": "Richtung",
+  "TEXT_CAPTION_MASTER_CODE": "Oberschlüssel",
+  "TEXT_CAPTION_CODE": "Schlüssel",
+  "TEXT_CAPTION_TIME_ZONE": "Zeitzone",
+  "TEXT_CAPTION_TIME_WIKIPEDIA": "Wikipedia",
+  "TEXT_CAPTION_TIME_GEONAME_ID": "Geoname ID",
+  "TEXT_CAPTION_TIME_LAST_UPDATE": "Letztes Update",
+
   "TEXT_NO_RESULT": "Keine Ergebnisse gefunden.",
   "TEXT_NO_RESULT_QUERY": "Keine Ergebnisse für \"{{query}}\" gefunden.",
 
@@ -35,5 +52,7 @@
   "TEXT_TITLE_START_SEARCH": "Starte Suche",
   "TEXT_TITLE_CURRENT_POSITION_IS_USED": "Akt. Position wird verwendet",
   "TEXT_TITLE_CURRENT_POSITION_USED": "Aktuelle Position \"{{currentPosition}}\" wird verwendet.",
-  "TEXT_TITLE_CURRENT_POSITION_NOT_USED": "Aktuelle Position wird nicht verwendet."
+  "TEXT_TITLE_CURRENT_POSITION_NOT_USED": "Aktuelle Position wird nicht verwendet.",
+
+  "TEXT_WORD_UNKNOWN": "Unbekannt"
 }

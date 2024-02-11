@@ -1,14 +1,15 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import {useSearchParams} from "react-router-dom";
 
+/* Import translation libraries. */
+import {useTranslation} from "react-i18next";
+
 /* Add configurations */
 import {sizeIcon} from "../../config/Config";
 
 /* Add functions */
 import loadApiData from "../../functions/LoadApiData";
 import {
-    getQuery,
-    getApiPathDetail,
     addCurrentPositionToQuery,
     getFilterConfig,
 } from "../../functions/QueryFunctions";
@@ -44,6 +45,9 @@ import {routePathLocation} from "../../config/Route";
  */
 const Location = () =>
 {
+    /* Import translation. */
+    const { t } = useTranslation();
+
     /* API types */
     const env = useMemo(() => {
         return process.env;
@@ -197,55 +201,54 @@ const Location = () =>
                                             <tbody>
                                             {
                                                 locationDistrictLocality ? <tr>
-                                                    <td className={classNamesFirstRow.join(' ')}>Stadtteil / Ortschaft
-                                                    </td>
+                                                    <td className={classNamesFirstRow.join(' ')}>{t('TEXT_CAPTION_DISTRICT_LOCALITY')}</td>
                                                     <td className={classNamesSecondRow.join(' ')}
                                                         colSpan={2}>{locationDistrictLocality.name}</td>
                                                 </tr> : <></>
                                             }
                                             {
                                                 locationCityMunicipality ? <tr>
-                                                    <td className={classNamesFirstRow.join(' ')}>Stadt / Gemeinde</td>
+                                                    <td className={classNamesFirstRow.join(' ')}>{t('TEXT_CAPTION_CITY_MUNICIPALITY')}</td>
                                                     <td className={classNamesSecondRow.join(' ')}
                                                         colSpan={2}>{locationCityMunicipality.name}</td>
                                                 </tr> : <></>
                                             }
                                             {
                                                 locationState ? <tr>
-                                                    <td className={classNamesFirstRow.join(' ')}>Bundesland</td>
+                                                    <td className={classNamesFirstRow.join(' ')}>{t('TEXT_CAPTION_STATE')}</td>
                                                     <td className={classNamesSecondRow.join(' ')}
                                                         colSpan={2}>{locationState.name}</td>
                                                 </tr> : <></>
                                             }
                                             {
                                                 locationCountry ? <tr>
-                                                    <td className={classNamesFirstRow.join(' ')}>Land</td>
+                                                    <td className={classNamesFirstRow.join(' ')}>{t('TEXT_CAPTION_COUNTRY')}</td>
                                                     <td className={classNamesSecondRow.join(' ')}
                                                         colSpan={2}>{locationCountry.name}</td>
                                                 </tr> : <></>
                                             }
                                             <tr>
-                                                <td className={classNamesFirstRow.join(' ')}>Ländercode</td>
+                                                <td className={classNamesFirstRow.join(' ')}>{t('TEXT_CAPTION_COUNTRY_CODE')}</td>
                                                 <td className={classNamesSecondRow.join(' ')}
                                                     colSpan={2}>{propertyCountryCode}</td>
                                             </tr>
                                             {
                                                 hasPropertyElevation ? <tr>
-                                                    <td className={classNamesFirstRow.join(' ')}>Höhe</td>
+                                                    <td className={classNamesFirstRow.join(' ')}>{t('TEXT_CAPTION_ELEVATION')}</td>
                                                     <td className={classNamesSecondRow.join(' ')}
                                                         colSpan={2}>{propertyElevation}</td>
                                                 </tr> : <></>
                                             }
                                             {
                                                 coordinateLatitudeDms && coordinateLongitudeDms ? <tr>
-                                                    <td className={classNamesFirstRow.join(' ')}>DMS</td>
+                                                    <td className={classNamesFirstRow.join(' ')}>{t('TEXT_CAPTION_DMS')}</td>
                                                     <td className={classNamesSecondRow.join(' ')}
                                                         colSpan={2}>{coordinateLatitudeDms}, {coordinateLongitudeDms}</td>
                                                 </tr> : <></>
                                             }
                                             {
                                                 coordinateLatitudeDecimal && coordinateLongitudeDecimal ? <tr>
-                                                    <td className={classNamesFirstRow.join(' ')}>Decimal</td>
+                                                    <td className={classNamesFirstRow.join(' ')}>{t('TEXT_CAPTION_DECIMAL')}</td>
                                                     <td className={classNamesSecondRow.join(' ')}
                                                         colSpan={2}>{coordinateLatitudeDecimal}, {coordinateLongitudeDecimal}</td>
                                                 </tr> : <></>
@@ -257,7 +260,7 @@ const Location = () =>
                                                             distanceInKilometers > 0 ?
                                                                 <>
                                                                     <tr>
-                                                                        <td className={classNamesFirstRow.join(' ')}>Entfernung</td>
+                                                                        <td className={classNamesFirstRow.join(' ')}>{t('TEXT_CAPTION_DISTANCE')}</td>
                                                                         <td className={classNamesSecondRow.join(' ')}
                                                                             colSpan={2}
                                                                             title={distanceText}>
@@ -265,11 +268,11 @@ const Location = () =>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td className={classNamesFirstRow.join(' ')}>Richtung</td>
+                                                                        <td className={classNamesFirstRow.join(' ')}>{t('TEXT_CAPTION_DIRECTION')}</td>
                                                                         <td className={classNamesSecondRow.join(' ')}
                                                                             title={distanceText}
                                                                         >
-                                                                            {directionTranslation[directionTranslated ?? ''] ?? 'Unbekannt'}<sup>*)</sup>
+                                                                            {directionTranslation[directionTranslated ?? ''] ?? t('TEXT_WORD_UNKNOWN')}<sup>*)</sup>
                                                                         </td>
                                                                         <td className={classNamesSecondRow.join(' ')}
                                                                             style={{
@@ -309,38 +312,38 @@ const Location = () =>
                                             }
                                             {
                                                 featureClass ? <tr>
-                                                    <td className={classNamesFirstRow.join(' ')}>Oberschlüssel</td>
+                                                    <td className={classNamesFirstRow.join(' ')}>{t('TEXT_CAPTION_MASTER_CODE')}</td>
                                                     <td className={classNamesSecondRow.join(' ')} colSpan={2}>
                                                         <code>{featureClass}</code> - {featureClassName}</td>
                                                 </tr> : <></>
                                             }
                                             {
                                                 featureCode ? <tr>
-                                                    <td className={classNamesFirstRow.join(' ')}>Schlüssel</td>
+                                                    <td className={classNamesFirstRow.join(' ')}>{t('TEXT_CAPTION_CODE')}</td>
                                                     <td className={classNamesSecondRow.join(' ')} colSpan={2}>
                                                         <code>{featureCode}</code> - {featureCodeName}</td>
                                                 </tr> : <></>
                                             }
                                             {
                                                 hasTimezone ? <tr>
-                                                    <td className={classNamesFirstRow.join(' ')}>Zeitzone</td>
+                                                    <td className={classNamesFirstRow.join(' ')}>{t('TEXT_CAPTION_TIME_ZONE')}</td>
                                                     <td className={classNamesSecondRow.join(' ')}
                                                         colSpan={2}>{timezone} <code>{timezoneOffset}</code></td>
                                                 </tr> : <></>
                                             }
                                             {
                                                 wikipediaLink ? <tr>
-                                                    <td className={classNamesFirstRow.join(' ')}>Wikipedia</td>
+                                                    <td className={classNamesFirstRow.join(' ')}>{t('TEXT_CAPTION_TIME_WIKIPEDIA')}</td>
                                                     <td className={classNamesSecondRow.join(' ')} colSpan={2}><a href={wikipediaLink} target={'_blank'} rel="noreferrer" dangerouslySetInnerHTML={{__html: addSoftHyphens(wikipediaLink)}} /></td>
                                                 </tr> : <></>
                                             }
                                             <tr>
-                                                <td className={classNamesFirstRow.join(' ')}>Geoname ID</td>
+                                                <td className={classNamesFirstRow.join(' ')}>{t('TEXT_CAPTION_TIME_GEONAME_ID')}</td>
                                                 <td className={classNamesSecondRow.join(' ')}
                                                     colSpan={2}>{data['geoname-id']}</td>
                                             </tr>
                                             <tr>
-                                                <td className={classNamesFirstRow.join(' ')}>Letztes Update</td>
+                                                <td className={classNamesFirstRow.join(' ')}>{t('TEXT_CAPTION_TIME_LAST_UPDATE')}</td>
                                                 <td className={classNamesSecondRow.join(' ')}
                                                     colSpan={2}>{convertToGermanFormat(data['updated-at'])}</td>
                                             </tr>

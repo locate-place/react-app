@@ -5,10 +5,10 @@
   "TEXT_LOCATION_SEARCH_HEADER": "Location Search",
 
   "TEXT_NO_RESULT": "No results found.",
-  "TEXT_NO_RESULT_QUERY": "Keine Ergebnisse für \"{{query}}\" gefunden.",
+  "TEXT_NO_RESULT_QUERY": "No results found for \"{{query}}\".",
 
-  "TEXT_RESULT": "{{numberTotal}} Ergebnisse gefunden. Zeige {{numberResults}}.",
-  "TEXT_RESULT_QUERY": "%numberTotal% Ergebnisse für \"{{query}}\" gefunden. Zeige {{numberFirstItem}} - {{numberLastItem}}.",
+  "TEXT_RESULT": "{{numberTotal}} results found. Show {{numberResults}}.",
+  "TEXT_RESULT_QUERY": "{{numberTotal}} results found for \"{{query}}\". Show {{numberFirstItem}} - {{numberLastItem}}.",
 
   "TEXT_SEARCH_RESULTS": "Search results"
 }

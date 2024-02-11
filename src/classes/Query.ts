@@ -35,6 +35,7 @@ import {
 
 /* Import classes. */
 import {ApiResponseProperty} from "./ApiResponseProperty";
+import {TFunction} from "i18next";
 
 /* API paths */
 const apiPathCalendars: string = '/v.json';
@@ -309,46 +310,39 @@ class Query
         return this.filterConfig[nameParameterQuery] ?? null;
     }
 
-    getQueryResultText = (): string =>
+    /**
+     * Returns the query result text.
+     *
+     * @param t {TFunction<"translation", undefined>}
+     */
+    getQueryResultText = (t:  TFunction<"translation", undefined>): string =>
     {
-        const textResult: string = '%numberTotal% Ergebnisse gefunden. Zeige %numberResults%.';
-
-        const textResultQuery: string = '%numberTotal% Ergebnisse für "%query%" gefunden. Zeige %numberFirstItem% - %numberLastItem%.';
-
-        const textNoResult = 'Keine Ergebnisse gefunden.';
-
-        const textNoResultQuery = 'Keine Ergebnisse für "%query%" gefunden.';
-
         if (this.apiResponseProperty === null) {
             throw new Error('The property class must be set before using isCoordinateSearch.');
         }
 
         if (!this.apiResponseProperty.hasResults()) {
             if (!this.hasQuery()) {
-                return textNoResult;
+                return t('TEXT_NO_RESULT');
             }
 
-            return textNoResultQuery.
-                replace('%query%', this.getQuery() ?? '');
-            ;
+            const query = this.getQuery();
+            return t('TEXT_NO_RESULT_QUERY', {query});
         }
 
         if (!this.hasQuery()) {
-            return textResult.
-                replace('%numberTotal%', this.apiResponseProperty.getNumberTotal().toString()).
-                replace('%numberResults%', this.apiResponseProperty.getNumberResults().toString())
-            ;
+            const numberTotal = this.apiResponseProperty.getNumberTotal();
+            const numberResults = this.apiResponseProperty.getNumberResults();
+
+            return t('TEXT_RESULT', {numberTotal, numberResults});
         }
 
+        const numberTotal = this.apiResponseProperty.getNumberTotal();
+        const query = this.getQuery();
         const numberFirstItem = (this.apiResponseProperty.getNumberPage() - 1) * this.apiResponseProperty.getNumberResults() + 1;
         const numberLastItem = this.apiResponseProperty.getNumberResults() * this.apiResponseProperty.getNumberPage();
 
-        return textResultQuery.
-            replace('%numberTotal%', this.apiResponseProperty.getNumberTotal().toString()).
-            replace('%query%', this.getQuery() ?? '').
-            replace('%numberFirstItem%', numberFirstItem.toString()).
-            replace('%numberLastItem%', numberLastItem.toString())
-        ;
+        return t('TEXT_RESULT_QUERY', {numberTotal, query, numberFirstItem, numberLastItem});
     }
 
     /**

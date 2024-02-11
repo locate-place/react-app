@@ -211,7 +211,7 @@ const Locations = () =>
                             <div className="clearfix"></div>
 
                             {/* Show the results. */}
-                            <div className="mt-5"><p>{query.getQueryResultText()}</p></div>
+                            <div className="mt-5"><p>{query.getQueryResultText(t)}</p></div>
 
                             {
                                 apiResponseProperty.hasResults() ?

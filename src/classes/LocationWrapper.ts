@@ -180,6 +180,20 @@ class LocationWrapper
     }
 
     /**
+     * Returns the cardinal direction of the location.
+     */
+    getDirectionString(): string|null
+    {
+        const direction = this.getDirection();
+
+        if (direction === null) {
+            return null;
+        }
+
+        return direction["cardinal-direction-translated"];
+    }
+
+    /**
      * Returns the direction of the location to user.
      */
     getDirectionUser(): TypeDirection|null
@@ -189,6 +203,20 @@ class LocationWrapper
         }
 
         return this.location.coordinate['direction-user'];
+    }
+
+    /**
+     * Returns the cardinal direction of the location to user.
+     */
+    getDirectionUserString(): string|null
+    {
+        const direction = this.getDirectionUser();
+
+        if (direction === null) {
+            return null;
+        }
+
+        return direction["cardinal-direction-translated"];
     }
 }
 

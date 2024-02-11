@@ -66,7 +66,9 @@ test('LocationApiWrapper: Test location GeoNameSearch', () =>
     expect(locationApiWrapper.getLocation().getDistance()).toEqual(null);
     expect(locationApiWrapper.getLocation().getDistanceUser()).toEqual(null);
     expect(locationApiWrapper.getLocation().getDirection()).toEqual(null);
+    expect(locationApiWrapper.getLocation().getDirectionString()).toEqual(null);
     expect(locationApiWrapper.getLocation().getDirectionUser()).toEqual(null);
+    expect(locationApiWrapper.getLocation().getDirectionUserString()).toEqual(null);
 });
 
 /**
@@ -113,7 +115,9 @@ test('LocationApiWrapper: Test location GeoNameSearch with current location', ()
     expect(locationApiWrapper.getLocation().getDistance()).toEqual(null);
     expect(locationApiWrapper.getLocation().getDistanceUser()).toEqual({"kilometers": {"unit": "km", "value": 474.627, "value-formatted": "474.627 km"}, "meters": {"unit": "m", "value": 474626.6, "value-formatted": "474,626.6 m"}});
     expect(locationApiWrapper.getLocation().getDirection()).toEqual(null);
+    expect(locationApiWrapper.getLocation().getDirectionString()).toEqual(null);
     expect(locationApiWrapper.getLocation().getDirectionUser()).toEqual({"cardinal-direction": "W", "cardinal-direction-translated": "West", "degree": -91.01});
+    expect(locationApiWrapper.getLocation().getDirectionUserString()).toEqual('West');
 });
 
 /**

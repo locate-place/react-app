@@ -12,7 +12,7 @@ import {addSoftHyphens} from "../../functions/Text";
 import {getFilterConfig, redirectNextPlacesList, redirectNextPlacesListWithCoordinate} from "../../functions/QueryFunctions";
 
 type NextPlacesProps = {
-    nextPlaces: TypeNextPlacesFeatureClass,
+    nextPlaces: TypeNextPlacesFeatureClass|null,
 }
 
 /**
@@ -47,6 +47,10 @@ const NextPlaces = ({nextPlaces}: NextPlacesProps) =>
 
     let filterConfig = getFilterConfig(searchParams);
 
+    if (nextPlaces === null) {
+        return <></>;
+    }
+
     return (
         nextPlaces.places.length > 0 ?
             <>
@@ -74,14 +78,14 @@ const NextPlaces = ({nextPlaces}: NextPlacesProps) =>
                                 getDecimal(nextPlaces.config['coordinate']),
                                 filterConfig,
                                 nextPlaces.feature['class'],
-                                nextPlaces.config['distance-meter'],
-                                nextPlaces.config['limit']
+                                nextPlaces.config['distance-meter'].toString(),
+                                nextPlaces.config['limit'].toString()
                             ) :
                             redirectNextPlacesList(
                                 filterConfig,
                                 nextPlaces.feature['class'],
-                                nextPlaces.config['distance-meter'],
-                                nextPlaces.config['limit']
+                                nextPlaces.config['distance-meter'].toString(),
+                                nextPlaces.config['limit'].toString()
                             )
                         ;
                         e.preventDefault();
@@ -89,7 +93,7 @@ const NextPlaces = ({nextPlaces}: NextPlacesProps) =>
                 </small></p>
                 <table className="table table-last-line">
                     <tbody>
-                        {nextPlaces.places.map((place: any, index: string) =>
+                        {nextPlaces.places.map((place: any, index: number) =>
                             <tr key={'place-' + nextPlaces.feature['class-name'] + '-' + index}>
                                 <td className="table-compass">
                                     <div className="compass compass-direction shadow-own">

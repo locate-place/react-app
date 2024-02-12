@@ -305,7 +305,27 @@ type TypeLinks = {
     "maps"?: TypeLinksMaps
 };
 
-type TypeNextPlacesFeatureClass = any;
+type TypeNextPlacesFeatureClassConfig = {
+    "distance-meter": number,
+    "limit": number,
+    "coordinate": TypeCoordinate,
+    "coordinate-type": string
+    "location": {
+        "name": string
+    }
+};
+
+type TypeNextPlacesFeatureClassFeature = {
+    "class": string,
+    "class-name": string
+};
+
+type TypeNextPlacesFeatureClass = {
+    "config": TypeNextPlacesFeatureClassConfig,
+    "feature": TypeNextPlacesFeatureClassFeature,
+    "places-number": number,
+    "places": TypeLocation[]
+};
 
 type TypeNextPlaces = {
     A?: TypeNextPlacesFeatureClass,
@@ -410,6 +430,8 @@ export {
     TypeCoordinate,
     TypeCurrentTime,
     TypeTimezone,
+    TypeNextPlacesFeatureClassConfig,
+    TypeNextPlacesFeatureClassFeature,
     TypeNextPlacesFeatureClass,
     TypeAdministrativeLocations,
     TypeLinksWikipediaLocations,

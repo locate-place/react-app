@@ -1,7 +1,9 @@
 /* Import types. */
 import {
-    TypeNextPlaces,
+    TypeLinksWikipediaNextPlaces, TypeLocation,
+    TypeNextPlaces, TypeNextPlacesFeatureClass, TypeNextPlacesFeatureClassConfig, TypeNextPlacesFeatureClassFeature,
 } from "../../../types/Types";
+import {LocationWrapper} from "../LocationWrapper";
 
 /**
  * Class NextPlacesWrapper
@@ -30,6 +32,94 @@ class NextPlacesWrapper
     get(): TypeNextPlaces
     {
         return this.nextPlaces;
+    }
+
+    /**
+     * Returns all feature classes.
+     */
+    getFeatureClasses(): string[]
+    {
+        return Object.keys(this.nextPlaces);
+    }
+
+    /**
+     * Returns the feature class of the location by given feature class key.
+     *
+     * @param key
+     */
+    getFeatureClass<K extends keyof TypeNextPlaces>(key: K): TypeNextPlacesFeatureClass|null
+    {
+        return this.nextPlaces[key] ?? null;
+    }
+
+    /**
+     * Returns the feature class config of the location by given feature class key.
+     *
+     * @param key {string}
+     */
+    getFeatureClassConfig<K extends keyof TypeNextPlaces>(key: K): TypeNextPlacesFeatureClassConfig|null
+    {
+        const featureClass = this.getFeatureClass(key);
+
+        if (featureClass === null) {
+            return null;
+        }
+
+        return featureClass.config;
+    }
+
+    /**
+     * Returns the feature class feature of the location by given feature class key.
+     *
+     * @param key {string}
+     */
+    getFeatureClassFeature<K extends keyof TypeNextPlaces>(key: K): TypeNextPlacesFeatureClassFeature|null
+    {
+        const featureClass = this.getFeatureClass(key);
+
+        if (featureClass === null) {
+            return null;
+        }
+
+        return featureClass.feature;
+    }
+
+    /**
+     * Returns the feature class places number of the location by given feature class key.
+     *
+     * @param key {string}
+     */
+    getFeatureClassPlacesNumber<K extends keyof TypeNextPlaces>(key: K): number|null
+    {
+        const featureClass = this.getFeatureClass(key);
+
+        if (featureClass === null) {
+            return null;
+        }
+
+        return featureClass["places-number"];
+    }
+
+    /**
+     * Returns the feature class places of the location by given feature class key.
+     *
+     * @param key {string}
+     */
+    getFeatureClassPlaces<K extends keyof TypeNextPlaces>(key: K): LocationWrapper[]|null
+    {
+        const featureClass = this.getFeatureClass(key);
+
+        if (featureClass === null) {
+            return null;
+        }
+
+        let locations: LocationWrapper[] = [];
+
+        featureClass.places.forEach((location): void => {
+            locations.push(new LocationWrapper(location));
+        });
+
+        return locations;
     }
 }
 

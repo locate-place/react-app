@@ -1,7 +1,9 @@
 /* Import types. */
 import {
-    TypeLinksWikipediaLocations,
-    TypeNextPlacesConfig, TypeNextPlacesConfigConfig, TypeNextPlacesConfigConfigNextPlace, TypeNextPlacesConfigEndpoint,
+    TypeNextPlacesConfig,
+    TypeNextPlacesConfigConfig,
+    TypeNextPlacesConfigConfigNextPlace,
+    TypeNextPlacesConfigEndpoint,
 } from "../../../types/Types";
 
 /**

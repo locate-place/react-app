@@ -125,24 +125,24 @@ const Location = () =>
     let timezoneOffset = !!data['timezone'] ? data['timezone'].offset : null;
 
     /* Get next places parts */
-    let hasNextPlacesA = !!data['next-places'] && data['next-places']['A'];
-    let nextPlacesA = !!data['next-places'] ? data['next-places']['A'] : null;
-    let hasNextPlacesH = !!data['next-places'] && data['next-places']['H'];
-    let nextPlacesH = !!data['next-places'] ? data['next-places']['H'] : null;
-    let hasNextPlacesL = !!data['next-places'] && data['next-places']['L'];
-    let nextPlacesL = !!data['next-places'] ? data['next-places']['L'] : null;
-    let hasNextPlacesP = !!data['next-places'] && data['next-places']['P'];
-    let nextPlacesP = !!data['next-places']? data['next-places']['P'] : null;
-    let hasNextPlacesR = !!data['next-places'] && data['next-places']['R'];
-    let nextPlacesR = !!data['next-places'] ? data['next-places']['R'] : null;
-    let hasNextPlacesS = !!data['next-places'] && data['next-places']['S'];
-    let nextPlacesS = !!data['next-places'] ? data['next-places']['S'] : null;
-    let hasNextPlacesT = !!data['next-places'] && data['next-places']['T'];
-    let nextPlacesT = !!data['next-places'] ? data['next-places']['T'] : null;
-    let hasNextPlacesU = !!data['next-places'] && data['next-places']['U'];
-    let nextPlacesU = !!data['next-places'] ? data['next-places']['U'] : null;
-    let hasNextPlacesV = !!data['next-places'] && data['next-places']['V'];
-    let nextPlacesV = !!data['next-places'] ? data['next-places']['V'] : null;
+    let hasNextPlacesA = !!data['next-places'] && !!data['next-places']['A'];
+    let nextPlacesA = !!data['next-places'] && !!data['next-places']['A'] ? data['next-places']['A'] : null;
+    let hasNextPlacesH = !!data['next-places'] && !!data['next-places']['H'];
+    let nextPlacesH = !!data['next-places'] && !!data['next-places']['H'] ? data['next-places']['H'] : null;
+    let hasNextPlacesL = !!data['next-places'] && !!data['next-places']['L'];
+    let nextPlacesL = !!data['next-places'] && !!data['next-places']['L'] ? data['next-places']['L'] : null;
+    let hasNextPlacesP = !!data['next-places'] && !!data['next-places']['P'];
+    let nextPlacesP = !!data['next-places'] && !!data['next-places']['P'] ? data['next-places']['P'] : null;
+    let hasNextPlacesR = !!data['next-places'] && !!data['next-places']['R'];
+    let nextPlacesR = !!data['next-places'] && !!data['next-places']['R'] ? data['next-places']['R'] : null;
+    let hasNextPlacesS = !!data['next-places'] && !!data['next-places']['S'];
+    let nextPlacesS = !!data['next-places'] && !!data['next-places']['S'] ? data['next-places']['S'] : null;
+    let hasNextPlacesT = !!data['next-places'] && !!data['next-places']['T'];
+    let nextPlacesT = !!data['next-places'] && !!data['next-places']['T'] ? data['next-places']['T'] : null;
+    let hasNextPlacesU = !!data['next-places'] && !!data['next-places']['U'];
+    let nextPlacesU = !!data['next-places'] && !!data['next-places']['U'] ? data['next-places']['U'] : null;
+    let hasNextPlacesV = !!data['next-places'] && !!data['next-places']['V'];
+    let nextPlacesV = !!data['next-places'] && !!data['next-places']['V'] ? data['next-places']['V'] : null;
 
     let wikipediaLink = !!data['links']['wikipedia'] && !!data['links']['wikipedia']['this'] ? data['links']['wikipedia']['this'] :  null;
 

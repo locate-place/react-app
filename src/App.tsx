@@ -49,20 +49,21 @@ const App = () => {
         return navigateOrig;
     }, [navigateOrig]);
 
+
+    /* Memorized variables. */
+    const [searchParams] = useSearchParams();
+    const language = searchParams.get(nameParameterLanguage) ?? languageDefault;
+
     /**
      * useEffect function.
      */
     useEffect(() => {
         addOnScrollListener();
         redirect(navigate);
-    }, [navigate]);
 
-    /* Memorized variables. */
-    const [searchParams] = useSearchParams();
-    const language = searchParams.get(nameParameterLanguage) ?? languageDefault;
-
-    /* Change language to german. */
-    i18n.changeLanguage(language).then();
+        /* Change language to german. */
+        i18n.changeLanguage(language).then();
+    }, [navigate, language]);
 
     return (
         <div className="App">

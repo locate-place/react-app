@@ -262,12 +262,12 @@ const Location = () =>
                                             <tr>
                                                 <td className={classNamesFirstRow.join(' ')}>{t('TEXT_CAPTION_MASTER_CODE')}</td>
                                                 <td className={classNamesSecondRow.join(' ')} colSpan={2}>
-                                                    <code>{location.getFeature().getClass().code}</code> - {location.getFeature().getClass().name}</td>
+                                                    <code>{location.getFeature().getClass().getCode()}</code> - {location.getFeature().getClass().getName()}</td>
                                             </tr>
                                             <tr>
                                                 <td className={classNamesFirstRow.join(' ')}>{t('TEXT_CAPTION_CODE')}</td>
                                                 <td className={classNamesSecondRow.join(' ')} colSpan={2}>
-                                                    <code>{location.getFeature().getCode().code}</code> - {location.getFeature().getCode().name}</td>
+                                                    <code>{location.getFeature().getCode().getCode()}</code> - {location.getFeature().getCode().getName()}</td>
                                             </tr>
                                             {
                                                 location.hasTimezone() ?

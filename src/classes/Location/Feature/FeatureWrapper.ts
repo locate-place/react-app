@@ -7,6 +7,8 @@ import {
 
 /* Import classes. */
 import {LocationApiWrapper} from "../../LocationApiWrapper";
+import {FeatureClassWrapper} from "./FeatureClass/FeatureClassWrapper";
+import {FeatureCodeWrapper} from "./FeatureCode/FeatureCodeWrapper";
 
 /**
  * Class FeatureWrapper
@@ -25,7 +27,7 @@ class FeatureWrapper
      * FeatureWrapper constructor.
      *
      * @param feature {TypeFeature}
-     * @param locationApiWrapper {}LocationApiWrapper}
+     * @param locationApiWrapper {LocationApiWrapper}
      */
     constructor(feature: TypeFeature, locationApiWrapper: LocationApiWrapper)
     {
@@ -45,23 +47,23 @@ class FeatureWrapper
     /**
      * Returns the feature class of the location.
      */
-    getClass(): TypeFeatureClass
+    getClass(): FeatureClassWrapper
     {
-        return {
+        return new FeatureClassWrapper({
             'code': this.feature['class'],
             'name': this.feature['class-name'],
-        };
+        }, this.locationApiWrapper);
     }
 
     /**
      * Returns the feature code of the location.
      */
-    getCode(): TypeFeatureCode
+    getCode(): FeatureCodeWrapper
     {
-        return {
+        return new FeatureCodeWrapper({
             'code': this.feature['code'],
             'name': this.feature['code-name'],
-        };
+        }, this.locationApiWrapper);
     }
 }
 

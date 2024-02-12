@@ -102,8 +102,10 @@ test('LocationApiWrapper: Test location GeoNameSearch', () =>
     expect(locationApiWrapper.getLocation().getCoordinate().getDirectionUserTranslated()).toEqual(null);
 
     /* Test feature. */
-    expect(locationApiWrapper.getLocation().getFeature().getClass()).toEqual({"code": "P", "name": "Städte, Dörfer, etc."});
-    expect(locationApiWrapper.getLocation().getFeature().getCode()).toEqual({"code": "PPLA", "name": "Sitz einer Verwaltungseinheit erster Ordnung"});
+    expect(locationApiWrapper.getLocation().getFeature().getClass().getCode()).toEqual("P");
+    expect(locationApiWrapper.getLocation().getFeature().getClass().getName()).toEqual("Städte, Dörfer, etc.");
+    expect(locationApiWrapper.getLocation().getFeature().getCode().getCode()).toEqual("PPLA");
+    expect(locationApiWrapper.getLocation().getFeature().getCode().getName()).toEqual("Sitz einer Verwaltungseinheit erster Ordnung");
 
     /* Test timezone. */
     expect(locationApiWrapper.getLocation().getTimezone()?.getTimezone()).toEqual('Europe/Berlin');
@@ -196,8 +198,10 @@ test('LocationApiWrapper: Test location GeoNameSearch with current location', ()
     expect(locationApiWrapper.getLocation().getCoordinate().getDirectionUserTranslated()).toEqual('West');
 
     /* Test feature. */
-    expect(locationApiWrapper.getLocation().getFeature().getClass()).toEqual({"code": "S", "name": "Spots, Buildings, Farms, etc."});
-    expect(locationApiWrapper.getLocation().getFeature().getCode()).toEqual({"code": "CH", "name": "Church"});
+    expect(locationApiWrapper.getLocation().getFeature().getClass().getCode()).toEqual("S");
+    expect(locationApiWrapper.getLocation().getFeature().getClass().getName()).toEqual("Spots, Buildings, Farms, etc.");
+    expect(locationApiWrapper.getLocation().getFeature().getCode().getCode()).toEqual("CH");
+    expect(locationApiWrapper.getLocation().getFeature().getCode().getName()).toEqual("Church");
 
     /* Test timezone. */
     expect(locationApiWrapper.getLocation().getTimezone()?.getTimezone()).toEqual('Europe/Berlin');

@@ -123,13 +123,13 @@ class NextPlacesWrapper
             return null;
         }
 
-        let locations: LocationWrapper[] = [];
+        let places: LocationWrapper[] = [];
 
         featureClass.places.forEach((location): void => {
-            locations.push(new LocationWrapper(location, this.locationApiWrapper));
+            places.push(new LocationWrapper(location, this.locationApiWrapper));
         });
 
-        return locations;
+        return places;
     }
 }
 

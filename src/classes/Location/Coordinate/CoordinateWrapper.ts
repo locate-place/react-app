@@ -107,6 +107,30 @@ class CoordinateWrapper
     }
 
     /**
+     * Returns the distance of the location in kilometers (-1 if not exists).
+     */
+    getDistanceKilometerValue(): number
+    {
+        if (!this.coordinate.distance) {
+            return -1;
+        }
+
+        return this.coordinate.distance.kilometers.value;
+    }
+
+    /**
+     * Returns the distance of the location in kilometers (-1 if not exists).
+     */
+    getDistanceKilometerFormatted(): string|null
+    {
+        if (!this.coordinate.distance) {
+            return null;
+        }
+
+        return this.coordinate.distance.kilometers["value-formatted"];
+    }
+
+    /**
      * Returns if the distance of the location to user exists.
      */
     hasDistanceUser(): boolean
@@ -199,6 +223,20 @@ class CoordinateWrapper
         }
 
         return direction["cardinal-direction-translated"];
+    }
+
+    /**
+     * Returns the cardinal direction of the location.
+     */
+    getDirectionTranslatedShort(): string|null
+    {
+        const direction = this.getDirection();
+
+        if (direction === null) {
+            return null;
+        }
+
+        return direction["cardinal-direction"];
     }
 
     /**

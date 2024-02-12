@@ -8,6 +8,7 @@ import {
 /* Import classes. */
 import {LocationApiWrapper} from "../../LocationApiWrapper";
 import {getLocale} from "../../../functions/i18n";
+import {LocationWrapper} from "../LocationWrapper";
 
 /**
  * Class NextPlaceWrapper
@@ -60,15 +61,65 @@ class NextPlaceWrapper
     }
 
     /**
+     * Returns if places are available.
+     */
+    hasPlaces(): boolean
+    {
+        return this.nextPlace.places.length > 0;
+    }
+
+    /**
+     * Returns the places for this next place area.
+     */
+    getPlaces(): LocationWrapper[]
+    {
+        let places: LocationWrapper[] = [];
+
+        this.nextPlace.places.forEach((location): void => {
+            places.push(new LocationWrapper(location, this.locationApiWrapper));
+        });
+
+        return places;
+    }
+
+    /**
      * Returns next place title.
      *
      * @param t
      */
-    getNextPlacesTitle(t: TFunction<"translation", undefined>): string
+    getTitle(t: TFunction<"translation", undefined>): string
     {
         const name = this.getFeatureClassName();
 
         return t('TEXT_NEXT_PLACE_TITLE', {name});
+    }
+
+    /**
+     * Returns the config coordinate decimal string.
+     *
+     * @param separator
+     */
+    getConfigCoordinateDecimal(separator: string = ', '): string
+    {
+        return this.nextPlace.config.coordinate.latitude.decimal + separator + this.nextPlace.config.coordinate.longitude.decimal;
+    }
+
+    /**
+     * Returns the config coordinate dms string.
+     *
+     * @param separator
+     */
+    getConfigCoordinateDms(separator: string = ', '): string
+    {
+        return this.nextPlace.config.coordinate.latitude.dms + separator + this.nextPlace.config.coordinate.longitude.dms;
+    }
+
+    /**
+     * Returns the next place config coordinate type.
+     */
+    getConfigCoordinateType(): string
+    {
+        return this.nextPlace.config['coordinate-type'];
     }
 
     /**
@@ -126,7 +177,7 @@ class NextPlaceWrapper
      */
     getConfigDistanceAndDirectionText(t: TFunction<"translation", undefined>, showForAll: boolean = false): string
     {
-        const coordinate: string = this.nextPlace.config.coordinate.latitude.dms + ', ' + this.nextPlace.config.coordinate.longitude.dms;
+        const coordinate: string = this.getConfigCoordinateDms();
 
         const i18nLocation = showForAll ? 'TEXT_NEXT_PLACE_DISTANCE_HINT_LOCATION_TEXT_ALL' : 'TEXT_NEXT_PLACE_DISTANCE_HINT_LOCATION_TEXT';
         const i18nQuery = showForAll ? 'TEXT_NEXT_PLACE_DISTANCE_HINT_QUERY_TEXT_ALL' : 'TEXT_NEXT_PLACE_DISTANCE_HINT_QUERY_TEXT';

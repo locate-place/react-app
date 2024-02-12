@@ -5,13 +5,13 @@ import {useSearchParams} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 
 /* Import functions */
-import {getDecimal, getDms} from "../../functions/Coordinate";
-import {getElevation, getPopulation} from "../../functions/Properties";
 import {addSoftHyphens} from "../../functions/Text";
 import {getFilterConfig, redirectNextPlacesList, redirectNextPlacesListWithCoordinate} from "../../functions/QueryFunctions";
 
 /* Import classes. */
 import {NextPlaceWrapper} from "../../classes/Location/NextPlaces/NextPlaceWrapper";
+import {LocationWrapper} from "../../classes/Location/LocationWrapper";
+import {mapTypeGoogle} from "../../config/MapTypes";
 
 /* Argument properties. */
 type NextPlacesProps = {
@@ -35,14 +35,12 @@ const NextPlaces = ({nextPlace}: NextPlacesProps) =>
         return <></>;
     }
 
-    const data = nextPlace.get();
-
     return (
-        data.places.length > 0 ?
+        nextPlace.hasPlaces() ?
             <>
                 <h3>
                     <strong>
-                        <span>{nextPlace.getNextPlacesTitle(t)}</span> - <code>{nextPlace.getFeatureClassCode()}</code>
+                        <span>{nextPlace.getTitle(t)}</span> - <code>{nextPlace.getFeatureClassCode()}</code>
                     </strong>
                 </h3>
                 <p><small>
@@ -52,19 +50,19 @@ const NextPlaces = ({nextPlace}: NextPlacesProps) =>
                     {t('TEXT_NEXT_PLACE_SORTED_BY_DISTANCE_TEXT')} -&nbsp;
                     <button className="link-button" onClick={(e) => {
 
-                        data.config['coordinate-type'] === 'location' ?
+                        nextPlace.getConfigCoordinateType() === 'location' ?
                             redirectNextPlacesListWithCoordinate(
-                                getDecimal(data.config['coordinate']),
+                                nextPlace.getConfigCoordinateDecimal(),
                                 filterConfig,
-                                data.feature['class'],
-                                data.config['distance-meter'].toString(),
-                                data.config['limit'].toString()
+                                nextPlace.getFeatureClassCode(),
+                                nextPlace.getConfigDistanceMeter().toString(),
+                                nextPlace.getConfigLimitation().toString()
                             ) :
                             redirectNextPlacesList(
                                 filterConfig,
-                                data.feature['class'],
-                                data.config['distance-meter'].toString(),
-                                data.config['limit'].toString()
+                                nextPlace.getFeatureClassCode(),
+                                nextPlace.getConfigDistanceMeter().toString(),
+                                nextPlace.getConfigLimitation().toString()
                             )
                         ;
                         e.preventDefault();
@@ -72,38 +70,43 @@ const NextPlaces = ({nextPlace}: NextPlacesProps) =>
                 </small></p>
                 <table className="table table-last-line">
                     <tbody>
-                        {data.places.map((place: any, index: number) =>
-                            <tr key={'place-' + data.feature['class-name'] + '-' + index}>
+                        {nextPlace.getPlaces().map((place: LocationWrapper, index: number) =>
+                            <tr key={'place-' + nextPlace.getFeatureClassCode() + '-' + index}>
                                 <td className="table-compass">
                                     <div className="compass compass-direction shadow-own">
-                                        <div className="arrow arrow-direction" data-degree={place.coordinate.direction['degree']}></div>
+                                        <div
+                                            className="arrow arrow-direction"
+                                            data-degree={place.getCoordinate().getDirectionDegree()}
+                                        ></div>
                                     </div>
                                 </td>
                                 <td className="column-name">
                                     <small>
-                                    <kbd className="shadow-own">{place.feature['code']}</kbd> <br className="d-block d-sm-none" /><strong dangerouslySetInnerHTML={{__html: (index + 1) + ') ' + addSoftHyphens(place.name)}} /><br/>
-                                        {place.feature['code-name']}
-                                        {getElevation(place, ' - ')}
-                                        {getPopulation(place, ' - ')}
+                                        <kbd className="shadow-own">{place.getFeature().getCode().getCode()}</kbd> <br
+                                        className="d-block d-sm-none"/><strong
+                                        dangerouslySetInnerHTML={{__html: (index + 1) + ') ' + addSoftHyphens(place.getName())}}/><br/>
+                                        {place.getFeature().getCode().getName()}
+                                        {place.getProperties().getElevationText(place, t, ' - ')}
+                                        {place.getProperties().getPopulationText(place, t, ' - ')}
                                     </small>
                                 </td>
 
                                 {
-                                    place.coordinate.distance ?
+                                    place.getCoordinate().hasDistance() ?
                                         <>
                                             <td className="column-value">
                                                 <a
                                                     className="btn btn-primary shadow-own"
-                                                    href={place.links.maps.google}
+                                                    href={place.getLinks().getMaps(mapTypeGoogle) ?? ''}
                                                     target={'_blank'}
                                                     rel="noreferrer"
                                                     title={nextPlace.getConfigDistanceAndDirectionText(t)}
                                                 ><small>
                                                     <span className="text-nowrap">
-                                                        {place.coordinate.distance.kilometers['value-formatted']}<sup>*)</sup>
+                                                        {place.getCoordinate().getDistanceKilometerFormatted() ?? ''}<sup>*)</sup>
                                                     </span>
                                                     <br/>
-                                                    - {place.coordinate.direction['cardinal-direction']} -
+                                                    - {place.getCoordinate().getDirectionTranslatedShort() ?? ''} -
                                                 </small></a>
                                             </td>
                                         </> : <></>

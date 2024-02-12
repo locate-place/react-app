@@ -1,5 +1,8 @@
+import {TFunction} from "i18next";
+
 /* Import types. */
 import {
+    TypePlace,
     TypeProperties, TypeValue,
 } from "../../../types/Types";
 
@@ -8,6 +11,8 @@ import {translateCountryCode} from "../../../translations/Country";
 
 /* Import classes. */
 import {LocationApiWrapper} from "../../LocationApiWrapper";
+import {showElevation} from "../../../functions/Properties";
+import {LocationWrapper} from "../LocationWrapper";
 
 /**
  * Class PropertiesWrapper
@@ -68,11 +73,39 @@ class PropertiesWrapper
     }
 
     /**
-     * Return the country code from location.
+     * Return the elevation from location.
      */
     getElevation(): TypeValue|null
     {
         return this.properties.elevation ?? null;
+    }
+
+    /**
+     * Returns if the elevation text from location should be shown.
+     */
+    showElevationText(location: LocationWrapper): boolean
+    {
+        return [
+            'HLL',
+            'MT',
+            'PK'
+        ].includes(location.getFeature().getCode().getCode());
+    }
+
+    /**
+     * Return the elevation text from location.
+     */
+    getElevationText(location: LocationWrapper, t: TFunction<"translation", undefined>, separator: string = ''): string|null
+    {
+        if (!this.showElevationText(location)) {
+            return null;
+        }
+
+        if (!location.getProperties().hasElevation()) {
+            return null;
+        }
+
+        return separator + location.getProperties().getElevation()?.["value-formatted"];
     }
 
     /**
@@ -89,6 +122,35 @@ class PropertiesWrapper
     getPopulation(): TypeValue|null
     {
         return this.properties.population ?? null;
+    }
+
+    /**
+     * Returns if the population text from location should be shown.
+     */
+    showPopulationText(location: LocationWrapper): boolean
+    {
+        return [
+            'A',
+            'P'
+        ].includes(location.getFeature().getClass().getCode());
+    }
+
+    /**
+     * Returns the population text from location.
+     */
+    getPopulationText(location: LocationWrapper, t: TFunction<"translation", undefined>, separator: string = ''): string|null
+    {
+        if (!this.showPopulationText(location)) {
+            return null;
+        }
+
+        if (!location.getProperties().hasPopulation()) {
+            return null;
+        }
+
+        const inhabitants = location.getProperties().getPopulation()?.["value-formatted"];
+
+        return separator + t('TEXT_NEXT_PLACE_INHABITANTS_TEXT', {inhabitants});
     }
 }
 

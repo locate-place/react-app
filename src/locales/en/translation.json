@@ -66,6 +66,7 @@
   "TEXT_NEXT_PLACE_DISTANCE_HINT_QUERY_TEXT_ALL": "All distances and directions according to the location of the search query ({{coordinate}}).",
   "TEXT_NEXT_PLACE_DISTANCE_HINT_LOCATION_TEXT": "Distance and direction according to the displayed location \"{{location}}\" ({{coordinate}}).",
   "TEXT_NEXT_PLACE_DISTANCE_HINT_QUERY_TEXT": "Distance and direction according to the location of the search query ({{coordinate}}).",
+  "TEXT_NEXT_PLACE_INHABITANTS_TEXT": "{{inhabitants}} Inhabitants",
 
   "TEXT_WORD_UNKNOWN": "Unknown"
 }

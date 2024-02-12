@@ -1,9 +1,14 @@
 /* Import types. */
 import {
-    TypeLinksWikipediaNextPlaces, TypeLocation,
-    TypeNextPlaces, TypeNextPlacesFeatureClass, TypeNextPlacesFeatureClassConfig, TypeNextPlacesFeatureClassFeature,
+    TypeNextPlaces,
+    TypeNextPlacesFeatureClass,
+    TypeNextPlacesFeatureClassConfig,
+    TypeNextPlacesFeatureClassFeature,
 } from "../../../types/Types";
+
+/* Import classes. */
 import {LocationWrapper} from "../LocationWrapper";
+import {LocationApiWrapper} from "../../LocationApiWrapper";
 
 /**
  * Class NextPlacesWrapper
@@ -16,14 +21,19 @@ class NextPlacesWrapper
 {
     private readonly nextPlaces: TypeNextPlaces;
 
+    private readonly locationApiWrapper: LocationApiWrapper;
+
     /**
      * NextPlacesWrapper constructor.
      *
      * @param nextPlaces {TypeNextPlaces}
+     * @param locationApiWrapper {LocationApiWrapper}
      */
-    constructor(nextPlaces: TypeNextPlaces)
+    constructor(nextPlaces: TypeNextPlaces, locationApiWrapper: LocationApiWrapper)
     {
         this.nextPlaces = nextPlaces;
+
+        this.locationApiWrapper = locationApiWrapper;
     }
 
     /**
@@ -116,7 +126,7 @@ class NextPlacesWrapper
         let locations: LocationWrapper[] = [];
 
         featureClass.places.forEach((location): void => {
-            locations.push(new LocationWrapper(location));
+            locations.push(new LocationWrapper(location, this.locationApiWrapper));
         });
 
         return locations;

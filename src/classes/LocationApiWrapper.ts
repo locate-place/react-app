@@ -6,7 +6,7 @@ import {
     TypeResults,
     TypeLocation,
     typeLocation,
-    typeLocations
+    typeLocations, TypeGiven
 } from "../types/Types";
 
 /* Import classes. */
@@ -115,7 +115,7 @@ class LocationApiWrapper
     getLocation(): LocationWrapper
     {
         if (this.isLocation() && !Array.isArray(this.apiData.data)) {
-            return new LocationWrapper(this.apiData.data);
+            return new LocationWrapper(this.apiData.data, this);
         }
 
         throw new TypeError("The api response is not a single location response.");
@@ -131,6 +131,14 @@ class LocationApiWrapper
         }
 
         return null;
+    }
+
+    /**
+     * Returns the given object.
+     */
+    getGiven(): TypeGiven
+    {
+        return this.apiData.given;
     }
 
     /**

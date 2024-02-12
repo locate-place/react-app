@@ -97,7 +97,7 @@ const Location = () =>
     let location = locationApiWrapper.getLocation();
 
     /* Build distance text. */
-    let distanceText = properties.given && properties.given.coordinate ? ('Von aktueller Position ' + properties.given.coordinate.parsed.latitude.dms + ', ' + properties.given.coordinate.parsed.longitude.dms) : '';
+    let distanceText = location.getCoordinate().getDistanceUserText();
 
     let filterConfig = getFilterConfig(searchParams);
     let addCurrentPosition = () => {
@@ -212,14 +212,14 @@ const Location = () =>
                                                                         <td className={classNamesFirstRow.join(' ')}>{t('TEXT_CAPTION_DISTANCE')}</td>
                                                                         <td className={classNamesSecondRow.join(' ')}
                                                                             colSpan={2}
-                                                                            title={distanceText}>
+                                                                            title={distanceText ?? ''}>
                                                                             {location.getCoordinate().getDistanceUserKilometerFormatted()}<sup>*)</sup>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td className={classNamesFirstRow.join(' ')}>{t('TEXT_CAPTION_DIRECTION')}</td>
                                                                         <td className={classNamesSecondRow.join(' ')}
-                                                                            title={distanceText}
+                                                                            title={distanceText ?? ''}
                                                                         >
                                                                             {location.getCoordinate().getDirectionUserTranslated()}<sup>*)</sup>
                                                                         </td>
@@ -244,11 +244,11 @@ const Location = () =>
                                                     <tr>
                                                         <td className={classNamesFirstRow.join(' ')}>Entfernung</td>
                                                         <td className={classNamesSecondRow.join(' ')}
-                                                            title={distanceText}>
+                                                            title={distanceText ?? ''}>
                                                             Standort des Nutzers ist unbekannt.
                                                         </td>
                                                         <td className={classNamesSecondRow.join(' ')}
-                                                            title={distanceText} style={{textAlign: 'right'}}>
+                                                            title={distanceText ?? ''} style={{textAlign: 'right'}}>
                                                             <button
                                                                 className="btn btn-outline-primary shadow-own mt-2 mb-2 button-own-position button-minimized"
                                                                 onClick={addCurrentPosition}
@@ -269,11 +269,14 @@ const Location = () =>
                                                 <td className={classNamesSecondRow.join(' ')} colSpan={2}>
                                                     <code>{location.getFeature().getCode().code}</code> - {location.getFeature().getCode().name}</td>
                                             </tr>
-                                            <tr>
-                                                <td className={classNamesFirstRow.join(' ')}>{t('TEXT_CAPTION_TIME_ZONE')}</td>
-                                                <td className={classNamesSecondRow.join(' ')}
-                                                    colSpan={2}>{location.getTimezone()?.getTimezone()} <code>{location.getTimezone()?.getOffset()}</code></td>
-                                            </tr>
+                                            {
+                                                location.hasTimezone() ?
+                                                <tr>
+                                                    <td className={classNamesFirstRow.join(' ')}>{t('TEXT_CAPTION_TIME_ZONE')}</td>
+                                                    <td className={classNamesSecondRow.join(' ')}
+                                                        colSpan={2}>{location.getTimezone()?.getTimezone()} <code>{location.getTimezone()?.getOffset()}</code></td>
+                                                </tr> : <></>
+                                            }
                                             {
                                                 location.getLinks().hasWikipedia() ? <tr>
                                                     <td className={classNamesFirstRow.join(' ')}>{t('TEXT_CAPTION_TIME_WIKIPEDIA')}</td>
@@ -318,7 +321,7 @@ const Location = () =>
                                             return <></>;
                                         }
 
-                                        return <NextPlaces nextPlaces={nextPlace}/>;
+                                        return <NextPlaces key={'feature-code-' + featureClass} nextPlaces={nextPlace}/>;
                                     })}
                                 </> : <></>
                             }

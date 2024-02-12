@@ -2,7 +2,12 @@
 import {
     TypeProperties, TypeValue,
 } from "../../../types/Types";
+
+/* Import translations. */
 import {translateCountryCode} from "../../../translations/Country";
+
+/* Import classes. */
+import {LocationApiWrapper} from "../../LocationApiWrapper";
 
 /**
  * Class PropertiesWrapper
@@ -15,14 +20,19 @@ class PropertiesWrapper
 {
     private readonly properties: TypeProperties;
 
+    private readonly locationApiWrapper: LocationApiWrapper;
+
     /**
      * PropertiesWrapper constructor.
      *
      * @param properties {TypeProperties}
+     * @param locationApiWrapper {LocationApiWrapper}
      */
-    constructor(properties: TypeProperties)
+    constructor(properties: TypeProperties, locationApiWrapper: LocationApiWrapper)
     {
         this.properties = properties;
+
+        this.locationApiWrapper = locationApiWrapper;
     }
 
     /**

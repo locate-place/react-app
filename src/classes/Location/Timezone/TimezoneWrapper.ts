@@ -6,6 +6,7 @@ import {
 
 /* Import classes. */
 import {CoordinateWrapper} from "../Coordinate/CoordinateWrapper";
+import {LocationApiWrapper} from "../../LocationApiWrapper";
 
 /**
  * Class TimezoneWrapper
@@ -18,14 +19,19 @@ class TimezoneWrapper
 {
     private readonly timezone: TypeTimezone;
 
+    private readonly locationApiWrapper: LocationApiWrapper;
+
     /**
      * TimezoneWrapper constructor.
      *
      * @param timezone {TypeTimezone}
+     * @param locationApiWrapper {LocationApiWrapper}
      */
-    constructor(timezone: TypeTimezone)
+    constructor(timezone: TypeTimezone, locationApiWrapper: LocationApiWrapper)
     {
         this.timezone = timezone;
+
+        this.locationApiWrapper = locationApiWrapper;
     }
 
     /**
@@ -73,7 +79,7 @@ class TimezoneWrapper
      */
     getCoordinate(): CoordinateWrapper
     {
-        return new CoordinateWrapper(this.timezone.coordinate);
+        return new CoordinateWrapper(this.timezone.coordinate, this.locationApiWrapper);
     }
 }
 

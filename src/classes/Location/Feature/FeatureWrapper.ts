@@ -5,6 +5,9 @@ import {
     TypeFeatureCode,
 } from "../../../types/Types";
 
+/* Import classes. */
+import {LocationApiWrapper} from "../../LocationApiWrapper";
+
 /**
  * Class FeatureWrapper
  *
@@ -16,14 +19,19 @@ class FeatureWrapper
 {
     private readonly feature: TypeFeature;
 
+    private readonly locationApiWrapper: LocationApiWrapper;
+
     /**
      * FeatureWrapper constructor.
      *
      * @param feature {TypeFeature}
+     * @param locationApiWrapper {}LocationApiWrapper}
      */
-    constructor(feature: TypeFeature)
+    constructor(feature: TypeFeature, locationApiWrapper: LocationApiWrapper)
     {
         this.feature = feature;
+
+        this.locationApiWrapper = locationApiWrapper;
     }
 
     /**

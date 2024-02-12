@@ -4,6 +4,9 @@ import {
     TypeLinksWikipediaLocations, TypeLinksWikipediaNextPlaces,
 } from "../../../types/Types";
 
+/* Import classes. */
+import {LocationApiWrapper} from "../../LocationApiWrapper";
+
 /**
  * Class LinksWrapper
  *
@@ -15,14 +18,19 @@ class LinksWrapper
 {
     private readonly links: TypeLinks;
 
+    private readonly locationApiWrapper: LocationApiWrapper;
+
     /**
      * LinksWrapper constructor.
      *
      * @param links {TypeLinks}
+     * @param locationApiWrapper {LocationApiWrapper}
      */
-    constructor(links: TypeLinks)
+    constructor(links: TypeLinks, locationApiWrapper: LocationApiWrapper)
     {
         this.links = links;
+
+        this.locationApiWrapper = locationApiWrapper;
     }
 
     /**

@@ -1,7 +1,9 @@
 /* Import types. */
 import {
-    TypeAdministrativeLocations, TypeLinksWikipediaNextPlaces,
-    TypeLocation, TypeNextPlaces, TypeNextPlacesFeatureClass,
+    TypeAdministrativeLocations,
+    TypeLocation,
+    TypeNextPlaces,
+    TypeNextPlacesFeatureClass,
 } from "../../types/Types";
 
 /* Import config. */
@@ -13,6 +15,7 @@ import {
 } from "../../config/AdministrativeLocations";
 
 /* Import classes. */
+import {LocationApiWrapper} from "../LocationApiWrapper";
 import {FeatureWrapper} from "./Feature/FeatureWrapper";
 import {CoordinateWrapper} from "./Coordinate/CoordinateWrapper";
 import {PropertiesWrapper} from "./Properties/PropertiesWrapper";
@@ -32,14 +35,18 @@ class LocationWrapper
 {
     private readonly location: TypeLocation;
 
+    private readonly locationApiWrapper: LocationApiWrapper;
+
     /**
      * LocationApiWrapper constructor.
      *
      * @param location {TypeLocation}
+     * @param locationApiWrapper {LocationApiWrapper}
      */
-    constructor(location: TypeLocation)
+    constructor(location: TypeLocation, locationApiWrapper: LocationApiWrapper)
     {
         this.location = location;
+        this.locationApiWrapper = locationApiWrapper;
     }
 
     /**
@@ -114,11 +121,7 @@ class LocationWrapper
             return false;
         }
 
-        if (!administrativeLocations[key]) {
-            return false;
-        }
-
-        return true;
+        return !!administrativeLocations[key];
     }
 
     /**
@@ -139,7 +142,7 @@ class LocationWrapper
             return null;
         }
 
-        return new LocationWrapper(administrativeLocations[key]);
+        return new LocationWrapper(administrativeLocations[key], this.locationApiWrapper);
     }
 
     /**
@@ -175,7 +178,7 @@ class LocationWrapper
     }
 
     /**
-     * Returns if the state from administrative locations exist.
+     * Returns if the state from administrative locations exists.
      */
     hasState(): boolean
     {
@@ -191,7 +194,7 @@ class LocationWrapper
     }
 
     /**
-     * Returns if the state from administrative locations exist.
+     * Returns if the state from administrative locations exists.
      */
     hasCountry(): boolean
     {
@@ -213,7 +216,7 @@ class LocationWrapper
      */
     getCoordinate(): CoordinateWrapper
     {
-        return new CoordinateWrapper(this.location.coordinate);
+        return new CoordinateWrapper(this.location.coordinate, this.locationApiWrapper);
     }
 
     /**
@@ -221,7 +224,7 @@ class LocationWrapper
      */
     getFeature(): FeatureWrapper
     {
-        return new FeatureWrapper(this.location.feature);
+        return new FeatureWrapper(this.location.feature, this.locationApiWrapper);
     }
 
     /**
@@ -229,8 +232,10 @@ class LocationWrapper
      */
     getProperties(): PropertiesWrapper
     {
-        return new PropertiesWrapper(this.location.properties);
+        return new PropertiesWrapper(this.location.properties, this.locationApiWrapper);
     }
+
+
 
     /**
      * Returns if the timezone of the location exists.
@@ -249,16 +254,20 @@ class LocationWrapper
             return null;
         }
 
-        return new TimezoneWrapper(this.location.timezone);
+        return new TimezoneWrapper(this.location.timezone, this.locationApiWrapper);
     }
+
+
 
     /**
      * Returns the links of the location.
      */
     getLinks(): LinksWrapper
     {
-        return new LinksWrapper(this.location.links);
+        return new LinksWrapper(this.location.links, this.locationApiWrapper);
     }
+
+
 
     /**
      * Returns if the next places of the location exist.
@@ -277,11 +286,11 @@ class LocationWrapper
             return null;
         }
 
-        return new NextPlacesWrapper(this.location["next-places"]);
+        return new NextPlacesWrapper(this.location["next-places"], this.locationApiWrapper);
     }
 
     /**
-     * Returns all next places feature classes.
+     * Returns all next places feature classes, which can be used with getNextPlace.
      */
     getNextPlacesFeatureClasses(): Array<keyof TypeNextPlaces>
     {
@@ -306,12 +315,14 @@ class LocationWrapper
         return this.location["next-places"][key] ?? null;
     }
 
+
+
     /**
      * Returns the next places config of the location.
      */
     getNextPlacesConfig(): NextPlacesConfigWrapper
     {
-        return new NextPlacesConfigWrapper(this.location["next-places-config"]);
+        return new NextPlacesConfigWrapper(this.location["next-places-config"], this.locationApiWrapper);
     }
 }
 

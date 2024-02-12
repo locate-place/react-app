@@ -379,6 +379,47 @@ type TypeLocation = {
 
 type TypeLocations = TypeLocation[];
 
+type TypeGivenQuery = {
+    "raw": string,
+    "parsed": {
+        "type": string,
+        "geoname-id"?: number,
+        "search"?: string
+    }
+};
+
+type TypeGiven = {
+    "query"?: TypeGivenQuery,
+    "next-places"?: boolean,
+    "language"?: {
+        "raw": string,
+        "parsed":  {
+            "name": string
+        }
+    },
+    "country"?: {
+        "raw": string,
+        "parsed":  {
+            "name": string
+        }
+    }
+    "coordinate"?: {
+        "raw": string,
+        "parsed": {
+            "latitude": {
+                "decimal": number,
+                "dms": string
+            },
+            "longitude": {
+                "decimal": number,
+                "dms": string
+            },
+            "links": TypeLinksMaps
+        },
+        "location": TypeLocation
+    }
+};
+
 type TypeApiData = {
     "data-licence": TypeDataLicence,
     "time-taken": string,
@@ -386,7 +427,7 @@ type TypeApiData = {
     "performance": TypePerformance,
     "results"?: TypeResults,
     "data": TypeLocation|Array<TypeLocation>,
-    "given": object,
+    "given": TypeGiven,
     "valid": boolean,
     "date": string,
     "version": string,
@@ -448,6 +489,7 @@ export {
     TypeNextPlacesConfig,
     TypeLocation,
     TypeLocations,
+    TypeGiven,
     TypeApiData,
 
     typeLocations,

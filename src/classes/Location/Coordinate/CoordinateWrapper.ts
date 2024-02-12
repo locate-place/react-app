@@ -6,6 +6,9 @@ import {
     TypePosition,
 } from "../../../types/Types";
 
+/* Import classes. */
+import {LocationApiWrapper} from "../../LocationApiWrapper";
+
 /**
  * Class CoordinateWrapper
  *
@@ -17,14 +20,19 @@ class CoordinateWrapper
 {
     private readonly coordinate: TypeCoordinate;
 
+    private readonly locationApiWrapper: LocationApiWrapper;
+
     /**
      * CoordinateWrapper constructor.
      *
      * @param coordinate {TypeCoordinate}
+     * @param locationApiWrapper {LocationApiWrapper}
      */
-    constructor(coordinate: TypeCoordinate)
+    constructor(coordinate: TypeCoordinate, locationApiWrapper: LocationApiWrapper)
     {
         this.coordinate = coordinate;
+
+        this.locationApiWrapper = locationApiWrapper;
     }
 
     /**
@@ -138,6 +146,17 @@ class CoordinateWrapper
         }
 
         return this.coordinate['distance-user'].kilometers["value-formatted"];
+    }
+
+    getDistanceUserText(): string|null
+    {
+        const coordinate = this.locationApiWrapper.getGiven().coordinate ?? null;
+
+        if (coordinate === null) {
+            return null;
+        }
+
+        return 'Von aktueller Position ' + coordinate.parsed.latitude.dms + ', ' + coordinate.parsed.longitude.dms;
     }
 
     /**

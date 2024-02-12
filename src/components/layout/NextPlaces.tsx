@@ -1,17 +1,17 @@
-import React from "react";
-import {useSearchParams} from "react-router-dom";
+import React, {useMemo} from "react";
+import {Link, useSearchParams} from "react-router-dom";
 
 /* Import translation functions. */
 import {useTranslation} from "react-i18next";
 
 /* Import functions */
 import {addSoftHyphens} from "../../functions/Text";
-import {getFilterConfig, redirectNextPlacesList, redirectNextPlacesListWithCoordinate} from "../../functions/QueryFunctions";
 
 /* Import classes. */
 import {NextPlaceWrapper} from "../../classes/Location/NextPlaces/NextPlaceWrapper";
 import {LocationWrapper} from "../../classes/Location/LocationWrapper";
 import {mapTypeGoogle} from "../../config/MapTypes";
+import {Query} from "../../classes/Query";
 
 /* Argument properties. */
 type NextPlacesProps = {
@@ -26,14 +26,19 @@ const NextPlaces = ({nextPlace}: NextPlacesProps) =>
     /* Import translation. */
     const { t } = useTranslation();
 
+    /* API types */
+    const env = useMemo(() => {
+        return process.env;
+    }, []);
+
     /* Memorized variables. */
     const [searchParams] = useSearchParams();
-
-    let filterConfig = getFilterConfig(searchParams);
 
     if (nextPlace === null) {
         return <></>;
     }
+
+    let query = new Query(searchParams, env);
 
     return (
         nextPlace.hasPlaces() ?
@@ -48,25 +53,7 @@ const NextPlaces = ({nextPlace}: NextPlacesProps) =>
                     {nextPlace.getConfigDistanceText(t)} -&nbsp;
                     {nextPlace.getConfigLimitationText(t)} -&nbsp;
                     {t('TEXT_NEXT_PLACE_SORTED_BY_DISTANCE_TEXT')} -&nbsp;
-                    <button className="link-button" onClick={(e) => {
-
-                        nextPlace.getConfigCoordinateType() === 'location' ?
-                            redirectNextPlacesListWithCoordinate(
-                                nextPlace.getConfigCoordinateDecimal(),
-                                filterConfig,
-                                nextPlace.getFeatureClassCode(),
-                                nextPlace.getConfigDistanceMeter().toString(),
-                                nextPlace.getConfigLimitation().toString()
-                            ) :
-                            redirectNextPlacesList(
-                                filterConfig,
-                                nextPlace.getFeatureClassCode(),
-                                nextPlace.getConfigDistanceMeter().toString(),
-                                nextPlace.getConfigLimitation().toString()
-                            )
-                        ;
-                        e.preventDefault();
-                    }}>{t('TEXT_NEXT_PLACE_SHOW_LIST_TEXT')}</button>
+                    <Link to={query.getFilterConfig().getNextPlacesListLink(nextPlace)}>{t('TEXT_NEXT_PLACE_SHOW_LIST_TEXT')}</Link>
                 </small></p>
                 <table className="table table-last-line">
                     <tbody>

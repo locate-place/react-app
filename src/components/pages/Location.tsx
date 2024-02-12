@@ -111,7 +111,7 @@ const Location = () =>
                     <div className="col-12 col-md-10 offset-md-1 col-xl-8 offset-xl-2">
                         {/* Renders the search form. */}
                         <SearchForm
-                            queryDefault={query.getQuery()}
+                            queryDefault={query.getFilterConfig().getQuery()}
                             routePathDefault={routePathLocation}
                         />
 

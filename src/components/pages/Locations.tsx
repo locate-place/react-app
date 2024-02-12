@@ -124,7 +124,7 @@ const Locations = () =>
                     <div className="col-12 col-md-10 offset-md-1 col-xl-8 offset-xl-2">
                         {/* Renders the search form. */}
                         <SearchForm
-                            queryDefault={query.getQuery()}
+                            queryDefault={query.getFilterConfig().getQuery()}
                             routePathDefault={routePathLocations}
                         />
 
@@ -133,7 +133,7 @@ const Locations = () =>
                             <SearchMetrics properties={properties}/>
 
                             {
-                                query.isQuerySearch() ?
+                                query.getFilterConfig().hasQuery() ?
                                     <>
                                         <h3><ListTask size={sizeIcon.H3}/> {t('TEXT_SEARCH_RESULTS')}</h3>
                                     </> :
@@ -158,14 +158,14 @@ const Locations = () =>
                                         <sup><small>{t('TEXT_ACTION_SORTING')}</small></sup>
                                     </button>
                                     <button
-                                        className={'btn ' + (query.isSort(nameSortName) ? 'btn-secondary' : 'btn-outline-secondary')}
+                                        className={'btn ' + (query.isSortedBy(nameSortName) ? 'btn-secondary' : 'btn-outline-secondary')}
                                         onClick={() => sortByName(filterConfig)} title={t('TEXT_TITLE_SORT_BY_NAME')}>
                                         <SortAlphaDown size={sizeIcon.Button}/> <sup><small>{t('TEXT_ACTION_NAME')}</small></sup>
                                     </button>
                                     {
                                         query.isCoordinateSearch() ?
                                             <button
-                                                className={'btn ' + (query.isSort([nameSortDistanceUser, nameSortDistance]) ? 'btn-secondary' : 'btn-outline-secondary')}
+                                                className={'btn ' + (query.isSortedBy([nameSortDistanceUser, nameSortDistance]) ? 'btn-secondary' : 'btn-outline-secondary')}
                                                 onClick={() => sortByDistance(filterConfig)}
                                                 title={t('TEXT_TITLE_SORT_BY_DISTANCE')}
                                             >
@@ -174,7 +174,7 @@ const Locations = () =>
                                                 <sup><small>{t('TEXT_ACTION_KM')}</small></sup>
                                             </button> :
                                             <button
-                                                className={'btn ' + (query.isSort([nameSortDistanceUser, nameSortDistance]) ? 'btn-secondary' : 'btn-outline-secondary')}
+                                                className={'btn ' + (query.isSortedBy([nameSortDistanceUser, nameSortDistance]) ? 'btn-secondary' : 'btn-outline-secondary')}
                                                 onClick={() => sortByDistanceUser(filterConfig)}
                                                 title={t('TEXT_TITLE_SORT_BY_DISTANCE_FROM_USER')}
                                             >
@@ -183,11 +183,11 @@ const Locations = () =>
                                             </button>
                                     }
                                     {
-                                        query.isQuerySearch() ?
+                                        query.getFilterConfig().hasQuery() ?
                                             (
                                                 query.isCoordinateSearch() ?
                                                     <button
-                                                        className={'btn ' + (query.isSort([nameSortRelevanceUser, nameSortRelevance]) ? 'btn-secondary' : 'btn-outline-secondary')}
+                                                        className={'btn ' + (query.isSortedBy([nameSortRelevanceUser, nameSortRelevance]) ? 'btn-secondary' : 'btn-outline-secondary')}
                                                         onClick={() => sortByRelevance(filterConfig)}
                                                         title={t('TEXT_TITLE_SORT_BY_RELEVANCE')}
                                                     >
@@ -195,7 +195,7 @@ const Locations = () =>
                                                         <SortDown size={sizeIcon.Button}/> <sup><small>{t('TEXT_ACTION_RELEVANCE')}</small></sup>
                                                     </button> :
                                                     <button
-                                                        className={'btn ' + (query.isSort([nameSortRelevanceUser, nameSortRelevance]) ? 'btn-secondary' : 'btn-outline-secondary')}
+                                                        className={'btn ' + (query.isSortedBy([nameSortRelevanceUser, nameSortRelevance]) ? 'btn-secondary' : 'btn-outline-secondary')}
                                                         onClick={() => sortByRelevanceUser(filterConfig)}
                                                         title={t('TEXT_TITLE_SORT_BY_RELEVANCE_OF_THE_USER')}
                                                     >
@@ -223,7 +223,7 @@ const Locations = () =>
                                                 properties={properties}
                                                 showOwnPosition={false}
                                                 index={index}
-                                                useAlwaysName={!query.isQuerySearch()}
+                                                useAlwaysName={!query.getFilterConfig().hasQuery()}
                                             />
                                         ))}
 

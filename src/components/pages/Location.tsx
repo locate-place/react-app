@@ -24,10 +24,6 @@ import {
 import {convertToGermanFormat} from "../../functions/Date";
 import {addSoftHyphens} from "../../functions/Text";
 
-/* Import translations */
-import {translateCountryCode} from "../../translations/Country";
-import {directionTranslation} from "../../translations/Direction";
-
 /* Add component parts */
 import Error from "../layout/Error";
 import HeaderSmall from "../layout/HeaderSmall";
@@ -95,9 +91,6 @@ const Location = () =>
     /* Get location wrapper. */
     let locationApiWrapper = new LocationApiWrapper(api);
     let location = locationApiWrapper.getLocation();
-
-    /* Build distance text. */
-    let distanceText = location.getCoordinate().getDistanceUserText();
 
     let filterConfig = getFilterConfig(searchParams);
     let addCurrentPosition = () => {
@@ -212,14 +205,14 @@ const Location = () =>
                                                                         <td className={classNamesFirstRow.join(' ')}>{t('TEXT_CAPTION_DISTANCE')}</td>
                                                                         <td className={classNamesSecondRow.join(' ')}
                                                                             colSpan={2}
-                                                                            title={distanceText ?? ''}>
+                                                                            title={location.getCoordinate().getDistanceUserText(t) ?? ''}>
                                                                             {location.getCoordinate().getDistanceUserKilometerFormatted()}<sup>*)</sup>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td className={classNamesFirstRow.join(' ')}>{t('TEXT_CAPTION_DIRECTION')}</td>
                                                                         <td className={classNamesSecondRow.join(' ')}
-                                                                            title={distanceText ?? ''}
+                                                                            title={location.getCoordinate().getDistanceUserText(t) ?? ''}
                                                                         >
                                                                             {location.getCoordinate().getDirectionUserTranslated()}<sup>*)</sup>
                                                                         </td>
@@ -244,11 +237,11 @@ const Location = () =>
                                                     <tr>
                                                         <td className={classNamesFirstRow.join(' ')}>Entfernung</td>
                                                         <td className={classNamesSecondRow.join(' ')}
-                                                            title={distanceText ?? ''}>
+                                                            title={location.getCoordinate().getDistanceUserText(t) ?? ''}>
                                                             Standort des Nutzers ist unbekannt.
                                                         </td>
                                                         <td className={classNamesSecondRow.join(' ')}
-                                                            title={distanceText ?? ''} style={{textAlign: 'right'}}>
+                                                            title={location.getCoordinate().getDistanceUserText(t) ?? ''} style={{textAlign: 'right'}}>
                                                             <button
                                                                 className="btn btn-outline-primary shadow-own mt-2 mb-2 button-own-position button-minimized"
                                                                 onClick={addCurrentPosition}
@@ -302,7 +295,7 @@ const Location = () =>
                                                 location.getCoordinate().getDistanceUserKilometerValue() >= 0 ?
                                                     <>
                                                         <sup>*)</sup>&nbsp;
-                                                        {distanceText}
+                                                        {location.getCoordinate().getDistanceUserText(t)}
                                                     </> :
                                                     null
                                             }

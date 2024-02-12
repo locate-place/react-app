@@ -54,5 +54,7 @@
   "TEXT_TITLE_CURRENT_POSITION_USED": "Aktuelle Position \"{{currentPosition}}\" wird verwendet.",
   "TEXT_TITLE_CURRENT_POSITION_NOT_USED": "Aktuelle Position wird nicht verwendet.",
 
+  "TEXT_CURRENT_POSITION_FROM_POSITION": "Von aktueller Position {{latitudeDms}}, {{longitudeDms}}",
+
   "TEXT_WORD_UNKNOWN": "Unbekannt"
 }

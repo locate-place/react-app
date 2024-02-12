@@ -1,3 +1,5 @@
+import {TFunction} from "i18next";
+
 /* Import types. */
 import {
     TypeCoordinate,
@@ -148,7 +150,10 @@ class CoordinateWrapper
         return this.coordinate['distance-user'].kilometers["value-formatted"];
     }
 
-    getDistanceUserText(): string|null
+    /**
+     * Returns the distance text.
+     */
+    getDistanceUserText(t:  TFunction<"translation", undefined>): string|null
     {
         const coordinate = this.locationApiWrapper.getGiven().coordinate ?? null;
 
@@ -156,7 +161,10 @@ class CoordinateWrapper
             return null;
         }
 
-        return 'Von aktueller Position ' + coordinate.parsed.latitude.dms + ', ' + coordinate.parsed.longitude.dms;
+        const latitudeDms = coordinate.parsed.latitude.dms;
+        const longitudeDms = coordinate.parsed.longitude.dms;
+
+        return t('TEXT_CURRENT_POSITION_FROM_POSITION', {latitudeDms, longitudeDms});
     }
 
     /**

@@ -1,3 +1,5 @@
+import {TFunction} from "i18next";
+
 /* Import types. */
 import {TypeApiProperties, TypeFilterConfig} from "../types/Types";
 
@@ -35,7 +37,6 @@ import {
 
 /* Import classes. */
 import {ApiResponseProperty} from "./ApiResponseProperty";
-import {TFunction} from "i18next";
 
 /* API paths */
 const apiPathCalendars: string = '/v.json';

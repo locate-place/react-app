@@ -56,5 +56,14 @@
 
   "TEXT_CURRENT_POSITION_FROM_POSITION": "From current position {{latitudeDms}}, {{longitudeDms}}",
 
+  "TEXT_NEXT_PLACE_TITLE": "Next {{name}}",
+  "TEXT_NEXT_PLACE_SEARCH_PARAMS": "Search parameters",
+  "TEXT_NEXT_PLACE_DISTANCE_TEXT": "Distance {{distance}} km",
+  "TEXT_NEXT_PLACE_LIMITATION_TEXT": "Limitation {{limitation}}",
+  "TEXT_NEXT_PLACE_SORTED_BY_DISTANCE_TEXT": "Sorted by distance to search",
+  "TEXT_NEXT_PLACE_SHOW_LIST_TEXT": "Show list",
+  "TEXT_NEXT_PLACE_DISTANCE_HINT_LOCATION_TEXT": "All distances and directions according to the displayed location \"{{location}}\" ({{coordinate}}).",
+  "TEXT_NEXT_PLACE_DISTANCE_HINT_QUERY_TEXT": "All distances and directions according to the location of the search query ({{coordinate}}).",
+
   "TEXT_WORD_UNKNOWN": "Unknown"
 }

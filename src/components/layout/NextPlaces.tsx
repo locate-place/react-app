@@ -1,100 +1,79 @@
 import React from "react";
 import {useSearchParams} from "react-router-dom";
 
-/* Add types. */
-import {TypeNextPlacesFeatureClass} from "../../types/Types";
+/* Import translation functions. */
+import {useTranslation} from "react-i18next";
 
-/* Add functions */
-import {convertMeterToKilometer} from "../../functions/Distance";
+/* Import functions */
 import {getDecimal, getDms} from "../../functions/Coordinate";
 import {getElevation, getPopulation} from "../../functions/Properties";
 import {addSoftHyphens} from "../../functions/Text";
 import {getFilterConfig, redirectNextPlacesList, redirectNextPlacesListWithCoordinate} from "../../functions/QueryFunctions";
 
+/* Import classes. */
+import {NextPlaceWrapper} from "../../classes/Location/NextPlaces/NextPlaceWrapper";
+
+/* Argument properties. */
 type NextPlacesProps = {
-    nextPlaces: TypeNextPlacesFeatureClass|null,
+    nextPlace: NextPlaceWrapper|null,
 }
 
 /**
  * This is the next places part.
  */
-const NextPlaces = ({nextPlaces}: NextPlacesProps) =>
+const NextPlaces = ({nextPlace}: NextPlacesProps) =>
 {
-    type TypeTranslation = {
-        H: string,
-        L: string,
-        P: string,
-        R: string,
-        S: string,
-        T: string,
-        U: string,
-        V: string
-    }
-
-    let translations: TypeTranslation = {
-        H: 'Flüsse, Seen',
-        L: 'Parks oder Flächen',
-        P: 'Städte, Stadtteile oder Ortschaften',
-        R: 'Straßen, Schienenwege',
-        S: 'Orte, Hotels, Gebäude oder Farmen',
-        T: 'Berge, Hügel, Felsen oder Strände',
-        U: 'Unterwasserwelten',
-        V: 'Wälder oder Heiden'
-    };
+    /* Import translation. */
+    const { t } = useTranslation();
 
     /* Memorized variables. */
     const [searchParams] = useSearchParams();
 
     let filterConfig = getFilterConfig(searchParams);
 
-    if (nextPlaces === null) {
+    if (nextPlace === null) {
         return <></>;
     }
 
-    return (
-        nextPlaces.places.length > 0 ?
-            <>
-                <h3><strong>{
-                    translations.hasOwnProperty(nextPlaces.feature['class']) ?
-                        (
-                            <>
-                            <span>
-                                {'Nächste ' + (translations[nextPlaces.feature['class'] as keyof TypeTranslation] ?? 'Unbekannt')}
-                            </span> - <code>{nextPlaces.feature['class']}</code>
-                            </>
+    const data = nextPlace.get();
 
-                        ) :
-                        'Unbekannte nächste Orte: ' + nextPlaces.feature['class']
-                }</strong></h3>
+    return (
+        data.places.length > 0 ?
+            <>
+                <h3>
+                    <strong>
+                        <span>{nextPlace.getNextPlacesTitle(t)}</span> - <code>{nextPlace.getFeatureClassCode()}</code>
+                    </strong>
+                </h3>
                 <p><small>
-                    <strong>Suchparameter</strong>:&nbsp;
-                    Abstand {convertMeterToKilometer(nextPlaces.config['distance-meter'])} -&nbsp;
-                    Limitierung {nextPlaces.config['limit']} -&nbsp;
-                    Sortiert nach Entfernung zur Suche -&nbsp;
+                    <strong>{t('TEXT_NEXT_PLACE_SEARCH_PARAMS')}</strong>:&nbsp;
+                    {nextPlace.getConfigDistanceText(t)} -&nbsp;
+                    {nextPlace.getConfigLimitationText(t)} -&nbsp;
+                    {t('TEXT_NEXT_PLACE_SORTED_BY_DISTANCE_TEXT')} -&nbsp;
                     <button className="link-button" onClick={(e) => {
 
-                        nextPlaces.config['coordinate-type'] === 'location' ?
+                        data.config['coordinate-type'] === 'location' ?
                             redirectNextPlacesListWithCoordinate(
-                                getDecimal(nextPlaces.config['coordinate']),
+                                getDecimal(data.config['coordinate']),
                                 filterConfig,
-                                nextPlaces.feature['class'],
-                                nextPlaces.config['distance-meter'].toString(),
-                                nextPlaces.config['limit'].toString()
+                                data.feature['class'],
+                                data.config['distance-meter'].toString(),
+                                data.config['limit'].toString()
                             ) :
                             redirectNextPlacesList(
                                 filterConfig,
-                                nextPlaces.feature['class'],
-                                nextPlaces.config['distance-meter'].toString(),
-                                nextPlaces.config['limit'].toString()
+                                data.feature['class'],
+                                data.config['distance-meter'].toString(),
+                                data.config['limit'].toString()
                             )
                         ;
                         e.preventDefault();
-                    }}>Zeige Liste</button>
+                    }}>{t('TEXT_NEXT_PLACE_SHOW_LIST_TEXT')}</button>
                 </small></p>
                 <table className="table table-last-line">
                     <tbody>
-                        {nextPlaces.places.map((place: any, index: number) =>
-                            <tr key={'place-' + nextPlaces.feature['class-name'] + '-' + index}>
+                        {data.places.map((place: any, index: number) =>
+                            <tr key={'place-' + data.feature['class-name'] + '-' + index}>
                                 <td className="table-compass">
                                     <div className="compass compass-direction shadow-own">
                                         <div className="arrow arrow-direction" data-degree={place.coordinate.direction['degree']}></div>
@@ -121,9 +100,9 @@ const NextPlaces = ({nextPlaces}: NextPlacesProps) =>
                                                     title={
                                                         'Abstand und Richtung entsprechend ' +
                                                         (
-                                                            nextPlaces.config['coordinate-type'] === 'location' ?
-                                                                'dem angezeigtem Ort ' + nextPlaces.config['location']['name'] + ' ' + getDms(nextPlaces.config['coordinate']) :
-                                                                'der Location vom Suchquery ' + getDms(nextPlaces.config['coordinate'])
+                                                            data.config['coordinate-type'] === 'location' ?
+                                                                'dem angezeigtem Ort ' + data.config['location']['name'] + ' ' + getDms(data.config['coordinate']) :
+                                                                'der Location vom Suchquery ' + getDms(data.config['coordinate'])
                                                         )
                                                     }
                                                 ><small>
@@ -141,16 +120,7 @@ const NextPlaces = ({nextPlaces}: NextPlacesProps) =>
                     </tbody>
                 </table>
                 <p><small>
-                    <sup>*)</sup>
-                    Alle Abstände und Richtungen entsprechend {
-                        nextPlaces.config['coordinate-type'] === 'location' ?
-                            <>
-                                {'dem angezeigtem Ort'} "<strong>{nextPlaces.config['location']['name']}</strong>" ({getDms(nextPlaces.config['coordinate'])})
-                            </> :
-                            <>
-                                {'der Location vom Suchquery'} {getDms(nextPlaces.config['coordinate'])}
-                            </>
-                    }.
+                    <sup>*)</sup> {nextPlace.getConfigDistanceAndDirectionText(t)}
                 </small></p>
             </> :
             <></>

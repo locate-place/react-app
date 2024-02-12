@@ -266,8 +266,11 @@ const Location = () =>
                                                 location.hasTimezone() ?
                                                 <tr>
                                                     <td className={classNamesFirstRow.join(' ')}>{t('TEXT_CAPTION_TIME_ZONE')}</td>
-                                                    <td className={classNamesSecondRow.join(' ')}
-                                                        colSpan={2}>{location.getTimezone()?.getTimezone()} <code>{location.getTimezone()?.getOffset()}</code></td>
+                                                    <td
+                                                        className={classNamesSecondRow.join(' ')}
+                                                        colSpan={2}
+                                                        title={location.getTimezone()?.getCoordinate().getDMS() ?? ''}
+                                                    >{location.getTimezone()?.getTimezone()} <code>{location.getTimezone()?.getOffset()}</code></td>
                                                 </tr> : <></>
                                             }
                                             {
@@ -307,15 +310,9 @@ const Location = () =>
                             {/* Renders the next places parts */}
                             {
                                 location.hasNextPlaces() ? <>
-                                    {location.getNextPlacesFeatureClasses().map((featureClass) => {
-                                        const nextPlace = location.getNextPlace(featureClass);
-
-                                        if (nextPlace === null) {
-                                            return <></>;
-                                        }
-
-                                        return <NextPlaces key={'feature-code-' + featureClass} nextPlaces={nextPlace}/>;
-                                    })}
+                                    {location.getNextPlacesFeatureClasses(true).map((featureClass) =>
+                                        <NextPlaces key={'feature-code-' + featureClass} nextPlace={location.getNextPlace(featureClass)} />
+                                    )}
                                 </> : <></>
                             }
 

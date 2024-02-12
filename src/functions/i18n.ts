@@ -18,6 +18,21 @@ const languageDefault: string = 'de';
 
 const languageFallback: string = 'en';
 
+/**
+ * Returns the locale according to current language.
+ */
+const getLocale = (): string =>
+{
+    switch (i18n.language) {
+        case 'de':
+            return 'de-DE';
+        case 'en':
+            return 'en-US';
+        default:
+            return 'de-DE';
+    }
+}
+
 i18n
     .use(initReactI18next) // passes i18n down to react-i18next
     .init({
@@ -35,6 +50,7 @@ i18n
  */
 export {
     i18n,
+    getLocale,
     languageDefault,
     languageFallback
 }

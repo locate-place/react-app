@@ -23,6 +23,7 @@ import {TimezoneWrapper} from "./Timezone/TimezoneWrapper";
 import {LinksWrapper} from "./Links/LinksWrapper";
 import {NextPlacesWrapper} from "./NextPlaces/NextPlacesWrapper";
 import {NextPlacesConfigWrapper} from "./NextPlacesConfig/NextPlacesConfigWrapper";
+import {NextPlaceWrapper} from "./NextPlaces/NextPlaceWrapper";
 
 /**
  * Class LocationWrapper
@@ -292,13 +293,27 @@ class LocationWrapper
     /**
      * Returns all next places feature classes, which can be used with getNextPlace.
      */
-    getNextPlacesFeatureClasses(): Array<keyof TypeNextPlaces>
+    getNextPlacesFeatureClasses(pClassFirst: boolean = false): Array<keyof TypeNextPlaces>
     {
         if (!this.location["next-places"]) {
             return [];
         }
 
-        return Object.keys(this.location['next-places']) as Array<keyof TypeNextPlaces>;
+        let featureClasses = Object.keys(this.location['next-places']) as Array<keyof TypeNextPlaces>;
+
+        /* Returns the sorted list. */
+        if (!pClassFirst) {
+            return featureClasses;
+        }
+
+        /* Sort with p class first. */
+        featureClasses.sort((a, b) => {
+            if (a === 'P') return -1;
+            if (b === 'P') return 1;
+            return a.localeCompare(b);
+        });
+
+        return featureClasses;
     }
 
     /**
@@ -306,13 +321,19 @@ class LocationWrapper
      *
      * @param key
      */
-    getNextPlace<K extends keyof TypeNextPlaces>(key: K): TypeNextPlacesFeatureClass|null
+    getNextPlace<K extends keyof TypeNextPlaces>(key: K): NextPlaceWrapper|null
     {
         if (!this.location["next-places"]) {
             return null;
         }
 
-        return this.location["next-places"][key] ?? null;
+        const nextPlace = this.location["next-places"][key] ?? null;
+
+        if (nextPlace === null) {
+            return null;
+        }
+
+        return new NextPlaceWrapper(nextPlace, this.locationApiWrapper);
     }
 
 

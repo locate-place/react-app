@@ -122,18 +122,22 @@ class NextPlaceWrapper
      * Returns the config distance and direction text.
      *
      * @param t
+     * @param showForAll
      */
-    getConfigDistanceAndDirectionText(t: TFunction<"translation", undefined>): string
+    getConfigDistanceAndDirectionText(t: TFunction<"translation", undefined>, showForAll: boolean = false): string
     {
         const coordinate: string = this.nextPlace.config.coordinate.latitude.dms + ', ' + this.nextPlace.config.coordinate.longitude.dms;
+
+        const i18nLocation = showForAll ? 'TEXT_NEXT_PLACE_DISTANCE_HINT_LOCATION_TEXT_ALL' : 'TEXT_NEXT_PLACE_DISTANCE_HINT_LOCATION_TEXT';
+        const i18nQuery = showForAll ? 'TEXT_NEXT_PLACE_DISTANCE_HINT_QUERY_TEXT_ALL' : 'TEXT_NEXT_PLACE_DISTANCE_HINT_QUERY_TEXT';
 
         switch (this.nextPlace.config["coordinate-type"]) {
             case 'location':
                 const location = this.nextPlace.config.location.name;
-                return t('TEXT_NEXT_PLACE_DISTANCE_HINT_LOCATION_TEXT', {location, coordinate});
+                return t(i18nLocation, {location, coordinate});
 
             default:
-                return t('TEXT_NEXT_PLACE_DISTANCE_HINT_QUERY_TEXT', {coordinate});
+                return t(i18nQuery, {coordinate});
         }
     }
 }

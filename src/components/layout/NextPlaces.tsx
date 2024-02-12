@@ -97,14 +97,7 @@ const NextPlaces = ({nextPlace}: NextPlacesProps) =>
                                                     href={place.links.maps.google}
                                                     target={'_blank'}
                                                     rel="noreferrer"
-                                                    title={
-                                                        'Abstand und Richtung entsprechend ' +
-                                                        (
-                                                            data.config['coordinate-type'] === 'location' ?
-                                                                'dem angezeigtem Ort ' + data.config['location']['name'] + ' ' + getDms(data.config['coordinate']) :
-                                                                'der Location vom Suchquery ' + getDms(data.config['coordinate'])
-                                                        )
-                                                    }
+                                                    title={nextPlace.getConfigDistanceAndDirectionText(t)}
                                                 ><small>
                                                     <span className="text-nowrap">
                                                         {place.coordinate.distance.kilometers['value-formatted']}<sup>*)</sup>
@@ -120,7 +113,7 @@ const NextPlaces = ({nextPlace}: NextPlacesProps) =>
                     </tbody>
                 </table>
                 <p><small>
-                    <sup>*)</sup> {nextPlace.getConfigDistanceAndDirectionText(t)}
+                    <sup>*)</sup> {nextPlace.getConfigDistanceAndDirectionText(t, true)}
                 </small></p>
             </> :
             <></>

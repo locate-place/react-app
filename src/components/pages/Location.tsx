@@ -6,6 +6,14 @@ import {useTranslation} from "react-i18next";
 
 /* Add configurations */
 import {sizeIcon} from "../../config/Config";
+import {routePathLocation} from "../../config/Route";
+
+/* Import types. */
+import {TypeApiData, TypeApiProperties, TypeErrorOwn, TypeLoaded, TypeLocation} from "../../types/Types";
+
+/* Import classes */
+import {Query} from "../../classes/Query";
+import {LocationApiWrapper} from "../../classes/LocationApiWrapper";
 
 /* Add functions */
 import loadApiData from "../../functions/LoadApiData";
@@ -15,9 +23,6 @@ import {
 } from "../../functions/QueryFunctions";
 import {convertToGermanFormat} from "../../functions/Date";
 import {addSoftHyphens} from "../../functions/Text";
-
-/* Import classes */
-import {Query} from "../../classes/Query";
 
 /* Import translations */
 import {translateCountryCode} from "../../translations/Country";
@@ -37,8 +42,6 @@ import Flag from "react-flagkit";
 
 /* Bootstrap icons; see https://icons.getbootstrap.com/?q=sort#usage */
 import {CursorFill} from "react-bootstrap-icons";
-import {TypeApiProperties, TypeError, TypeLoaded, TypeLocation} from "../../types/Types";
-import {routePathLocation} from "../../config/Route";
 
 /**
  * This is the app locations component.
@@ -54,10 +57,11 @@ const Location = () =>
     }, []);
 
     /* State variables */
-    const [error, setError] = useState<TypeError>(null);
+    const [error, setError] = useState<TypeErrorOwn>(null);
     const [loaded, setLoaded] = useState<TypeLoaded>(false);
     const [data, setData] = useState<TypeLocation|null>(null);
     const [properties, setProperties] = useState<TypeApiProperties|null>(null);
+    const [api, setApi] = useState<TypeApiData|null>(null);
 
     /* Memorized variables. */
     const [searchParams] = useSearchParams();
@@ -78,73 +82,22 @@ const Location = () =>
             setLoaded: setLoaded,
             setError: setError,
             setDataLocation: setData,
-            setProperties: setProperties
+            setProperties: setProperties,
+            setDataApi: setApi
         });
     }, [apiType, apiPathWithFilter]);
 
     /* Skip empty data */
-    if (data === null || properties === null) {
+    if (data === null || properties === null || api === null) {
         return <></>;
     }
 
-    /* Get generell parts */
-    let propertyCountryCode = !!data.properties.country ? data.properties.country : 'DE';
-    let hasPropertyElevation = !!data.properties.elevation && data.properties.elevation['value-formatted'];
-    let propertyElevation = !!data.properties.elevation ? data.properties.elevation['value-formatted'] : null;
+    /* Get location wrapper. */
+    let locationApiWrapper = new LocationApiWrapper(api);
+    let location = locationApiWrapper.getLocation();
 
-    /* Get coordinate parts */
-    let hasCoordinate = !!data['coordinate'];
-    let hasDistance = hasCoordinate && data.coordinate['distance-user'];
-    let coordinateLatitudeDecimal = hasCoordinate && data.coordinate.latitude ? data.coordinate.latitude.decimal : null;
-    let coordinateLatitudeDms = hasCoordinate && data.coordinate.latitude ? data.coordinate.latitude.dms : null;
-    let coordinateLongitudeDecimal = hasCoordinate && data.coordinate.longitude ? data.coordinate.longitude.decimal : null;
-    let coordinateLongitudeDms = hasCoordinate && data.coordinate.longitude ? data.coordinate.longitude.dms : null;
-    let distanceInKilometersFormatted = hasCoordinate && data.coordinate['distance-user'] ? data.coordinate['distance-user'].kilometers['value-formatted'] : null;
-    let distanceInKilometers = hasCoordinate && data.coordinate['distance-user'] ? data.coordinate['distance-user'].kilometers['value'] : 0;
-    let directionTranslated = hasCoordinate && data.coordinate['direction-user'] ? data.coordinate['direction-user']['cardinal-direction'] : null;
-    let directionDegree = hasCoordinate && data.coordinate['direction-user'] ? data.coordinate['direction-user']['degree'] : null;
-
+    /* Build distance text. */
     let distanceText = properties.given && properties.given.coordinate ? ('Von aktueller Position ' + properties.given.coordinate.parsed.latitude.dms + ', ' + properties.given.coordinate.parsed.longitude.dms) : '';
-
-    /* Get feature parts */
-    let hasFeature = !!data['feature'];
-    let featureClass = hasFeature && data.feature['class']? data.feature['class'] : null;
-    let featureClassName = hasFeature && data.feature['class-name']? data.feature['class-name'] : null;
-    let featureCode = hasFeature && data.feature['code']? data.feature['code'] : null;
-    let featureCodeName = hasFeature && data.feature['code-name']? data.feature['code-name'] : null;
-
-    /* Get location parts */
-    let locationDistrictLocality = !!data.locations && data.locations['district-locality'] ? data.locations['district-locality'] : null;
-    let locationCityMunicipality = !!data.locations && data.locations['city-municipality'] ? data.locations['city-municipality'] : null;
-    let locationState = !!data.locations && data.locations['state'] ? data.locations['state'] : null;
-    let locationCountry = !!data.locations && data.locations['country'] ? data.locations['country'] : null;
-
-    /* Get timezone parts */
-    let hasTimezone = !!data['timezone'];
-    let timezone = !!data['timezone'] ? data['timezone'].timezone : null;
-    let timezoneOffset = !!data['timezone'] ? data['timezone'].offset : null;
-
-    /* Get next places parts */
-    let hasNextPlacesA = !!data['next-places'] && !!data['next-places']['A'];
-    let nextPlacesA = !!data['next-places'] && !!data['next-places']['A'] ? data['next-places']['A'] : null;
-    let hasNextPlacesH = !!data['next-places'] && !!data['next-places']['H'];
-    let nextPlacesH = !!data['next-places'] && !!data['next-places']['H'] ? data['next-places']['H'] : null;
-    let hasNextPlacesL = !!data['next-places'] && !!data['next-places']['L'];
-    let nextPlacesL = !!data['next-places'] && !!data['next-places']['L'] ? data['next-places']['L'] : null;
-    let hasNextPlacesP = !!data['next-places'] && !!data['next-places']['P'];
-    let nextPlacesP = !!data['next-places'] && !!data['next-places']['P'] ? data['next-places']['P'] : null;
-    let hasNextPlacesR = !!data['next-places'] && !!data['next-places']['R'];
-    let nextPlacesR = !!data['next-places'] && !!data['next-places']['R'] ? data['next-places']['R'] : null;
-    let hasNextPlacesS = !!data['next-places'] && !!data['next-places']['S'];
-    let nextPlacesS = !!data['next-places'] && !!data['next-places']['S'] ? data['next-places']['S'] : null;
-    let hasNextPlacesT = !!data['next-places'] && !!data['next-places']['T'];
-    let nextPlacesT = !!data['next-places'] && !!data['next-places']['T'] ? data['next-places']['T'] : null;
-    let hasNextPlacesU = !!data['next-places'] && !!data['next-places']['U'];
-    let nextPlacesU = !!data['next-places'] && !!data['next-places']['U'] ? data['next-places']['U'] : null;
-    let hasNextPlacesV = !!data['next-places'] && !!data['next-places']['V'];
-    let nextPlacesV = !!data['next-places'] && !!data['next-places']['V'] ? data['next-places']['V'] : null;
-
-    let wikipediaLink = !!data['links']['wikipedia'] && !!data['links']['wikipedia']['this'] ? data['links']['wikipedia']['this'] :  null;
 
     let filterConfig = getFilterConfig(searchParams);
     let addCurrentPosition = () => {
@@ -180,15 +133,15 @@ const Location = () =>
                                 </div>
 
                                 <h2 className="mt-3">
-                                    <Flag country={propertyCountryCode} size={20}
-                                          title={translateCountryCode(propertyCountryCode)}/> &nbsp;
-                                    {data.name}
+                                    <Flag country={location.getProperties().getCountryCode()} size={20}
+                                          title={location.getProperties().getCountryCodeTranslated()}/> &nbsp;
+                                    {location.getName()}
                                 </h2>
 
                                 <div className="card shadow-own mb-5"
                                      style={{'backgroundColor': 'rgb(233, 235, 228)'}}>
                                     <div className="card-header">
-                                        <p className="mb-0 fw-bold">{data['name-full']}</p>
+                                        <p className="mb-0 fw-bold">{location.getNameFull()}</p>
                                     </div>
                                     <div className="card-body p-0">
                                         <table
@@ -200,71 +153,67 @@ const Location = () =>
                                         >
                                             <tbody>
                                             {
-                                                locationDistrictLocality ? <tr>
+                                                location.hasDistrictLocality() ? <tr>
                                                     <td className={classNamesFirstRow.join(' ')}>{t('TEXT_CAPTION_DISTRICT_LOCALITY')}</td>
                                                     <td className={classNamesSecondRow.join(' ')}
-                                                        colSpan={2}>{locationDistrictLocality.name}</td>
+                                                        colSpan={2}>{location.getDistrictLocality()?.getName()}</td>
                                                 </tr> : <></>
                                             }
                                             {
-                                                locationCityMunicipality ? <tr>
+                                                location.hasCityMunicipality() ? <tr>
                                                     <td className={classNamesFirstRow.join(' ')}>{t('TEXT_CAPTION_CITY_MUNICIPALITY')}</td>
                                                     <td className={classNamesSecondRow.join(' ')}
-                                                        colSpan={2}>{locationCityMunicipality.name}</td>
+                                                        colSpan={2}>{location.getCityMunicipality()?.getName()}</td>
                                                 </tr> : <></>
                                             }
                                             {
-                                                locationState ? <tr>
+                                                location.hasState() ? <tr>
                                                     <td className={classNamesFirstRow.join(' ')}>{t('TEXT_CAPTION_STATE')}</td>
                                                     <td className={classNamesSecondRow.join(' ')}
-                                                        colSpan={2}>{locationState.name}</td>
+                                                        colSpan={2}>{location.getState()?.getName()}</td>
                                                 </tr> : <></>
                                             }
                                             {
-                                                locationCountry ? <tr>
+                                                location.hasCountry() ? <tr>
                                                     <td className={classNamesFirstRow.join(' ')}>{t('TEXT_CAPTION_COUNTRY')}</td>
                                                     <td className={classNamesSecondRow.join(' ')}
-                                                        colSpan={2}>{locationCountry.name}</td>
+                                                        colSpan={2}>{location.getCountry()?.getName()}</td>
                                                 </tr> : <></>
                                             }
                                             <tr>
                                                 <td className={classNamesFirstRow.join(' ')}>{t('TEXT_CAPTION_COUNTRY_CODE')}</td>
                                                 <td className={classNamesSecondRow.join(' ')}
-                                                    colSpan={2}>{propertyCountryCode}</td>
+                                                    colSpan={2}>{location.getProperties().getCountryCode()}</td>
                                             </tr>
                                             {
-                                                hasPropertyElevation ? <tr>
+                                                location.getProperties().hasElevation() ? <tr>
                                                     <td className={classNamesFirstRow.join(' ')}>{t('TEXT_CAPTION_ELEVATION')}</td>
                                                     <td className={classNamesSecondRow.join(' ')}
-                                                        colSpan={2}>{propertyElevation}</td>
+                                                        colSpan={2}>{location.getProperties().getElevation()?.["value-formatted"]}</td>
                                                 </tr> : <></>
                                             }
+                                            <tr>
+                                                <td className={classNamesFirstRow.join(' ')}>{t('TEXT_CAPTION_DMS')}</td>
+                                                <td className={classNamesSecondRow.join(' ')}
+                                                    colSpan={2}>{location.getCoordinate().getDMS()}</td>
+                                            </tr>
+                                            <tr>
+                                                <td className={classNamesFirstRow.join(' ')}>{t('TEXT_CAPTION_DECIMAL')}</td>
+                                                <td className={classNamesSecondRow.join(' ')}
+                                                    colSpan={2}>{location.getCoordinate().getDecimal()}</td>
+                                            </tr>
                                             {
-                                                coordinateLatitudeDms && coordinateLongitudeDms ? <tr>
-                                                    <td className={classNamesFirstRow.join(' ')}>{t('TEXT_CAPTION_DMS')}</td>
-                                                    <td className={classNamesSecondRow.join(' ')}
-                                                        colSpan={2}>{coordinateLatitudeDms}, {coordinateLongitudeDms}</td>
-                                                </tr> : <></>
-                                            }
-                                            {
-                                                coordinateLatitudeDecimal && coordinateLongitudeDecimal ? <tr>
-                                                    <td className={classNamesFirstRow.join(' ')}>{t('TEXT_CAPTION_DECIMAL')}</td>
-                                                    <td className={classNamesSecondRow.join(' ')}
-                                                        colSpan={2}>{coordinateLatitudeDecimal}, {coordinateLongitudeDecimal}</td>
-                                                </tr> : <></>
-                                            }
-                                            {
-                                                hasDistance ?
+                                                location.getCoordinate().hasDistanceUser() ?
                                                     <>
                                                         {
-                                                            distanceInKilometers > 0 ?
+                                                            location.getCoordinate().getDistanceUserKilometerValue() > 0 ?
                                                                 <>
                                                                     <tr>
                                                                         <td className={classNamesFirstRow.join(' ')}>{t('TEXT_CAPTION_DISTANCE')}</td>
                                                                         <td className={classNamesSecondRow.join(' ')}
                                                                             colSpan={2}
                                                                             title={distanceText}>
-                                                                            {distanceInKilometersFormatted}<sup>*)</sup>
+                                                                            {location.getCoordinate().getDistanceUserKilometerFormatted()}<sup>*)</sup>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -272,7 +221,7 @@ const Location = () =>
                                                                         <td className={classNamesSecondRow.join(' ')}
                                                                             title={distanceText}
                                                                         >
-                                                                            {directionTranslation[directionTranslated ?? ''] ?? t('TEXT_WORD_UNKNOWN')}<sup>*)</sup>
+                                                                            {location.getCoordinate().getDirectionUserTranslated()}<sup>*)</sup>
                                                                         </td>
                                                                         <td className={classNamesSecondRow.join(' ')}
                                                                             style={{
@@ -282,7 +231,7 @@ const Location = () =>
                                                                             <div
                                                                                 className="compass compass-direction shadow-own">
                                                                                 <div className="arrow arrow-direction"
-                                                                                     data-degree={directionDegree}></div>
+                                                                                     data-degree={location.getCoordinate().getDirectionUserDegree()}></div>
                                                                             </div>
                                                                         </td>
                                                                     </tr>
@@ -310,42 +259,36 @@ const Location = () =>
                                                         </td>
                                                     </tr>
                                             }
+                                            <tr>
+                                                <td className={classNamesFirstRow.join(' ')}>{t('TEXT_CAPTION_MASTER_CODE')}</td>
+                                                <td className={classNamesSecondRow.join(' ')} colSpan={2}>
+                                                    <code>{location.getFeature().getClass().code}</code> - {location.getFeature().getClass().name}</td>
+                                            </tr>
+                                            <tr>
+                                                <td className={classNamesFirstRow.join(' ')}>{t('TEXT_CAPTION_CODE')}</td>
+                                                <td className={classNamesSecondRow.join(' ')} colSpan={2}>
+                                                    <code>{location.getFeature().getCode().code}</code> - {location.getFeature().getCode().name}</td>
+                                            </tr>
+                                            <tr>
+                                                <td className={classNamesFirstRow.join(' ')}>{t('TEXT_CAPTION_TIME_ZONE')}</td>
+                                                <td className={classNamesSecondRow.join(' ')}
+                                                    colSpan={2}>{location.getTimezone()?.getTimezone()} <code>{location.getTimezone()?.getOffset()}</code></td>
+                                            </tr>
                                             {
-                                                featureClass ? <tr>
-                                                    <td className={classNamesFirstRow.join(' ')}>{t('TEXT_CAPTION_MASTER_CODE')}</td>
-                                                    <td className={classNamesSecondRow.join(' ')} colSpan={2}>
-                                                        <code>{featureClass}</code> - {featureClassName}</td>
-                                                </tr> : <></>
-                                            }
-                                            {
-                                                featureCode ? <tr>
-                                                    <td className={classNamesFirstRow.join(' ')}>{t('TEXT_CAPTION_CODE')}</td>
-                                                    <td className={classNamesSecondRow.join(' ')} colSpan={2}>
-                                                        <code>{featureCode}</code> - {featureCodeName}</td>
-                                                </tr> : <></>
-                                            }
-                                            {
-                                                hasTimezone ? <tr>
-                                                    <td className={classNamesFirstRow.join(' ')}>{t('TEXT_CAPTION_TIME_ZONE')}</td>
-                                                    <td className={classNamesSecondRow.join(' ')}
-                                                        colSpan={2}>{timezone} <code>{timezoneOffset}</code></td>
-                                                </tr> : <></>
-                                            }
-                                            {
-                                                wikipediaLink ? <tr>
+                                                location.getLinks().hasWikipedia() ? <tr>
                                                     <td className={classNamesFirstRow.join(' ')}>{t('TEXT_CAPTION_TIME_WIKIPEDIA')}</td>
-                                                    <td className={classNamesSecondRow.join(' ')} colSpan={2}><a href={wikipediaLink} target={'_blank'} rel="noreferrer" dangerouslySetInnerHTML={{__html: addSoftHyphens(wikipediaLink)}} /></td>
+                                                    <td className={classNamesSecondRow.join(' ')} colSpan={2}><a href={location.getLinks().getWikipedia() ?? ''} target={'_blank'} rel="noreferrer" dangerouslySetInnerHTML={{__html: addSoftHyphens(location.getLinks().getWikipedia() ?? '')}} /></td>
                                                 </tr> : <></>
                                             }
                                             <tr>
                                                 <td className={classNamesFirstRow.join(' ')}>{t('TEXT_CAPTION_TIME_GEONAME_ID')}</td>
                                                 <td className={classNamesSecondRow.join(' ')}
-                                                    colSpan={2}>{data['geoname-id']}</td>
+                                                    colSpan={2}>{location.getGeonameId()}</td>
                                             </tr>
                                             <tr>
                                                 <td className={classNamesFirstRow.join(' ')}>{t('TEXT_CAPTION_TIME_LAST_UPDATE')}</td>
                                                 <td className={classNamesSecondRow.join(' ')}
-                                                    colSpan={2}>{convertToGermanFormat(data['updated-at'])}</td>
+                                                    colSpan={2}>{convertToGermanFormat(location.getUpdateAt())}</td>
                                             </tr>
                                             </tbody>
                                         </table>
@@ -353,7 +296,7 @@ const Location = () =>
                                     <div className="card-footer">
                                         <small><small>
                                             {
-                                                distanceInKilometers > 0 ?
+                                                location.getCoordinate().getDistanceUserKilometerValue() >= 0 ?
                                                     <>
                                                         <sup>*)</sup>&nbsp;
                                                         {distanceText}
@@ -365,15 +308,20 @@ const Location = () =>
                                 </div>
                             </div>
 
-                            {hasNextPlacesA ? <NextPlaces nextPlaces={nextPlacesA}/> : <></>}
-                            {hasNextPlacesP ? <NextPlaces nextPlaces={nextPlacesP}/> : <></>}
-                            {hasNextPlacesH ? <NextPlaces nextPlaces={nextPlacesH}/> : <></>}
-                            {hasNextPlacesL ? <NextPlaces nextPlaces={nextPlacesL}/> : <></>}
-                            {hasNextPlacesR ? <NextPlaces nextPlaces={nextPlacesR}/> : <></>}
-                            {hasNextPlacesS ? <NextPlaces nextPlaces={nextPlacesS}/> : <></>}
-                            {hasNextPlacesT ? <NextPlaces nextPlaces={nextPlacesT}/> : <></>}
-                            {hasNextPlacesU ? <NextPlaces nextPlaces={nextPlacesU}/> : <></>}
-                            {hasNextPlacesV ? <NextPlaces nextPlaces={nextPlacesV}/> : <></>}
+                            {/* Renders the next places parts */}
+                            {
+                                location.hasNextPlaces() ? <>
+                                    {location.getNextPlacesFeatureClasses().map((featureClass) => {
+                                        const nextPlace = location.getNextPlace(featureClass);
+
+                                        if (nextPlace === null) {
+                                            return <></>;
+                                        }
+
+                                        return <NextPlaces nextPlaces={nextPlace}/>;
+                                    })}
+                                </> : <></>
+                            }
 
                             {/* Renders the search performance part. */}
                             <SearchPerformance

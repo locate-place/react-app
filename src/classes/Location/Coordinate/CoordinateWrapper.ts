@@ -77,6 +77,14 @@ class CoordinateWrapper
     }
 
     /**
+     * Returns if the distance of the location exists.
+     */
+    hasDistance(): boolean
+    {
+        return !!this.coordinate.distance;
+    }
+
+    /**
      * Returns the distance of the location.
      */
     getDistance(): TypeDistance|null
@@ -89,7 +97,15 @@ class CoordinateWrapper
     }
 
     /**
-     * Returns the distance of the location to user.
+     * Returns if the distance of the location to user exists.
+     */
+    hasDistanceUser(): boolean
+    {
+        return !!this.coordinate['distance-user'];
+    }
+
+    /**
+     * Returns the distance of the location to the user.
      */
     getDistanceUser(): TypeDistance|null
     {
@@ -98,6 +114,38 @@ class CoordinateWrapper
         }
 
         return this.coordinate['distance-user'];
+    }
+
+    /**
+     * Returns the distance of the location to the user in kilometers (-1 if not exists).
+     */
+    getDistanceUserKilometerValue(): number
+    {
+        if (!this.coordinate['distance-user']) {
+            return -1;
+        }
+
+        return this.coordinate['distance-user'].kilometers.value;
+    }
+
+    /**
+     * Returns the distance of the location to the user in kilometers (-1 if not exists).
+     */
+    getDistanceUserKilometerFormatted(): string|null
+    {
+        if (!this.coordinate['distance-user']) {
+            return null;
+        }
+
+        return this.coordinate['distance-user'].kilometers["value-formatted"];
+    }
+
+    /**
+     * Returns if the direction of the location exists.
+     */
+    hasDirection(): boolean
+    {
+        return !!this.coordinate.direction;
     }
 
     /**
@@ -115,7 +163,7 @@ class CoordinateWrapper
     /**
      * Returns the cardinal direction of the location.
      */
-    getDirectionString(): string|null
+    getDirectionTranslated(): string|null
     {
         const direction = this.getDirection();
 
@@ -124,6 +172,28 @@ class CoordinateWrapper
         }
 
         return direction["cardinal-direction-translated"];
+    }
+
+    /**
+     * Returns the cardinal direction of the location.
+     */
+    getDirectionDegree(): number
+    {
+        const direction = this.getDirection();
+
+        if (direction === null) {
+            return 0; // 0° - North
+        }
+
+        return direction.degree;
+    }
+
+    /**
+     * Returns if the direction of the location to user exists.
+     */
+    hasDirectionUser(): boolean
+    {
+        return !!this.coordinate['direction-user'];
     }
 
     /**
@@ -141,7 +211,7 @@ class CoordinateWrapper
     /**
      * Returns the cardinal direction of the location to user.
      */
-    getDirectionUserString(): string|null
+    getDirectionUserTranslated(): string|null
     {
         const direction = this.getDirectionUser();
 
@@ -150,6 +220,20 @@ class CoordinateWrapper
         }
 
         return direction["cardinal-direction-translated"];
+    }
+
+    /**
+     * Returns the cardinal direction of the location to user.
+     */
+    getDirectionUserDegree(): number
+    {
+        const direction = this.getDirectionUser();
+
+        if (direction === null) {
+            return 0; // 0° - North
+        }
+
+        return direction.degree;
     }
 }
 

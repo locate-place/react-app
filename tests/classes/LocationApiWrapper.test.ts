@@ -97,9 +97,9 @@ test('LocationApiWrapper: Test location GeoNameSearch', () =>
     expect(locationApiWrapper.getLocation().getCoordinate().getDistance()).toEqual(null);
     expect(locationApiWrapper.getLocation().getCoordinate().getDistanceUser()).toEqual(null);
     expect(locationApiWrapper.getLocation().getCoordinate().getDirection()).toEqual(null);
-    expect(locationApiWrapper.getLocation().getCoordinate().getDirectionString()).toEqual(null);
+    expect(locationApiWrapper.getLocation().getCoordinate().getDirectionTranslated()).toEqual(null);
     expect(locationApiWrapper.getLocation().getCoordinate().getDirectionUser()).toEqual(null);
-    expect(locationApiWrapper.getLocation().getCoordinate().getDirectionUserString()).toEqual(null);
+    expect(locationApiWrapper.getLocation().getCoordinate().getDirectionUserTranslated()).toEqual(null);
 
     /* Test feature. */
     expect(locationApiWrapper.getLocation().getFeature().getClass()).toEqual({"code": "P", "name": "Städte, Dörfer, etc."});
@@ -134,8 +134,8 @@ test('LocationApiWrapper: Test location GeoNameSearch', () =>
 
     /* Test next places. */
     expect(locationApiWrapper.getLocation().getNextPlaces()?.getFeatureClasses()).toEqual(["H", "L", "P", "R", "S", "T", "U", "V"]);
-    expect(locationApiWrapper.getLocation().getNextPlaces()?.getFeatureClassConfig('H')).toEqual({"coordinate": {"latitude": {"decimal": 51.05089, "dms": "51°3′3.204″N"}, "longitude": {"decimal": 13.73832, "dms": "13°44′17.952″E"}, "srid": 4326}, "coordinate-type": "location", "distance-meter": 10000, "limit": 10, "location": {"name": "Dresden"}});
-    expect(locationApiWrapper.getLocation().getNextPlaces()?.getFeatureClassPlacesNumber('H')).toEqual(5);
+    expect(locationApiWrapper.getLocation().getNextPlaces()?.getNextPlaceConfig('H')).toEqual({"coordinate": {"latitude": {"decimal": 51.05089, "dms": "51°3′3.204″N"}, "longitude": {"decimal": 13.73832, "dms": "13°44′17.952″E"}, "srid": 4326}, "coordinate-type": "location", "distance-meter": 10000, "limit": 10, "location": {"name": "Dresden"}});
+    expect(locationApiWrapper.getLocation().getNextPlaces()?.getNextPlacePlacesNumber('H')).toEqual(5);
 });
 
 /**
@@ -191,9 +191,9 @@ test('LocationApiWrapper: Test location GeoNameSearch with current location', ()
     expect(locationApiWrapper.getLocation().getCoordinate().getDistance()).toEqual(null);
     expect(locationApiWrapper.getLocation().getCoordinate().getDistanceUser()).toEqual({"kilometers": {"unit": "km", "value": 474.627, "value-formatted": "474.627 km"}, "meters": {"unit": "m", "value": 474626.6, "value-formatted": "474,626.6 m"}});
     expect(locationApiWrapper.getLocation().getCoordinate().getDirection()).toEqual(null);
-    expect(locationApiWrapper.getLocation().getCoordinate().getDirectionString()).toEqual(null);
+    expect(locationApiWrapper.getLocation().getCoordinate().getDirectionTranslated()).toEqual(null);
     expect(locationApiWrapper.getLocation().getCoordinate().getDirectionUser()).toEqual({"cardinal-direction": "W", "cardinal-direction-translated": "West", "degree": -91.01});
-    expect(locationApiWrapper.getLocation().getCoordinate().getDirectionUserString()).toEqual('West');
+    expect(locationApiWrapper.getLocation().getCoordinate().getDirectionUserTranslated()).toEqual('West');
 
     /* Test feature. */
     expect(locationApiWrapper.getLocation().getFeature().getClass()).toEqual({"code": "S", "name": "Spots, Buildings, Farms, etc."});
@@ -228,8 +228,8 @@ test('LocationApiWrapper: Test location GeoNameSearch with current location', ()
 
     /* Test next places. */
     expect(locationApiWrapper.getLocation().getNextPlaces()?.getFeatureClasses()).toEqual(["H", "L", "P", "R", "S", "T", "U", "V"]);
-    expect(locationApiWrapper.getLocation().getNextPlaces()?.getFeatureClassConfig('H')).toEqual({"coordinate": {"latitude": {"decimal": 50.94123, "dms": "50°56′28.428″N"}, "longitude": {"decimal": 6.95823, "dms": "6°57′29.628″E"}, "srid": 4326}, "coordinate-type": "location", "distance-meter": 10000, "limit": 10, "location": {"name": "Cologne Cathedral"}});
-    expect(locationApiWrapper.getLocation().getNextPlaces()?.getFeatureClassPlacesNumber('H')).toEqual(10);
+    expect(locationApiWrapper.getLocation().getNextPlaces()?.getNextPlaceConfig('H')).toEqual({"coordinate": {"latitude": {"decimal": 50.94123, "dms": "50°56′28.428″N"}, "longitude": {"decimal": 6.95823, "dms": "6°57′29.628″E"}, "srid": 4326}, "coordinate-type": "location", "distance-meter": 10000, "limit": 10, "location": {"name": "Cologne Cathedral"}});
+    expect(locationApiWrapper.getLocation().getNextPlaces()?.getNextPlacePlacesNumber('H')).toEqual(10);
 });
 
 /**

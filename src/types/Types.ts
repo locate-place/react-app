@@ -1,5 +1,9 @@
 import React from "react";
 
+type TypeErrorOwn = {
+    "message": string,
+}|null;
+
 type TypeValue = {
     "value": number,
     "unit": string,
@@ -78,10 +82,6 @@ type TypeQuerFeatureCode = {
     "code": string,
     "translated": string,
 }
-
-type TypeError = {
-    "message": string,
-}|null;
 
 type TypeLoaded = boolean;
 
@@ -168,7 +168,7 @@ type TypeLoadApiArguments = {
     type: string,
     path: string,
     setLoaded: React.Dispatch<React.SetStateAction<TypeLoaded>>,
-    setError: React.Dispatch<React.SetStateAction<TypeError>>,
+    setError: React.Dispatch<React.SetStateAction<TypeErrorOwn>>,
     setProperties: React.Dispatch<React.SetStateAction<TypeApiProperties|null>>,
 
     /* Optional types */
@@ -178,6 +178,7 @@ type TypeLoadApiArguments = {
     setDataCalendars?: React.Dispatch<React.SetStateAction<TypeDataCalendars|null>>,
     setDataLocation?: React.Dispatch<React.SetStateAction<TypeLocation|null>>,
     setDataLocations?: React.Dispatch<React.SetStateAction<TypeLocations|null>>,
+    setDataApi?: React.Dispatch<React.SetStateAction<TypeApiData|null>>,
     callback?: Function,
 }
 
@@ -408,7 +409,7 @@ export {
     TypePlace,
     TypeFilterConfig,
     TypeQuerFeatureCode,
-    TypeError,
+    TypeErrorOwn,
     TypeLoaded,
     TypeDataVersion,
     TypeDataCalendarPage,

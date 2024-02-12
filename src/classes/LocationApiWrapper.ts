@@ -1,10 +1,15 @@
+/* Import types. */
 import {
     TypeApiData,
     TypeDataLicence,
     TypePerformance,
+    TypeResults,
+    TypeLocation,
     typeLocation,
-    typeLocations, TypeResults, TypeLocation
+    typeLocations
 } from "../types/Types";
+
+/* Import classes. */
 import {LocationWrapper} from "./Location/LocationWrapper";
 
 /**

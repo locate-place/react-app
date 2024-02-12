@@ -11,7 +11,7 @@ import {Query} from "../../classes/Query";
 import {
     TypeApiProperties,
     TypeDataCalendar,
-    TypeError,
+    TypeErrorOwn,
     TypeLoaded
 } from "../../types/Types";
 
@@ -33,7 +33,7 @@ const Calendar = () => {
     }, []);
 
     /* State variables */
-    const [error, setError] = useState<TypeError>(null);
+    const [error, setError] = useState<TypeErrorOwn>(null);
     const [loaded, setLoaded] = useState<TypeLoaded>(false);
     const [data, setData] = useState<TypeDataCalendar|null>(null);
     const [properties, setProperties] = useState<TypeApiProperties|null>(null);

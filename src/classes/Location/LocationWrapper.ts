@@ -1,7 +1,7 @@
 /* Import types. */
 import {
     TypeAdministrativeLocations, TypeLinksWikipediaNextPlaces,
-    TypeLocation,
+    TypeLocation, TypeNextPlaces, TypeNextPlacesFeatureClass,
 } from "../../types/Types";
 
 /* Import config. */
@@ -101,6 +101,27 @@ class LocationWrapper
     }
 
     /**
+     * Returns if the administrative locations exist given by key name.
+     *
+     * @param key {string}
+     * @return {boolean}
+     */
+    hasAdministrativeLocation<K extends keyof TypeAdministrativeLocations>(key: K): boolean
+    {
+        const administrativeLocations = this.getAdministrativeLocations();
+
+        if (administrativeLocations === null) {
+            return false;
+        }
+
+        if (!administrativeLocations[key]) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
      * Returns the administrative locations.
      *
      * @param key {string}
@@ -122,11 +143,27 @@ class LocationWrapper
     }
 
     /**
+     * Returns if the district/locality from administrative locations exist.
+     */
+    hasDistrictLocality(): boolean
+    {
+        return this.hasAdministrativeLocation(administrativeLocationDistrictLocality);
+    }
+
+    /**
      * Returns the district/locality from administrative locations.
      */
     getDistrictLocality(): LocationWrapper|null
     {
         return this.getAdministrativeLocation(administrativeLocationDistrictLocality);
+    }
+
+    /**
+     * Returns if the city/municipality from administrative locations exist.
+     */
+    hasCityMunicipality(): boolean
+    {
+        return this.hasAdministrativeLocation(administrativeLocationCityMunicipality);
     }
 
     /**
@@ -138,11 +175,27 @@ class LocationWrapper
     }
 
     /**
+     * Returns if the state from administrative locations exist.
+     */
+    hasState(): boolean
+    {
+        return this.hasAdministrativeLocation(administrativeLocationState);
+    }
+
+    /**
      * Returns the state from administrative locations.
      */
     getState(): LocationWrapper|null
     {
         return this.getAdministrativeLocation(administrativeLocationState);
+    }
+
+    /**
+     * Returns if the state from administrative locations exist.
+     */
+    hasCountry(): boolean
+    {
+        return this.hasAdministrativeLocation(administrativeLocationCountry);
     }
 
     /**
@@ -180,6 +233,14 @@ class LocationWrapper
     }
 
     /**
+     * Returns if the timezone of the location exists.
+     */
+    hasTimezone(): boolean
+    {
+        return !!this.location.timezone;
+    }
+
+    /**
      * Returns the timezone of the location.
      */
     getTimezone(): TimezoneWrapper|null
@@ -200,6 +261,14 @@ class LocationWrapper
     }
 
     /**
+     * Returns if the next places of the location exist.
+     */
+    hasNextPlaces(): boolean
+    {
+        return !!this.location["next-places"];
+    }
+
+    /**
      * Returns the next places of the location.
      */
     getNextPlaces(): NextPlacesWrapper|null
@@ -209,6 +278,32 @@ class LocationWrapper
         }
 
         return new NextPlacesWrapper(this.location["next-places"]);
+    }
+
+    /**
+     * Returns all next places feature classes.
+     */
+    getNextPlacesFeatureClasses(): Array<keyof TypeNextPlaces>
+    {
+        if (!this.location["next-places"]) {
+            return [];
+        }
+
+        return Object.keys(this.location['next-places']) as Array<keyof TypeNextPlaces>;
+    }
+
+    /**
+     * Returns a single next place by given feature class.
+     *
+     * @param key
+     */
+    getNextPlace<K extends keyof TypeNextPlaces>(key: K): TypeNextPlacesFeatureClass|null
+    {
+        if (!this.location["next-places"]) {
+            return null;
+        }
+
+        return this.location["next-places"][key] ?? null;
     }
 
     /**

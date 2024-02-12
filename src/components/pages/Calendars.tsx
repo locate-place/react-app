@@ -2,7 +2,7 @@ import React, {useEffect, useMemo, useState} from 'react';
 import {useSearchParams} from "react-router-dom";
 
 /* Import types. */
-import {TypeApiProperties, TypeDataCalendars, TypeError, TypeLoaded} from "../../types/Types";
+import {TypeApiProperties, TypeDataCalendars, TypeErrorOwn, TypeLoaded} from "../../types/Types";
 
 /* Import functions. */
 import loadApiData from "../../functions/LoadApiData";
@@ -27,7 +27,7 @@ const Calendars = () =>
     }, []);
 
     /* State variables */
-    const [error, setError] = useState<TypeError>(null);
+    const [error, setError] = useState<TypeErrorOwn>(null);
     const [loaded, setLoaded] = useState<TypeLoaded>(false);
     const [data, setData] = useState<TypeDataCalendars|null>(null);
     const [properties, setProperties] = useState<TypeApiProperties|null>(null);

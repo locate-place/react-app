@@ -34,6 +34,14 @@ class LinksWrapper
     }
 
     /**
+     * Returns if the wikipedia link assigned to the location exists.
+     */
+    hasWikipedia(): boolean
+    {
+        return !!this.links.wikipedia?.this;
+    }
+
+    /**
      * Returns the wikipedia link assigned to the location.
      */
     getWikipedia(): string|null

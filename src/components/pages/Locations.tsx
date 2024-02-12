@@ -7,7 +7,7 @@ import {useTranslation} from "react-i18next";
 /* Import types. */
 import {
     TypeApiProperties,
-    TypeError,
+    TypeErrorOwn,
     TypeLoaded,
     TypeLocations
 } from "../../types/Types";
@@ -73,7 +73,7 @@ const Locations = () =>
     }, []);
 
     /* State variables */
-    const [error, setError] = useState<TypeError>(null);
+    const [error, setError] = useState<TypeErrorOwn>(null);
     const [loaded, setLoaded] = useState<TypeLoaded>(false);
     const [data, setData] = useState<TypeLocations|null>(null);
     const [properties, setProperties] = useState<TypeApiProperties|null>(null);

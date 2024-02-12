@@ -13,7 +13,7 @@ import {faDatabase, faImages, faIndustry} from "@fortawesome/free-solid-svg-icon
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 /* Import types. */
-import {TypeApiProperties, TypeDataVersion, TypeError, TypeLoaded} from "../../types/Types";
+import {TypeApiProperties, TypeDataVersion, TypeErrorOwn, TypeLoaded} from "../../types/Types";
 
 /**
  * This is the about page.
@@ -36,14 +36,14 @@ const About = () =>
 
     /* Calendar Builder variables */
     const [loadedCalendarBuilder, setLoadedCalendarBuilder] = useState<TypeLoaded>(false);
-    const [errorCalendarBuilder, setErrorCalendarBuilder] = useState<TypeError>(null);
+    const [errorCalendarBuilder, setErrorCalendarBuilder] = useState<TypeErrorOwn>(null);
     const [dataCalendarBuilder, setDataCalendarBuilder] = useState<TypeDataVersion|null>(null);
     const [propertiesCalendarBuilder, setPropertiesCalendarBuilder] = useState<TypeApiProperties|null>(null);
     const apiPathCalendarBuilder = '/api/v1/version.json';
 
     /* Location API variables */
     const [loadedLocationApi, setLoadedLocationApi] = useState<TypeLoaded>(false);
-    const [errorLocationApi, setErrorLocationApi] = useState<TypeError>(null);
+    const [errorLocationApi, setErrorLocationApi] = useState<TypeErrorOwn>(null);
     const [dataLocationApi, setDataLocationApi] = useState<TypeDataVersion|null>(null);
     const [propertiesLocationApi, setPropertiesLocationApi] = useState<TypeApiProperties|null>(null);
     const apiPathLocationApi = '/api/v1/version.json';

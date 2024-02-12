@@ -2,6 +2,7 @@
 import {
     TypeProperties, TypeValue,
 } from "../../../types/Types";
+import {translateCountryCode} from "../../../translations/Country";
 
 /**
  * Class PropertiesWrapper
@@ -41,11 +42,35 @@ class PropertiesWrapper
     }
 
     /**
+     * Returns the translated country name from location.
+     */
+    getCountryCodeTranslated(): string
+    {
+        return translateCountryCode(this.getCountryCode());
+    }
+
+    /**
+     * Returns if the country code from location exist.
+     */
+    hasElevation(): boolean
+    {
+        return !!this.properties.elevation;
+    }
+
+    /**
      * Return the country code from location.
      */
     getElevation(): TypeValue|null
     {
         return this.properties.elevation ?? null;
+    }
+
+    /**
+     * Returns the population from location.
+     */
+    hasPopulation(): boolean
+    {
+        return !!this.properties.population;
     }
 
     /**

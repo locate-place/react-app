@@ -1,10 +1,10 @@
 import React from "react";
 
 /* Import types */
-import {TypeError} from "../../types/Types";
+import {TypeErrorOwn} from "../../types/Types";
 
 type ErrorProps = {
-    error: TypeError,
+    error: TypeErrorOwn,
     apiPath: string,
 }
 

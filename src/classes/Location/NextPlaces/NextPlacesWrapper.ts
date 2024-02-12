@@ -37,9 +37,9 @@ class NextPlacesWrapper
     /**
      * Returns all feature classes.
      */
-    getFeatureClasses(): string[]
+    getFeatureClasses(): Array<keyof TypeNextPlaces>
     {
-        return Object.keys(this.nextPlaces);
+        return Object.keys(this.nextPlaces) as Array<keyof TypeNextPlaces>;
     }
 
     /**
@@ -47,7 +47,7 @@ class NextPlacesWrapper
      *
      * @param key
      */
-    getFeatureClass<K extends keyof TypeNextPlaces>(key: K): TypeNextPlacesFeatureClass|null
+    getNextPlace<K extends keyof TypeNextPlaces>(key: K): TypeNextPlacesFeatureClass|null
     {
         return this.nextPlaces[key] ?? null;
     }
@@ -57,9 +57,9 @@ class NextPlacesWrapper
      *
      * @param key {string}
      */
-    getFeatureClassConfig<K extends keyof TypeNextPlaces>(key: K): TypeNextPlacesFeatureClassConfig|null
+    getNextPlaceConfig<K extends keyof TypeNextPlaces>(key: K): TypeNextPlacesFeatureClassConfig|null
     {
-        const featureClass = this.getFeatureClass(key);
+        const featureClass = this.getNextPlace(key);
 
         if (featureClass === null) {
             return null;
@@ -73,9 +73,9 @@ class NextPlacesWrapper
      *
      * @param key {string}
      */
-    getFeatureClassFeature<K extends keyof TypeNextPlaces>(key: K): TypeNextPlacesFeatureClassFeature|null
+    getNextPlaceFeature<K extends keyof TypeNextPlaces>(key: K): TypeNextPlacesFeatureClassFeature|null
     {
-        const featureClass = this.getFeatureClass(key);
+        const featureClass = this.getNextPlace(key);
 
         if (featureClass === null) {
             return null;
@@ -89,9 +89,9 @@ class NextPlacesWrapper
      *
      * @param key {string}
      */
-    getFeatureClassPlacesNumber<K extends keyof TypeNextPlaces>(key: K): number|null
+    getNextPlacePlacesNumber<K extends keyof TypeNextPlaces>(key: K): number|null
     {
-        const featureClass = this.getFeatureClass(key);
+        const featureClass = this.getNextPlace(key);
 
         if (featureClass === null) {
             return null;
@@ -105,9 +105,9 @@ class NextPlacesWrapper
      *
      * @param key {string}
      */
-    getFeatureClassPlaces<K extends keyof TypeNextPlaces>(key: K): LocationWrapper[]|null
+    getNextPlacePlaces<K extends keyof TypeNextPlaces>(key: K): LocationWrapper[]|null
     {
-        const featureClass = this.getFeatureClass(key);
+        const featureClass = this.getNextPlace(key);
 
         if (featureClass === null) {
             return null;

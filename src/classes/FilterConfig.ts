@@ -20,7 +20,10 @@ import {
 import {countryDE} from "../config/Country";
 import {languageDE} from "../config/Language";
 import {routePathLocations} from "../config/Route";
+
+/* Import classes. */
 import {NextPlaceWrapper} from "./Location/NextPlaces/NextPlaceWrapper";
+import {To} from "react-router-dom";
 
 /**
  * Class FilterConfig
@@ -35,6 +38,8 @@ class FilterConfig
 
     /* The initialized filter configuration, to avoid parsing the query parameters if needed. */
     private readonly filterConfigInit: TypeFilterConfig = {};
+
+    private doNotResetFilterConfig: boolean = false;
 
     /**
      * FilterConfig constructor.
@@ -76,7 +81,56 @@ class FilterConfig
      */
     resetFilterConfig(): void
     {
+        if (this.isDoNotResetFilterConfig()) {
+            this.doNotResetFilterConfig = false;
+            return;
+        }
+
         this.filterConfig = this.filterConfigInit;
+    }
+
+    setDoNotResetFilterConfig(doNotResetFilterConfig: boolean|null = null): void
+    {
+        if (doNotResetFilterConfig === null) {
+            this.doNotResetFilterConfig = true;
+            return;
+        }
+
+        this.doNotResetFilterConfig = doNotResetFilterConfig;
+    }
+
+    isDoNotResetFilterConfig(): boolean
+    {
+        return this.doNotResetFilterConfig;
+    }
+
+    getFullQualifiedLink(link: To): string
+    {
+        link = link.toString();
+
+        if (link.startsWith('http')) {
+            return link;
+        }
+
+        if (link.startsWith('/')) {
+            return window.location.origin + link;
+        }
+
+        return window.location.origin + '/' + link;
+    }
+
+    getPathname(link: To): string
+    {
+        const url = new URL(this.getFullQualifiedLink(link));
+
+        return url.pathname;
+    }
+
+    setFilterConfigByLink(link: To)
+    {
+        const url = new URL(this.getFullQualifiedLink(link));
+
+        this.setFilterConfigBySearchParams(url.searchParams);
     }
 
     /**
@@ -531,8 +585,13 @@ class FilterConfig
      *
      * @param language
      * @param country
+     * @param pathname
      */
-    getCurrentLinkWithLanguage(language: string|null = null, country: string|null = null): string
+    getCurrentLinkWithLanguage(
+        language: string|null = null,
+        country: string|null = null,
+        pathname: string|null = null,
+    ): string
     {
         language = language ?? i18n.language;
         country = country ?? this.getCountryByLanguage(language);
@@ -541,7 +600,7 @@ class FilterConfig
         this.setLanguage(language);
         this.setCountry(country);
 
-        return this.getFullLink(null, this.getConvertedFilterQueryString());
+        return this.getFullLink(pathname, this.getConvertedFilterQueryString());
     }
 
     /**

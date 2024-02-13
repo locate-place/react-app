@@ -49,7 +49,6 @@ const App = () => {
         return navigateOrig;
     }, [navigateOrig]);
 
-
     /* Memorized variables. */
     const [searchParams] = useSearchParams();
     const language = searchParams.get(nameParameterLanguage) ?? languageDefault;

@@ -1,5 +1,5 @@
 import React, {useMemo} from "react";
-import {Link, useSearchParams} from "react-router-dom";
+import {useSearchParams} from "react-router-dom";
 
 /* Import translation functions. */
 import {useTranslation} from "react-i18next";
@@ -12,6 +12,9 @@ import {NextPlaceWrapper} from "../../classes/Location/NextPlaces/NextPlaceWrapp
 import {LocationWrapper} from "../../classes/Location/LocationWrapper";
 import {mapTypeGoogle} from "../../config/MapTypes";
 import {Query} from "../../classes/Query";
+
+/* Import components. */
+import LinkV2 from "./LinkV2";
 
 /* Argument properties. */
 type NextPlacesProps = {
@@ -53,7 +56,9 @@ const NextPlaces = ({nextPlace}: NextPlacesProps) =>
                     {nextPlace.getConfigDistanceText(t)} -&nbsp;
                     {nextPlace.getConfigLimitationText(t)} -&nbsp;
                     {t('TEXT_NEXT_PLACE_SORTED_BY_DISTANCE_TEXT')} -&nbsp;
-                    <Link to={query.getFilterConfig().getNextPlacesListLink(nextPlace)}>{t('TEXT_NEXT_PLACE_SHOW_LIST_TEXT')}</Link>
+                    <LinkV2
+                        to={query.getFilterConfig().getNextPlacesListLink(nextPlace)}
+                    >{t('TEXT_NEXT_PLACE_SHOW_LIST_TEXT')}</LinkV2>
                 </small></p>
                 <table className="table table-last-line">
                     <tbody>
@@ -82,9 +87,9 @@ const NextPlaces = ({nextPlace}: NextPlacesProps) =>
                                     place.getCoordinate().hasDistance() ?
                                         <>
                                             <td className="column-value">
-                                                <a
+                                                <LinkV2
                                                     className="btn btn-primary shadow-own"
-                                                    href={place.getLinks().getMaps(mapTypeGoogle) ?? ''}
+                                                    to={place.getLinks().getMaps(mapTypeGoogle) ?? ''}
                                                     target={'_blank'}
                                                     rel="noreferrer"
                                                     title={nextPlace.getConfigDistanceAndDirectionText(t)}
@@ -94,7 +99,7 @@ const NextPlaces = ({nextPlace}: NextPlacesProps) =>
                                                     </span>
                                                     <br/>
                                                     - {place.getCoordinate().getDirectionTranslatedShort() ?? ''} -
-                                                </small></a>
+                                                </small></LinkV2>
                                             </td>
                                         </> : <></>
                                 }

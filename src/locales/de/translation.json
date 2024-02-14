@@ -68,5 +68,24 @@
   "TEXT_NEXT_PLACE_DISTANCE_HINT_QUERY_TEXT": "Abstand und Richtung entsprechend der Location vom Suchquery ({{coordinate}}).",
   "TEXT_NEXT_PLACE_INHABITANTS_TEXT": "{{inhabitants}} Einwohner",
 
+  "TEXT_CONTACT_TITLE": "Kontakt",
+
+  "TEXT_ABOUT_DESCRIPTION": "Dieser Service wird bereitgestellt von",
+  "TEXT_ABOUT_TITLE": "Versionen",
+  "TEXT_ABOUT_APP_TITLE": "App",
+  "TEXT_ABOUT_APP_DESCRIPTION": "Übersicht über die Versionen dieser verwendeten App.",
+
+  "TEXT_CALENDARS_TITLE": "Übersicht",
+  "TEXT_CALENDARS_SUBTITLE": "Übersicht über alle Kalender",
+
+  "TEXT_NAVIGATION_ICON": "CV",
+  "TEXT_NAVIGATION_HOME": "Kalender",
+  "TEXT_NAVIGATION_LOCATIONS": "Standorte",
+  "TEXT_NAVIGATION_ABOUT": "Über",
+  "TEXT_NAVIGATION_CONTACT": "Kontakt",
+
+  "TEXT_NAVIGATION_EN": "EN",
+  "TEXT_NAVIGATION_GE": "DE",
+
   "TEXT_WORD_UNKNOWN": "Unbekannt"
 }

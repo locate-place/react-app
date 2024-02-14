@@ -3,6 +3,7 @@ import {Link, useSearchParams} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import {Query} from "../../classes/Query";
 import i18n from "i18next";
+import LinkV2 from "./LinkV2";
 
 /**
  * This is the navigation part.
@@ -22,13 +23,15 @@ const Navigation = () =>
 
     let query = new Query(searchParams, env);
 
+    let filterConfig = query.getFilterConfig();
+
     const language = i18n.language;
 
     return (
         <>
             <nav className="navbar navbar-expand-lg navbar-light" id="mainNav">
                 <div className="container px-4 px-lg-5">
-                    <Link className="navbar-brand" to="/index.html">CV</Link>
+                    <LinkV2 className="navbar-brand" to={filterConfig.getTo('/index.html')}>{t('TEXT_NAVIGATION_ICON')}</LinkV2>
                     <button
                         className="navbar-toggler"
                         type="button"
@@ -41,20 +44,20 @@ const Navigation = () =>
                     <div className="collapse navbar-collapse" id="navbarResponsive">
                         <ul className="navbar-nav ms-auto py-4 py-lg-0">
                             <li className="nav-item"><Link className="nav-link px-lg-3 py-3 py-lg-4"
-                                                           to="/index.html">Home</Link></li>
+                                                           to={filterConfig.getTo('/index.html')}>{t('TEXT_NAVIGATION_HOME')}</Link></li>
                             <li className="nav-item"><Link className="nav-link px-lg-3 py-3 py-lg-4"
-                                                           to="/locations.html">Locations</Link></li>
+                                                           to={filterConfig.getTo('/locations.html')}>{t('TEXT_NAVIGATION_LOCATIONS')}</Link></li>
                             <li className="nav-item"><Link className="nav-link px-lg-3 py-3 py-lg-4"
-                                                           to="/about.html">Über</Link></li>
+                                                           to={filterConfig.getTo('/about.html')}>{t('TEXT_NAVIGATION_ABOUT')}</Link></li>
                             <li className="nav-item"><Link className="nav-link px-lg-3 py-3 py-lg-4"
-                                                           to="/contact.html">Kontakt</Link></li>
+                                                           to={filterConfig.getTo('/contact.html')}>{t('TEXT_NAVIGATION_CONTACT')}</Link></li>
                             {
                                 language === 'de' ?
                                     <li className="nav-item"><Link className="nav-link px-lg-3 py-3 py-lg-4"
-                                                                   to={query.getFilterConfig().getCurrentLinkWithLanguage('en')}>EN</Link>
+                                                                   to={query.getFilterConfig().getCurrentLinkWithLanguage('en')}>{t('TEXT_NAVIGATION_EN')}</Link>
                                     </li> :
                                     <li className="nav-item"><Link className="nav-link px-lg-3 py-3 py-lg-4"
-                                                                   to={query.getFilterConfig().getCurrentLinkWithLanguage('de')}>DE</Link>
+                                                                   to={query.getFilterConfig().getCurrentLinkWithLanguage('de')}>{t('TEXT_NAVIGATION_GE')}</Link>
                                     </li>
                             }
 

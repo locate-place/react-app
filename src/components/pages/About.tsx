@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useState} from 'react';
+import {useTranslation} from "react-i18next";
 
 /* Add functions */
 import loadApiData from "../../functions/LoadApiData";
@@ -14,12 +15,16 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 /* Import types. */
 import {TypeApiProperties, TypeDataVersion, TypeErrorOwn, TypeLoaded} from "../../types/Types";
+import LinkV2 from "../layout/LinkV2";
 
 /**
  * This is the about page.
  */
 const About = () =>
 {
+    /* Import translation. */
+    const { t } = useTranslation();
+
     /* API types */
     const typeCalendarBuilder: string = useMemo(() => {
         return process.env.REACT_APP_TYPE_CALENDAR_BUILDER !== undefined ?
@@ -82,15 +87,17 @@ const About = () =>
                         <div className="col-12 col-md-10 offset-md-1 col-xl-8 offset-xl-2">
                             <h2>React Calendar Viewer</h2>
                             <p>
-                                Dieser Service wird bereitgestellt von <a href="https://twelvepics.com">twelvepics.com</a>
+                                {t('TEXT_ABOUT_DESCRIPTION')} <LinkV2
+                                    to="https://twelvepics.com"
+                                    target={'_blank'}
+                                    rel="noreferrer"
+                                >twelvepics.com</LinkV2>
                             </p>
 
-                            <h3>Versionen</h3>
+                            <h3>{t('TEXT_ABOUT_TITLE')}</h3>
 
-                            <h4>App</h4>
-                            <p>
-                                Übersicht über die Versionen dieser verwendeten App.
-                            </p>
+                            <h4>{t('TEXT_ABOUT_APP_TITLE')}</h4>
+                            <p>{t('TEXT_ABOUT_APP_DESCRIPTION')}</p>
 
                             <div className="card w-100 shadow-own">
                                 <div className="card-header fw-bold">
@@ -102,19 +109,19 @@ const About = () =>
                                             Diese App, welche gerade aufgerufen wurde
                                         </li>
                                         <li>
-                                            Build on top of <a
-                                                href={'https://react.dev/blog/2022/03/29/react-v18'}
+                                            Build on top of <LinkV2
+                                                to={'https://react.dev/blog/2022/03/29/react-v18'}
                                                 target={'_blank'}
                                                 rel="noreferrer"
                                             >
                                                 React
-                                            </a> 18.2.0
+                                            </LinkV2> 18.2.0
                                         </li>
-                                        <li>Repository: <a
-                                            href={'https://github.com/twelvepics-com/react-calendar-viewer/blob/main/CHANGELOG.md'}
+                                        <li>Repository: <LinkV2
+                                            to={'https://github.com/twelvepics-com/react-calendar-viewer/blob/main/CHANGELOG.md'}
                                             target={'_blank'}
                                             rel="noreferrer"
-                                        >React Calendar Viewer</a></li>
+                                        >React Calendar Viewer</LinkV2></li>
                                     </ul>
                                 </div>
                                 <div className="card-footer fst-italic">

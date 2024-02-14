@@ -1,16 +1,21 @@
 import React from "react";
+import {useTranslation} from "react-i18next";
 
 /* Add component parts */
 import Header from "../layout/Header";
 
 /* Flag icons; see https://github.com/stephenway/react-flagkit */
 import Flag from "react-flagkit";
+import LinkV2 from "../layout/LinkV2";
 
 /**
  * This is the contact page.
  */
 const Contact = () =>
 {
+    /* Import translation. */
+    const { t } = useTranslation();
+
     return (
         <>
             <Header title='Kontakt' subtitle='Kontaktseite' />
@@ -19,7 +24,7 @@ const Contact = () =>
                     <div className="col-12 col-md-10 offset-md-1 col-xl-8 offset-xl-2">
                         <div className="card shadow-own">
                             <div className="card-header">
-                                <Flag country="DE" size={20}/> <span className="fw-bold">Kontakt</span>
+                                <Flag country="DE" size={20}/> <span className="fw-bold">{t('TEXT_CONTACT_TITLE')}</span>
                             </div>
                             <div className="card-body">
                                 <p className="card-text">
@@ -31,7 +36,7 @@ const Contact = () =>
                             <div className="card-footer">
                                 <small><small>
                                     <strong>Innere Neustadt, Dresden, Sachsen, Deutschland</strong> -&nbsp;
-                                    <span><a href={'location.html?q=51°3′39.2616″N,%2013°44′26.5956″E&next_places=1'}>51°3′39.2616″N, 13°44′26.5956″E</a></span><br/>
+                                    <span><LinkV2 to={'/location.html?q=51°3′39.2616″N,%2013°44′26.5956″E&next_places=1'}>51°3′39.2616″N, 13°44′26.5956″E</LinkV2></span><br/>
                                     <span><strong>Letztes Update: </strong>: 14.01.2024 16:30</span>
                                 </small></small>
                         </div>

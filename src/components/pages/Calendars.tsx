@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useState} from 'react';
+import {useTranslation} from "react-i18next";
 import {useSearchParams} from "react-router-dom";
 
 /* Import types. */
@@ -21,6 +22,9 @@ import Loader from "../layout/Loader";
  */
 const Calendars = () =>
 {
+    /* Import translation. */
+    const { t } = useTranslation();
+
     /* API types */
     const env = useMemo(() => {
         return process.env;
@@ -64,7 +68,7 @@ const Calendars = () =>
      */
     return (
         <>
-            <Header title='Übersicht' subtitle='Übersicht über alle Kalender' />
+            <Header title={t('TEXT_CALENDARS_TITLE')} subtitle={t('TEXT_CALENDARS_SUBTITLE')} />
             <div className="calendars container mb-5 px-4 px-md-3">
                 <div className="row g-4">
                     {loaded && data.calendars.length > 0 ? data.calendars.map((item, index) => (

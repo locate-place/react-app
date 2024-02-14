@@ -89,6 +89,14 @@ class FilterConfig
         this.filterConfig = this.filterConfigInit;
     }
 
+    /**
+     * Clears the filter config.
+     */
+    clearFilterConfig(): void
+    {
+        this.filterConfig = {};
+    }
+
     setDoNotResetFilterConfig(doNotResetFilterConfig: boolean|null = null): void
     {
         if (doNotResetFilterConfig === null) {
@@ -575,9 +583,29 @@ class FilterConfig
     getFullLink(pathname: string|null = null, queryString: string|null = null): string
     {
         pathname = pathname ?? window.location.pathname;
-        queryString = queryString !== null ? '?' + queryString : '';
+
+        const separator = pathname !== null && pathname.includes('?') ? '&' : '?';
+
+        queryString = queryString !== null ? separator + queryString : '';
 
         return pathname + queryString;
+    }
+
+    /**
+     * Returns Link to given pathname including language and country.
+     *
+     * @param pathname
+     */
+    getTo(pathname: string): string
+    {
+        const language = i18n.language;
+        const country = this.getCountryByLanguage(language);
+
+        this.clearFilterConfig();
+        this.setLanguage(language);
+        this.setCountry(country);
+
+        return this.getFullLink(pathname, this.getConvertedFilterQueryString());
     }
 
     /**

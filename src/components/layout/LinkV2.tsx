@@ -62,15 +62,18 @@ const LinkV2: React.FC<CustomLinkProps> = ({to, children, useCurrentPosition = f
      */
     const handleClick = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) =>
     {
+        /* Use the "to" link directly. */
         if (!useCurrentPosition) {
             return;
         }
 
+        /* Check the current position. Maybe add current position to "to" link. */
         let filterConfig = query.getFilterConfig();
 
         filterConfig.setFilterConfigByLink(to);
         filterConfig.setDoNotResetFilterConfig();
 
+        /* Extract the path name from the "to" link. */
         let pathName = filterConfig.getPathname(to);
 
         // /* The current position is set. Force to use the current one. */

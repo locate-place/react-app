@@ -3,9 +3,6 @@ import {
     TypeResults,
 } from "../../../../types/Types";
 
-/* Import classes. */
-import {ApiLocationWrapper} from "../ApiLocationWrapper";
-
 /**
  * Class ResultsWrapper
  *
@@ -17,16 +14,12 @@ class ResultsWrapper
 {
     private readonly results: TypeResults;
 
-    private readonly apiLocationWrapper: ApiLocationWrapper;
-
     /**
      * @param results {TypeResults}
-     * @param apiLocationWrapper {ApiLocationWrapper}
      */
-    constructor(results: TypeResults, apiLocationWrapper: ApiLocationWrapper)
+    constructor(results: TypeResults)
     {
         this.results = results;
-        this.apiLocationWrapper = apiLocationWrapper;
     }
 
     /**

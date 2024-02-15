@@ -337,16 +337,16 @@ class Query
         }
 
         if (!this.filterConfig.hasQuery()) {
-            const numberTotal = this.apiResponseProperty.getNumberTotal();
-            const numberResults = this.apiResponseProperty.getNumberResults();
+            const numberTotal = this.apiResponseProperty.getResultsTotal();
+            const numberResults = this.apiResponseProperty.getResultsResults();
 
             return t('TEXT_RESULT', {numberTotal, numberResults});
         }
 
-        const numberTotal = this.apiResponseProperty.getNumberTotal();
+        const numberTotal = this.apiResponseProperty.getResultsTotal();
         const query = this.filterConfig.getQuery();
-        const numberFirstItem = (this.apiResponseProperty.getNumberPage() - 1) * this.apiResponseProperty.getNumberResults() + 1;
-        const numberLastItem = this.apiResponseProperty.getNumberResults() * this.apiResponseProperty.getNumberPage();
+        const numberFirstItem = (this.apiResponseProperty.getResultsPage() - 1) * this.apiResponseProperty.getResultsResults() + 1;
+        const numberLastItem = this.apiResponseProperty.getResultsResults() * this.apiResponseProperty.getResultsPage();
 
         return t('TEXT_RESULT_QUERY', {numberTotal, query, numberFirstItem, numberLastItem});
     }

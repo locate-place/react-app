@@ -1,6 +1,9 @@
 /* Import types. */
 import {TypeApiProperties} from "../../types/Types";
 
+/* Import classes. */
+import {ResultsWrapper} from "./Base/Results/ResultsWrapper";
+
 /**
  * Class ApiResponseProperty
  *
@@ -55,31 +58,39 @@ class ApiResponseProperty
      */
     hasResults = (): boolean =>
     {
-        return this.getNumberResults() > 0;
+        return !!this.properties.results;
+    }
+
+    /**
+     * Returns the result wrapper.
+     */
+    getResults(): ResultsWrapper|null
+    {
+        return this.properties.results ? new ResultsWrapper(this.properties.results) : null;
     }
 
     /**
      * Returns the result of the api response.
      */
-    getNumberResults = (): number =>
+    getResultsResults = (): number =>
     {
-        return (!!this.properties.results && this.properties.results.results) ? this.properties.results.results : 0;
+        return this.getResults()?.getResults() ?? 0;
     }
 
     /**
      * Returns the total number of results from api response.
      */
-    getNumberTotal = (): number =>
+    getResultsTotal = (): number =>
     {
-        return (!!this.properties.results && this.properties.results.total) ? this.properties.results.total : 0;
+        return this.getResults()?.getTotal() ?? 0;
     }
 
     /**
      * Returns the current page of the api response.
      */
-    getNumberPage = (): number =>
+    getResultsPage = (): number =>
     {
-        return !!this.properties.results ? this.properties.results.page : 1;
+        return this.getResults()?.getPage() ?? 0;
     }
 }
 

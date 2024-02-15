@@ -3,7 +3,6 @@ import {
     TypeApiData,
     TypeDataLicence,
     TypePerformance,
-    TypeResults,
     TypeLocation,
     typeLocation,
     typeLocations
@@ -13,7 +12,7 @@ import {
 import {LocationWrapper} from "./Location/LocationWrapper";
 import {LocationsWrapper} from "./Locations/LocationsWrapper";
 import {GivenWrapper} from "./Given/GivenWrapper";
-import {ResultsWrapper} from "./Results/ResultsWrapper";
+import {ResultsWrapper} from "../Base/Results/ResultsWrapper";
 
 /**
  * Class LocationApiWrapper
@@ -110,7 +109,7 @@ class ApiLocationWrapper
     getResults(): ResultsWrapper|null
     {
         if (this.isLocations() && this.apiData.results !== undefined) {
-            return new ResultsWrapper(this.apiData.results, this);
+            return new ResultsWrapper(this.apiData.results);
         }
 
         return null;
@@ -141,7 +140,7 @@ class ApiLocationWrapper
      */
     hasLocations(): boolean
     {
-        return this.isLocation() && Array.isArray(this.apiData.data);
+        return !this.isLocation() && Array.isArray(this.apiData.data);
     }
 
     /**
@@ -149,7 +148,7 @@ class ApiLocationWrapper
      */
     getLocations(): LocationsWrapper|null
     {
-        if (this.isLocation() && Array.isArray(this.apiData.data)) {
+        if (!this.isLocation() && Array.isArray(this.apiData.data)) {
             return new LocationsWrapper(this.apiData.data, this);
         }
 

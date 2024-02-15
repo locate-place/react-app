@@ -20,9 +20,9 @@ const Pager = ({query}: PagerProps) =>
     /* Import translation. */
     const { t } = useTranslation();
 
-    const page = query.getApiResponseProperty().getNumberPage();
-    const results = query.getApiResponseProperty().getNumberResults();
-    const total = query.getApiResponseProperty().getNumberTotal();
+    const page = query.getApiResponseProperty().getResultsPage();
+    const results = query.getApiResponseProperty().getResultsResults();
+    const total = query.getApiResponseProperty().getResultsTotal();
     const filterConfig = query.getFilterConfigFilterConfig();
 
     if ((page * results) > total) {

@@ -1,13 +1,13 @@
-import i18n, {TFunction} from "i18next";
+import {TFunction} from "i18next";
 
 /* Import types. */
 import {
     TypeNextPlacesFeatureClass,
-} from "../../../types/Types";
+} from "../../../../types/Types";
 
 /* Import classes. */
 import {LocationApiWrapper} from "../../LocationApiWrapper";
-import {getLocale} from "../../../functions/i18n";
+import {getLocale} from "../../../../functions/i18n";
 import {LocationWrapper} from "../LocationWrapper";
 
 /**

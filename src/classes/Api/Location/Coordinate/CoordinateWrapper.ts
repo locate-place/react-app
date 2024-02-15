@@ -6,7 +6,7 @@ import {
     TypeDirection,
     TypeDistance,
     TypePosition,
-} from "../../../types/Types";
+} from "../../../../types/Types";
 
 /* Import classes. */
 import {LocationApiWrapper} from "../../LocationApiWrapper";
@@ -179,7 +179,7 @@ class CoordinateWrapper
      */
     getDistanceUserText(t:  TFunction<"translation", undefined>): string|null
     {
-        const coordinate = this.locationApiWrapper.getGiven().coordinate ?? null;
+        const coordinate = this.locationApiWrapper.getGiven().get().coordinate ?? null;
 
         if (coordinate === null) {
             return null;

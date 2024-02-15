@@ -2,7 +2,7 @@
 import {
     TypeCurrentTime,
     TypeTimezone,
-} from "../../../types/Types";
+} from "../../../../types/Types";
 
 /* Import classes. */
 import {CoordinateWrapper} from "../Coordinate/CoordinateWrapper";

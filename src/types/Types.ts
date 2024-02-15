@@ -456,6 +456,7 @@ export {
     TypeDataCalendarPage,
     TypeDataCalendar,
     TypeDataCalendars,
+    TypeApiPropertiesGiven,
     TypeApiProperties,
     TypeLoadApiArguments,
     TypeSearchTypeTranslation,

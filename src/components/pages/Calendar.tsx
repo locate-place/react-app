@@ -60,6 +60,9 @@ const Calendar = () => {
         });
     }, [apiType, apiPath]);
 
+    console.log(data);
+    console.log(properties);
+
     /* Skip empty data */
     if (data === null || properties === null) {
         return <></>;

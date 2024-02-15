@@ -3,8 +3,7 @@ import {
     TypeAdministrativeLocations,
     TypeLocation,
     TypeNextPlaces,
-    TypeNextPlacesFeatureClass,
-} from "../../types/Types";
+} from "../../../types/Types";
 
 /* Import config. */
 import {
@@ -12,7 +11,7 @@ import {
     administrativeLocationCountry,
     administrativeLocationDistrictLocality,
     administrativeLocationState
-} from "../../config/AdministrativeLocations";
+} from "../../../config/AdministrativeLocations";
 
 /* Import classes. */
 import {LocationApiWrapper} from "../LocationApiWrapper";

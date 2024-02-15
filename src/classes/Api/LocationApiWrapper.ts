@@ -7,10 +7,11 @@ import {
     TypeLocation,
     typeLocation,
     typeLocations, TypeGiven
-} from "../types/Types";
+} from "../../types/Types";
 
 /* Import classes. */
 import {LocationWrapper} from "./Location/LocationWrapper";
+import {GivenWrapper} from "./Given/GivenWrapper";
 
 /**
  * Class LocationApiWrapper
@@ -136,9 +137,9 @@ class LocationApiWrapper
     /**
      * Returns the given object.
      */
-    getGiven(): TypeGiven
+    getGiven(): GivenWrapper
     {
-        return this.apiData.given;
+        return new GivenWrapper(this.apiData.given, this);
     }
 
     /**

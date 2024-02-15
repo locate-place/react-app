@@ -2,16 +2,15 @@ import {TFunction} from "i18next";
 
 /* Import types. */
 import {
-    TypePlace,
-    TypeProperties, TypeValue,
-} from "../../../types/Types";
+    TypeProperties,
+    TypeValue,
+} from "../../../../types/Types";
 
 /* Import translations. */
-import {translateCountryCode} from "../../../translations/Country";
+import {translateCountryCode} from "../../../../translations/Country";
 
 /* Import classes. */
 import {LocationApiWrapper} from "../../LocationApiWrapper";
-import {showElevation} from "../../../functions/Properties";
 import {LocationWrapper} from "../LocationWrapper";
 
 /**

@@ -11,6 +11,7 @@ import {
 
 /* Import classes. */
 import {LocationWrapper} from "./Location/LocationWrapper";
+import {LocationsWrapper} from "./Locations/LocationsWrapper";
 import {GivenWrapper} from "./Given/GivenWrapper";
 
 /**
@@ -125,10 +126,10 @@ class ApiLocationWrapper
     /**
      * Returns the current locations if the data is a list search. Otherwise, null.
      */
-    getLocations(): Array<TypeLocation>|null
+    getLocations(): LocationsWrapper|null
     {
         if (this.isLocation() && Array.isArray(this.apiData.data)) {
-            return this.apiData.data;
+            return new LocationsWrapper(this.apiData.data, this);
         }
 
         return null;

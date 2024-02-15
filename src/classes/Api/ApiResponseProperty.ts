@@ -3,6 +3,7 @@ import {TypeApiProperties} from "../../types/Types";
 
 /* Import classes. */
 import {ResultsWrapper} from "./Base/Results/ResultsWrapper";
+import {GivenWrapper} from "./Base/Given/GivenWrapper";
 
 /**
  * Class ApiResponseProperty
@@ -28,7 +29,7 @@ class ApiResponseProperty
     /**
      * Returns the given properties.
      */
-    getProperties = (): TypeApiProperties =>
+    getProperties(): TypeApiProperties
     {
         return this.properties;
     }
@@ -36,7 +37,7 @@ class ApiResponseProperty
     /**
      * Returns if own position is available from api query.
      */
-    isOwnPosition = (): boolean =>
+    isOwnPosition(): boolean
     {
         return !!this.properties.given && !!this.properties.given.coordinate;
     }
@@ -45,7 +46,7 @@ class ApiResponseProperty
      * Returns the own position from api response as string.
      *
      */
-    getOwnPosition = (): string|null =>
+    getOwnPosition(): string|null
     {
         return !!this.properties.given && !!this.properties.given.coordinate ?
             (this.properties.given.coordinate.parsed.latitude.dms + ', ' + this.properties.given.coordinate.parsed.longitude.dms) :
@@ -56,7 +57,7 @@ class ApiResponseProperty
     /**
      * Returns if the api response contains any result.
      */
-    hasResults = (): boolean =>
+    hasResults(): boolean
     {
         return !!this.properties.results;
     }
@@ -70,9 +71,25 @@ class ApiResponseProperty
     }
 
     /**
+     * Returns if the given property exists.
+     */
+    hasGiven(): boolean
+    {
+        return !!this.properties.given;
+    }
+
+    /**
+     * Returns the given property.
+     */
+    getGiven(): GivenWrapper|null
+    {
+        return this.properties.given ? new GivenWrapper(this.properties.given) : null;
+    }
+
+    /**
      * Returns the result of the api response.
      */
-    getResultsResults = (): number =>
+    getResultsResults(): number
     {
         return this.getResults()?.getResults() ?? 0;
     }
@@ -80,7 +97,7 @@ class ApiResponseProperty
     /**
      * Returns the total number of results from api response.
      */
-    getResultsTotal = (): number =>
+    getResultsTotal(): number
     {
         return this.getResults()?.getTotal() ?? 0;
     }
@@ -88,7 +105,7 @@ class ApiResponseProperty
     /**
      * Returns the current page of the api response.
      */
-    getResultsPage = (): number =>
+    getResultsPage(): number
     {
         return this.getResults()?.getPage() ?? 0;
     }

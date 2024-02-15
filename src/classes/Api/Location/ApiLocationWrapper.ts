@@ -11,7 +11,7 @@ import {
 /* Import classes. */
 import {LocationWrapper} from "./Location/LocationWrapper";
 import {LocationsWrapper} from "./Locations/LocationsWrapper";
-import {GivenWrapper} from "./Given/GivenWrapper";
+import {GivenWrapper} from "../Base/Given/GivenWrapper";
 import {ResultsWrapper} from "../Base/Results/ResultsWrapper";
 
 /**
@@ -160,7 +160,7 @@ class ApiLocationWrapper
      */
     getGiven(): GivenWrapper
     {
-        return new GivenWrapper(this.apiData.given, this);
+        return new GivenWrapper(this.apiData.given);
     }
 
     /**

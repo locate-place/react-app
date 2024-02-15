@@ -3,9 +3,6 @@ import {
     TypeGivenQuery,
 } from "../../../../../types/Types";
 
-/* Import classes. */
-import {ApiLocationWrapper} from "../../ApiLocationWrapper";
-
 /**
  * Class QueryWrapper
  *
@@ -17,16 +14,12 @@ class QueryWrapper
 {
     private readonly query: TypeGivenQuery;
 
-    private readonly apiLocationWrapper: ApiLocationWrapper;
-
     /**
      * @param query {TypeGivenQuery}
-     * @param apiLocationWrapper {ApiLocationWrapper}
      */
-    constructor(query: TypeGivenQuery, apiLocationWrapper: ApiLocationWrapper)
+    constructor(query: TypeGivenQuery)
     {
         this.query = query;
-        this.apiLocationWrapper = apiLocationWrapper;
     }
 
     /**

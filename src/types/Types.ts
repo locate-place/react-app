@@ -128,30 +128,10 @@ type TypeDataCalendars = {
     calendars: TypeDataCalendar[],
 };
 
-type TypeApiPropertiesGiven = {
-    "coordinate"?: {
-        "parsed": {
-            "latitude": TypePosition,
-            "longitude": TypePosition,
-            "links": {
-                [index: string]: string
-            }
-        },
-        "location": TypeLocation,
-    },
-    "query"?: {
-        "raw": string,
-        "parsed": {
-            "type": string,
-            "search": string,
-        },
-    }
-}
-
 type TypeApiProperties = {
     "api-url": string,
     "date"?: string,
-    "given"?: TypeApiPropertiesGiven,
+    "given"?: TypeGiven,
     "memory-taken"?: string,
     "name": string|null,
     "path": string,
@@ -456,7 +436,6 @@ export {
     TypeDataCalendarPage,
     TypeDataCalendar,
     TypeDataCalendars,
-    TypeApiPropertiesGiven,
     TypeApiProperties,
     TypeLoadApiArguments,
     TypeSearchTypeTranslation,

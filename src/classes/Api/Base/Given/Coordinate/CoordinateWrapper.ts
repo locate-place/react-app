@@ -3,9 +3,6 @@ import {
     TypeGivenCoordinate,
 } from "../../../../../types/Types";
 
-/* Import classes. */
-import {ApiLocationWrapper} from "../../ApiLocationWrapper";
-
 /**
  * Class CoordinateWrapper
  *
@@ -17,16 +14,12 @@ class CoordinateWrapper
 {
     private readonly coordinate: TypeGivenCoordinate;
 
-    private readonly apiLocationWrapper: ApiLocationWrapper;
-
     /**
      * @param coordinate {TypeGivenCountry}
-     * @param apiLocationWrapper {ApiLocationWrapper}
      */
-    constructor(coordinate: TypeGivenCoordinate, apiLocationWrapper: ApiLocationWrapper)
+    constructor(coordinate: TypeGivenCoordinate)
     {
         this.coordinate = coordinate;
-        this.apiLocationWrapper = apiLocationWrapper;
     }
 
     /**

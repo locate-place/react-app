@@ -3,9 +3,6 @@ import {
     TypeGivenCountry,
 } from "../../../../../types/Types";
 
-/* Import classes. */
-import {ApiLocationWrapper} from "../../ApiLocationWrapper";
-
 /**
  * Class CountryWrapper
  *
@@ -17,16 +14,12 @@ class CountryWrapper
 {
     private readonly country: TypeGivenCountry;
 
-    private readonly apiLocationWrapper: ApiLocationWrapper;
-
     /**
      * @param country {TypeGivenCountry}
-     * @param apiLocationWrapper {ApiLocationWrapper}
      */
-    constructor(country: TypeGivenCountry, apiLocationWrapper: ApiLocationWrapper)
+    constructor(country: TypeGivenCountry)
     {
         this.country = country;
-        this.apiLocationWrapper = apiLocationWrapper;
     }
 
     /**

@@ -4,7 +4,6 @@ import {
 } from "../../../../types/Types";
 
 /* Import classes. */
-import {ApiLocationWrapper} from "../ApiLocationWrapper";
 import {QueryWrapper} from "./Query/QueryWrapper";
 import {LanguageWrapper} from "./Language/LanguageWrapper";
 import {CountryWrapper} from "./Country/CountryWrapper";
@@ -21,16 +20,12 @@ class GivenWrapper
 {
     private readonly given: TypeGiven;
 
-    private readonly apiLocationWrapper: ApiLocationWrapper;
-
     /**
      * @param given {TypeGiven}
-     * @param apiLocationWrapper {ApiLocationWrapper}
      */
-    constructor(given: TypeGiven, apiLocationWrapper: ApiLocationWrapper)
+    constructor(given: TypeGiven)
     {
         this.given = given;
-        this.apiLocationWrapper = apiLocationWrapper;
     }
 
     /**
@@ -66,7 +61,7 @@ class GivenWrapper
      */
     getQuery(): QueryWrapper|null
     {
-        return this.given.query ? new QueryWrapper(this.given.query, this.apiLocationWrapper) : null;
+        return this.given.query ? new QueryWrapper(this.given.query) : null;
     }
 
     /**
@@ -82,7 +77,7 @@ class GivenWrapper
      */
     getLanguage(): LanguageWrapper|null
     {
-        return this.given.language ? new LanguageWrapper(this.given.language, this.apiLocationWrapper) : null;
+        return this.given.language ? new LanguageWrapper(this.given.language) : null;
     }
 
     /**
@@ -98,7 +93,7 @@ class GivenWrapper
      */
     getCountry(): CountryWrapper|null
     {
-        return this.given.country ? new CountryWrapper(this.given.country, this.apiLocationWrapper) : null;
+        return this.given.country ? new CountryWrapper(this.given.country) : null;
     }
 
     /**
@@ -114,7 +109,7 @@ class GivenWrapper
      */
     getCoordinate(): CoordinateWrapper|null
     {
-        return this.given.coordinate ? new CoordinateWrapper(this.given.coordinate, this.apiLocationWrapper) : null;
+        return this.given.coordinate ? new CoordinateWrapper(this.given.coordinate) : null;
     }
 }
 

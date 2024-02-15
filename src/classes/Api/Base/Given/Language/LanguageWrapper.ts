@@ -3,9 +3,6 @@ import {
     TypeGivenLanguage,
 } from "../../../../../types/Types";
 
-/* Import classes. */
-import {ApiLocationWrapper} from "../../ApiLocationWrapper";
-
 /**
  * Class LanguageWrapper
  *
@@ -17,16 +14,12 @@ class LanguageWrapper
 {
     private readonly language: TypeGivenLanguage;
 
-    private readonly apiLocationWrapper: ApiLocationWrapper;
-
     /**
      * @param language {TypeGivenLanguage}
-     * @param apiLocationWrapper {ApiLocationWrapper}
      */
-    constructor(language: TypeGivenLanguage, apiLocationWrapper: ApiLocationWrapper)
+    constructor(language: TypeGivenLanguage)
     {
         this.language = language;
-        this.apiLocationWrapper = apiLocationWrapper;
     }
 
     /**

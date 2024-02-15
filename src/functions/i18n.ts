@@ -4,6 +4,10 @@ import { initReactI18next } from "react-i18next";
 import translationDE from '../locales/de/translation.json';
 import translationEN from '../locales/en/translation.json';
 
+/* Import configurations. */
+import {languageDE, languageDefault, languageEN, languageES, languageFallback} from "../config/Language";
+import {countryDE, countryES, countryUS} from "../config/Country";
+
 /* General translation */
 const resources = {
     de: {
@@ -14,22 +18,20 @@ const resources = {
     }
 };
 
-const languageDefault: string = 'de';
-
-const languageFallback: string = 'en';
-
 /**
  * Returns the locale according to current language.
  */
 const getLocale = (): string =>
 {
     switch (i18n.language) {
-        case 'de':
-            return 'de-DE';
-        case 'en':
-            return 'en-US';
+        case languageDE:
+            return languageDE + '-' + countryDE;
+        case languageEN:
+            return languageEN + '-' + countryUS;
+        case languageES:
+            return languageES + '-' + countryES;
         default:
-            return 'de-DE';
+            return languageDE + '-' + countryDE;
     }
 }
 

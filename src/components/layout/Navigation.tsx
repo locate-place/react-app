@@ -31,7 +31,7 @@ const Navigation = () =>
         <>
             <nav className="navbar navbar-expand-lg navbar-light" id="mainNav">
                 <div className="container px-4 px-lg-5">
-                    <LinkV2 className="navbar-brand" to={filterConfig.getTo('/index.html')}>{t('TEXT_NAVIGATION_ICON')}</LinkV2>
+                    <LinkV2 className="navbar-brand" to={filterConfig.getLinkTo('/index.html')}>{t('TEXT_NAVIGATION_ICON')}</LinkV2>
                     <button
                         className="navbar-toggler"
                         type="button"
@@ -44,13 +44,13 @@ const Navigation = () =>
                     <div className="collapse navbar-collapse" id="navbarResponsive">
                         <ul className="navbar-nav ms-auto py-4 py-lg-0">
                             <li className="nav-item"><Link className="nav-link px-lg-3 py-3 py-lg-4"
-                                                           to={filterConfig.getTo('/index.html')}>{t('TEXT_NAVIGATION_HOME')}</Link></li>
+                                                           to={filterConfig.getLinkTo('/index.html')}>{t('TEXT_NAVIGATION_HOME')}</Link></li>
                             <li className="nav-item"><Link className="nav-link px-lg-3 py-3 py-lg-4"
-                                                           to={filterConfig.getTo('/locations.html')}>{t('TEXT_NAVIGATION_LOCATIONS')}</Link></li>
+                                                           to={filterConfig.getLinkTo('/locations.html')}>{t('TEXT_NAVIGATION_LOCATIONS')}</Link></li>
                             <li className="nav-item"><Link className="nav-link px-lg-3 py-3 py-lg-4"
-                                                           to={filterConfig.getTo('/about.html')}>{t('TEXT_NAVIGATION_ABOUT')}</Link></li>
+                                                           to={filterConfig.getLinkTo('/about.html')}>{t('TEXT_NAVIGATION_ABOUT')}</Link></li>
                             <li className="nav-item"><Link className="nav-link px-lg-3 py-3 py-lg-4"
-                                                           to={filterConfig.getTo('/contact.html')}>{t('TEXT_NAVIGATION_CONTACT')}</Link></li>
+                                                           to={filterConfig.getLinkTo('/contact.html')}>{t('TEXT_NAVIGATION_CONTACT')}</Link></li>
                             {
                                 language === 'de' ?
                                     <li className="nav-item"><Link className="nav-link px-lg-3 py-3 py-lg-4"

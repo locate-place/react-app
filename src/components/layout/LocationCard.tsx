@@ -1,4 +1,5 @@
-import React from "react";
+import React, {useMemo} from "react";
+import {Link, useSearchParams} from "react-router-dom";
 
 /* Import translation libraries. */
 import {useTranslation} from "react-i18next";
@@ -10,15 +11,18 @@ import Flag from 'react-flagkit';
 import {faMapLocation, faMaximize} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
-/* Add functions */
+/* Import functions */
 import {convertToGermanFormat} from "../../functions/Date";
+import {getAirportCodeIata, getElevation, getPopulation} from "../../functions/Properties";
 
 /* Add translations */
 import {translateCountryCode} from "../../translations/Country";
 
 /* Add component parts */
 import CoordinateDistanceDirection from "./CoordinateDistanceDirection";
-import {getAirportCodeIata, getElevation, getPopulation} from "../../functions/Properties";
+
+/* Import classes. */
+import {Query} from "../../classes/Query";
 
 type LocationCardProps = {
     location: any,
@@ -52,57 +56,23 @@ const LocationCard = ({location, properties, showOwnPosition, index, useAlwaysNa
     let linkGoogleMaps = showOwnPosition ? ownPositionCard.links.google : location.links.maps.google;
     let linkOpenStreetMaps = showOwnPosition ? ownPositionCard.links.openstreetmap : location.links.maps.openstreetmap;
 
-    let hasOwnPosition = properties.given && properties.given.coordinate && properties.given.coordinate.location;
-    let ownPosition = hasOwnPosition ? properties.given.coordinate.parsed : null;
-    let ownPositionLatitudeDecimal = hasOwnPosition ? ownPosition.latitude.decimal : null;
-    let ownPositionLongitudeDecimal = hasOwnPosition ? ownPosition.longitude.decimal : null;
-
     let airportCodeIata = getAirportCodeIata(location);
 
-    type TypeTranslation = {
-        'airports': string,
-        'beaches': string,
-        'churches': string,
-        'cinemas': string,
-        'cities': string,
-        'hospitals': string,
-        'hotels': string,
-        'mountains': string,
-        'parks': string,
-        'stations': string,
-        'waters': string,
-    }
+    /* API types */
+    const env = useMemo(() => {
+        return process.env;
+    }, []);
 
-    let translations: TypeTranslation = {
-        'airports': 'Flughäfen',
-        'beaches': 'Strände',
-        'churches': 'Kirchen',
-        'cinemas': 'Kinos',
-        'cities': 'Städte',
-        'hospitals': 'Krankenhäuser',
-        'hotels': 'Hotels',
-        'mountains': 'Berge, Hügel, Bergkämme',
-        'parks': 'Parke',
-        'stations': 'Haltestellen',
-        'waters': 'Gewässer',
-    }
+    /* Memorized variables. */
+    const [searchParams] = useSearchParams();
 
-    let routePath = '/location.html';
+    let query = new Query(searchParams, env);
 
-    let query = useGeonameIdAsQuery ?
+    let filterConfig = query.getFilterConfig();
+
+    let queryString = useGeonameIdAsQuery ?
         location['geoname-id'] :
         location.coordinate.latitude.decimal + ',%20' + location.coordinate.longitude.decimal;
-
-    let language = 'de';
-    let country = 'DE';
-
-    let fullQuery = routePath +
-        '?q=' + query +
-        '&language=' + language +
-        '&country=' + country +
-        (hasOwnPosition ? '&c=' + ownPositionLatitudeDecimal + ',%20' + ownPositionLongitudeDecimal : '');
-    ;
-    let fullQueryNextPlaces = fullQuery + '&next_places=1';
 
     let name = useAlwaysName ? location.name : (location['name-full'] || location.name);
 
@@ -130,12 +100,12 @@ const LocationCard = ({location, properties, showOwnPosition, index, useAlwaysNa
                             <div className="col-12 col-md-6 col-lg-4 mb-3">
                                 <h4>{t('TEXT_HEADER_INFORMATION')}</h4>
                                 <p className="m-0">
-                                    <a
-                                        href={fullQueryNextPlaces}
+                                    <Link
+                                        to={filterConfig.getLinkLocationQuery(queryString)}
                                     ><span><FontAwesomeIcon
                                         icon={faMaximize}
                                         style={{'color': 'rgb(114, 135, 42)'}}
-                                    /> {name}</span></a>
+                                    /> {name}</span></Link>
                                 </p>
                             </div>
                             <div className="col-12 col-md-6 col-lg-4 mb-3">
@@ -145,10 +115,14 @@ const LocationCard = ({location, properties, showOwnPosition, index, useAlwaysNa
                                         return (
                                             <span key={'next-place-' + key}>
                                                 {index !== 0 ? ', ' : ''}
-                                                <a
+                                                <Link
                                                     key={'next-place-' + key}
-                                                    href={'/locations.html?q=' + nextPlaces[key]['feature_codes'].join('|') + '%20' + location.coordinate.latitude.decimal + ',%20' + location.coordinate.longitude.decimal + '&distance=' + nextPlaces[key]['distance'] + '&limit=' + nextPlaces[key]['limit'] + '&language=de&country=DE'}
-                                                >{(translations[key as keyof TypeTranslation] ?? <span title={key}>{'Unbekannt'}</span>)}</a>
+                                                    to={filterConfig.getLinkNextPlaces(
+                                                        nextPlaces[key]['feature_codes'].join('|') + ' ' + location.coordinate.latitude.decimal + ', ' + location.coordinate.longitude.decimal,
+                                                        nextPlaces[key]['distance'],
+                                                        nextPlaces[key]['limit']
+                                                    )}
+                                                >{t('TEXT_LOCATION_CARD_' + key.toUpperCase())}</Link>
                                             </span>
                                         );
                                     })}
@@ -157,17 +131,24 @@ const LocationCard = ({location, properties, showOwnPosition, index, useAlwaysNa
                             <div className="col-12 col-md-6 col-lg-4">
                                 <h4>{t('TEXT_HEADER_MAPS')}</h4>
                                 <p className="m-0">
-                                    <a
-                                        href={linkGoogleMaps}
+                                    <Link
+                                        to={linkGoogleMaps}
                                         target="_blank"
                                         rel="noreferrer"
-                                    ><span className="text-nowrap"><FontAwesomeIcon icon={faMapLocation}
-                                                                                    style={{'color': 'rgb(23, 34, 52)'}}/> Google Maps</span></a>, <a
-                                    href={linkOpenStreetMaps}
-                                    target="_blank"
-                                    rel="noreferrer"
-                                ><span className="text-nowrap"><FontAwesomeIcon icon={faMapLocation}
-                                                                                style={{'color': 'rgb(23, 34, 52)'}}/> OpenStreetMap</span></a>
+                                    >
+                                        <span className="text-nowrap">
+                                            <FontAwesomeIcon icon={faMapLocation} style={{'color': 'rgb(23, 34, 52)'}}/> Google Maps
+                                        </span>
+                                    </Link>,
+                                    <Link
+                                        to={linkOpenStreetMaps}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                    >
+                                        <span className="text-nowrap">
+                                            <FontAwesomeIcon icon={faMapLocation} style={{'color': 'rgb(23, 34, 52)'}}/> OpenStreetMap
+                                        </span>
+                                    </Link>
                                 </p>
                             </div>
                         </div>

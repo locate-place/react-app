@@ -1,4 +1,5 @@
 import i18n from "i18next";
+import {To} from "react-router-dom";
 
 /* Import types. */
 import {TypeFilterConfig} from "../types/Types";
@@ -17,13 +18,13 @@ import {
     nameParameterQuery,
     nameParameterSort
 } from "../config/NameParameter";
-import {countryDE} from "../config/Country";
-import {languageDE} from "../config/Language";
-import {routePathLocations} from "../config/Route";
+import {countryDefault} from "../config/Country";
+import {languageDE, languageDefault} from "../config/Language";
+import {routePathLocation, routePathLocations} from "../config/Route";
 
 /* Import classes. */
 import {NextPlaceWrapper} from "./Location/NextPlaces/NextPlaceWrapper";
-import {To} from "react-router-dom";
+
 
 /**
  * Class FilterConfig
@@ -187,10 +188,10 @@ class FilterConfig
         sort && this.setSort(sort);
 
         /* Add parameter "country". */
-        this.setCountry(country ? country : countryDE);
+        this.setCountry(country ? country : countryDefault);
 
         /* Add parameter "language". */
-        this.setLanguage(language? language : languageDE);
+        this.setLanguage(language? language : languageDefault);
 
         /* Add parameter "next_places". */
         nextPlaces && this.setNextPlaces(true);
@@ -461,7 +462,7 @@ class FilterConfig
      */
     getCountry(): string
     {
-        return this.filterConfig[nameParameterCountry] ?? countryDE;
+        return this.filterConfig[nameParameterCountry] ?? countryDefault;
     }
 
     /**
@@ -545,6 +546,14 @@ class FilterConfig
                 continue;
             }
 
+            if (key === 'language' && value === languageDefault) {
+                continue;
+            }
+
+            if (key === 'country' && value === countryDefault) {
+                continue;
+            }
+
             keyValuePairs.push(key + '=' + encodeURIComponent(value));
         }
 
@@ -580,7 +589,7 @@ class FilterConfig
      * @param pathname
      * @param queryString
      */
-    getFullLink(pathname: string|null = null, queryString: string|null = null): string
+    getLinkFull(pathname: string|null = null, queryString: string|null = null): string
     {
         pathname = pathname ?? window.location.pathname;
 
@@ -596,7 +605,7 @@ class FilterConfig
      *
      * @param pathname
      */
-    getTo(pathname: string): string
+    getLinkTo(pathname: string): string
     {
         const language = i18n.language;
         const country = this.getCountryByLanguage(language);
@@ -605,7 +614,64 @@ class FilterConfig
         this.setLanguage(language);
         this.setCountry(country);
 
-        return this.getFullLink(pathname, this.getConvertedFilterQueryString());
+        return this.getLinkFull(pathname, this.getConvertedFilterQueryString());
+    }
+
+    /**
+     * Returns Link to given pathname including language and country.
+     *
+     * @param query
+     */
+    getLinkLocationQuery(query: string): string
+    {
+        const pathname = routePathLocation;
+        const language = i18n.language;
+        const country = this.getCountryByLanguage(language);
+
+        this.resetFilterConfig();
+        const ownPosition = this.getCurrentPosition();
+
+        this.clearFilterConfig();
+        this.setQuery(query);
+        this.setNextPlaces(true);
+        this.setLanguage(language);
+        this.setCountry(country);
+
+        if (ownPosition !== null) {
+            this.setCurrentPosition(ownPosition);
+        }
+
+        return this.getLinkFull(pathname, this.getConvertedFilterQueryString());
+    }
+
+    /**
+     * Returns Link to given pathname including language and country.
+     *
+     * @param query
+     * @param distance
+     * @param limit
+     */
+    getLinkNextPlaces(query: string, distance: number, limit: number): string
+    {
+        const pathname = routePathLocations;
+        const language = i18n.language;
+        const country = this.getCountryByLanguage(language);
+
+        this.resetFilterConfig();
+        const ownPosition = this.getCurrentPosition();
+
+        this.clearFilterConfig();
+        this.setQuery(query);
+        this.setDistance(distance.toString());
+        this.setLimit(limit.toString());
+        this.setLanguage(language);
+        this.setCountry(country);
+
+        if (ownPosition !== null) {
+            this.setCurrentPosition(ownPosition);
+        }
+
+        return this.getLinkFull(pathname, this.getConvertedFilterQueryString());
     }
 
     /**
@@ -628,7 +694,7 @@ class FilterConfig
         this.setLanguage(language);
         this.setCountry(country);
 
-        return this.getFullLink(pathname, this.getConvertedFilterQueryString());
+        return this.getLinkFull(pathname, this.getConvertedFilterQueryString());
     }
 
     /**
@@ -666,7 +732,7 @@ class FilterConfig
                 throw new Error('Unsupported coordinate type: ' + nextPlace.getConfigCoordinateType());
         }
 
-        return this.getFullLink(routePathLocations, this.getConvertedFilterQueryString());
+        return this.getLinkFull(routePathLocations, this.getConvertedFilterQueryString());
     }
 }
 

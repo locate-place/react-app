@@ -7,7 +7,7 @@ import {useTranslation} from "react-i18next";
 import {sizeIcon} from "../../config/Config";
 
 /* Import types */
-import {TypeSearchTypeTranslation} from "../../types/Types";
+import {TypeApiProperties, TypeSearchTypeTranslation} from "../../types/Types";
 
 /* Import translations */
 import {searchTypeTranslation} from "../../translations/SearchType";

@@ -122,7 +122,7 @@ const Locations = () =>
      */
     return (
         <>
-            <HeaderSmall title='Locations' subtitle='Locations API' />
+            <HeaderSmall title={t('TEXT_LOCATIONS_TITLE')} subtitle={t('TEXT_LOCATIONS_SUBTITLE')} />
             <div className="calendars container mb-5 px-4 px-md-3">
                 <div className="row g-4">
                     <div className="col-12 col-md-10 offset-md-1 col-xl-8 offset-xl-2">

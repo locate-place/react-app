@@ -99,5 +99,8 @@
   "TEXT_LOCATION_CARD_STATIONS": "Haltestellen",
   "TEXT_LOCATION_CARD_WATERS": "Gewässer",
 
+  "TEXT_LOCATIONS_TITLE": "Standorte",
+  "TEXT_LOCATIONS_SUBTITLE": "Standort API",
+
   "TEXT_WORD_UNKNOWN": "Unbekannt"
 }

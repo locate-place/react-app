@@ -21,8 +21,6 @@ class LinksWrapper
     private readonly apiLocationWrapper: ApiLocationWrapper;
 
     /**
-     * LinksWrapper constructor.
-     *
      * @param links {TypeLinks}
      * @param apiLocationWrapper {ApiLocationWrapper}
      */

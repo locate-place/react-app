@@ -22,8 +22,6 @@ class TimezoneWrapper
     private readonly apiLocationWrapper: ApiLocationWrapper;
 
     /**
-     * TimezoneWrapper constructor.
-     *
      * @param timezone {TypeTimezone}
      * @param apiLocationWrapper {ApiLocationWrapper}
      */

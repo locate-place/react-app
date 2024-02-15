@@ -25,8 +25,6 @@ class CoordinateWrapper
     private readonly apiLocationWrapper: ApiLocationWrapper;
 
     /**
-     * CoordinateWrapper constructor.
-     *
      * @param coordinate {TypeCoordinate}
      * @param apiLocationWrapper {ApiLocationWrapper}
      */

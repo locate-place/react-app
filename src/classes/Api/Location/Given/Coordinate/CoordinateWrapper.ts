@@ -20,8 +20,6 @@ class CoordinateWrapper
     private readonly apiLocationWrapper: ApiLocationWrapper;
 
     /**
-     * LocationApiWrapper constructor.
-     *
      * @param coordinate {TypeGivenCountry}
      * @param apiLocationWrapper {ApiLocationWrapper}
      */

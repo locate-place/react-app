@@ -24,8 +24,6 @@ class GivenWrapper
     private readonly apiLocationWrapper: ApiLocationWrapper;
 
     /**
-     * LocationApiWrapper constructor.
-     *
      * @param given {TypeGiven}
      * @param apiLocationWrapper {ApiLocationWrapper}
      */

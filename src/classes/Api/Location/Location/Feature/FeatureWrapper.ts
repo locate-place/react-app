@@ -22,8 +22,6 @@ class FeatureWrapper
     private readonly apiLocationWrapper: ApiLocationWrapper;
 
     /**
-     * FeatureWrapper constructor.
-     *
      * @param feature {TypeFeature}
      * @param apiLocationWrapper {ApiLocationWrapper}
      */

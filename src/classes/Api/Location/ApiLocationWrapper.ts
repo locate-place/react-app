@@ -13,6 +13,7 @@ import {
 import {LocationWrapper} from "./Location/LocationWrapper";
 import {LocationsWrapper} from "./Locations/LocationsWrapper";
 import {GivenWrapper} from "./Given/GivenWrapper";
+import {ResultsWrapper} from "./Results/ResultsWrapper";
 
 /**
  * Class LocationApiWrapper
@@ -92,12 +93,24 @@ class ApiLocationWrapper
     }
 
     /**
+     * Returns if the result property exists (listed, total, current page, etc.).
+     */
+    hasResults(): boolean
+    {
+        if (!this.isLocations()) {
+            return false;
+        }
+
+        return !!this.apiData.results;
+    }
+
+    /**
      * Returns the result data (listed, total, current page, etc.).
      */
-    getResults(): TypeResults|null
+    getResults(): ResultsWrapper|null
     {
         if (this.isLocations() && this.apiData.results !== undefined) {
-            return this.apiData.results;
+            return new ResultsWrapper(this.apiData.results, this);
         }
 
         return null;

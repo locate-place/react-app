@@ -27,8 +27,6 @@ class PropertiesWrapper
     private readonly apiLocationWrapper: ApiLocationWrapper;
 
     /**
-     * PropertiesWrapper constructor.
-     *
      * @param properties {TypeProperties}
      * @param apiLocationWrapper {ApiLocationWrapper}
      */

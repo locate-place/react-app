@@ -24,8 +24,6 @@ class NextPlacesWrapper
     private readonly apiLocationWrapper: ApiLocationWrapper;
 
     /**
-     * NextPlacesWrapper constructor.
-     *
      * @param nextPlaces {TypeNextPlaces}
      * @param apiLocationWrapper {ApiLocationWrapper}
      */

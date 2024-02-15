@@ -20,8 +20,6 @@ class QueryWrapper
     private readonly apiLocationWrapper: ApiLocationWrapper;
 
     /**
-     * LocationApiWrapper constructor.
-     *
      * @param query {TypeGivenQuery}
      * @param apiLocationWrapper {ApiLocationWrapper}
      */

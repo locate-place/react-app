@@ -20,8 +20,6 @@ class LanguageWrapper
     private readonly apiLocationWrapper: ApiLocationWrapper;
 
     /**
-     * LocationApiWrapper constructor.
-     *
      * @param language {TypeGivenLanguage}
      * @param apiLocationWrapper {ApiLocationWrapper}
      */

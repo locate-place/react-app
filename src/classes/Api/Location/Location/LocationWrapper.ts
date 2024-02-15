@@ -38,8 +38,6 @@ class LocationWrapper
     private readonly apiLocationWrapper: ApiLocationWrapper;
 
     /**
-     * LocationApiWrapper constructor.
-     *
      * @param location {TypeLocation}
      * @param apiLocationWrapper {ApiLocationWrapper}
      */

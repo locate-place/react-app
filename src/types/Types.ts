@@ -388,36 +388,36 @@ type TypeGivenQuery = {
     }
 };
 
+type TypeGivenLanguage = {
+    "raw": string,
+    "parsed":  {
+        "name": string
+    }
+}
+
+type TypeGivenCountry = {
+    "raw": string,
+    "parsed":  {
+        "name": string
+    }
+};
+
+type TypeGivenCoordinate = {
+    "raw": string,
+    "parsed": {
+        "latitude": TypePosition,
+        "longitude": TypePosition,
+        "links": TypeLinksMaps
+    },
+    "location": TypeLocation
+};
+
 type TypeGiven = {
     "query"?: TypeGivenQuery,
     "next-places"?: boolean,
-    "language"?: {
-        "raw": string,
-        "parsed":  {
-            "name": string
-        }
-    },
-    "country"?: {
-        "raw": string,
-        "parsed":  {
-            "name": string
-        }
-    }
-    "coordinate"?: {
-        "raw": string,
-        "parsed": {
-            "latitude": {
-                "decimal": number,
-                "dms": string
-            },
-            "longitude": {
-                "decimal": number,
-                "dms": string
-            },
-            "links": TypeLinksMaps
-        },
-        "location": TypeLocation
-    }
+    "language"?: TypeGivenLanguage,
+    "country"?: TypeGivenCountry,
+    "coordinate"?: TypeGivenCoordinate,
 };
 
 type TypeApiData = {
@@ -490,6 +490,10 @@ export {
     TypeNextPlacesConfig,
     TypeLocation,
     TypeLocations,
+    TypeGivenQuery,
+    TypeGivenLanguage,
+    TypeGivenCountry,
+    TypeGivenCoordinate,
     TypeGiven,
     TypeApiData,
 

@@ -1,6 +1,7 @@
 /* Import types. */
 import {
-    TypeGiven,
+    TypeGiven, TypeGivenCoordinate, TypeGivenCountry, TypeGivenLanguage,
+    TypeGivenQuery,
 } from "../../../../types/Types";
 
 /* Import classes. */
@@ -37,6 +38,78 @@ class GivenWrapper
     get(): TypeGiven
     {
         return this.given;
+    }
+
+    /**
+     * Returns if the given property query exists.
+     */
+    hasQuery(): boolean
+    {
+        return !!this.given.query;
+    }
+
+    /**
+     * Returns the given property query.
+     */
+    getQuery(): TypeGivenQuery|null
+    {
+        return this.given.query ?? null;
+    }
+
+    /**
+     * Returns if the next places were requested.
+     */
+    showNextPlaces(): boolean
+    {
+        return this.given["next-places"] ? this.given["next-places"] : false;
+    }
+
+    /**
+     * Returns if the given property language exists.
+     */
+    hasLanguage(): boolean
+    {
+        return !!this.given.language;
+    }
+
+    /**
+     * Returns the given property language.
+     */
+    getLanguage(): TypeGivenLanguage|null
+    {
+        return this.given.language ?? null;
+    }
+
+    /**
+     * Returns if the given property country exists.
+     */
+    hasCountry(): boolean
+    {
+        return !!this.given.country;
+    }
+
+    /**
+     * Returns the given property country.
+     */
+    getCountry(): TypeGivenCountry|null
+    {
+        return this.given.country ?? null;
+    }
+
+    /**
+     * Returns if the given property coordinate exists.
+     */
+    hasCoordinate(): boolean
+    {
+        return !!this.given.coordinate;
+    }
+
+    /**
+     * Returns the given property coordinate.
+     */
+    getCoordinate(): TypeGivenCoordinate|null
+    {
+        return this.given.coordinate ?? null;
     }
 }
 

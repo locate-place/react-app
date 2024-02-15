@@ -1,7 +1,7 @@
 /* Import types. */
 import {
     TypeFeature,
-} from "../../../../types/Types";
+} from "../../../../../types/Types";
 
 /* Import classes. */
 import {LocationApiWrapper} from "../../LocationApiWrapper";

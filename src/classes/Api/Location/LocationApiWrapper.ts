@@ -6,8 +6,8 @@ import {
     TypeResults,
     TypeLocation,
     typeLocation,
-    typeLocations, TypeGiven
-} from "../../types/Types";
+    typeLocations
+} from "../../../types/Types";
 
 /* Import classes. */
 import {LocationWrapper} from "./Location/LocationWrapper";

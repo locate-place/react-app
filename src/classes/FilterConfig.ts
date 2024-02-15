@@ -23,7 +23,7 @@ import {languageDE, languageDefault} from "../config/Language";
 import {routePathLocation, routePathLocations} from "../config/Route";
 
 /* Import classes. */
-import {NextPlaceWrapper} from "./Api/Location/NextPlaces/NextPlaceWrapper";
+import {NextPlaceWrapper} from "./Api/Location/Location/NextPlaces/NextPlaceWrapper";
 
 
 /**

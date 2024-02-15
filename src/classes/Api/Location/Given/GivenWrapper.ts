@@ -1,7 +1,7 @@
 /* Import types. */
 import {
     TypeGiven,
-} from "../../../types/Types";
+} from "../../../../types/Types";
 
 /* Import classes. */
 import {LocationApiWrapper} from "../LocationApiWrapper";

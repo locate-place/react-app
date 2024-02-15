@@ -8,8 +8,8 @@ import {useTranslation} from "react-i18next";
 import {addSoftHyphens} from "../../functions/Text";
 
 /* Import classes. */
-import {NextPlaceWrapper} from "../../classes/Api/Location/NextPlaces/NextPlaceWrapper";
-import {LocationWrapper} from "../../classes/Api/Location/LocationWrapper";
+import {NextPlaceWrapper} from "../../classes/Api/Location/Location/NextPlaces/NextPlaceWrapper";
+import {LocationWrapper} from "../../classes/Api/Location/Location/LocationWrapper";
 import {mapTypeGoogle} from "../../config/MapTypes";
 import {Query} from "../../classes/Query";
 

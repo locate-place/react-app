@@ -4,7 +4,7 @@ import {
     TypeNextPlacesFeatureClass,
     TypeNextPlacesFeatureClassConfig,
     TypeNextPlacesFeatureClassFeature,
-} from "../../../../types/Types";
+} from "../../../../../types/Types";
 
 /* Import classes. */
 import {LocationWrapper} from "../LocationWrapper";

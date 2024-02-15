@@ -4,10 +4,10 @@ import {TFunction} from "i18next";
 import {
     TypeProperties,
     TypeValue,
-} from "../../../../types/Types";
+} from "../../../../../types/Types";
 
 /* Import translations. */
-import {translateCountryCode} from "../../../../translations/Country";
+import {translateCountryCode} from "../../../../../translations/Country";
 
 /* Import classes. */
 import {LocationApiWrapper} from "../../LocationApiWrapper";

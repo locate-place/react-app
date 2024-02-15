@@ -13,7 +13,7 @@ import {TypeApiData, TypeApiProperties, TypeErrorOwn, TypeLoaded, TypeLocation} 
 
 /* Import classes */
 import {Query} from "../../classes/Query";
-import {LocationApiWrapper} from "../../classes/Api/LocationApiWrapper";
+import {LocationApiWrapper} from "../../classes/Api/Location/LocationApiWrapper";
 
 /* Add functions */
 import loadApiData from "../../functions/LoadApiData";

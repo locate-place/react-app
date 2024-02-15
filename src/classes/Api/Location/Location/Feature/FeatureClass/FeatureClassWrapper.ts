@@ -1,33 +1,33 @@
 /* Import types. */
 import {
-    TypeFeatureCode,
-} from "../../../../../types/Types";
+    TypeFeatureClass,
+} from "../../../../../../types/Types";
 
 /* Import classes. */
 import {LocationApiWrapper} from "../../../LocationApiWrapper";
 
 /**
- * Class FeatureCodeWrapper
+ * Class FeatureClassWrapper
  *
  * @author Björn Hempel <bjoern@hempel.li>
  * @version 0.1.0 (2024-02-12)
  * @since 0.1.0 (2024-02-12) First version.
  */
-class FeatureCodeWrapper
+class FeatureClassWrapper
 {
-    private readonly featureCode: TypeFeatureCode;
+    private readonly featureClass: TypeFeatureClass;
 
     private readonly locationApiWrapper: LocationApiWrapper;
 
     /**
-     * FeatureCodeWrapper constructor.
+     * FeatureClassWrapper constructor.
      *
-     * @param featureCode {TypeFeatureCode}
+     * @param featureClass {TypeFeatureClass}
      * @param locationApiWrapper {LocationApiWrapper}
      */
-    constructor(featureCode: TypeFeatureCode, locationApiWrapper: LocationApiWrapper)
+    constructor(featureClass: TypeFeatureClass, locationApiWrapper: LocationApiWrapper)
     {
-        this.featureCode = featureCode;
+        this.featureClass = featureClass;
 
         this.locationApiWrapper = locationApiWrapper;
     }
@@ -35,25 +35,25 @@ class FeatureCodeWrapper
     /**
      * Returns the feature of the location.
      */
-    get(): TypeFeatureCode
+    get(): TypeFeatureClass
     {
-        return this.featureCode;
+        return this.featureClass;
     }
 
     /**
-     * Returns the code of the feature code.
+     * Returns the code of the feature class.
      */
     getCode(): string
     {
-        return this.featureCode.code;
+        return this.featureClass.code;
     }
 
     /**
-     * Returns the name of the feature code.
+     * Returns the name of the feature class.
      */
     getName(): string
     {
-        return this.featureCode.name;
+        return this.featureClass.name;
     }
 }
 
@@ -61,5 +61,5 @@ class FeatureCodeWrapper
  * Export functions.
  */
 export {
-    FeatureCodeWrapper
+    FeatureClassWrapper
 }

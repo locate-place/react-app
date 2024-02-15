@@ -18,19 +18,19 @@ class LinksWrapper
 {
     private readonly links: TypeLinks;
 
-    private readonly locationApiWrapper: ApiLocationWrapper;
+    private readonly apiLocationWrapper: ApiLocationWrapper;
 
     /**
      * LinksWrapper constructor.
      *
      * @param links {TypeLinks}
-     * @param locationApiWrapper {ApiLocationWrapper}
+     * @param apiLocationWrapper {ApiLocationWrapper}
      */
-    constructor(links: TypeLinks, locationApiWrapper: ApiLocationWrapper)
+    constructor(links: TypeLinks, apiLocationWrapper: ApiLocationWrapper)
     {
         this.links = links;
 
-        this.locationApiWrapper = locationApiWrapper;
+        this.apiLocationWrapper = apiLocationWrapper;
     }
 
     /**

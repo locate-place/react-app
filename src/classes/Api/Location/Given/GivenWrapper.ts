@@ -1,11 +1,14 @@
 /* Import types. */
 import {
-    TypeGiven, TypeGivenCoordinate, TypeGivenCountry, TypeGivenLanguage,
-    TypeGivenQuery,
+    TypeGiven
 } from "../../../../types/Types";
 
 /* Import classes. */
 import {ApiLocationWrapper} from "../ApiLocationWrapper";
+import {QueryWrapper} from "./Query/QueryWrapper";
+import {LanguageWrapper} from "./Language/LanguageWrapper";
+import {CountryWrapper} from "./Country/CountryWrapper";
+import {CoordinateWrapper} from "./Coordinate/CoordinateWrapper";
 
 /**
  * Class GivenWrapper
@@ -18,18 +21,18 @@ class GivenWrapper
 {
     private readonly given: TypeGiven;
 
-    private readonly locationApiWrapper: ApiLocationWrapper;
+    private readonly apiLocationWrapper: ApiLocationWrapper;
 
     /**
      * LocationApiWrapper constructor.
      *
      * @param given {TypeGiven}
-     * @param locationApiWrapper {ApiLocationWrapper}
+     * @param apiLocationWrapper {ApiLocationWrapper}
      */
-    constructor(given: TypeGiven, locationApiWrapper: ApiLocationWrapper)
+    constructor(given: TypeGiven, apiLocationWrapper: ApiLocationWrapper)
     {
         this.given = given;
-        this.locationApiWrapper = locationApiWrapper;
+        this.apiLocationWrapper = apiLocationWrapper;
     }
 
     /**
@@ -39,6 +42,18 @@ class GivenWrapper
     {
         return this.given;
     }
+
+
+
+    /**
+     * Returns if the next places were requested.
+     */
+    showNextPlaces(): boolean
+    {
+        return this.given["next-places"] ? this.given["next-places"] : false;
+    }
+
+
 
     /**
      * Returns if the given property query exists.
@@ -51,17 +66,9 @@ class GivenWrapper
     /**
      * Returns the given property query.
      */
-    getQuery(): TypeGivenQuery|null
+    getQuery(): QueryWrapper|null
     {
-        return this.given.query ?? null;
-    }
-
-    /**
-     * Returns if the next places were requested.
-     */
-    showNextPlaces(): boolean
-    {
-        return this.given["next-places"] ? this.given["next-places"] : false;
+        return this.given.query ? new QueryWrapper(this.given.query, this.apiLocationWrapper) : null;
     }
 
     /**
@@ -75,9 +82,9 @@ class GivenWrapper
     /**
      * Returns the given property language.
      */
-    getLanguage(): TypeGivenLanguage|null
+    getLanguage(): LanguageWrapper|null
     {
-        return this.given.language ?? null;
+        return this.given.language ? new LanguageWrapper(this.given.language, this.apiLocationWrapper) : null;
     }
 
     /**
@@ -91,9 +98,9 @@ class GivenWrapper
     /**
      * Returns the given property country.
      */
-    getCountry(): TypeGivenCountry|null
+    getCountry(): CountryWrapper|null
     {
-        return this.given.country ?? null;
+        return this.given.country ? new CountryWrapper(this.given.country, this.apiLocationWrapper) : null;
     }
 
     /**
@@ -107,9 +114,9 @@ class GivenWrapper
     /**
      * Returns the given property coordinate.
      */
-    getCoordinate(): TypeGivenCoordinate|null
+    getCoordinate(): CoordinateWrapper|null
     {
-        return this.given.coordinate ?? null;
+        return this.given.coordinate ? new CoordinateWrapper(this.given.coordinate, this.apiLocationWrapper) : null;
     }
 }
 

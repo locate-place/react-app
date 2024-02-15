@@ -21,19 +21,19 @@ class NextPlacesWrapper
 {
     private readonly nextPlaces: TypeNextPlaces;
 
-    private readonly locationApiWrapper: ApiLocationWrapper;
+    private readonly apiLocationWrapper: ApiLocationWrapper;
 
     /**
      * NextPlacesWrapper constructor.
      *
      * @param nextPlaces {TypeNextPlaces}
-     * @param locationApiWrapper {ApiLocationWrapper}
+     * @param apiLocationWrapper {ApiLocationWrapper}
      */
-    constructor(nextPlaces: TypeNextPlaces, locationApiWrapper: ApiLocationWrapper)
+    constructor(nextPlaces: TypeNextPlaces, apiLocationWrapper: ApiLocationWrapper)
     {
         this.nextPlaces = nextPlaces;
 
-        this.locationApiWrapper = locationApiWrapper;
+        this.apiLocationWrapper = apiLocationWrapper;
     }
 
     /**
@@ -126,7 +126,7 @@ class NextPlacesWrapper
         let places: LocationWrapper[] = [];
 
         featureClass.places.forEach((location): void => {
-            places.push(new LocationWrapper(location, this.locationApiWrapper));
+            places.push(new LocationWrapper(location, this.apiLocationWrapper));
         });
 
         return places;

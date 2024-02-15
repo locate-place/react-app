@@ -19,19 +19,19 @@ class TimezoneWrapper
 {
     private readonly timezone: TypeTimezone;
 
-    private readonly locationApiWrapper: ApiLocationWrapper;
+    private readonly apiLocationWrapper: ApiLocationWrapper;
 
     /**
      * TimezoneWrapper constructor.
      *
      * @param timezone {TypeTimezone}
-     * @param locationApiWrapper {ApiLocationWrapper}
+     * @param apiLocationWrapper {ApiLocationWrapper}
      */
-    constructor(timezone: TypeTimezone, locationApiWrapper: ApiLocationWrapper)
+    constructor(timezone: TypeTimezone, apiLocationWrapper: ApiLocationWrapper)
     {
         this.timezone = timezone;
 
-        this.locationApiWrapper = locationApiWrapper;
+        this.apiLocationWrapper = apiLocationWrapper;
     }
 
     /**
@@ -79,7 +79,7 @@ class TimezoneWrapper
      */
     getCoordinate(): CoordinateWrapper
     {
-        return new CoordinateWrapper(this.timezone.coordinate, this.locationApiWrapper);
+        return new CoordinateWrapper(this.timezone.coordinate, this.apiLocationWrapper);
     }
 }
 

@@ -24,19 +24,19 @@ class PropertiesWrapper
 {
     private readonly properties: TypeProperties;
 
-    private readonly locationApiWrapper: ApiLocationWrapper;
+    private readonly apiLocationWrapper: ApiLocationWrapper;
 
     /**
      * PropertiesWrapper constructor.
      *
      * @param properties {TypeProperties}
-     * @param locationApiWrapper {ApiLocationWrapper}
+     * @param apiLocationWrapper {ApiLocationWrapper}
      */
-    constructor(properties: TypeProperties, locationApiWrapper: ApiLocationWrapper)
+    constructor(properties: TypeProperties, apiLocationWrapper: ApiLocationWrapper)
     {
         this.properties = properties;
 
-        this.locationApiWrapper = locationApiWrapper;
+        this.apiLocationWrapper = apiLocationWrapper;
     }
 
     /**

@@ -19,19 +19,19 @@ class FeatureWrapper
 {
     private readonly feature: TypeFeature;
 
-    private readonly locationApiWrapper: ApiLocationWrapper;
+    private readonly apiLocationWrapper: ApiLocationWrapper;
 
     /**
      * FeatureWrapper constructor.
      *
      * @param feature {TypeFeature}
-     * @param locationApiWrapper {ApiLocationWrapper}
+     * @param apiLocationWrapper {ApiLocationWrapper}
      */
-    constructor(feature: TypeFeature, locationApiWrapper: ApiLocationWrapper)
+    constructor(feature: TypeFeature, apiLocationWrapper: ApiLocationWrapper)
     {
         this.feature = feature;
 
-        this.locationApiWrapper = locationApiWrapper;
+        this.apiLocationWrapper = apiLocationWrapper;
     }
 
     /**
@@ -50,7 +50,7 @@ class FeatureWrapper
         return new FeatureClassWrapper({
             'code': this.feature['class'],
             'name': this.feature['class-name'],
-        }, this.locationApiWrapper);
+        }, this.apiLocationWrapper);
     }
 
     /**
@@ -61,7 +61,7 @@ class FeatureWrapper
         return new FeatureCodeWrapper({
             'code': this.feature['code'],
             'name': this.feature['code-name'],
-        }, this.locationApiWrapper);
+        }, this.apiLocationWrapper);
     }
 }
 

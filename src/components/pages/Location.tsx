@@ -89,8 +89,8 @@ const Location = () =>
     }
 
     /* Get location wrapper. */
-    let locationApiWrapper = new ApiLocationWrapper(api);
-    let location = locationApiWrapper.getLocation();
+    let apiLocationWrapper = new ApiLocationWrapper(api);
+    let location = apiLocationWrapper.getLocation();
 
     let filterConfig = getFilterConfig(searchParams);
     let addCurrentPosition = () => {

@@ -35,18 +35,18 @@ class LocationWrapper
 {
     private readonly location: TypeLocation;
 
-    private readonly locationApiWrapper: ApiLocationWrapper;
+    private readonly apiLocationWrapper: ApiLocationWrapper;
 
     /**
      * LocationApiWrapper constructor.
      *
      * @param location {TypeLocation}
-     * @param locationApiWrapper {ApiLocationWrapper}
+     * @param apiLocationWrapper {ApiLocationWrapper}
      */
-    constructor(location: TypeLocation, locationApiWrapper: ApiLocationWrapper)
+    constructor(location: TypeLocation, apiLocationWrapper: ApiLocationWrapper)
     {
         this.location = location;
-        this.locationApiWrapper = locationApiWrapper;
+        this.apiLocationWrapper = apiLocationWrapper;
     }
 
     /**
@@ -142,7 +142,7 @@ class LocationWrapper
             return null;
         }
 
-        return new LocationWrapper(administrativeLocations[key], this.locationApiWrapper);
+        return new LocationWrapper(administrativeLocations[key], this.apiLocationWrapper);
     }
 
     /**
@@ -216,7 +216,7 @@ class LocationWrapper
      */
     getCoordinate(): CoordinateWrapper
     {
-        return new CoordinateWrapper(this.location.coordinate, this.locationApiWrapper);
+        return new CoordinateWrapper(this.location.coordinate, this.apiLocationWrapper);
     }
 
     /**
@@ -224,7 +224,7 @@ class LocationWrapper
      */
     getFeature(): FeatureWrapper
     {
-        return new FeatureWrapper(this.location.feature, this.locationApiWrapper);
+        return new FeatureWrapper(this.location.feature, this.apiLocationWrapper);
     }
 
     /**
@@ -232,7 +232,7 @@ class LocationWrapper
      */
     getProperties(): PropertiesWrapper
     {
-        return new PropertiesWrapper(this.location.properties, this.locationApiWrapper);
+        return new PropertiesWrapper(this.location.properties, this.apiLocationWrapper);
     }
 
 
@@ -254,7 +254,7 @@ class LocationWrapper
             return null;
         }
 
-        return new TimezoneWrapper(this.location.timezone, this.locationApiWrapper);
+        return new TimezoneWrapper(this.location.timezone, this.apiLocationWrapper);
     }
 
 
@@ -264,7 +264,7 @@ class LocationWrapper
      */
     getLinks(): LinksWrapper
     {
-        return new LinksWrapper(this.location.links, this.locationApiWrapper);
+        return new LinksWrapper(this.location.links, this.apiLocationWrapper);
     }
 
 
@@ -286,7 +286,7 @@ class LocationWrapper
             return null;
         }
 
-        return new NextPlacesWrapper(this.location["next-places"], this.locationApiWrapper);
+        return new NextPlacesWrapper(this.location["next-places"], this.apiLocationWrapper);
     }
 
     /**
@@ -332,7 +332,7 @@ class LocationWrapper
             return null;
         }
 
-        return new NextPlaceWrapper(nextPlace, this.locationApiWrapper);
+        return new NextPlaceWrapper(nextPlace, this.apiLocationWrapper);
     }
 
 
@@ -342,7 +342,7 @@ class LocationWrapper
      */
     getNextPlacesConfig(): NextPlacesConfigWrapper
     {
-        return new NextPlacesConfigWrapper(this.location["next-places-config"], this.locationApiWrapper);
+        return new NextPlacesConfigWrapper(this.location["next-places-config"], this.apiLocationWrapper);
     }
 }
 

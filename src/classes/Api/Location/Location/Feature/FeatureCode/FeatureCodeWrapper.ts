@@ -17,19 +17,19 @@ class FeatureCodeWrapper
 {
     private readonly featureCode: TypeFeatureCode;
 
-    private readonly locationApiWrapper: ApiLocationWrapper;
+    private readonly apiLocationWrapper: ApiLocationWrapper;
 
     /**
      * FeatureCodeWrapper constructor.
      *
      * @param featureCode {TypeFeatureCode}
-     * @param locationApiWrapper {ApiLocationWrapper}
+     * @param apiLocationWrapper {ApiLocationWrapper}
      */
-    constructor(featureCode: TypeFeatureCode, locationApiWrapper: ApiLocationWrapper)
+    constructor(featureCode: TypeFeatureCode, apiLocationWrapper: ApiLocationWrapper)
     {
         this.featureCode = featureCode;
 
-        this.locationApiWrapper = locationApiWrapper;
+        this.apiLocationWrapper = apiLocationWrapper;
     }
 
     /**

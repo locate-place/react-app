@@ -22,19 +22,19 @@ class CoordinateWrapper
 {
     private readonly coordinate: TypeCoordinate;
 
-    private readonly locationApiWrapper: ApiLocationWrapper;
+    private readonly apiLocationWrapper: ApiLocationWrapper;
 
     /**
      * CoordinateWrapper constructor.
      *
      * @param coordinate {TypeCoordinate}
-     * @param locationApiWrapper {ApiLocationWrapper}
+     * @param apiLocationWrapper {ApiLocationWrapper}
      */
-    constructor(coordinate: TypeCoordinate, locationApiWrapper: ApiLocationWrapper)
+    constructor(coordinate: TypeCoordinate, apiLocationWrapper: ApiLocationWrapper)
     {
         this.coordinate = coordinate;
 
-        this.locationApiWrapper = locationApiWrapper;
+        this.apiLocationWrapper = apiLocationWrapper;
     }
 
     /**
@@ -179,7 +179,7 @@ class CoordinateWrapper
      */
     getDistanceUserText(t:  TFunction<"translation", undefined>): string|null
     {
-        const coordinate = this.locationApiWrapper.getGiven().get().coordinate ?? null;
+        const coordinate = this.apiLocationWrapper.getGiven().get().coordinate ?? null;
 
         if (coordinate === null) {
             return null;

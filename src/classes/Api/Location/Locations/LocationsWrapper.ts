@@ -17,18 +17,18 @@ class LocationsWrapper
 {
     private readonly locations: Array<TypeLocation>;
 
-    private readonly locationApiWrapper: ApiLocationWrapper;
+    private readonly apiLocationWrapper: ApiLocationWrapper;
 
     /**
      * LocationApiWrapper constructor.
      *
      * @param locations {Array<TypeLocation>}
-     * @param locationApiWrapper {ApiLocationWrapper}
+     * @param apiLocationWrapper {ApiLocationWrapper}
      */
-    constructor(locations: Array<TypeLocation>, locationApiWrapper: ApiLocationWrapper)
+    constructor(locations: Array<TypeLocation>, apiLocationWrapper: ApiLocationWrapper)
     {
         this.locations = locations;
-        this.locationApiWrapper = locationApiWrapper;
+        this.apiLocationWrapper = apiLocationWrapper;
     }
 
     /**

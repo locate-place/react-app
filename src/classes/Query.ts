@@ -23,7 +23,7 @@ import {
 } from "../config/NameSort";
 
 /* Import classes. */
-import {ApiResponseProperty} from "./ApiResponseProperty";
+import {ApiResponseProperty} from "./Api/ApiResponseProperty";
 import {FilterConfig} from "./FilterConfig";
 
 /* API paths */

@@ -1,5 +1,5 @@
 /* Import types. */
-import {TypeApiProperties} from "../types/Types";
+import {TypeApiProperties} from "../../types/Types";
 
 /**
  * Class ApiResponseProperty

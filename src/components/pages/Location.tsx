@@ -9,7 +9,7 @@ import {sizeIcon} from "../../config/Config";
 import {routePathLocation} from "../../config/Route";
 
 /* Import types. */
-import {TypeApiData, TypeApiProperties, TypeErrorOwn, TypeLoaded, TypeLocation} from "../../types/Types";
+import {TypeApiData, TypeApiProperties, TypeErrorOwn, TypeLoaded} from "../../types/Types";
 
 /* Import classes */
 import {Query} from "../../classes/Query";
@@ -55,7 +55,6 @@ const Location = () =>
     /* State variables */
     const [error, setError] = useState<TypeErrorOwn>(null);
     const [loaded, setLoaded] = useState<TypeLoaded>(false);
-    const [data, setData] = useState<TypeLocation|null>(null);
     const [properties, setProperties] = useState<TypeApiProperties|null>(null);
     const [api, setApi] = useState<TypeApiData|null>(null);
 
@@ -77,14 +76,13 @@ const Location = () =>
             path: apiPathWithFilter,
             setLoaded: setLoaded,
             setError: setError,
-            setDataLocation: setData,
             setProperties: setProperties,
             setDataApi: setApi
         });
     }, [apiType, apiPathWithFilter]);
 
     /* Skip empty data */
-    if (data === null || properties === null || api === null) {
+    if (properties === null || api === null) {
         return <></>;
     }
 

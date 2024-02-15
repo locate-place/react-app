@@ -137,6 +137,14 @@ class ApiLocationWrapper
     }
 
     /**
+     * Returns if the current locations if the data is a list search and contains data.
+     */
+    hasLocations(): boolean
+    {
+        return this.isLocation() && Array.isArray(this.apiData.data);
+    }
+
+    /**
      * Returns the current locations if the data is a list search. Otherwise, null.
      */
     getLocations(): LocationsWrapper|null

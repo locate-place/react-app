@@ -6,10 +6,10 @@ import {useTranslation} from "react-i18next";
 
 /* Import types. */
 import {
+    TypeApiData,
     TypeApiProperties,
     TypeErrorOwn,
-    TypeLoaded,
-    TypeLocations
+    TypeLoaded
 } from "../../types/Types";
 
 /* Import configurations */
@@ -29,7 +29,7 @@ import {
 
 /* Import classes */
 import {Query} from "../../classes/Query";
-import {ApiResponseProperty} from "../../classes/ApiResponseProperty";
+import {ApiResponseProperty} from "../../classes/Api/ApiResponseProperty";
 
 /* Import component parts */
 import Error from "../layout/Error";
@@ -58,6 +58,8 @@ import {
     nameSortRelevance,
     nameSortRelevanceUser
 } from "../../config/NameSort";
+import {ApiLocationWrapper} from "../../classes/Api/Location/ApiLocationWrapper";
+import {LocationsWrapper} from "../../classes/Api/Location/Locations/LocationsWrapper";
 
 /**
  * This is the app locations component.
@@ -73,10 +75,10 @@ const Locations = () =>
     }, []);
 
     /* State variables */
-    const [error, setError] = useState<TypeErrorOwn>(null);
-    const [loaded, setLoaded] = useState<TypeLoaded>(false);
-    const [data, setData] = useState<TypeLocations|null>(null);
+    const [api, setApi] = useState<TypeApiData|null>(null);
     const [properties, setProperties] = useState<TypeApiProperties|null>(null);
+    const [loaded, setLoaded] = useState<TypeLoaded>(false);
+    const [error, setError] = useState<TypeErrorOwn>(null);
 
     /* Memorized variables. */
     const [searchParams] = useSearchParams();
@@ -84,34 +86,36 @@ const Locations = () =>
     /* Get variables according to the search parameters. */
     const filterConfig = getFilterConfig(searchParams);
 
-    /* Gets the api url */
+    /* Gets the api components */
     const query = new Query(searchParams, env);
     const apiPath = query.getApiUrl();
     const apiPathWithFilter = query.getApiUrlWithFilter();
-    const apiType = query.getApiType();
 
     /**
      * useEffect function.
      */
     useEffect(() => {
         loadApiData({
-            type: apiType,
+            type: query.getApiType(),
             path: apiPathWithFilter,
-            setLoaded: setLoaded,
-            setError: setError,
-            setDataLocations: setData,
+            setDataApi: setApi,
             setProperties: setProperties,
+            setLoaded: setLoaded,
+            setError: setError
         });
-    }, [apiType, apiPathWithFilter]);
+    }, [apiPathWithFilter]);
 
     /* Skip empty data */
-    if (data === null || properties === null) {
+    if (properties === null || api === null) {
         return <></>;
     }
 
     /* Add apiResponseProperty to query class, to get more information. */
     const apiResponseProperty = new ApiResponseProperty(properties);
     query.setApiResponseProperty(apiResponseProperty);
+
+    /* Get location wrapper. */
+    let apiLocationWrapper = new ApiLocationWrapper(api);
 
     /**
      * The render function.
@@ -130,7 +134,7 @@ const Locations = () =>
 
                         {loaded ? <>
                             {/* Renders the search metrics part. */}
-                            <SearchMetrics properties={properties}/>
+                            <SearchMetrics properties={properties} />
 
                             {
                                 query.getFilterConfig().hasQuery() ?
@@ -152,8 +156,8 @@ const Locations = () =>
                                     >
                                         {
                                             apiResponseProperty.isOwnPosition() ?
-                                                <HouseFill size={sizeIcon.Button}/> :
-                                                <HouseSlashFill size={sizeIcon.Button}/>
+                                                <HouseFill size={sizeIcon.Button} /> :
+                                                <HouseSlashFill size={sizeIcon.Button} />
                                         }&nbsp;
                                         <sup><small>{t('TEXT_ACTION_SORTING')}</small></sup>
                                     </button>
@@ -216,16 +220,20 @@ const Locations = () =>
                             {
                                 apiResponseProperty.hasResults() ?
                                     <>
-                                        {data.map((location, index) => (
-                                            <LocationCard
-                                                key={'location-card-' + index}
-                                                location={location}
-                                                properties={properties}
-                                                showOwnPosition={false}
-                                                index={index}
-                                                useAlwaysName={!query.getFilterConfig().hasQuery()}
-                                            />
-                                        ))}
+                                        {
+                                            apiLocationWrapper.hasLocations() ?
+                                                (apiLocationWrapper.getLocations() as LocationsWrapper).get().map((location, index) => (
+                                                    <LocationCard
+                                                        key={'location-card-' + index}
+                                                        location={location}
+                                                        properties={properties}
+                                                        showOwnPosition={false}
+                                                        index={index}
+                                                        useAlwaysName={!query.getFilterConfig().hasQuery()}
+                                                    />
+                                                )) :
+                                                <></>
+                                        }
 
                                         {/* Renders the pager part. */}
                                         <Pager query={query} />

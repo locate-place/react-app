@@ -4,7 +4,7 @@ import {
 } from "../../../../../../types/Types";
 
 /* Import classes. */
-import {LocationApiWrapper} from "../../../LocationApiWrapper";
+import {ApiLocationWrapper} from "../../../ApiLocationWrapper";
 
 /**
  * Class FeatureCodeWrapper
@@ -17,15 +17,15 @@ class FeatureCodeWrapper
 {
     private readonly featureCode: TypeFeatureCode;
 
-    private readonly locationApiWrapper: LocationApiWrapper;
+    private readonly locationApiWrapper: ApiLocationWrapper;
 
     /**
      * FeatureCodeWrapper constructor.
      *
      * @param featureCode {TypeFeatureCode}
-     * @param locationApiWrapper {LocationApiWrapper}
+     * @param locationApiWrapper {ApiLocationWrapper}
      */
-    constructor(featureCode: TypeFeatureCode, locationApiWrapper: LocationApiWrapper)
+    constructor(featureCode: TypeFeatureCode, locationApiWrapper: ApiLocationWrapper)
     {
         this.featureCode = featureCode;
 

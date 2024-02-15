@@ -14,7 +14,7 @@ import {
 } from "../../../../config/AdministrativeLocations";
 
 /* Import classes. */
-import {LocationApiWrapper} from "../LocationApiWrapper";
+import {ApiLocationWrapper} from "../ApiLocationWrapper";
 import {FeatureWrapper} from "./Feature/FeatureWrapper";
 import {CoordinateWrapper} from "./Coordinate/CoordinateWrapper";
 import {PropertiesWrapper} from "./Properties/PropertiesWrapper";
@@ -35,15 +35,15 @@ class LocationWrapper
 {
     private readonly location: TypeLocation;
 
-    private readonly locationApiWrapper: LocationApiWrapper;
+    private readonly locationApiWrapper: ApiLocationWrapper;
 
     /**
      * LocationApiWrapper constructor.
      *
      * @param location {TypeLocation}
-     * @param locationApiWrapper {LocationApiWrapper}
+     * @param locationApiWrapper {ApiLocationWrapper}
      */
-    constructor(location: TypeLocation, locationApiWrapper: LocationApiWrapper)
+    constructor(location: TypeLocation, locationApiWrapper: ApiLocationWrapper)
     {
         this.location = location;
         this.locationApiWrapper = locationApiWrapper;

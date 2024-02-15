@@ -5,7 +5,7 @@ import {
 } from "../../../../../types/Types";
 
 /* Import classes. */
-import {LocationApiWrapper} from "../../LocationApiWrapper";
+import {ApiLocationWrapper} from "../../ApiLocationWrapper";
 
 /**
  * Class LinksWrapper
@@ -18,15 +18,15 @@ class LinksWrapper
 {
     private readonly links: TypeLinks;
 
-    private readonly locationApiWrapper: LocationApiWrapper;
+    private readonly locationApiWrapper: ApiLocationWrapper;
 
     /**
      * LinksWrapper constructor.
      *
      * @param links {TypeLinks}
-     * @param locationApiWrapper {LocationApiWrapper}
+     * @param locationApiWrapper {ApiLocationWrapper}
      */
-    constructor(links: TypeLinks, locationApiWrapper: LocationApiWrapper)
+    constructor(links: TypeLinks, locationApiWrapper: ApiLocationWrapper)
     {
         this.links = links;
 

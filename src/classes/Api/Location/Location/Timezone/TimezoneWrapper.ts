@@ -6,7 +6,7 @@ import {
 
 /* Import classes. */
 import {CoordinateWrapper} from "../Coordinate/CoordinateWrapper";
-import {LocationApiWrapper} from "../../LocationApiWrapper";
+import {ApiLocationWrapper} from "../../ApiLocationWrapper";
 
 /**
  * Class TimezoneWrapper
@@ -19,15 +19,15 @@ class TimezoneWrapper
 {
     private readonly timezone: TypeTimezone;
 
-    private readonly locationApiWrapper: LocationApiWrapper;
+    private readonly locationApiWrapper: ApiLocationWrapper;
 
     /**
      * TimezoneWrapper constructor.
      *
      * @param timezone {TypeTimezone}
-     * @param locationApiWrapper {LocationApiWrapper}
+     * @param locationApiWrapper {ApiLocationWrapper}
      */
-    constructor(timezone: TypeTimezone, locationApiWrapper: LocationApiWrapper)
+    constructor(timezone: TypeTimezone, locationApiWrapper: ApiLocationWrapper)
     {
         this.timezone = timezone;
 

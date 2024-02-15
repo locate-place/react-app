@@ -5,7 +5,7 @@ import {
 } from "../../../../types/Types";
 
 /* Import classes. */
-import {LocationApiWrapper} from "../LocationApiWrapper";
+import {ApiLocationWrapper} from "../ApiLocationWrapper";
 
 /**
  * Class GivenWrapper
@@ -18,15 +18,15 @@ class GivenWrapper
 {
     private readonly given: TypeGiven;
 
-    private readonly locationApiWrapper: LocationApiWrapper;
+    private readonly locationApiWrapper: ApiLocationWrapper;
 
     /**
      * LocationApiWrapper constructor.
      *
      * @param given {TypeGiven}
-     * @param locationApiWrapper {LocationApiWrapper}
+     * @param locationApiWrapper {ApiLocationWrapper}
      */
-    constructor(given: TypeGiven, locationApiWrapper: LocationApiWrapper)
+    constructor(given: TypeGiven, locationApiWrapper: ApiLocationWrapper)
     {
         this.given = given;
         this.locationApiWrapper = locationApiWrapper;

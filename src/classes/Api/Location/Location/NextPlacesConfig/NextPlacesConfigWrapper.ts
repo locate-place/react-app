@@ -7,7 +7,7 @@ import {
 } from "../../../../../types/Types";
 
 /* Import classes. */
-import {LocationApiWrapper} from "../../LocationApiWrapper";
+import {ApiLocationWrapper} from "../../ApiLocationWrapper";
 
 /**
  * Class NextPlacesConfigWrapper
@@ -20,15 +20,15 @@ class NextPlacesConfigWrapper
 {
     private readonly nextPlacesConfig: TypeNextPlacesConfig;
 
-    private readonly locationApiWrapper: LocationApiWrapper;
+    private readonly locationApiWrapper: ApiLocationWrapper;
 
     /**
      * NextPlacesConfigWrapper constructor.
      *
      * @param nextPlacesConfig {TypeNextPlacesConfig}
-     * @param locationApiWrapper {LocationApiWrapper}
+     * @param locationApiWrapper {ApiLocationWrapper}
      */
-    constructor(nextPlacesConfig: TypeNextPlacesConfig, locationApiWrapper: LocationApiWrapper)
+    constructor(nextPlacesConfig: TypeNextPlacesConfig, locationApiWrapper: ApiLocationWrapper)
     {
         this.nextPlacesConfig = nextPlacesConfig;
 

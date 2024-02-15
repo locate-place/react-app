@@ -13,7 +13,7 @@ import {TypeApiData, TypeApiProperties, TypeErrorOwn, TypeLoaded, TypeLocation} 
 
 /* Import classes */
 import {Query} from "../../classes/Query";
-import {LocationApiWrapper} from "../../classes/Api/Location/LocationApiWrapper";
+import {ApiLocationWrapper} from "../../classes/Api/Location/ApiLocationWrapper";
 
 /* Add functions */
 import loadApiData from "../../functions/LoadApiData";
@@ -89,7 +89,7 @@ const Location = () =>
     }
 
     /* Get location wrapper. */
-    let locationApiWrapper = new LocationApiWrapper(api);
+    let locationApiWrapper = new ApiLocationWrapper(api);
     let location = locationApiWrapper.getLocation();
 
     let filterConfig = getFilterConfig(searchParams);

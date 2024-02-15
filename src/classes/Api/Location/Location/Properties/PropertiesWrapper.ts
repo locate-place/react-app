@@ -10,7 +10,7 @@ import {
 import {translateCountryCode} from "../../../../../translations/Country";
 
 /* Import classes. */
-import {LocationApiWrapper} from "../../LocationApiWrapper";
+import {ApiLocationWrapper} from "../../ApiLocationWrapper";
 import {LocationWrapper} from "../LocationWrapper";
 
 /**
@@ -24,15 +24,15 @@ class PropertiesWrapper
 {
     private readonly properties: TypeProperties;
 
-    private readonly locationApiWrapper: LocationApiWrapper;
+    private readonly locationApiWrapper: ApiLocationWrapper;
 
     /**
      * PropertiesWrapper constructor.
      *
      * @param properties {TypeProperties}
-     * @param locationApiWrapper {LocationApiWrapper}
+     * @param locationApiWrapper {ApiLocationWrapper}
      */
-    constructor(properties: TypeProperties, locationApiWrapper: LocationApiWrapper)
+    constructor(properties: TypeProperties, locationApiWrapper: ApiLocationWrapper)
     {
         this.properties = properties;
 

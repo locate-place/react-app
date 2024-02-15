@@ -20,7 +20,7 @@ import {GivenWrapper} from "./Given/GivenWrapper";
  * @version 0.1.0 (2024-02-11)
  * @since 0.1.0 (2024-02-11) First version.
  */
-class LocationApiWrapper
+class ApiLocationWrapper
 {
     private readonly apiData: TypeApiData;
 
@@ -171,5 +171,5 @@ class LocationApiWrapper
  * Export functions.
  */
 export {
-    LocationApiWrapper
+    ApiLocationWrapper
 }

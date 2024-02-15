@@ -9,7 +9,7 @@ import {
 } from "../../../../../types/Types";
 
 /* Import classes. */
-import {LocationApiWrapper} from "../../LocationApiWrapper";
+import {ApiLocationWrapper} from "../../ApiLocationWrapper";
 
 /**
  * Class CoordinateWrapper
@@ -22,15 +22,15 @@ class CoordinateWrapper
 {
     private readonly coordinate: TypeCoordinate;
 
-    private readonly locationApiWrapper: LocationApiWrapper;
+    private readonly locationApiWrapper: ApiLocationWrapper;
 
     /**
      * CoordinateWrapper constructor.
      *
      * @param coordinate {TypeCoordinate}
-     * @param locationApiWrapper {LocationApiWrapper}
+     * @param locationApiWrapper {ApiLocationWrapper}
      */
-    constructor(coordinate: TypeCoordinate, locationApiWrapper: LocationApiWrapper)
+    constructor(coordinate: TypeCoordinate, locationApiWrapper: ApiLocationWrapper)
     {
         this.coordinate = coordinate;
 

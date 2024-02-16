@@ -20,13 +20,13 @@ class NextPlacesConfigWrapper
 {
     private readonly nextPlacesConfig: TypeNextPlacesConfig;
 
-    private readonly apiLocationWrapper: ApiLocationWrapper;
+    private readonly apiLocationWrapper: ApiLocationWrapper|null;
 
     /**
      * @param nextPlacesConfig {TypeNextPlacesConfig}
      * @param apiLocationWrapper {ApiLocationWrapper}
      */
-    constructor(nextPlacesConfig: TypeNextPlacesConfig, apiLocationWrapper: ApiLocationWrapper)
+    constructor(nextPlacesConfig: TypeNextPlacesConfig, apiLocationWrapper: ApiLocationWrapper|null)
     {
         this.nextPlacesConfig = nextPlacesConfig;
 

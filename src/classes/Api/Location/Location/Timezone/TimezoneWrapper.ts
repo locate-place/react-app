@@ -19,13 +19,13 @@ class TimezoneWrapper
 {
     private readonly timezone: TypeTimezone;
 
-    private readonly apiLocationWrapper: ApiLocationWrapper;
+    private readonly apiLocationWrapper: ApiLocationWrapper|null;
 
     /**
      * @param timezone {TypeTimezone}
      * @param apiLocationWrapper {ApiLocationWrapper}
      */
-    constructor(timezone: TypeTimezone, apiLocationWrapper: ApiLocationWrapper)
+    constructor(timezone: TypeTimezone, apiLocationWrapper: ApiLocationWrapper|null)
     {
         this.timezone = timezone;
 

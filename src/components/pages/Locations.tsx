@@ -110,12 +110,12 @@ const Locations = () =>
         return <></>;
     }
 
+    /* Get location wrapper. */
+    let apiLocationWrapper = new ApiLocationWrapper(api);
+
     /* Add apiResponseProperty to query class, to get more information. */
     const apiResponseProperty = new ApiResponseProperty(properties);
     query.setApiResponseProperty(apiResponseProperty);
-
-    /* Get location wrapper. */
-    let apiLocationWrapper = new ApiLocationWrapper(api);
 
     /**
      * The render function.
@@ -134,7 +134,7 @@ const Locations = () =>
 
                         {loaded ? <>
                             {/* Renders the search metrics part. */}
-                            <SearchMetrics properties={properties} />
+                            <SearchMetrics apiResponseProperty={apiResponseProperty} />
 
                             {
                                 query.getFilterConfig().hasQuery() ?

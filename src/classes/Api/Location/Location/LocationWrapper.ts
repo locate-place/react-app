@@ -35,13 +35,13 @@ class LocationWrapper
 {
     private readonly location: TypeLocation;
 
-    private readonly apiLocationWrapper: ApiLocationWrapper;
+    private readonly apiLocationWrapper: ApiLocationWrapper|null;
 
     /**
      * @param location {TypeLocation}
      * @param apiLocationWrapper {ApiLocationWrapper}
      */
-    constructor(location: TypeLocation, apiLocationWrapper: ApiLocationWrapper)
+    constructor(location: TypeLocation, apiLocationWrapper: ApiLocationWrapper|null = null)
     {
         this.location = location;
         this.apiLocationWrapper = apiLocationWrapper;

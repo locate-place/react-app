@@ -359,13 +359,22 @@ type TypeLocation = {
 
 type TypeLocations = TypeLocation[];
 
+type TypeGivenQueryParsedFeatureCode = {
+    code: string,
+    translated: string
+}
+
+type TypeGivenQueryParsed = {
+    "type": string,
+    "geoname-id"?: number,
+    "search"?: string,
+    "coordinate": TypeGivenCoordinate,
+    "feature-codes": TypeGivenQueryParsedFeatureCode[]
+};
+
 type TypeGivenQuery = {
     "raw": string,
-    "parsed": {
-        "type": string,
-        "geoname-id"?: number,
-        "search"?: string
-    }
+    "parsed": TypeGivenQueryParsed
 };
 
 type TypeGivenLanguage = {
@@ -382,13 +391,16 @@ type TypeGivenCountry = {
     }
 };
 
+type TypeGivenCoordinateParsed = {
+    "latitude": TypePosition,
+    "longitude": TypePosition,
+    "links": TypeLinksMaps,
+    "srid": number,
+};
+
 type TypeGivenCoordinate = {
     "raw": string,
-    "parsed": {
-        "latitude": TypePosition,
-        "longitude": TypePosition,
-        "links": TypeLinksMaps
-    },
+    "parsed": TypeGivenCoordinateParsed,
     "location": TypeLocation
 };
 
@@ -469,9 +481,12 @@ export {
     TypeNextPlacesConfig,
     TypeLocation,
     TypeLocations,
+    TypeGivenQueryParsedFeatureCode,
+    TypeGivenQueryParsed,
     TypeGivenQuery,
     TypeGivenLanguage,
     TypeGivenCountry,
+    TypeGivenCoordinateParsed,
     TypeGivenCoordinate,
     TypeGiven,
     TypeApiData,

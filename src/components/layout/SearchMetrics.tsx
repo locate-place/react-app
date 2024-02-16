@@ -1,19 +1,17 @@
 import React from "react";
-
-/* Import translation libraries. */
 import {useTranslation} from "react-i18next";
 
 /* Add configurations */
 import {sizeIcon} from "../../config/Config";
 
 /* Import types */
-import {TypeApiProperties, TypeSearchTypeTranslation} from "../../types/Types";
+import {TypeSearchTypeTranslation} from "../../types/Types";
+
+/* Import classes */
+import {ApiResponseProperty} from "../../classes/Api/ApiResponseProperty";
 
 /* Import translations */
 import {searchTypeTranslation} from "../../translations/SearchType";
-
-/* Import functions */
-import {getParsedQueryFeatureCodes} from "../../functions/QueryFunctions";
 
 /* Bootstrap icons; see https://icons.getbootstrap.com/?q=sort#usage */
 import {GraphUp, HouseFill} from "react-bootstrap-icons";
@@ -22,50 +20,34 @@ import {GraphUp, HouseFill} from "react-bootstrap-icons";
 import LocationCard from "./LocationCard";
 
 type SearchMetricsProps = {
-    properties: any
+    apiResponseProperty: ApiResponseProperty
 }
 
 /**
  * This renders the search metrics part.
  */
 const SearchMetrics = ({
-    properties
+    apiResponseProperty
 }: SearchMetricsProps) =>
 {
     /* Import translation. */
     const { t } = useTranslation();
 
+    const properties = apiResponseProperty.get();
+
     /* Debugging */
     let isParsedQueryExpanded = false;
     let isCurrentPositionExpanded = false;
 
-    /* Check if the current position has been given. */
-    let hasOwnPosition = properties.given && properties.given.coordinate && properties.given.coordinate.location;
-
-    let hasParsedQuery = properties.given && properties.given.query;
-    let parsedQuery = hasParsedQuery ? properties.given.query : null;
-
-    let hasParsedQuerySearch = hasParsedQuery && !!parsedQuery.parsed['search'];
-    let parsedQuerySearch = hasParsedQuerySearch ? parsedQuery.parsed['search'] : null;
-
-    let hasParsedQueryCoordinate = hasParsedQuery && !!parsedQuery.parsed['coordinate'];
-    let parsedQueryCoordinate = hasParsedQueryCoordinate ? parsedQuery.parsed['coordinate'] : null;
-
-    let hasParsedQueryGeonameId = hasParsedQuery && !!parsedQuery.parsed['geoname-id'];
-    let parsedQueryGeonameId = hasParsedQueryGeonameId ? parsedQuery.parsed['geoname-id'] : null;
-
-    let hasParsedQueryFeatureCodes = hasParsedQuery && !!parsedQuery.parsed['feature-codes'];
-    let parsedQueryFeatureCodes = getParsedQueryFeatureCodes(hasParsedQueryFeatureCodes ? parsedQuery.parsed['feature-codes'] : []) ?? [];
-
     return (
         <>
             {
-                hasParsedQuery || hasOwnPosition ?
+                apiResponseProperty.hasGivenQuery() || apiResponseProperty.isOwnPosition() ?
                     <>
                         <div className="float-end pb-3">
                             <div className="btn-group shadow-own">
                                 {
-                                    hasParsedQuery ?
+                                    apiResponseProperty.hasGivenQuery() ?
                                         <button
                                             className="btn btn-outline-secondary"
                                             data-bs-toggle="collapse"
@@ -76,7 +58,7 @@ const SearchMetrics = ({
                                         <></>
                                 }
                                 {
-                                    hasOwnPosition ?
+                                    apiResponseProperty.isOwnPosition() ?
                                         <button
                                             className="btn btn-outline-secondary"
                                             data-bs-toggle="collapse"
@@ -92,7 +74,7 @@ const SearchMetrics = ({
 
                         <div id="accordion">
                             {
-                                hasParsedQuery ?
+                                apiResponseProperty.hasGivenQuery() ?
                                     <>
                                         <div
                                             className={'collapse multi-collapse' + (isParsedQueryExpanded ? ' show' : '')}
@@ -104,47 +86,47 @@ const SearchMetrics = ({
                                                  style={{'backgroundColor': 'rgb(233, 235, 228)'}}>
                                                 <div className="card-header">
                                                         <span className="fw-bold"><GraphUp size={sizeIcon.Caption}/>&nbsp;
-                                                            {searchTypeTranslation[parsedQuery.parsed.type as keyof TypeSearchTypeTranslation] ?? 'Unbekannte Suche "' + parsedQuery.parsed.type + '"'}
+                                                            {searchTypeTranslation[apiResponseProperty.getGivenQueryParsedType() as keyof TypeSearchTypeTranslation] ?? 'Unbekannte Suche "' + apiResponseProperty.getGivenQueryParsedType() + '"'}
                                                         </span>
                                                 </div>
                                                 <div className="card-body">
                                                     {
-                                                        hasParsedQuerySearch ?
+                                                        apiResponseProperty.hasGivenQueryParsedSearch() ?
                                                             <>
                                                                 <p className="mb-0">
-                                                                    <strong>Suchbegriff</strong>: {parsedQuerySearch}
+                                                                    <strong>Suchbegriff</strong>: {apiResponseProperty.getGivenQueryParsedSearch()}
                                                                 </p>
                                                             </> :
                                                             <></>
                                                     }
                                                     {
-                                                        hasParsedQueryCoordinate ?
+                                                        apiResponseProperty.hasGivenCoordinate() ?
                                                             <>
                                                                 <p className="mb-0">
-                                                                    <strong>Position</strong>: {parsedQueryCoordinate.parsed.latitude.dms}, {parsedQueryCoordinate.parsed.longitude.dms}
+                                                                    <strong>Position</strong>: {apiResponseProperty.getGivenCoordinateParsedLatitudeDms()}, {apiResponseProperty.getGivenCoordinateParsedLongitudeDms()}
                                                                 </p>
                                                             </> :
                                                             <></>
                                                     }
                                                     {
-                                                        hasParsedQueryGeonameId ?
+                                                        apiResponseProperty.hasGivenQueryParsedGeonameId() ?
                                                             <>
                                                                 <p className="mb-0">
-                                                                    <strong>Geoname-ID</strong>: {parsedQueryGeonameId}
+                                                                    <strong>Geoname-ID</strong>: {apiResponseProperty.getGivenQueryParsedGeonameId()}
                                                                 </p>
                                                             </> :
                                                             <></>
                                                     }
                                                     {
-                                                        hasParsedQueryFeatureCodes ?
+                                                        apiResponseProperty.hasGivenQueryParsedFeatureCodes() ?
                                                             <>
                                                                 <p className="mb-0">
                                                                     <strong>Feature-Codes</strong>
                                                                 </p>
                                                                 <ul className="mb-0">
-                                                                    {parsedQueryFeatureCodes.map((item, index) => (
-                                                                        <li key={'feature-code-' + item}>
-                                                                            {item}
+                                                                    {apiResponseProperty.getGivenQueryParsedFeatureCodesArray().map((item, index) => (
+                                                                        <li key={'feature-code-' + item.code}>
+                                                                            {item.code}
                                                                         </li>
                                                                     ))}
                                                                 </ul>
@@ -155,7 +137,7 @@ const SearchMetrics = ({
                                                 <div className="card-footer">
                                                     <small><small>
                                                         <strong>Query</strong>: <span
-                                                        className="fst-italic">"{parsedQuery.raw}"</span>
+                                                        className="fst-italic">"{apiResponseProperty.getGivenQueryRaw()}"</span>
                                                         <br/>
                                                         <strong>Performance</strong>: {properties['time-taken']}, {properties['memory-taken']}
                                                         <br/>
@@ -168,7 +150,7 @@ const SearchMetrics = ({
                                     <></>
                             }
                             {
-                                hasOwnPosition ?
+                                apiResponseProperty.isOwnPosition() ?
                                     <>
                                         <div
                                             className={'collapse multi-collapse' + (isCurrentPositionExpanded ? ' show' : '')}
@@ -177,7 +159,7 @@ const SearchMetrics = ({
                                         >
                                             <h3 className="mt-3">{t('TEXT_HEADER_CURRENT_LOCATION')}</h3>
                                             <LocationCard
-                                                location={properties.given.coordinate.location}
+                                                location={apiResponseProperty.getGiven()?.getCoordinate()?.getLocation()}
                                                 properties={properties}
                                                 showOwnPosition={true}
                                             />

@@ -2,6 +2,7 @@
 import {
     TypeGivenQuery,
 } from "../../../../../types/Types";
+import {ParsedWrapper} from "./Parsed/ParsedWrapper";
 
 /**
  * Class QueryWrapper
@@ -28,6 +29,22 @@ class QueryWrapper
     get(): TypeGivenQuery
     {
         return this.query;
+    }
+
+    /**
+     * Returns the raw-given string.
+     */
+    getRaw(): string
+    {
+        return this.query.raw;
+    }
+
+    /**
+     * Returns the parsed wrapper.
+     */
+    getParsed(): ParsedWrapper
+    {
+        return new ParsedWrapper(this.query.parsed);
     }
 }
 

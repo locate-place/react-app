@@ -154,7 +154,7 @@ class Query
             throw new Error('The property class must be set before using isCoordinateSearch.');
         }
 
-        const properties = this.apiResponseProperty.getProperties();
+        const properties = this.apiResponseProperty.get();
 
         if (this.filterConfig.hasSort()) {
             return this.filterConfig.getSort() as string;
@@ -178,7 +178,7 @@ class Query
             throw new Error('The property class must be set before using isCoordinateSearch.');
         }
 
-        let properties: TypeApiProperties = this.apiResponseProperty.getProperties();
+        let properties: TypeApiProperties = this.apiResponseProperty.get();
 
         if (
             properties.given &&

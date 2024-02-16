@@ -2,6 +2,8 @@
 import {
     TypeGivenCoordinate,
 } from "../../../../../types/Types";
+import {LocationWrapper} from "../../../Location/Location/LocationWrapper";
+import {CoordinateParsedWrapper} from "./Parsed/CoordinateParsedWrapper";
 
 /**
  * Class CoordinateWrapper
@@ -28,6 +30,21 @@ class CoordinateWrapper
     get(): TypeGivenCoordinate
     {
         return this.coordinate;
+    }
+
+    getRaw(): string
+    {
+        return this.coordinate.raw;
+    }
+
+    getLocation(): LocationWrapper|null
+    {
+        return this.coordinate.location ? new LocationWrapper(this.coordinate.location) : null;
+    }
+
+    getParsed(): CoordinateParsedWrapper
+    {
+        return new CoordinateParsedWrapper(this.coordinate.parsed);
     }
 }
 

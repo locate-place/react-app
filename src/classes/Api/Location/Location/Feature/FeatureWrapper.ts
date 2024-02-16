@@ -19,13 +19,13 @@ class FeatureWrapper
 {
     private readonly feature: TypeFeature;
 
-    private readonly apiLocationWrapper: ApiLocationWrapper;
+    private readonly apiLocationWrapper: ApiLocationWrapper|null;
 
     /**
      * @param feature {TypeFeature}
      * @param apiLocationWrapper {ApiLocationWrapper}
      */
-    constructor(feature: TypeFeature, apiLocationWrapper: ApiLocationWrapper)
+    constructor(feature: TypeFeature, apiLocationWrapper: ApiLocationWrapper|null)
     {
         this.feature = feature;
 

@@ -1,9 +1,12 @@
 /* Import types. */
-import {TypeApiProperties} from "../../types/Types";
+import {TypeApiProperties, TypeGivenQueryParsedFeatureCode} from "../../types/Types";
 
 /* Import classes. */
 import {ResultsWrapper} from "./Base/Results/ResultsWrapper";
 import {GivenWrapper} from "./Base/Given/GivenWrapper";
+import {QueryWrapper} from "./Base/Given/Query/QueryWrapper";
+import {CoordinateWrapper} from "./Base/Given/Coordinate/CoordinateWrapper";
+import {FeatureCodesWrapper} from "./Base/Given/Query/Parsed/FeatureCodes/FeatureCodesWrapper";
 
 /**
  * Class ApiResponseProperty
@@ -29,7 +32,7 @@ class ApiResponseProperty
     /**
      * Returns the given properties.
      */
-    getProperties(): TypeApiProperties
+    get(): TypeApiProperties
     {
         return this.properties;
     }
@@ -108,6 +111,126 @@ class ApiResponseProperty
     getResultsPage(): number
     {
         return this.getResults()?.getPage() ?? 0;
+    }
+
+    /**
+     * Returns if the given query exists.
+     */
+    hasGivenQuery(): boolean
+    {
+        return this.getGiven()?.hasQuery() ?? false;
+    }
+
+    /**
+     * Returns the given query.
+     */
+    getGivenQuery(): QueryWrapper|null
+    {
+        return this.getGiven()?.getQuery() ?? null;
+    }
+
+    /**
+     * Returns the given query parsed type.
+     */
+    getGivenQueryParsedType(): string|null
+    {
+        return this.getGiven()?.getQuery()?.getParsed().getType() ?? null;
+    }
+
+    /**
+     * Returns the given query raw string.
+     */
+    getGivenQueryRaw(): string|null
+    {
+        return this.getGiven()?.getQuery()?.getRaw() ?? null;
+    }
+
+    /**
+     * Returns if the given query parsed search exists.
+     */
+    hasGivenQueryParsedSearch(): boolean
+    {
+        return this.getGiven()?.getQuery()?.getParsed().hasSearch() ?? false;
+    }
+
+    /**
+     * Returns the given query parsed search string.
+     */
+    getGivenQueryParsedSearch(): string|null
+    {
+        return this.getGiven()?.getQuery()?.getParsed().getSearch() ?? null;
+    }
+
+    /**
+     * Returns if the given coordinate wrapper exists.
+     */
+    hasGivenCoordinate(): boolean
+    {
+        return this.getGiven()?.hasCoordinate() ?? false;
+    }
+
+    /**
+     * Returns the given coordinate wrapper.
+     */
+    getGivenCoordinate(): CoordinateWrapper|null
+    {
+        return this.getGiven()?.getCoordinate() ?? null;
+    }
+
+    /**
+     * Returns the given coordinate parsed latitude dms string.
+     */
+    getGivenCoordinateParsedLatitudeDms(): string|null
+    {
+        return this.getGiven()?.getCoordinate()?.getParsed().getLatitudeDms() ?? null;
+    }
+
+    /**
+     * Returns the given coordinate parsed longitude dms string.
+     */
+    getGivenCoordinateParsedLongitudeDms(): string|null
+    {
+        return this.getGiven()?.getCoordinate()?.getParsed().getLongitudeDms() ?? null;
+    }
+
+    /**
+     * Returns if the given query parsed geoname id exists.
+     */
+    hasGivenQueryParsedGeonameId(): boolean
+    {
+        return this.getGiven()?.getQuery()?.getParsed().hasGeonameId() ?? false;
+    }
+
+    /**
+     * Returns the given query parsed geoname id number.
+     */
+    getGivenQueryParsedGeonameId(): number|null
+    {
+        return this.getGiven()?.getQuery()?.getParsed().getGeonameId() ?? null;
+    }
+
+    /**
+     * Returns if the given query parsed feature codes exist.
+     */
+    hasGivenQueryParsedFeatureCodes(): boolean
+    {
+        return this.getGiven()?.getQuery()?.getParsed().hasFeatureCodes() ?? false;
+    }
+
+    /**
+     * Returns the given query parsed feature codes wrapper.
+     */
+    getGivenQueryParsedFeatureCodes(): FeatureCodesWrapper|null
+    {
+        return this.getGiven()?.getQuery()?.getParsed().getFeatureCodes() ?? null;
+    }
+
+    /**
+     * Returns the given query parsed feature codes array.
+     */
+    getGivenQueryParsedFeatureCodesArray(): TypeGivenQueryParsedFeatureCode[]
+    {
+        return this.getGiven()?.getQuery()?.getParsed().getFeatureCodes()?.get() ?? [];
     }
 }
 

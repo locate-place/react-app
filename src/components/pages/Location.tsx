@@ -38,6 +38,7 @@ import Flag from "react-flagkit";
 
 /* Bootstrap icons; see https://icons.getbootstrap.com/?q=sort#usage */
 import {CursorFill} from "react-bootstrap-icons";
+import {ApiResponseProperty} from "../../classes/Api/ApiResponseProperty";
 
 /**
  * This is the app locations component.
@@ -53,10 +54,10 @@ const Location = () =>
     }, []);
 
     /* State variables */
-    const [error, setError] = useState<TypeErrorOwn>(null);
-    const [loaded, setLoaded] = useState<TypeLoaded>(false);
-    const [properties, setProperties] = useState<TypeApiProperties|null>(null);
     const [api, setApi] = useState<TypeApiData|null>(null);
+    const [properties, setProperties] = useState<TypeApiProperties|null>(null);
+    const [loaded, setLoaded] = useState<TypeLoaded>(false);
+    const [error, setError] = useState<TypeErrorOwn>(null);
 
     /* Memorized variables. */
     const [searchParams] = useSearchParams();
@@ -74,10 +75,10 @@ const Location = () =>
         loadApiData({
             type: apiType,
             path: apiPathWithFilter,
+            setDataApi: setApi,
+            setProperties: setProperties,
             setLoaded: setLoaded,
             setError: setError,
-            setProperties: setProperties,
-            setDataApi: setApi
         });
     }, [apiType, apiPathWithFilter]);
 
@@ -89,6 +90,10 @@ const Location = () =>
     /* Get location wrapper. */
     let apiLocationWrapper = new ApiLocationWrapper(api);
     let location = apiLocationWrapper.getLocation();
+
+    /* Add apiResponseProperty to query class, to get more information. */
+    const apiResponseProperty = new ApiResponseProperty(properties);
+    query.setApiResponseProperty(apiResponseProperty);
 
     let filterConfig = getFilterConfig(searchParams);
     let addCurrentPosition = () => {
@@ -115,7 +120,7 @@ const Location = () =>
 
                         {loaded ? <>
                             {/* Renders the search metrics part. */}
-                            <SearchMetrics properties={properties} />
+                            <SearchMetrics apiResponseProperty={apiResponseProperty} />
 
                             <div>
                                 <div className="compass" id="compass">

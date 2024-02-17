@@ -109,6 +109,9 @@
   "TEXT_LOCATION_CARD_STATIONS": "Stations",
   "TEXT_LOCATION_CARD_WATERS": "Waters",
 
+  "TEXT_LOCATION_CURRENT_POSITION_UNKNOWN": "The user's location is unknown.",
+  "TEXT_LOCATION_DETERMINE_CURRENT_POSITION": "Determine current position",
+
   "TEXT_LOCATIONS_TITLE": "Locations",
   "TEXT_LOCATIONS_SUBTITLE": "Locations API",
 

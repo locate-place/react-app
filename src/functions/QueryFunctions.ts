@@ -1,9 +1,6 @@
 /* Import types */
 import {TypeFilterConfig} from "../types/Types";
 
-/* Import search types */
-import {searchTypeCoordinate, searchTypeListWithFeatures} from "../config/SearchType";
-
 /* Configurations */
 const reactPathLocations: string = '/locations.html';
 const reactPathLocation: string = '/location.html';
@@ -13,17 +10,6 @@ const nameParameterQuery: 'q' = 'q';
 const nameParameterCurrentPosition: 'p' = 'p';
 const nameParameterPage: 'page' = 'page';
 const nameParameterNextPlaces: 'next_places' = 'next_places';
-
-/**
- * Returns the coordinate string from the search parameters.
- *
- * @param {URLSearchParams} searchParams
- * @returns {string|null}
- */
-const getCoordinate = (searchParams: URLSearchParams): string|null =>
-{
-    return searchParams.get(nameParameterCurrentPosition);
-};
 
 /**
  * Converts the filter configuration into a query string.
@@ -90,22 +76,6 @@ const redirectCurrentPosition = (): void =>
         filter[nameParameterCurrentPosition] = coordinate;
         filter[nameParameterNextPlaces] = '1';
 
-        window.location.href = reactPathLocation + '?' + convertFilterToQueryString(filter);
-    });
-}
-
-/**
- * Redirects the user to the sort by page with current position.
- *
- * @param {TypeFilterConfig} filterConfig
- */
-const addCurrentPositionToQuery = (filterConfig: TypeFilterConfig): void =>
-{
-    /* Create a copy of the object. Do not use the reference. */
-    let filter = { ...filterConfig };
-
-    navigator.geolocation.getCurrentPosition((position) => {
-        filter[nameParameterCurrentPosition] = getPosition(position);
         window.location.href = reactPathLocation + '?' + convertFilterToQueryString(filter);
     });
 }
@@ -255,11 +225,8 @@ const trimString = (inputString: string): string =>
  * Export functions.
  */
 export {
-    getCoordinate,
     redirectNextPage,
     redirectCurrentPosition,
-    addCurrentPositionToQuery,
-
     getPathLocationApi,
     trimString
 }

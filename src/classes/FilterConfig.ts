@@ -670,6 +670,15 @@ class FilterConfig
     }
 
     /**
+     * Returns the current link.
+     */
+    getLinkCurrent(): string
+    {
+        this.reset();
+        return this.getLinkFullConverted(null, true);
+    }
+
+    /**
      * Returns the current link including given language and country code.
      *
      * @param language

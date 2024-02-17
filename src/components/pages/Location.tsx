@@ -17,7 +17,6 @@ import {ApiLocationWrapper} from "../../classes/Api/Location/ApiLocationWrapper"
 
 /* Add functions */
 import loadApiData from "../../functions/LoadApiData";
-import {addCurrentPositionToQuery} from "../../functions/QueryFunctions";
 import {convertToGermanFormat} from "../../functions/Date";
 import {addSoftHyphens} from "../../functions/Text";
 
@@ -34,6 +33,7 @@ import SearchPerformance from "../layout/SearchPerformance";
 import {CursorFill} from "react-bootstrap-icons";
 import {ApiResponseProperty} from "../../classes/Api/ApiResponseProperty";
 import Flag from "../layout/Flag";
+import LinkV2 from "../layout/LinkV2";
 
 /**
  * This is the app locations component.
@@ -89,10 +89,6 @@ const Location = () =>
     /* Add apiResponseProperty to query class, to get more information. */
     const apiResponseProperty = new ApiResponseProperty(properties);
     query.setApiResponseProperty(apiResponseProperty);
-
-    let addCurrentPosition = () => {
-        addCurrentPositionToQuery(query.getFilterConfig().get());
-    }
 
     const classNamesFirstRow = ['fw-bold', 'pb-3', 'pt-3', 'px-3', 'text-responsive'];
     const classNamesSecondRow = ['pb-3', 'pt-3', 'px-3', 'text-responsive', 'text-minimized'];
@@ -233,20 +229,22 @@ const Location = () =>
                                                     </>
                                                     :
                                                     <tr>
-                                                        <td className={classNamesFirstRow.join(' ')}>Entfernung</td>
+                                                        <td className={classNamesFirstRow.join(' ')}>{t('TEXT_CAPTION_DISTANCE')}</td>
                                                         <td className={classNamesSecondRow.join(' ')}
-                                                            title={location.getCoordinate().getDistanceUserText(t) ?? ''}>
-                                                            Standort des Nutzers ist unbekannt.
+                                                            title={location.getCoordinate().getDistanceUserText(t) ?? ''}
+                                                        >
+                                                            {t('TEXT_LOCATION_CURRENT_POSITION_UNKNOWN')}
                                                         </td>
                                                         <td className={classNamesSecondRow.join(' ')}
                                                             title={location.getCoordinate().getDistanceUserText(t) ?? ''} style={{textAlign: 'right'}}>
-                                                            <button
+                                                            <LinkV2
+                                                                to={query.getFilterConfig().getLinkCurrent()}
+                                                                useCurrentPosition={true}
                                                                 className="btn btn-outline-primary shadow-own mt-2 mb-2 button-own-position button-minimized"
-                                                                onClick={addCurrentPosition}
-                                                                title="Bestimme aktuelle Position"
+                                                                title={t('TEXT_LOCATION_DETERMINE_CURRENT_POSITION')}
                                                             >
                                                                 <CursorFill size={sizeIcon.H3}/>
-                                                            </button>
+                                                            </LinkV2>
                                                         </td>
                                                     </tr>
                                             }

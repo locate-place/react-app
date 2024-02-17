@@ -17,10 +17,7 @@ import {ApiLocationWrapper} from "../../classes/Api/Location/ApiLocationWrapper"
 
 /* Add functions */
 import loadApiData from "../../functions/LoadApiData";
-import {
-    addCurrentPositionToQuery,
-    getFilterConfig,
-} from "../../functions/QueryFunctions";
+import {addCurrentPositionToQuery} from "../../functions/QueryFunctions";
 import {convertToGermanFormat} from "../../functions/Date";
 import {addSoftHyphens} from "../../functions/Text";
 
@@ -93,9 +90,8 @@ const Location = () =>
     const apiResponseProperty = new ApiResponseProperty(properties);
     query.setApiResponseProperty(apiResponseProperty);
 
-    let filterConfig = getFilterConfig(searchParams);
     let addCurrentPosition = () => {
-        addCurrentPositionToQuery(filterConfig);
+        addCurrentPositionToQuery(query.getFilterConfig().get());
     }
 
     const classNamesFirstRow = ['fw-bold', 'pb-3', 'pt-3', 'px-3', 'text-responsive'];
@@ -114,6 +110,7 @@ const Location = () =>
                         <SearchForm
                             queryDefault={query.getFilterConfig().getQuery()}
                             routePathDefault={routePathLocation}
+                            query={query}
                         />
 
                         {loaded ? <>

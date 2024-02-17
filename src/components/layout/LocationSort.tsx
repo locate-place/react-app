@@ -6,7 +6,14 @@ import {Query} from "../../classes/Query";
 import {ApiResponseProperty} from "../../classes/Api/ApiResponseProperty";
 
 /* Bootstrap icons; see https://icons.getbootstrap.com/?q=sort#usage */
-import {CursorFill, HouseFill, HouseSlashFill, SortAlphaDown, SortDown, SortNumericDown} from "react-bootstrap-icons";
+import {
+    CursorFill,
+    HouseFill,
+    HouseSlashFill,
+    SortAlphaDown,
+    SortDown,
+    SortNumericDown
+} from "react-bootstrap-icons";
 
 /* Import configurations. */
 import {sizeIcon} from "../../config/Config";

@@ -108,6 +108,7 @@ const Locations = () =>
                         <SearchForm
                             queryDefault={queryString}
                             routePathDefault={routePathLocations}
+                            query={query}
                         />
 
                         {loaded ? <>

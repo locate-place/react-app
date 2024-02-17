@@ -11,24 +11,8 @@ const reactPathLocation: string = '/location.html';
 /* Parameter names */
 const nameParameterQuery: 'q' = 'q';
 const nameParameterCurrentPosition: 'p' = 'p';
-const nameParameterCountry: 'country' = 'country';
-const nameParameterLanguage: 'language' = 'language';
-const nameParameterDistance: 'distance' = 'distance';
-const nameParameterLimit: 'limit' = 'limit';
 const nameParameterPage: 'page' = 'page';
-const nameParameterSort: 's' = 's';
 const nameParameterNextPlaces: 'next_places' = 'next_places';
-
-/**
- * Returns if the own position was given
- *
- * @param {URLSearchParams} searchParams
- * @returns {boolean}
- */
-const hasOwnPosition = (searchParams: URLSearchParams): boolean =>
-{
-    return searchParams.has(nameParameterCurrentPosition);
-};
 
 /**
  * Returns the coordinate string from the search parameters.
@@ -39,56 +23,6 @@ const hasOwnPosition = (searchParams: URLSearchParams): boolean =>
 const getCoordinate = (searchParams: URLSearchParams): string|null =>
 {
     return searchParams.get(nameParameterCurrentPosition);
-};
-
-/**
- * Returns the filter configuration from the search parameters.
- *
- * @param {URLSearchParams} searchParams
- * @returns {TypeFilterConfig}
- */
-const getFilterConfig = (searchParams: URLSearchParams): TypeFilterConfig =>
-{
-    const query: string|null = searchParams.get(nameParameterQuery);
-    const coordinate: string|null = searchParams.get(nameParameterCurrentPosition);
-    const country: string|null = searchParams.get(nameParameterCountry);
-    const language: string|null = searchParams.get(nameParameterLanguage);
-    const distance: string|null = searchParams.get(nameParameterDistance);
-    const limit: string|null = searchParams.get(nameParameterLimit);
-    const page: string|null = searchParams.get(nameParameterPage);
-    const sort: string|null = searchParams.get(nameParameterSort);
-    const nextPlaces: string|null = searchParams.get(nameParameterNextPlaces);
-
-    let filterConfig: TypeFilterConfig = {};
-
-    /* Add parameter "q". */
-    query && (filterConfig[nameParameterQuery] = query);
-
-    /* Add parameter "c". */
-    coordinate && (filterConfig[nameParameterCurrentPosition] = coordinate);
-
-    /* Add parameter "country". */
-    filterConfig[nameParameterCountry] = (country ? country : 'DE');
-
-    /* Add parameter "language". */
-    filterConfig[nameParameterLanguage] = (language? language : 'de');
-
-    /* Add parameter "distance". */
-    distance && (filterConfig[nameParameterDistance] = distance);
-
-    /* Add parameter "limit". */
-    limit && (filterConfig[nameParameterLimit] = limit);
-
-    /* Add parameter "limit". */
-    page && (filterConfig[nameParameterPage] = page);
-
-    /* Add parameter "sort". */
-    sort && (filterConfig[nameParameterSort] = sort);
-
-    /* Add parameter "next_places". */
-    nextPlaces && (filterConfig[nameParameterNextPlaces] = '1');
-
-    return filterConfig;
 };
 
 /**
@@ -321,9 +255,7 @@ const trimString = (inputString: string): string =>
  * Export functions.
  */
 export {
-    hasOwnPosition,
     getCoordinate,
-    getFilterConfig,
     redirectNextPage,
     redirectCurrentPosition,
     addCurrentPositionToQuery,

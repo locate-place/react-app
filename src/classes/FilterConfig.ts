@@ -25,7 +25,6 @@ import {routePathLocation, routePathLocations} from "../config/Route";
 /* Import classes. */
 import {NextPlaceWrapper} from "./Api/Location/Location/NextPlaces/NextPlaceWrapper";
 import {LocationWrapper} from "./Api/Location/Location/LocationWrapper";
-import * as queryString from "querystring";
 import {
     nameSortDistance,
     nameSortDistanceUser,

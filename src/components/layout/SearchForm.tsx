@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from "react";
-import {useSearchParams} from "react-router-dom";
 
 /* Import translation libraries. */
 import {useTranslation} from "react-i18next";
@@ -11,31 +10,32 @@ import {sizeIcon} from "../../config/Config";
 import {GlobeAmericas, CursorFill, HouseFill} from "react-bootstrap-icons";
 
 /* Import functions */
-import {getPathLocationApi, hasOwnPosition, redirectCurrentPosition} from "../../functions/QueryFunctions";
+import {getPathLocationApi, redirectCurrentPosition} from "../../functions/QueryFunctions";
+
+/* Import classes. */
+import {Query} from "../../classes/Query";
 
 /* Search form properties. */
 type SearchFormProps = {
     routePathDefault: string,
     queryDefault: string|null,
+    query: Query
 }
 
 /**
  * This renders the search form.
  */
-const SearchForm = ({routePathDefault, queryDefault}: SearchFormProps) =>
+const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
 {
     /* Import translation. */
     const { t } = useTranslation();
 
     /* State variables */
-    const [query, setQuery] = useState<string>(queryDefault ?? '');
+    const [queryString, setQueryString] = useState<string>(queryDefault ?? '');
     const [routePath, setRoutePath] = useState<string>(routePathDefault);
 
-    /* Memorized variables. */
-    const [searchParams] = useSearchParams();
-
     useEffect(() => {
-        setQuery(queryDefault ?? '');
+        setQueryString(queryDefault ?? '');
     }, [queryDefault]);
 
     /**
@@ -45,13 +45,13 @@ const SearchForm = ({routePathDefault, queryDefault}: SearchFormProps) =>
      */
     const onSubmit = (e: React.SyntheticEvent<HTMLFormElement>): void =>
     {
-        if (query === '') {
+        if (queryString === '') {
             console.warn('No query value given.');
             e.preventDefault();
             return;
         }
 
-        setRoutePath(getPathLocationApi(query));
+        setRoutePath(getPathLocationApi(queryString));
     }
 
     /**
@@ -61,13 +61,13 @@ const SearchForm = ({routePathDefault, queryDefault}: SearchFormProps) =>
      */
     const handleChange = (event: React.SyntheticEvent<HTMLInputElement>) =>
     {
-        setQuery(event.currentTarget.value);
+        setQueryString(event.currentTarget.value);
     };
 
     return (
         <>
             <h3><GlobeAmericas size={sizeIcon.H3}/> {t('TEXT_HEADER_LOCATION_SEARCH')} {
-                hasOwnPosition(searchParams) ? <sup>
+                query.getFilterConfig().hasCurrentPosition() ? <sup>
                     <small><small><small><HouseFill size={sizeIcon.ButtonSmall} /> {t('TEXT_TITLE_CURRENT_POSITION_IS_USED')}</small></small></small>
                 </sup> : null
             }</h3>
@@ -93,7 +93,7 @@ const SearchForm = ({routePathDefault, queryDefault}: SearchFormProps) =>
                             placeholder="52°31′14.322″N, 13°24′35.2044″E"
                             aria-label={t('TEXT_HEADER_LOCATION_SEARCH')}
                             aria-describedby="location-send"
-                            value={query ? query : ''}
+                            value={queryString ? queryString : ''}
                             onChange={handleChange}
                         />
                         <button

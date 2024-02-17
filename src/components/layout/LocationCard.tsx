@@ -25,6 +25,7 @@ import {Query} from "../../classes/Query";
 import {LocationWrapper} from "../../classes/Api/Location/Location/LocationWrapper";
 import {ApiResponseProperty} from "../../classes/Api/ApiResponseProperty";
 import {mapTypeGoogle, mapTypeOpenStreetMap} from "../../config/MapTypes";
+import LinkV2 from "./LinkV2";
 
 type LocationCardProps = {
     locationWrapper: LocationWrapper|null,
@@ -102,6 +103,8 @@ const LocationCard = ({locationWrapper, apiResponseProperty, showOwnPosition, in
         locationWrapper.getName() :
         (locationWrapper.getNameFull() || locationWrapper.getName());
 
+    let wikipediaLink = locationWrapper.getLinks().getWikipedia();
+
     return (
         <>
             <div className={'card card-hover w-100 mb-4'}
@@ -131,7 +134,19 @@ const LocationCard = ({locationWrapper, apiResponseProperty, showOwnPosition, in
                                     ><span><FontAwesomeIcon
                                         icon={faMaximize}
                                         style={{'color': 'rgb(114, 135, 42)'}}
-                                    /> {name}</span></Link>
+                                    /> {name}</span></Link>{
+                                        wikipediaLink ?
+                                            <>,<br /><Link
+                                                    to={wikipediaLink}
+                                                    target={'_blank'}
+                                                    rel="noreferrer"
+                                                ><span><FontAwesomeIcon
+                                                    icon={faMaximize}
+                                                    style={{'color': 'rgb(114, 135, 42)'}}
+                                                /> Wikipedia</span></Link>
+                                            </> :
+                                            null
+                                }
                                 </p>
                             </div>
                             <div className="col-12 col-md-6 col-lg-4 mb-3">
@@ -164,7 +179,7 @@ const LocationCard = ({locationWrapper, apiResponseProperty, showOwnPosition, in
                                                     <FontAwesomeIcon icon={faMapLocation} style={{'color': 'rgb(23, 34, 52)'}}/> Google Maps
                                                 </span>
                                             </Link> : <></>
-                                    },
+                                    },<br/>
                                     {
                                         linkOpenStreetMaps ?
                                             <Link

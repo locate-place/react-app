@@ -41,7 +41,15 @@
   "TEXT_ACTION_SORTING": "Sortierung",
 
   "TEXT_ACTION_SHOW_CURRENT_POSITION": "Zeige akt. Standort",
+
   "TEXT_ACTION_SHOW_SEARCH_METRICS": "Zeige Such-Metriken",
+
+  "TEXT_ACTION_SEARCH_METRICS_TITLE": "Such-Metriken",
+  "TEXT_ACTION_SEARCH_METRICS_SEARCH_LIST_GENERAL": "Suche mit Suchbegriff",
+  "TEXT_ACTION_SEARCH_METRICS_SEARCH_LIST_WITH_FEATURES": "Suche nach Koordinate und Features",
+  "TEXT_ACTION_SEARCH_METRICS_SEARCH_GEONAME_ID": "Detailsuche nach Geoname-ID",
+  "TEXT_ACTION_SEARCH_METRICS_SEARCH_COORDINATE": "Detailsuche nach Koordinate",
+  "TEXT_ACTION_SEARCH_METRICS_SEARCH_UNKNOWN": "Unbekannter Suchtyp",
 
   "TEXT_TITLE_SEARCH_BY_CURRENT_POSITION": "Suche nach aktuellem Standort",
   "TEXT_TITLE_SORT_BY_DISTANCE": "Sortieren nach Distanz",

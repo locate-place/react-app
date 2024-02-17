@@ -125,6 +125,20 @@ class ApiResponseProperty
     }
 
     /**
+     * Returns the given query parsed type (translation key).
+     */
+    getGivenQueryParsedTypeTranslationKey(): string
+    {
+        const givenQueryParsedType = this.getGivenQueryParsedType();
+
+        if (givenQueryParsedType === null) {
+            return 'TEXT_ACTION_SEARCH_METRICS_SEARCH_UNKNOWN';
+        }
+
+        return 'TEXT_ACTION_SEARCH_METRICS_' + givenQueryParsedType.replaceAll('-', '_').toUpperCase();
+    }
+
+    /**
      * Returns the given query raw string.
      */
     getGivenQueryRaw(): string|null

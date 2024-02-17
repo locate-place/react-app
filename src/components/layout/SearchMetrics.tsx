@@ -4,14 +4,8 @@ import {useTranslation} from "react-i18next";
 /* Add configurations */
 import {sizeIcon} from "../../config/Config";
 
-/* Import types */
-import {TypeSearchTypeTranslation} from "../../types/Types";
-
 /* Import classes */
 import {ApiResponseProperty} from "../../classes/Api/ApiResponseProperty";
-
-/* Import translations */
-import {searchTypeTranslation} from "../../translations/SearchType";
 
 /* Bootstrap icons; see https://icons.getbootstrap.com/?q=sort#usage */
 import {GraphUp, HouseFill} from "react-bootstrap-icons";
@@ -81,12 +75,12 @@ const SearchMetrics = ({
                                             data-bs-parent="#accordion"
                                             id="parsedQuery"
                                         >
-                                            <h3 className="mt-3"><GraphUp size={sizeIcon.H3}/> Such-Metriken</h3>
+                                            <h3 className="mt-3"><GraphUp size={sizeIcon.H3}/> {t('TEXT_ACTION_SEARCH_METRICS_TITLE')}</h3>
                                             <div className="card card-hover mb-4"
                                                  style={{'backgroundColor': 'rgb(233, 235, 228)'}}>
                                                 <div className="card-header">
                                                         <span className="fw-bold"><GraphUp size={sizeIcon.Caption}/>&nbsp;
-                                                            {searchTypeTranslation[apiResponseProperty.getGivenQueryParsedType() as keyof TypeSearchTypeTranslation] ?? 'Unbekannte Suche "' + apiResponseProperty.getGivenQueryParsedType() + '"'}
+                                                            {t(apiResponseProperty.getGivenQueryParsedTypeTranslationKey())}
                                                         </span>
                                                 </div>
                                                 <div className="card-body">

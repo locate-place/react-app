@@ -1,7 +1,5 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import {useSearchParams} from "react-router-dom";
-
-/* Import translation libraries. */
 import {useTranslation} from "react-i18next";
 
 /* Import types. */
@@ -18,18 +16,12 @@ import {routePathLocations} from "../../config/Route";
 
 /* Import functions */
 import loadApiData from "../../functions/LoadApiData";
-import {
-    getFilterConfig,
-    sortByName,
-    sortByRelevanceUser,
-    sortByDistanceUser,
-    sortByDistance,
-    sortByRelevance
-} from "../../functions/QueryFunctions";
 
 /* Import classes */
 import {Query} from "../../classes/Query";
 import {ApiResponseProperty} from "../../classes/Api/ApiResponseProperty";
+import {ApiLocationWrapper} from "../../classes/Api/Location/ApiLocationWrapper";
+import {LocationsWrapper} from "../../classes/Api/Location/Locations/LocationsWrapper";
 
 /* Import component parts */
 import Error from "../layout/Error";
@@ -40,26 +32,12 @@ import SearchForm from "../layout/SearchForm";
 import SearchMetrics from "../layout/SearchMetrics";
 import SearchPerformance from "../layout/SearchPerformance";
 import Pager from "../layout/Pager";
+import LocationSort from "../layout/LocationSort";
 
 /* Bootstrap icons; see https://icons.getbootstrap.com/?q=sort#usage */
 import {
-    SortAlphaDown,
-    SortNumericDown,
-    SortDown,
-    HouseFill,
-    HouseSlashFill,
     ListTask,
-    CursorFill
 } from "react-bootstrap-icons";
-import {
-    nameSortDistance,
-    nameSortDistanceUser,
-    nameSortName,
-    nameSortRelevance,
-    nameSortRelevanceUser
-} from "../../config/NameSort";
-import {ApiLocationWrapper} from "../../classes/Api/Location/ApiLocationWrapper";
-import {LocationsWrapper} from "../../classes/Api/Location/Locations/LocationsWrapper";
 
 /**
  * This is the app locations component.
@@ -82,9 +60,6 @@ const Locations = () =>
 
     /* Memorized variables. */
     const [searchParams] = useSearchParams();
-
-    /* Get variables according to the search parameters. */
-    const filterConfig = getFilterConfig(searchParams);
 
     /* Gets the api components */
     const query = new Query(searchParams, env);
@@ -150,72 +125,7 @@ const Locations = () =>
                                     </>
                             }
 
-                            <div className="float-end pb-3">
-                                <div className="btn-group shadow-own">
-                                    {/* Own position indicator */}
-                                    <button
-                                        className="btn btn-outline-secondary without-hover"
-                                        title={apiResponseProperty.isOwnPosition() ? ('Aktuelle Position "' + apiResponseProperty.getOwnPosition() + '" wird verwendet.') : 'Aktuelle Position wird nicht verwendet.'}
-                                    >
-                                        {
-                                            apiResponseProperty.isOwnPosition() ?
-                                                <HouseFill size={sizeIcon.Button} /> :
-                                                <HouseSlashFill size={sizeIcon.Button} />
-                                        }&nbsp;
-                                        <sup><small>{t('TEXT_ACTION_SORTING')}</small></sup>
-                                    </button>
-                                    <button
-                                        className={'btn ' + (query.isSortedBy(nameSortName) ? 'btn-secondary' : 'btn-outline-secondary')}
-                                        onClick={() => sortByName(filterConfig)} title={t('TEXT_TITLE_SORT_BY_NAME')}>
-                                        <SortAlphaDown size={sizeIcon.Button}/> <sup><small>{t('TEXT_ACTION_NAME')}</small></sup>
-                                    </button>
-                                    {
-                                        query.isCoordinateSearch() ?
-                                            <button
-                                                className={'btn ' + (query.isSortedBy([nameSortDistanceUser, nameSortDistance]) ? 'btn-secondary' : 'btn-outline-secondary')}
-                                                onClick={() => sortByDistance(filterConfig)}
-                                                title={t('TEXT_TITLE_SORT_BY_DISTANCE')}
-                                            >
-                                                <CursorFill size={sizeIcon.ButtonSmall}/>&nbsp;
-                                                <SortNumericDown size={sizeIcon.Button}/>&nbsp;
-                                                <sup><small>{t('TEXT_ACTION_KM')}</small></sup>
-                                            </button> :
-                                            <button
-                                                className={'btn ' + (query.isSortedBy([nameSortDistanceUser, nameSortDistance]) ? 'btn-secondary' : 'btn-outline-secondary')}
-                                                onClick={() => sortByDistanceUser(filterConfig)}
-                                                title={t('TEXT_TITLE_SORT_BY_DISTANCE_FROM_USER')}
-                                            >
-                                                <SortNumericDown size={sizeIcon.Button}/>&nbsp;
-                                                <sup><small>{t('TEXT_ACTION_KM')}</small></sup>
-                                            </button>
-                                    }
-                                    {
-                                        query.getFilterConfig().hasQuery() ?
-                                            (
-                                                query.isCoordinateSearch() ?
-                                                    <button
-                                                        className={'btn ' + (query.isSortedBy([nameSortRelevanceUser, nameSortRelevance]) ? 'btn-secondary' : 'btn-outline-secondary')}
-                                                        onClick={() => sortByRelevance(filterConfig)}
-                                                        title={t('TEXT_TITLE_SORT_BY_RELEVANCE')}
-                                                    >
-                                                        <CursorFill size={sizeIcon.ButtonSmall}/>&nbsp;
-                                                        <SortDown size={sizeIcon.Button}/> <sup><small>{t('TEXT_ACTION_RELEVANCE')}</small></sup>
-                                                    </button> :
-                                                    <button
-                                                        className={'btn ' + (query.isSortedBy([nameSortRelevanceUser, nameSortRelevance]) ? 'btn-secondary' : 'btn-outline-secondary')}
-                                                        onClick={() => sortByRelevanceUser(filterConfig)}
-                                                        title={t('TEXT_TITLE_SORT_BY_RELEVANCE_OF_THE_USER')}
-                                                    >
-                                                        <SortDown size={sizeIcon.Button}/>&nbsp;
-                                                        <sup><small>{t('TEXT_ACTION_RELEVANCE')}</small></sup>
-                                                    </button>
-                                            ) :
-                                            <></>
-                                    }
-                                </div>
-                            </div>
-
-                            <div className="clearfix"></div>
+                            <LocationSort query={query} apiResponseProperty={apiResponseProperty} />
 
                             {/* Show the results. */}
                             <div className="mt-5"><p>{query.getQueryResultText(t)}</p></div>

@@ -25,7 +25,7 @@ const Pager = ({query}: PagerProps) =>
     const total = query.getApiResponseProperty().getResultsTotal();
     const filterConfig = query.getFilterConfigFilterConfig();
 
-    if ((page * results) > total) {
+    if (((page + 1) * results) >= total) {
         return <></>;
     }
 

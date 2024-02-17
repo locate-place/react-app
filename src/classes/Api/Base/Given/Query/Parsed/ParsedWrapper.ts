@@ -93,7 +93,7 @@ class ParsedWrapper
      */
     hasFeatureCodes(): boolean
     {
-        return!!this.parsed["feature-codes"];
+        return !!this.parsed["feature-codes"];
     }
 
     /**

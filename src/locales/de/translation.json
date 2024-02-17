@@ -67,6 +67,7 @@
   "TEXT_NEXT_PLACE_DISTANCE_HINT_LOCATION_TEXT": "Abstand und Richtung entsprechend dem angezeigtem Ort \"{{location}}\" ({{coordinate}}).",
   "TEXT_NEXT_PLACE_DISTANCE_HINT_QUERY_TEXT": "Abstand und Richtung entsprechend der Location vom Suchquery ({{coordinate}}).",
   "TEXT_NEXT_PLACE_INHABITANTS_TEXT": "{{inhabitants}} Einwohner",
+  "TEXT_NEXT_PLACE_NO_IATA_CODE_SPECIFIED": "Kein IATA-Code angegeben",
 
   "TEXT_CONTACT_TITLE": "Kontakt",
 

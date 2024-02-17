@@ -368,8 +368,8 @@ type TypeGivenQueryParsed = {
     "type": string,
     "geoname-id"?: number,
     "search"?: string,
-    "coordinate": TypeGivenCoordinate,
-    "feature-codes": TypeGivenQueryParsedFeatureCode[]
+    "coordinate"?: TypeGivenCoordinate,
+    "feature-codes"?: TypeGivenQueryParsedFeatureCode[]
 };
 
 type TypeGivenQuery = {
@@ -395,7 +395,7 @@ type TypeGivenCoordinateParsed = {
     "latitude": TypePosition,
     "longitude": TypePosition,
     "links": TypeLinksMaps,
-    "srid": number,
+    "srid"?: number,
 };
 
 type TypeGivenCoordinate = {

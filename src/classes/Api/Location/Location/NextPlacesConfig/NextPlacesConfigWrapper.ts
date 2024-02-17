@@ -83,6 +83,49 @@ class NextPlacesConfigWrapper
     }
 
     /**
+     * Returns the config by given next place key.
+     *
+     * @param key {string}
+     */
+    getConfigByNexPlaceDistance(key: string): number|null
+    {
+        if (!this.nextPlacesConfig.config[key]) {
+            return null;
+        }
+
+        return this.nextPlacesConfig.config[key].distance;
+    }
+
+    /**
+     * Returns the config by given next place key.
+     *
+     * @param key {string}
+     */
+    getConfigByNexPlaceLimit(key: string): number|null
+    {
+        if (!this.nextPlacesConfig.config[key]) {
+            return null;
+        }
+
+        return this.nextPlacesConfig.config[key].limit;
+    }
+
+    /**
+     * Returns the config by given next place key.
+     *
+     * @param key {string}
+     * @param separator
+     */
+    getConfigByNexPlaceFeatureCodes(key: string, separator: string = '|'): string|null
+    {
+        if (!this.nextPlacesConfig.config[key]) {
+            return null;
+        }
+
+        return this.nextPlacesConfig.config[key].feature_codes?.join(separator) ?? null;
+    }
+
+    /**
      * Returns the endpoints of the next places config.
      */
     getEndpoints(): TypeNextPlacesConfigEndpoint

@@ -2,6 +2,7 @@ import {TFunction} from "i18next";
 
 /* Import types. */
 import {
+    TypePlace,
     TypeProperties,
     TypeValue,
 } from "../../../../../types/Types";
@@ -12,6 +13,7 @@ import {translateCountryCode} from "../../../../../translations/Country";
 /* Import classes. */
 import {ApiLocationWrapper} from "../../ApiLocationWrapper";
 import {LocationWrapper} from "../LocationWrapper";
+import {AirportCodesWrapper} from "../../../Base/AirportCodes/AirportCodesWrapper";
 
 /**
  * Class PropertiesWrapper
@@ -106,7 +108,7 @@ class PropertiesWrapper
     }
 
     /**
-     * Returns the population from location.
+     * Returns if the population from location exists.
      */
     hasPopulation(): boolean
     {
@@ -148,6 +150,59 @@ class PropertiesWrapper
         const inhabitants = location.getProperties().getPopulation()?.["value-formatted"];
 
         return separator + t('TEXT_NEXT_PLACE_INHABITANTS_TEXT', {inhabitants});
+    }
+
+    /**
+     * Returns if the airport codes exists.
+     */
+    hasAirportCodes(): boolean
+    {
+        return !!this.properties.airport_codes;
+    }
+
+    /**
+     * Returns the airport codes.
+     */
+    getAirportCodes(): AirportCodesWrapper|null
+    {
+        return this.properties.airport_codes ? new AirportCodesWrapper(this.properties.airport_codes) : null;
+    }
+
+    /**
+     * Returns if the airport code should be shown for the given feature code.
+     *
+     * @param {string} location
+     */
+    showAirportCodes(location: LocationWrapper): boolean
+    {
+        return [
+            'AIRP'
+        ].includes(location.getFeature().getCode().getCode());
+    }
+
+    /**
+     * Returns the population for the given place.
+     *
+     * @param location
+     * @param t
+     * @param separator
+     * @returns {string|null}
+     */
+    getAirportCodesText = (location: LocationWrapper, t: TFunction<"translation", undefined>, separator: string|null = null): string|null =>
+    {
+        let showMissingAirportCode: boolean = false;
+
+        if (!this.showAirportCodes(location)) {
+            return null;
+        }
+
+        if (!this.hasAirportCodes() || !this.getAirportCodes()?.hasIata()) {
+            return showMissingAirportCode ?
+                separator + t('TEXT_NEXT_PLACE_NO_IATA_CODE_SPECIFIED') :
+                null;
+        }
+
+        return (separator ? separator : '') + (this.getAirportCodes()?.getIata() ?? '');
     }
 }
 

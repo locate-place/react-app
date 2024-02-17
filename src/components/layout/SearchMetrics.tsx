@@ -159,8 +159,8 @@ const SearchMetrics = ({
                                         >
                                             <h3 className="mt-3">{t('TEXT_HEADER_CURRENT_LOCATION')}</h3>
                                             <LocationCard
-                                                location={apiResponseProperty.getGiven()?.getCoordinate()?.getLocation()}
-                                                properties={properties}
+                                                locationWrapper={apiResponseProperty.getGiven()?.getCoordinate()?.getLocation() ?? null}
+                                                apiResponseProperty={apiResponseProperty}
                                                 showOwnPosition={true}
                                             />
                                         </div>

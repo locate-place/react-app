@@ -37,41 +37,52 @@ class ApiResponseProperty
         return this.properties;
     }
 
-    /**
-     * Returns if own position is available from api query.
-     */
-    isOwnPosition(): boolean
+    getApiUrl(): string
     {
-        return !!this.properties.given && !!this.properties.given.coordinate;
+        return this.properties["api-url"];
     }
 
-    /**
-     * Returns the own position from api response as string.
-     *
-     */
-    getOwnPosition(): string|null
+    getDate(): string|null
     {
-        return !!this.properties.given && !!this.properties.given.coordinate ?
-            (this.properties.given.coordinate.parsed.latitude.dms + ', ' + this.properties.given.coordinate.parsed.longitude.dms) :
-            null
-        ;
+        return this.properties.date || null;
     }
 
-    /**
-     * Returns if the api response contains any result.
-     */
-    hasResults(): boolean
+    getMemoryTaken(): string|null
     {
-        return !!this.properties.results;
+        return this.properties["memory-taken"] ?? null;
     }
 
-    /**
-     * Returns the result wrapper.
-     */
-    getResults(): ResultsWrapper|null
+    getName(): string|null
     {
-        return this.properties.results ? new ResultsWrapper(this.properties.results) : null;
+        return this.properties.name ?? null;
     }
+
+    getPath(): string
+    {
+        return this.properties.path;
+    }
+
+    getTimeTaken(): string|null
+    {
+        return this.properties["time-taken"] ?? null;
+    }
+
+    getType(): string
+    {
+        return this.properties.type;
+    }
+
+    getValid(): boolean
+    {
+        return this.properties.valid;
+    }
+
+    getVersion(): string|null
+    {
+        return this.properties.version ?? null;
+    }
+
+
 
     /**
      * Returns if the given property exists.
@@ -87,30 +98,6 @@ class ApiResponseProperty
     getGiven(): GivenWrapper|null
     {
         return this.properties.given ? new GivenWrapper(this.properties.given) : null;
-    }
-
-    /**
-     * Returns the result of the api response.
-     */
-    getResultsResults(): number
-    {
-        return this.getResults()?.getResults() ?? 0;
-    }
-
-    /**
-     * Returns the total number of results from api response.
-     */
-    getResultsTotal(): number
-    {
-        return this.getResults()?.getTotal() ?? 0;
-    }
-
-    /**
-     * Returns the current page of the api response.
-     */
-    getResultsPage(): number
-    {
-        return this.getResults()?.getPage() ?? 0;
     }
 
     /**
@@ -182,7 +169,7 @@ class ApiResponseProperty
      */
     getGivenCoordinateParsedLatitudeDms(): string|null
     {
-        return this.getGiven()?.getCoordinate()?.getParsed().getLatitudeDms() ?? null;
+        return this.getGiven()?.getCoordinate()?.getParsed().getLatitude().getDMS() ?? null;
     }
 
     /**
@@ -190,7 +177,7 @@ class ApiResponseProperty
      */
     getGivenCoordinateParsedLongitudeDms(): string|null
     {
-        return this.getGiven()?.getCoordinate()?.getParsed().getLongitudeDms() ?? null;
+        return this.getGiven()?.getCoordinate()?.getParsed().getLongitude().getDMS() ?? null;
     }
 
     /**
@@ -231,6 +218,70 @@ class ApiResponseProperty
     getGivenQueryParsedFeatureCodesArray(): TypeGivenQueryParsedFeatureCode[]
     {
         return this.getGiven()?.getQuery()?.getParsed().getFeatureCodes()?.get() ?? [];
+    }
+
+
+
+    /**
+     * Returns if the api response contains any result.
+     */
+    hasResults(): boolean
+    {
+        return !!this.properties.results;
+    }
+
+    /**
+     * Returns the result wrapper.
+     */
+    getResults(): ResultsWrapper|null
+    {
+        return this.properties.results ? new ResultsWrapper(this.properties.results) : null;
+    }
+
+    /**
+     * Returns the result of the api response.
+     */
+    getResultsResults(): number
+    {
+        return this.getResults()?.getResults() ?? 0;
+    }
+
+    /**
+     * Returns the total number of results from api response.
+     */
+    getResultsTotal(): number
+    {
+        return this.getResults()?.getTotal() ?? 0;
+    }
+
+    /**
+     * Returns the current page of the api response.
+     */
+    getResultsPage(): number
+    {
+        return this.getResults()?.getPage() ?? 0;
+    }
+
+
+
+    /**
+     * Returns if own position is available from api query.
+     */
+    isOwnPosition(): boolean
+    {
+        return !!this.properties.given && !!this.properties.given.coordinate;
+    }
+
+    /**
+     * Returns the own position from api response as string.
+     *
+     */
+    getOwnPosition(): string|null
+    {
+        return !!this.properties.given && !!this.properties.given.coordinate ?
+            (this.properties.given.coordinate.parsed.latitude.dms + ', ' + this.properties.given.coordinate.parsed.longitude.dms) :
+            null
+            ;
     }
 }
 

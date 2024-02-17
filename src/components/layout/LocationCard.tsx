@@ -23,10 +23,12 @@ import CoordinateDistanceDirection from "./CoordinateDistanceDirection";
 
 /* Import classes. */
 import {Query} from "../../classes/Query";
+import {LocationWrapper} from "../../classes/Api/Location/Location/LocationWrapper";
+import {ApiResponseProperty} from "../../classes/Api/ApiResponseProperty";
 
 type LocationCardProps = {
-    location: any,
-    properties: any,
+    locationWrapper: LocationWrapper|null,
+    apiResponseProperty: ApiResponseProperty,
     showOwnPosition: boolean,
     index?: number,
     useAlwaysName?: boolean
@@ -37,26 +39,13 @@ type LocationCardProps = {
  *
  * - ownPosition - Use own position instead of the one from the given location.
  */
-const LocationCard = ({location, properties, showOwnPosition, index, useAlwaysName = false}: LocationCardProps) =>
+const LocationCard = ({locationWrapper, apiResponseProperty, showOwnPosition, index, useAlwaysName = false}: LocationCardProps) =>
 {
-    /* Import translation. */
-    const { t } = useTranslation();
-
     /* true - use geoname id as query; false - use coordinate as query */
     let useGeonameIdAsQuery = true;
 
-    let nextPlaces = location['next-places-config'].config;
-
-    /* Use own position or from the given location. */
-    let ownPositionCard = showOwnPosition? properties.given.coordinate.parsed : null;
-    let latitudeDms = showOwnPosition ? ownPositionCard.latitude.dms : location.coordinate.latitude.dms;
-    let longitudeDms = showOwnPosition ? ownPositionCard.longitude.dms : location.coordinate.longitude.dms;
-    let latitudeDecimal = showOwnPosition ? ownPositionCard.latitude.decimal : location.coordinate.latitude.decimal;
-    let longitudeDecimal = showOwnPosition ? ownPositionCard.longitude.decimal : location.coordinate.longitude.decimal;
-    let linkGoogleMaps = showOwnPosition ? ownPositionCard.links.google : location.links.maps.google;
-    let linkOpenStreetMaps = showOwnPosition ? ownPositionCard.links.openstreetmap : location.links.maps.openstreetmap;
-
-    let airportCodeIata = getAirportCodeIata(location);
+    /* Import translation. */
+    const { t } = useTranslation();
 
     /* API types */
     const env = useMemo(() => {
@@ -70,26 +59,44 @@ const LocationCard = ({location, properties, showOwnPosition, index, useAlwaysNa
 
     let filterConfig = query.getFilterConfig();
 
-    let queryString = useGeonameIdAsQuery ?
-        location['geoname-id'] :
-        location.coordinate.latitude.decimal + ',%20' + location.coordinate.longitude.decimal;
+    if (locationWrapper === null) {
+        return <></>;
+    }
 
-    let name = useAlwaysName ? location.name : (location['name-full'] || location.name);
+    let nextPlaces = locationWrapper.getNextPlacesConfig();
+
+    /* Use own position or from the given location. */
+    let ownPositionCard = showOwnPosition ? (apiResponseProperty.getGiven()?.getCoordinate()?.getParsed() ?? null) : null;
+
+    let latitudeDms = showOwnPosition ? (ownPositionCard?.getLatitude().getDMS() ?? null) : locationWrapper.getCoordinate().getLatitude().getDMS();
+    let longitudeDms = showOwnPosition ? (ownPositionCard?.getLongitude().getDMS() ?? null) : locationWrapper.getCoordinate().getLongitude().getDMS();
+
+    let latitudeDecimal = showOwnPosition ? (ownPositionCard?.getLatitude().getDecimal() ?? null) : locationWrapper.getCoordinate().getLatitude().getDecimal();
+    let longitudeDecimal = showOwnPosition ? (ownPositionCard?.getLongitude().getDecimal() ?? null) : locationWrapper.getCoordinate().getLongitude().getDecimal();
+
+    let linkGoogleMaps = showOwnPosition ? (ownPositionCard?.getLinks().getGoogle() ?? null) : locationWrapper.getLinks().getMaps('google');
+    let linkOpenStreetMaps = showOwnPosition ? (ownPositionCard?.getLinks().getOpenStreetMap() ?? null) : locationWrapper.getLinks().getMaps('openstreetmap');
+
+    let airportCodeIata = locationWrapper.getProperties().getAirportCodesText(locationWrapper, t) ?? null;
+
+    let queryString = useGeonameIdAsQuery ? locationWrapper.getGeonameId() : locationWrapper.getCoordinate().getDecimal();
+
+    let name = useAlwaysName ? locationWrapper.getName() : (locationWrapper.getNameFull() || locationWrapper.getName());
 
     return (
         <>
             <div className={'card card-hover w-100 mb-4'}
                  style={showOwnPosition ? {'backgroundColor': 'rgb(235, 233, 228)'} : {'backgroundColor': 'rgb(228, 235, 233)'}}>
                 <div className="card-header">
-                    <Flag country={location.properties.country} size={20}
-                          title={translateCountryCode(location.properties.country)}/> &nbsp;
+                    <Flag country={locationWrapper.getProperties().getCountryCode()} size={20}
+                          title={translateCountryCode(locationWrapper.getProperties().getCountryCode())}/> &nbsp;
                     {
                         showOwnPosition ?
                             <span><span className="fw-bold">{name}</span></span> :
                             <span><span className="fw-bold">{name}</span>{index !== undefined ? <sup>&nbsp;(#{index + 1})</sup> : null}</span>
                     }
                     {
-                        airportCodeIata !== null ?
+                        locationWrapper.getProperties().showAirportCodes(locationWrapper) ?
                             <><span> - </span><code title="IATA-Code">{airportCodeIata}</code></> :
                             <></>
                     }
@@ -101,7 +108,7 @@ const LocationCard = ({location, properties, showOwnPosition, index, useAlwaysNa
                                 <h4>{t('TEXT_HEADER_INFORMATION')}</h4>
                                 <p className="m-0">
                                     <Link
-                                        to={filterConfig.getLinkLocationQuery(queryString)}
+                                        to={filterConfig.getLinkLocationQuery(queryString.toString())}
                                     ><span><FontAwesomeIcon
                                         icon={faMaximize}
                                         style={{'color': 'rgb(114, 135, 42)'}}
@@ -111,16 +118,16 @@ const LocationCard = ({location, properties, showOwnPosition, index, useAlwaysNa
                             <div className="col-12 col-md-6 col-lg-4 mb-3">
                                 <h4>{t('TEXT_HEADER_NEXT_PLACES')}</h4>
                                 <p className="m-0">
-                                    {Object.keys(nextPlaces).map((key, index) => {
+                                    {nextPlaces.getConfigKeysNextPlaces().map((key, index) => {
                                         return (
                                             <span key={'next-place-' + key}>
                                                 {index !== 0 ? ', ' : ''}
                                                 <Link
                                                     key={'next-place-' + key}
                                                     to={filterConfig.getLinkNextPlaces(
-                                                        nextPlaces[key]['feature_codes'].join('|') + ' ' + location.coordinate.latitude.decimal + ', ' + location.coordinate.longitude.decimal,
-                                                        nextPlaces[key]['distance'],
-                                                        nextPlaces[key]['limit']
+                                                        (nextPlaces.getConfigByNexPlaceFeatureCodes(key, '|') ?? '') + ' ' + locationWrapper.getCoordinate().getDecimal(),
+                                                        nextPlaces.getConfigByNexPlaceDistance(key) ?? 0,
+                                                        nextPlaces.getConfigByNexPlaceLimit(key) ?? 0,
                                                     )}
                                                 >{t('TEXT_LOCATION_CARD_' + key.toUpperCase())}</Link>
                                             </span>
@@ -131,24 +138,30 @@ const LocationCard = ({location, properties, showOwnPosition, index, useAlwaysNa
                             <div className="col-12 col-md-6 col-lg-4">
                                 <h4>{t('TEXT_HEADER_MAPS')}</h4>
                                 <p className="m-0">
-                                    <Link
-                                        to={linkGoogleMaps}
-                                        target="_blank"
-                                        rel="noreferrer"
-                                    >
-                                        <span className="text-nowrap">
-                                            <FontAwesomeIcon icon={faMapLocation} style={{'color': 'rgb(23, 34, 52)'}}/> Google Maps
-                                        </span>
-                                    </Link>,
-                                    <Link
-                                        to={linkOpenStreetMaps}
-                                        target="_blank"
-                                        rel="noreferrer"
-                                    >
-                                        <span className="text-nowrap">
-                                            <FontAwesomeIcon icon={faMapLocation} style={{'color': 'rgb(23, 34, 52)'}}/> OpenStreetMap
-                                        </span>
-                                    </Link>
+                                    {
+                                        linkGoogleMaps ?
+                                            <Link
+                                                to={linkGoogleMaps}
+                                                target="_blank"
+                                                rel="noreferrer"
+                                            >
+                                                <span className="text-nowrap">
+                                                    <FontAwesomeIcon icon={faMapLocation} style={{'color': 'rgb(23, 34, 52)'}}/> Google Maps
+                                                </span>
+                                            </Link> : <></>
+                                    },
+                                    {
+                                        linkOpenStreetMaps ?
+                                            <Link
+                                                to={linkOpenStreetMaps}
+                                                target="_blank"
+                                                rel="noreferrer"
+                                            >
+                                                <span className="text-nowrap">
+                                                    <FontAwesomeIcon icon={faMapLocation} style={{'color': 'rgb(23, 34, 52)'}}/> OpenStreetMap
+                                                </span>
+                                            </Link> : <></>
+                                    }
                                 </p>
                             </div>
                         </div>
@@ -157,10 +170,10 @@ const LocationCard = ({location, properties, showOwnPosition, index, useAlwaysNa
                 <div className="card-footer">
                     <small><small>
                         <strong>
-                            {location['name-full'] ? location['name-full'] : location.name}
+                            {locationWrapper.getNameFull() ? locationWrapper.getNameFull() : locationWrapper.getName()}
                         </strong>
-                        {getElevation(location, ' - ')}
-                        {getPopulation(location, ' - ')}
+                        {getElevation(locationWrapper.get(), ' - ')}
+                        {getPopulation(locationWrapper.get(), ' - ')}
                         {
                             airportCodeIata !== null ?
                                 <><span> - </span><code title="IATA-Code">{airportCodeIata}</code></> :
@@ -168,12 +181,12 @@ const LocationCard = ({location, properties, showOwnPosition, index, useAlwaysNa
                         }
                         <br/>
                         <span>
-                            <strong>{location.feature['code-name']}</strong>: {location.feature['class-name']} - <code>{location.feature.class + '::' + location.feature.code}</code>
+                            <strong>{locationWrapper.getFeature().getCode().getName()}</strong>: {locationWrapper.getFeature().getClass().getName()} - <code>{locationWrapper.getFeature().getClass().getCode() + '::' + locationWrapper.getFeature().getCode().getCode()}</code>
                         </span>
 
                         <br/>
                         <span>
-                            <strong>Letztes Update</strong>: {convertToGermanFormat(location['updated-at'])}
+                            <strong>Letztes Update</strong>: {convertToGermanFormat(locationWrapper.getUpdateAt())}
                         </span>
                     </small></small>
                 </div>
@@ -182,10 +195,10 @@ const LocationCard = ({location, properties, showOwnPosition, index, useAlwaysNa
                         showOwnPosition ?
                             <>
                                 <strong>Position</strong>: <span
-                                title={latitudeDecimal}>{latitudeDms}</span>, <span
-                                title={longitudeDecimal}>{longitudeDms}</span>
+                                title={latitudeDecimal ? latitudeDecimal.toString() : ''}>{latitudeDms}</span>, <span
+                                title={longitudeDecimal ? longitudeDecimal.toString() : ''}>{longitudeDms}</span>
                             </> :
-                            <CoordinateDistanceDirection location={location}/>
+                            <CoordinateDistanceDirection location={locationWrapper.get()}/>
                     }
                 </small></small></div>
             </div>

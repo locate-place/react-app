@@ -10,6 +10,7 @@ import {
 
 /* Import classes. */
 import {ApiLocationWrapper} from "../../ApiLocationWrapper";
+import {PositionWrapper} from "../../../Base/Position/PositionWrapper";
 
 /**
  * Class CoordinateWrapper
@@ -46,17 +47,25 @@ class CoordinateWrapper
     /**
      * Returns the latitude of the location.
      */
-    getLatitude(): TypePosition
+    getLatitude(): PositionWrapper
     {
-        return this.coordinate.latitude;
+        return new PositionWrapper(this.coordinate.latitude);
+    }
+
+    /**
+     * Returns the latitude of the location.
+     */
+    getLatitudeDecimal(): number
+    {
+        return this.coordinate.latitude.decimal;
     }
 
     /**
      * Returns the longitude of the location.
      */
-    getLongitude(): TypePosition
+    getLongitude(): PositionWrapper
     {
-        return this.coordinate.longitude;
+        return new PositionWrapper(this.coordinate.longitude);
     }
 
     /**

@@ -5,6 +5,7 @@ import {
 
 /* Import classes. */
 import {ApiLocationWrapper} from "../ApiLocationWrapper";
+import {LocationWrapper} from "../Location/LocationWrapper";
 
 /**
  * Class LocationsWrapper
@@ -35,6 +36,14 @@ class LocationsWrapper
     get(): Array<TypeLocation>
     {
         return this.locations;
+    }
+
+    /**
+     * Returns an array of LocationWrapper objects.
+     */
+    getLocationWrapperArray(): Array<LocationWrapper>
+    {
+        return this.locations.map(location => new LocationWrapper(location, this.apiLocationWrapper));
     }
 }
 

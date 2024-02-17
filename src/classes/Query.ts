@@ -262,7 +262,9 @@ class Query
     {
         let apiUrl = this.getApiUrl();
 
-        return apiUrl += '?' + this.filterConfig.getConvertedFilterQueryString();
+        apiUrl += '?' + this.filterConfig.getConvertedFilterQueryString();
+
+        return apiUrl;
     }
 
     /**

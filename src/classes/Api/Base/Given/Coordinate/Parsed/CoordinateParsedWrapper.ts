@@ -1,5 +1,11 @@
 /* Import types. */
-import {TypeGivenCoordinateParsed, TypePosition} from "../../../../../../types/Types";
+import {
+    TypeGivenCoordinateParsed
+} from "../../../../../../types/Types";
+
+/* Import classes. */
+import {PositionWrapper} from "../../../Position/PositionWrapper";
+import {LinksMapsWrapper} from "../../../LinksMaps/LinksMapsWrapper";
 
 /**
  * Class CoordinateWrapper
@@ -28,34 +34,44 @@ class CoordinateParsedWrapper
         return this.parsed;
     }
 
-    getLatitude(): TypePosition
+    /**
+     * Returns the latitude PositionWrapper of the location.
+     */
+    getLatitude(): PositionWrapper
     {
-        return this.parsed.latitude;
+        return new PositionWrapper(this.parsed.latitude);
     }
 
-    getLongitude(): TypePosition
+    /**
+     * Returns the longitude PositionWrapper of the location.
+     */
+    getLongitude(): PositionWrapper
     {
-        return this.parsed.longitude;
+        return new PositionWrapper(this.parsed.longitude);
     }
 
-    getLatitudeDecimal(): number
+    /**
+     * Returns the links LinksMapsWrapper of the location.
+     */
+    getLinks(): LinksMapsWrapper
     {
-        return this.parsed.latitude.decimal;
+        return new LinksMapsWrapper(this.parsed.links);
     }
 
-    getLongitudeDecimal(): number
+    /**
+     * Returns if the srid property exists.
+     */
+    hasSrid(): boolean
     {
-        return this.parsed.longitude.decimal;
+        return !!this.parsed.srid;
     }
 
-    getLatitudeDms(): string
+    /**
+     * Returns the srid of the location.
+     */
+    getSrid(): number|null
     {
-        return this.parsed.latitude.dms;
-    }
-
-    getLongitudeDms(): string
-    {
-        return this.parsed.longitude.dms;
+        return this.parsed.srid ?? null;
     }
 }
 

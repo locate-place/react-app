@@ -222,11 +222,11 @@ const Locations = () =>
                                     <>
                                         {
                                             apiLocationWrapper.hasLocations() ?
-                                                (apiLocationWrapper.getLocations() as LocationsWrapper).get().map((location, index) => (
+                                                (apiLocationWrapper.getLocations() as LocationsWrapper).getLocationWrapperArray().map((locationWrapper, index) => (
                                                     <LocationCard
                                                         key={'location-card-' + index}
-                                                        location={location}
-                                                        properties={properties}
+                                                        locationWrapper={locationWrapper}
+                                                        apiResponseProperty={apiResponseProperty}
                                                         showOwnPosition={false}
                                                         index={index}
                                                         useAlwaysName={!query.getFilterConfig().hasQuery()}

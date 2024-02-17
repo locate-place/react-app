@@ -533,9 +533,10 @@ class FilterConfig
     /**
      * Converts the filter configuration into a query string.
      *
+     * @param ignoreDefaultLocale {boolean}
      * @return string
      */
-    getConvertedFilterQueryString(): string
+    getConvertedFilterQueryString(ignoreDefaultLocale: boolean = false): string
     {
         const keyValuePairs = [];
 
@@ -546,11 +547,11 @@ class FilterConfig
                 continue;
             }
 
-            if (key === 'language' && value === languageDefault) {
+            if (ignoreDefaultLocale && key === 'language' && value === languageDefault) {
                 continue;
             }
 
-            if (key === 'country' && value === countryDefault) {
+            if (ignoreDefaultLocale && key === 'country' && value === countryDefault) {
                 continue;
             }
 
@@ -614,7 +615,7 @@ class FilterConfig
         this.setLanguage(language);
         this.setCountry(country);
 
-        return this.getLinkFull(pathname, this.getConvertedFilterQueryString());
+        return this.getLinkFull(pathname, this.getConvertedFilterQueryString(true));
     }
 
     /**
@@ -641,7 +642,7 @@ class FilterConfig
             this.setCurrentPosition(ownPosition);
         }
 
-        return this.getLinkFull(pathname, this.getConvertedFilterQueryString());
+        return this.getLinkFull(pathname, this.getConvertedFilterQueryString(true));
     }
 
     /**
@@ -671,7 +672,7 @@ class FilterConfig
             this.setCurrentPosition(ownPosition);
         }
 
-        return this.getLinkFull(pathname, this.getConvertedFilterQueryString());
+        return this.getLinkFull(pathname, this.getConvertedFilterQueryString(true));
     }
 
     /**
@@ -732,7 +733,7 @@ class FilterConfig
                 throw new Error('Unsupported coordinate type: ' + nextPlace.getConfigCoordinateType());
         }
 
-        return this.getLinkFull(routePathLocations, this.getConvertedFilterQueryString());
+        return this.getLinkFull(routePathLocations, this.getConvertedFilterQueryString(true));
     }
 }
 

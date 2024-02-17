@@ -90,6 +90,7 @@ const Locations = () =>
     const query = new Query(searchParams, env);
     const apiPath = query.getApiUrl();
     const apiPathWithFilter = query.getApiUrlWithFilter();
+    const apiType = query.getApiType();
 
     const queryString = query.getFilterConfig().getQuery();
 
@@ -98,14 +99,14 @@ const Locations = () =>
      */
     useEffect(() => {
         loadApiData({
-            type: query.getApiType(),
+            type: apiType,
             path: apiPathWithFilter,
             setDataApi: setApi,
             setProperties: setProperties,
             setLoaded: setLoaded,
             setError: setError
         });
-    }, [apiPathWithFilter, queryString]);
+    }, [apiType, apiPathWithFilter]);
 
     /* Skip empty data */
     if (properties === null || api === null) {

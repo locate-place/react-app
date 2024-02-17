@@ -4,9 +4,6 @@ import {Link, useSearchParams} from "react-router-dom";
 /* Import translation libraries. */
 import {useTranslation} from "react-i18next";
 
-/* Add some additional components */
-import Flag from 'react-flagkit';
-
 /* Add font awesome icons */
 import {faMapLocation, faMaximize} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -24,8 +21,10 @@ import CoordinateDistanceDirection from "./CoordinateDistanceDirection";
 import {Query} from "../../classes/Query";
 import {LocationWrapper} from "../../classes/Api/Location/Location/LocationWrapper";
 import {ApiResponseProperty} from "../../classes/Api/ApiResponseProperty";
+
+/* Import configuration. */
 import {mapTypeGoogle, mapTypeOpenStreetMap} from "../../config/MapTypes";
-import LinkV2 from "./LinkV2";
+import Flag from "./Flag";
 
 type LocationCardProps = {
     locationWrapper: LocationWrapper|null,
@@ -110,12 +109,14 @@ const LocationCard = ({locationWrapper, apiResponseProperty, showOwnPosition, in
             <div className={'card card-hover w-100 mb-4'}
                  style={showOwnPosition ? {'backgroundColor': 'rgb(235, 233, 228)'} : {'backgroundColor': 'rgb(228, 235, 233)'}}>
                 <div className="card-header">
-                    <Flag country={locationWrapper.getProperties().getCountryCode()} size={20}
-                          title={translateCountryCode(locationWrapper.getProperties().getCountryCode())}/> &nbsp;
+                    <Flag
+                        country={locationWrapper.getProperties().getCountryCode()}
+                        size={1.5}
+                    /> &nbsp;
                     {
                         showOwnPosition ?
-                            <span><span className="fw-bold">{name}</span></span> :
-                            <span><span className="fw-bold">{name}</span>{index !== undefined ? <sup>&nbsp;(#{index + 1})</sup> : null}</span>
+                            <span><span className="fw-bold">{name}, <small>{translateCountryCode(locationWrapper.getProperties().getCountryCode())}</small></span></span> :
+                            <span><span className="fw-bold">{name}, <small>{translateCountryCode(locationWrapper.getProperties().getCountryCode())}</small></span>{index !== undefined ? <sup>&nbsp;(#{index + 1})</sup> : null}</span>
                     }
                     {
                         locationWrapper.getProperties().showAirportCode(locationWrapper) ?

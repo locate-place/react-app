@@ -5,7 +5,6 @@ import {
     TypeCoordinate,
     TypeDirection,
     TypeDistance,
-    TypePosition,
 } from "../../../../../types/Types";
 
 /* Import classes. */

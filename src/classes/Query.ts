@@ -226,9 +226,11 @@ class Query
                     throw new Error('Month parameter is missing.');
                 }
 
-                return apiPathCalendarPage.
-                    replace('%calendar%', this.filterConfig.getCalendar() as string).
-                    replace('%month%', this.filterConfig.getMonth() as string);
+                return apiPathCalendarPage.replace(
+                    '%calendar%', this.filterConfig.getCalendar() as string
+                ).replace(
+                    '%month%', this.filterConfig.getMonth() as string
+                );
 
             /* Calendar. */
             case routePathCalendar:
@@ -236,8 +238,9 @@ class Query
                     throw new Error('Calendar parameter is missing.');
                 }
 
-                return apiPathCalendar.
-                    replace('%calendar%', this.filterConfig.getCalendar() as string);
+                return apiPathCalendar.replace(
+                    '%calendar%', this.filterConfig.getCalendar() as string
+                );
 
             /* Location. */
             case routePathLocation:

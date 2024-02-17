@@ -5,8 +5,8 @@ import {useTranslation} from "react-i18next";
 import Header from "../layout/Header";
 
 /* Flag icons; see https://github.com/stephenway/react-flagkit */
-import Flag from "react-flagkit";
 import LinkV2 from "../layout/LinkV2";
+import Flag from "../layout/Flag";
 
 /**
  * This is the contact page.
@@ -24,7 +24,7 @@ const Contact = () =>
                     <div className="col-12 col-md-10 offset-md-1 col-xl-8 offset-xl-2">
                         <div className="card shadow-own">
                             <div className="card-header">
-                                <Flag country="DE" size={20}/> <span className="fw-bold">{t('TEXT_CONTACT_TITLE')}</span>
+                                <Flag country="DE" size={1.5}/> &nbsp;<span className="fw-bold">{t('TEXT_CONTACT_TITLE')}</span>
                             </div>
                             <div className="card-body">
                                 <p className="card-text">

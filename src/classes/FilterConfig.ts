@@ -24,7 +24,6 @@ import {routePathLocation, routePathLocations} from "../config/Route";
 
 /* Import classes. */
 import {NextPlaceWrapper} from "./Api/Location/Location/NextPlaces/NextPlaceWrapper";
-import {NextPlacesConfigWrapper} from "./Api/Location/Location/NextPlacesConfig/NextPlacesConfigWrapper";
 import {LocationWrapper} from "./Api/Location/Location/LocationWrapper";
 
 

@@ -4,6 +4,7 @@ import {useTranslation} from "react-i18next";
 import {Query} from "../../classes/Query";
 import i18n from "i18next";
 import LinkV2 from "./LinkV2";
+import Flag from "./Flag";
 
 /**
  * This is the navigation part.
@@ -44,23 +45,41 @@ const Navigation = () =>
                     <div className="collapse navbar-collapse" id="navbarResponsive">
                         <ul className="navbar-nav ms-auto py-4 py-lg-0">
                             <li className="nav-item"><Link className="nav-link px-lg-3 py-3 py-lg-4"
-                                                           to={filterConfig.getLinkTo('/index.html')}>{t('TEXT_NAVIGATION_HOME')}</Link></li>
+                                                           to={filterConfig.getLinkTo('/index.html')}>{t('TEXT_NAVIGATION_HOME')}</Link>
+                            </li>
                             <li className="nav-item"><Link className="nav-link px-lg-3 py-3 py-lg-4"
-                                                           to={filterConfig.getLinkTo('/locations.html')}>{t('TEXT_NAVIGATION_LOCATIONS')}</Link></li>
+                                                           to={filterConfig.getLinkTo('/locations.html')}>{t('TEXT_NAVIGATION_LOCATIONS')}</Link>
+                            </li>
                             <li className="nav-item"><Link className="nav-link px-lg-3 py-3 py-lg-4"
-                                                           to={filterConfig.getLinkTo('/about.html')}>{t('TEXT_NAVIGATION_ABOUT')}</Link></li>
+                                                           to={filterConfig.getLinkTo('/about.html')}>{t('TEXT_NAVIGATION_ABOUT')}</Link>
+                            </li>
                             <li className="nav-item"><Link className="nav-link px-lg-3 py-3 py-lg-4"
-                                                           to={filterConfig.getLinkTo('/contact.html')}>{t('TEXT_NAVIGATION_CONTACT')}</Link></li>
+                                                           to={filterConfig.getLinkTo('/contact.html')}>{t('TEXT_NAVIGATION_CONTACT')}</Link>
+                            </li>
                             {
-                                language === 'de' ?
-                                    <li className="nav-item"><Link className="nav-link px-lg-3 py-3 py-lg-4"
-                                                                   to={query.getFilterConfig().getCurrentLinkWithLanguage('en')}>{t('TEXT_NAVIGATION_EN')}</Link>
-                                    </li> :
-                                    <li className="nav-item"><Link className="nav-link px-lg-3 py-3 py-lg-4"
-                                                                   to={query.getFilterConfig().getCurrentLinkWithLanguage('de')}>{t('TEXT_NAVIGATION_GE')}</Link>
-                                    </li>
+                                language !== 'en' ?
+                                    <li className="nav-item"><Link
+                                        className="nav-link px-lg-3 py-3 py-lg-4"
+                                        to={query.getFilterConfig().getCurrentLinkWithLanguage('en')}
+                                    ><Flag country="us" size={1} /> {t('TEXT_NAVIGATION_EN')}</Link></li> :
+                                    <></>
                             }
-
+                            {
+                                language !== 'de' ?
+                                    <li className="nav-item"><Link
+                                        className="nav-link px-lg-3 py-3 py-lg-4"
+                                        to={query.getFilterConfig().getCurrentLinkWithLanguage('de')}
+                                    ><Flag country="de" size={1.0} /> {t('TEXT_NAVIGATION_GE')}</Link></li> :
+                                    <></>
+                            }
+                            {/*{*/}
+                            {/*    language !== 'es' ?*/}
+                            {/*        <li className="nav-item"><Link*/}
+                            {/*            className="nav-link px-lg-3 py-3 py-lg-4"*/}
+                            {/*            to={query.getFilterConfig().getCurrentLinkWithLanguage('es')}*/}
+                            {/*        ><Flag country="es" size={1.0} /> {t('TEXT_NAVIGATION_ES')}</Link></li> :*/}
+                            {/*        <></>*/}
+                            {/*}*/}
                         </ul>
                     </div>
                 </div>

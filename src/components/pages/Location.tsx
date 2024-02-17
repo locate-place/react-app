@@ -33,12 +33,10 @@ import SearchForm from "../layout/SearchForm";
 import SearchMetrics from "../layout/SearchMetrics";
 import SearchPerformance from "../layout/SearchPerformance";
 
-/* Flag icons; see https://github.com/stephenway/react-flagkit */
-import Flag from "react-flagkit";
-
 /* Bootstrap icons; see https://icons.getbootstrap.com/?q=sort#usage */
 import {CursorFill} from "react-bootstrap-icons";
 import {ApiResponseProperty} from "../../classes/Api/ApiResponseProperty";
+import Flag from "../layout/Flag";
 
 /**
  * This is the app locations component.
@@ -129,7 +127,7 @@ const Location = () =>
                                 </div>
 
                                 <h2 className="mt-3">
-                                    <Flag country={location.getProperties().getCountryCode()} size={20}
+                                    <Flag country={location.getProperties().getCountryCode()} size={1}
                                           title={location.getProperties().getCountryCodeTranslated()}/> &nbsp;
                                     {location.getName()}
                                 </h2>

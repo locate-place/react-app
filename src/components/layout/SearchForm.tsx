@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useSearchParams} from "react-router-dom";
 
 /* Import translation libraries. */
@@ -34,6 +34,10 @@ const SearchForm = ({routePathDefault, queryDefault}: SearchFormProps) =>
     /* Memorized variables. */
     const [searchParams] = useSearchParams();
 
+    useEffect(() => {
+        setQuery(queryDefault ?? '');
+    }, [queryDefault]);
+
     /**
      * Handles the search "form submit".
      *
@@ -53,11 +57,11 @@ const SearchForm = ({routePathDefault, queryDefault}: SearchFormProps) =>
     /**
      * Saves input changes.
      *
-     * @param {React.SyntheticEvent<HTMLInputElement>} e
+     * @param {React.SyntheticEvent<HTMLInputElement>} event
      */
-    const handleChange = (e: React.SyntheticEvent<HTMLInputElement>) =>
+    const handleChange = (event: React.SyntheticEvent<HTMLInputElement>) =>
     {
-        setQuery(e.currentTarget.value);
+        setQuery(event.currentTarget.value);
     };
 
     return (
@@ -89,7 +93,7 @@ const SearchForm = ({routePathDefault, queryDefault}: SearchFormProps) =>
                             placeholder="52°31′14.322″N, 13°24′35.2044″E"
                             aria-label={t('TEXT_HEADER_LOCATION_SEARCH')}
                             aria-describedby="location-send"
-                            defaultValue={query ? query : ''}
+                            value={query ? query : ''}
                             onChange={handleChange}
                         />
                         <button

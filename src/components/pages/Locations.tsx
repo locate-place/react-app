@@ -91,6 +91,8 @@ const Locations = () =>
     const apiPath = query.getApiUrl();
     const apiPathWithFilter = query.getApiUrlWithFilter();
 
+    const queryString = query.getFilterConfig().getQuery();
+
     /**
      * useEffect function.
      */
@@ -103,7 +105,7 @@ const Locations = () =>
             setLoaded: setLoaded,
             setError: setError
         });
-    }, [apiPathWithFilter]);
+    }, [apiPathWithFilter, queryString]);
 
     /* Skip empty data */
     if (properties === null || api === null) {
@@ -128,7 +130,7 @@ const Locations = () =>
                     <div className="col-12 col-md-10 offset-md-1 col-xl-8 offset-xl-2">
                         {/* Renders the search form. */}
                         <SearchForm
-                            queryDefault={query.getFilterConfig().getQuery()}
+                            queryDefault={queryString}
                             routePathDefault={routePathLocations}
                         />
 

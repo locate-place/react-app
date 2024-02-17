@@ -24,6 +24,7 @@ import CoordinateDistanceDirection from "./CoordinateDistanceDirection";
 import {Query} from "../../classes/Query";
 import {LocationWrapper} from "../../classes/Api/Location/Location/LocationWrapper";
 import {ApiResponseProperty} from "../../classes/Api/ApiResponseProperty";
+import {mapTypeGoogle, mapTypeOpenStreetMap} from "../../config/MapTypes";
 
 type LocationCardProps = {
     locationWrapper: LocationWrapper|null,
@@ -84,10 +85,10 @@ const LocationCard = ({locationWrapper, apiResponseProperty, showOwnPosition, in
 
     let linkGoogleMaps = showOwnPosition ?
         (ownPositionCard?.getLinks().getGoogle() ?? null) :
-        locationWrapper.getLinks().getMaps('google');
+        locationWrapper.getLinks().getMaps(mapTypeGoogle);
     let linkOpenStreetMaps = showOwnPosition ?
         (ownPositionCard?.getLinks().getOpenStreetMap() ?? null) :
-        locationWrapper.getLinks().getMaps('openstreetmap');
+        locationWrapper.getLinks().getMaps(mapTypeOpenStreetMap);
 
     let elevationText = locationWrapper.getProperties().getElevationText(locationWrapper, t, '-') ?? null;
     let populationText = locationWrapper.getProperties().getPopulationText(locationWrapper, t, '-') ?? null;

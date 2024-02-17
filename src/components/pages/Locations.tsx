@@ -114,6 +114,7 @@ const Locations = () =>
                             {/* Renders the search metrics part. */}
                             <SearchMetrics apiResponseProperty={apiResponseProperty} />
 
+                            {/* Renders the caption and description. */}
                             {
                                 query.getFilterConfig().hasQuery() ?
                                     <>
@@ -125,11 +126,13 @@ const Locations = () =>
                                     </>
                             }
 
+                            {/* Add location sort. */}
                             <LocationSort query={query} apiResponseProperty={apiResponseProperty} />
 
                             {/* Show the results. */}
                             <div className="mt-5"><p>{query.getQueryResultText(t)}</p></div>
 
+                            {/* Renders the results. */}
                             {
                                 apiResponseProperty.hasResults() ?
                                     <>

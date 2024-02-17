@@ -54,10 +54,10 @@ const CalendarPage = () =>
         loadApiData({
             type: apiType,
             path: apiPath,
+            setDataCalendarPage: setData,
+            setProperties: setProperties,
             setLoaded: setLoaded,
             setError: setError,
-            setDataCalendarPage: setData,
-            setProperties: setProperties
         });
     }, [apiType, apiPath]);
 

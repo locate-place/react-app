@@ -51,10 +51,10 @@ const Calendars = () =>
         loadApiData({
             type: apiType,
             path: apiPath,
+            setDataCalendars: setData,
+            setProperties: setProperties,
             setLoaded: setLoaded,
             setError: setError,
-            setDataCalendars: setData,
-            setProperties: setProperties
         });
     }, [apiType, apiPath]);
 

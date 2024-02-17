@@ -60,18 +60,18 @@ const About = () =>
         loadApiData({
             type: typeCalendarBuilder,
             path: apiPathCalendarBuilder,
+            setDataVersion: setDataCalendarBuilder,
+            setProperties: setPropertiesCalendarBuilder,
             setLoaded: setLoadedCalendarBuilder,
             setError: setErrorCalendarBuilder,
-            setDataVersion: setDataCalendarBuilder,
-            setProperties: setPropertiesCalendarBuilder
         });
         loadApiData({
             type: typeLocationApi,
             path: apiPathLocationApi,
+            setDataVersion: setDataLocationApi,
+            setProperties: setPropertiesLocationApi,
             setLoaded: setLoadedLocationApi,
             setError: setErrorLocationApi,
-            setDataVersion: setDataLocationApi,
-            setProperties: setPropertiesLocationApi
         });
     }, [apiPathCalendarBuilder, apiPathLocationApi, typeCalendarBuilder, typeLocationApi]);
 

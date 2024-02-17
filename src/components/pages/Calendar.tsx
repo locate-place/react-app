@@ -53,10 +53,10 @@ const Calendar = () => {
         loadApiData({
             type: apiType,
             path: apiPath,
+            setDataCalendar: setData,
+            setProperties: setProperties,
             setLoaded: setLoaded,
             setError: setError,
-            setDataCalendar: setData,
-            setProperties: setProperties
         });
     }, [apiType, apiPath]);
 

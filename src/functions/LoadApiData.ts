@@ -16,17 +16,18 @@ const loadApiData = (
 {
     const type = parameters.type;
     const path = parameters.path;
+
+    const setDataApi = parameters.setDataApi ?? null;
+    const setProperties = parameters.setProperties;
     const setLoaded = parameters.setLoaded;
     const setError = parameters.setError;
-    const setProperties = parameters.setProperties;
 
     const setDataVersion = parameters.setDataVersion ?? null;
-    const setDataCalendarPage = parameters.setDataCalendarPage ?? null;
-    const setDataCalendar = parameters.setDataCalendar ?? null;
+
     const setDataCalendars = parameters.setDataCalendars ?? null;
-    const setDataLocation = parameters.setDataLocation ?? null;
-    const setDataLocations = parameters.setDataLocations ?? null;
-    const setDataApi = parameters.setDataApi ?? null;
+    const setDataCalendar = parameters.setDataCalendar ?? null;
+    const setDataCalendarPage = parameters.setDataCalendarPage ?? null;
+
     const callback = parameters.callback ?? null;
 
     let url: string|null = null;
@@ -69,26 +70,20 @@ const loadApiData = (
             if (versionResponse) {
                 setLoaded(true);
 
+                if (setDataApi !== null) {
+                    setDataApi(data);
+                }
                 if (setDataVersion !== null) {
                     setDataVersion(data);
-                }
-                if (setDataCalendarPage !== null) {
-                    setDataCalendarPage(data);
-                }
-                if (setDataCalendar !== null) {
-                    setDataCalendar(data);
                 }
                 if (setDataCalendars !== null) {
                     setDataCalendars(data);
                 }
-                if (setDataLocation !== null) {
-                    setDataLocation(data);
+                if (setDataCalendar !== null) {
+                    setDataCalendar(data);
                 }
-                if (setDataLocations !== null) {
-                    setDataLocations(data);
-                }
-                if (setDataApi !== null) {
-                    setDataApi(data);
+                if (setDataCalendarPage !== null) {
+                    setDataCalendarPage(data);
                 }
 
                 return;
@@ -118,26 +113,20 @@ const loadApiData = (
             /* Set data */
             setLoaded(true);
 
+            if (setDataApi !== null) {
+                setDataApi(data);
+            }
             if (setDataVersion !== null) {
                 setDataVersion(data.data);
-            }
-            if (setDataCalendarPage !== null) {
-                setDataCalendarPage(data.data);
-            }
-            if (setDataCalendar !== null) {
-                setDataCalendar(data.data);
             }
             if (setDataCalendars !== null) {
                 setDataCalendars(data.data);
             }
-            if (setDataLocation !== null) {
-                setDataLocation(data.data);
+            if (setDataCalendar !== null) {
+                setDataCalendar(data.data);
             }
-            if (setDataLocations !== null) {
-                setDataLocations(data.data);
-            }
-            if (setDataApi !== null) {
-                setDataApi(data);
+            if (setDataCalendarPage !== null) {
+                setDataCalendarPage(data.data);
             }
 
             if (setProperties) {

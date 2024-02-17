@@ -13,7 +13,6 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 /* Import functions */
 import {convertToGermanFormat} from "../../functions/Date";
-import {getAirportCodeIata, getElevation, getPopulation} from "../../functions/Properties";
 
 /* Add translations */
 import {translateCountryCode} from "../../translations/Country";
@@ -77,7 +76,9 @@ const LocationCard = ({locationWrapper, apiResponseProperty, showOwnPosition, in
     let linkGoogleMaps = showOwnPosition ? (ownPositionCard?.getLinks().getGoogle() ?? null) : locationWrapper.getLinks().getMaps('google');
     let linkOpenStreetMaps = showOwnPosition ? (ownPositionCard?.getLinks().getOpenStreetMap() ?? null) : locationWrapper.getLinks().getMaps('openstreetmap');
 
-    let airportCodeIata = locationWrapper.getProperties().getAirportCodesText(locationWrapper, t) ?? null;
+    let elevationText = locationWrapper.getProperties().getElevationText(locationWrapper, t, '-') ?? null;
+    let populationText = locationWrapper.getProperties().getPopulationText(locationWrapper, t, '-') ?? null;
+    let airportCodesText = locationWrapper.getProperties().getAirportCodeText(locationWrapper, t, ' - ') ?? null;
 
     let queryString = useGeonameIdAsQuery ? locationWrapper.getGeonameId() : locationWrapper.getCoordinate().getDecimal();
 
@@ -96,8 +97,8 @@ const LocationCard = ({locationWrapper, apiResponseProperty, showOwnPosition, in
                             <span><span className="fw-bold">{name}</span>{index !== undefined ? <sup>&nbsp;(#{index + 1})</sup> : null}</span>
                     }
                     {
-                        locationWrapper.getProperties().showAirportCodes(locationWrapper) ?
-                            <><span> - </span><code title="IATA-Code">{airportCodeIata}</code></> :
+                        locationWrapper.getProperties().showAirportCode(locationWrapper) ?
+                            <>{airportCodesText}</> :
                             <></>
                     }
                 </div>
@@ -172,11 +173,11 @@ const LocationCard = ({locationWrapper, apiResponseProperty, showOwnPosition, in
                         <strong>
                             {locationWrapper.getNameFull() ? locationWrapper.getNameFull() : locationWrapper.getName()}
                         </strong>
-                        {getElevation(locationWrapper.get(), ' - ')}
-                        {getPopulation(locationWrapper.get(), ' - ')}
+                        {elevationText}
+                        {populationText}
                         {
-                            airportCodeIata !== null ?
-                                <><span> - </span><code title="IATA-Code">{airportCodeIata}</code></> :
+                            airportCodesText !== null ?
+                                <>{airportCodesText}</> :
                                 <></>
                         }
                         <br/>

@@ -1,8 +1,8 @@
+import React from 'react';
 import {TFunction} from "i18next";
 
 /* Import types. */
 import {
-    TypePlace,
     TypeProperties,
     TypeValue,
 } from "../../../../../types/Types";
@@ -173,7 +173,7 @@ class PropertiesWrapper
      *
      * @param {string} location
      */
-    showAirportCodes(location: LocationWrapper): boolean
+    showAirportCode(location: LocationWrapper): boolean
     {
         return [
             'AIRP'
@@ -182,17 +182,12 @@ class PropertiesWrapper
 
     /**
      * Returns the population for the given place.
-     *
-     * @param location
-     * @param t
-     * @param separator
-     * @returns {string|null}
      */
-    getAirportCodesText = (location: LocationWrapper, t: TFunction<"translation", undefined>, separator: string|null = null): string|null =>
+    getAirportCodeText = (location: LocationWrapper, t: TFunction<"translation", undefined>, separator: string|null = null) =>
     {
         let showMissingAirportCode: boolean = false;
 
-        if (!this.showAirportCodes(location)) {
+        if (!this.showAirportCode(location)) {
             return null;
         }
 
@@ -202,7 +197,19 @@ class PropertiesWrapper
                 null;
         }
 
-        return (separator ? separator : '') + (this.getAirportCodes()?.getIata() ?? '');
+        return <>
+            {
+                separator ?
+                    <span>{separator}</span> :
+                    <></>
+            }
+            {
+                <code title="IATA-Code">
+                    {
+                        this.getAirportCodes()?.getIata() ?? <></>}
+                </code>
+            }
+        </>;
     }
 }
 

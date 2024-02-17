@@ -24,6 +24,8 @@ import {routePathLocation, routePathLocations} from "../config/Route";
 
 /* Import classes. */
 import {NextPlaceWrapper} from "./Api/Location/Location/NextPlaces/NextPlaceWrapper";
+import {NextPlacesConfigWrapper} from "./Api/Location/Location/NextPlacesConfig/NextPlacesConfigWrapper";
+import {LocationWrapper} from "./Api/Location/Location/LocationWrapper";
 
 
 /**
@@ -647,13 +649,20 @@ class FilterConfig
 
     /**
      * Returns Link to given pathname including language and country.
-     *
-     * @param query
-     * @param distance
-     * @param limit
      */
-    getLinkNextPlaces(query: string, distance: number, limit: number): string
+    getLinkNextPlaces(
+        locationWrapper: LocationWrapper,
+        key: string,
+    ): string
     {
+        const nextPlacesConfig = locationWrapper.getNextPlacesConfig();
+
+        const query: string =
+            (nextPlacesConfig.getConfigByNexPlaceFeatureCodes(key, '|') ?? '') + ' ' +
+            locationWrapper.getCoordinate().getDecimal();
+        const distance: number = nextPlacesConfig.getConfigByNexPlaceDistance(key) ?? 0;
+        const limit: number = nextPlacesConfig.getConfigByNexPlaceLimit(key) ?? 0;
+
         const pathname = routePathLocations;
         const language = i18n.language;
         const country = this.getCountryByLanguage(language);

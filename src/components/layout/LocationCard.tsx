@@ -54,35 +54,52 @@ const LocationCard = ({locationWrapper, apiResponseProperty, showOwnPosition, in
     /* Memorized variables. */
     const [searchParams] = useSearchParams();
 
+    /* Gets the Query class to have access to the filter config. */
     let query = new Query(searchParams, env);
-
     let filterConfig = query.getFilterConfig();
 
+    /* No location wrapper given. */
     if (locationWrapper === null) {
         return <></>;
     }
 
-    let nextPlaces = locationWrapper.getNextPlacesConfig();
-
     /* Use own position or from the given location. */
-    let ownPositionCard = showOwnPosition ? (apiResponseProperty.getGiven()?.getCoordinate()?.getParsed() ?? null) : null;
+    let ownPositionCard = showOwnPosition ?
+        (apiResponseProperty.getGiven()?.getCoordinate()?.getParsed() ?? null) :
+        null;
 
-    let latitudeDms = showOwnPosition ? (ownPositionCard?.getLatitude().getDMS() ?? null) : locationWrapper.getCoordinate().getLatitude().getDMS();
-    let longitudeDms = showOwnPosition ? (ownPositionCard?.getLongitude().getDMS() ?? null) : locationWrapper.getCoordinate().getLongitude().getDMS();
+    let latitudeDms = showOwnPosition ?
+        (ownPositionCard?.getLatitude().getDMS() ?? null) :
+        locationWrapper.getCoordinate().getLatitude().getDMS();
+    let longitudeDms = showOwnPosition ?
+        (ownPositionCard?.getLongitude().getDMS() ?? null) :
+        locationWrapper.getCoordinate().getLongitude().getDMS();
 
-    let latitudeDecimal = showOwnPosition ? (ownPositionCard?.getLatitude().getDecimal() ?? null) : locationWrapper.getCoordinate().getLatitude().getDecimal();
-    let longitudeDecimal = showOwnPosition ? (ownPositionCard?.getLongitude().getDecimal() ?? null) : locationWrapper.getCoordinate().getLongitude().getDecimal();
+    let latitudeDecimal = showOwnPosition ?
+        (ownPositionCard?.getLatitude().getDecimal() ?? null) :
+        locationWrapper.getCoordinate().getLatitude().getDecimal();
+    let longitudeDecimal = showOwnPosition ?
+        (ownPositionCard?.getLongitude().getDecimal() ?? null) :
+        locationWrapper.getCoordinate().getLongitude().getDecimal();
 
-    let linkGoogleMaps = showOwnPosition ? (ownPositionCard?.getLinks().getGoogle() ?? null) : locationWrapper.getLinks().getMaps('google');
-    let linkOpenStreetMaps = showOwnPosition ? (ownPositionCard?.getLinks().getOpenStreetMap() ?? null) : locationWrapper.getLinks().getMaps('openstreetmap');
+    let linkGoogleMaps = showOwnPosition ?
+        (ownPositionCard?.getLinks().getGoogle() ?? null) :
+        locationWrapper.getLinks().getMaps('google');
+    let linkOpenStreetMaps = showOwnPosition ?
+        (ownPositionCard?.getLinks().getOpenStreetMap() ?? null) :
+        locationWrapper.getLinks().getMaps('openstreetmap');
 
     let elevationText = locationWrapper.getProperties().getElevationText(locationWrapper, t, '-') ?? null;
     let populationText = locationWrapper.getProperties().getPopulationText(locationWrapper, t, '-') ?? null;
     let airportCodesText = locationWrapper.getProperties().getAirportCodeText(locationWrapper, t, ' - ') ?? null;
 
-    let queryString = useGeonameIdAsQuery ? locationWrapper.getGeonameId() : locationWrapper.getCoordinate().getDecimal();
+    let queryString = useGeonameIdAsQuery ?
+        locationWrapper.getGeonameId() :
+        locationWrapper.getCoordinate().getDecimal();
 
-    let name = useAlwaysName ? locationWrapper.getName() : (locationWrapper.getNameFull() || locationWrapper.getName());
+    let name = useAlwaysName ?
+        locationWrapper.getName() :
+        (locationWrapper.getNameFull() || locationWrapper.getName());
 
     return (
         <>
@@ -119,17 +136,13 @@ const LocationCard = ({locationWrapper, apiResponseProperty, showOwnPosition, in
                             <div className="col-12 col-md-6 col-lg-4 mb-3">
                                 <h4>{t('TEXT_HEADER_NEXT_PLACES')}</h4>
                                 <p className="m-0">
-                                    {nextPlaces.getConfigKeysNextPlaces().map((key, index) => {
+                                    {locationWrapper.getNextPlacesConfig().getConfigKeysNextPlaces().map((key, index) => {
                                         return (
                                             <span key={'next-place-' + key}>
                                                 {index !== 0 ? ', ' : ''}
                                                 <Link
                                                     key={'next-place-' + key}
-                                                    to={filterConfig.getLinkNextPlaces(
-                                                        (nextPlaces.getConfigByNexPlaceFeatureCodes(key, '|') ?? '') + ' ' + locationWrapper.getCoordinate().getDecimal(),
-                                                        nextPlaces.getConfigByNexPlaceDistance(key) ?? 0,
-                                                        nextPlaces.getConfigByNexPlaceLimit(key) ?? 0,
-                                                    )}
+                                                    to={filterConfig.getLinkNextPlaces(locationWrapper, key)}
                                                 >{t('TEXT_LOCATION_CARD_' + key.toUpperCase())}</Link>
                                             </span>
                                         );

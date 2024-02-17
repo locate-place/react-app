@@ -70,8 +70,8 @@ const LinkV2: React.FC<CustomLinkProps> = ({to, children, useCurrentPosition = f
         /* Check the current position. Maybe add current position to "to" link. */
         let filterConfig = query.getFilterConfig();
 
-        filterConfig.setFilterConfigByLink(to);
-        filterConfig.setDoNotResetFilterConfig();
+        filterConfig.setByLink(to);
+        filterConfig.setDoNotResetOrClear();
 
         /* Extract the path name from the "to" link. */
         let pathName = filterConfig.getPathname(to);
@@ -86,9 +86,9 @@ const LinkV2: React.FC<CustomLinkProps> = ({to, children, useCurrentPosition = f
         /* Add current position to query. */
         navigator.geolocation.getCurrentPosition((position) =>
         {
-            filterConfig.setDoNotResetFilterConfig();
+            filterConfig.setDoNotResetOrClear();
             filterConfig.setCurrentPosition(getPosition(position));
-            navigate(query.getFilterConfig().getCurrentLinkWithLanguage(null, null, pathName));
+            navigate(query.getFilterConfig().getLinkTo(pathName));
             return;
         });
 

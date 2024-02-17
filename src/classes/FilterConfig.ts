@@ -25,6 +25,14 @@ import {routePathLocation, routePathLocations} from "../config/Route";
 /* Import classes. */
 import {NextPlaceWrapper} from "./Api/Location/Location/NextPlaces/NextPlaceWrapper";
 import {LocationWrapper} from "./Api/Location/Location/LocationWrapper";
+import * as queryString from "querystring";
+import {
+    nameSortDistance,
+    nameSortDistanceUser,
+    nameSortName,
+    nameSortRelevance,
+    nameSortRelevanceUser
+} from "../config/NameSort";
 
 
 /**
@@ -41,7 +49,7 @@ class FilterConfig
     /* The initialized filter configuration, to avoid parsing the query parameters if needed. */
     private readonly filterConfigInit: TypeFilterConfig = {};
 
-    private doNotResetFilterConfig: boolean = false;
+    private doNotResetOrClear: boolean = false;
 
     /**
      * FilterConfig constructor.
@@ -50,105 +58,45 @@ class FilterConfig
     {
         /* URLSearchParams instance was given. */
         if (init instanceof URLSearchParams) {
-            this.setFilterConfigBySearchParams(init);
+            this.setBySearchParams(init);
 
         /* TypeFilterConfig was given. */
         } else if (init !== null) {
-            this.setFilterConfig(init);
+            this.set(init);
         }
 
-        this.filterConfigInit = this.filterConfig;
+        /* Deep copy of the filter configuration. */
+        this.filterConfigInit = JSON.parse(JSON.stringify(this.filterConfig));
     }
 
     /**
-     * Sets the filter config.
+     * Sets the filter config directly.
      *
      * @param filterConfig
      */
-    setFilterConfig(filterConfig: TypeFilterConfig): void
+    set(filterConfig: TypeFilterConfig): void
     {
         this.filterConfig = filterConfig;
     }
 
     /**
-     * Returns the filter configuration.
+     * Sets the filter config by given to link.
+     *
+     * @param link
      */
-    getFilterConfig(): TypeFilterConfig
-    {
-        return this.filterConfig;
-    }
-
-    /**
-     * Resets the filter configuration to its initial state.
-     */
-    resetFilterConfig(): void
-    {
-        if (this.isDoNotResetFilterConfig()) {
-            this.doNotResetFilterConfig = false;
-            return;
-        }
-
-        this.filterConfig = this.filterConfigInit;
-    }
-
-    /**
-     * Clears the filter config.
-     */
-    clearFilterConfig(): void
-    {
-        this.filterConfig = {};
-    }
-
-    setDoNotResetFilterConfig(doNotResetFilterConfig: boolean|null = null): void
-    {
-        if (doNotResetFilterConfig === null) {
-            this.doNotResetFilterConfig = true;
-            return;
-        }
-
-        this.doNotResetFilterConfig = doNotResetFilterConfig;
-    }
-
-    isDoNotResetFilterConfig(): boolean
-    {
-        return this.doNotResetFilterConfig;
-    }
-
-    getFullQualifiedLink(link: To): string
-    {
-        link = link.toString();
-
-        if (link.startsWith('http')) {
-            return link;
-        }
-
-        if (link.startsWith('/')) {
-            return window.location.origin + link;
-        }
-
-        return window.location.origin + '/' + link;
-    }
-
-    getPathname(link: To): string
+    setByLink(link: To)
     {
         const url = new URL(this.getFullQualifiedLink(link));
 
-        return url.pathname;
-    }
-
-    setFilterConfigByLink(link: To)
-    {
-        const url = new URL(this.getFullQualifiedLink(link));
-
-        this.setFilterConfigBySearchParams(url.searchParams);
+        this.setBySearchParams(url.searchParams);
     }
 
     /**
-     * Returns the filter configuration from the search parameters.
+     * Sets the filter config by given search params.
      *
      * @returns {TypeFilterConfig}
      */
-    setFilterConfigBySearchParams(searchParams: URLSearchParams): void
+    setBySearchParams(searchParams: URLSearchParams): void
     {
         this.filterConfig = {};
 
@@ -197,6 +145,103 @@ class FilterConfig
         /* Add parameter "next_places". */
         nextPlaces && this.setNextPlaces(true);
     };
+
+    /**
+     * Returns the filter configuration.
+     */
+    get(): TypeFilterConfig
+    {
+        return this.filterConfig;
+    }
+
+    /**
+     * Returns the filter configuration.
+     */
+    getInit(): TypeFilterConfig
+    {
+        return this.filterConfigInit;
+    }
+
+    /**
+     * Resets the filter configuration to its initial state.
+     */
+    reset(): void
+    {
+        if (this.isDoNotResetOrClear()) {
+            this.doNotResetOrClear = false;
+            return;
+        }
+
+        this.filterConfig = JSON.parse(JSON.stringify(this.filterConfigInit));
+    }
+
+    /**
+     * Clears the filter config.
+     */
+    clear(): void
+    {
+        if (this.isDoNotResetOrClear()) {
+            this.doNotResetOrClear = false;
+            return;
+        }
+
+        this.filterConfig = {};
+    }
+
+    /**
+     * Sets if the next clear or reset call should be ignored.
+     *
+     * @param doNotResetOrClear
+     */
+    setDoNotResetOrClear(doNotResetOrClear: boolean|null = null): void
+    {
+        if (doNotResetOrClear === null) {
+            this.doNotResetOrClear = true;
+            return;
+        }
+
+        this.doNotResetOrClear = doNotResetOrClear;
+    }
+
+    /**
+     * Returns if the next clear or reset call should be ignored.
+     */
+    isDoNotResetOrClear(): boolean
+    {
+        return this.doNotResetOrClear;
+    }
+
+    /**
+     * Returns the fully qualified link to given to link.
+     *
+     * @param link
+     */
+    getFullQualifiedLink(link: To): string
+    {
+        link = link.toString();
+
+        if (link.startsWith('http')) {
+            return link;
+        }
+
+        if (link.startsWith('/')) {
+            return window.location.origin + link;
+        }
+
+        return window.location.origin + '/' + link;
+    }
+
+    /**
+     * Returns the pathname of given to link.
+     *
+     * @param link
+     */
+    getPathname(link: To): string
+    {
+        const url = new URL(this.getFullQualifiedLink(link));
+
+        return url.pathname;
+    }
 
 
 
@@ -423,7 +468,7 @@ class FilterConfig
      */
     hasSort(): boolean
     {
-        return !!this.filterConfig[nameParameterSort];
+        return !!this.filterConfigInit[nameParameterSort];
     }
 
     /**
@@ -433,7 +478,7 @@ class FilterConfig
      */
     getSort(): string|null
     {
-        return this.filterConfig[nameParameterSort] ?? null;
+        return this.filterConfigInit[nameParameterSort] ?? null;
     }
 
     /**
@@ -583,77 +628,156 @@ class FilterConfig
         }
     }
 
+    /**
+     * Adds current language and country to the query string.
+     */
+    addLanguageAndCountry(
+        language: string|null = null,
+        country: string|null = null,
+    ): void
+    {
+        this.setLanguage(language ?? i18n.language);
+        this.setCountry(country ?? this.getCountryByLanguage(this.getLanguage()));
+    }
+
 
 
     /**
      * Builds
      *
      * @param pathname
-     * @param queryString
+     * @param ignoreDefaultLocale {boolean}
      */
-    getLinkFull(pathname: string|null = null, queryString: string|null = null): string
+    getLinkFullConverted(pathname: string|null = null, ignoreDefaultLocale: boolean = false): string
     {
+        /* User current pathname if no one was given. */
         pathname = pathname ?? window.location.pathname;
 
         const separator = pathname !== null && pathname.includes('?') ? '&' : '?';
 
-        queryString = queryString !== null ? separator + queryString : '';
-
-        return pathname + queryString;
+        return pathname + separator + this.getConvertedFilterQueryString(ignoreDefaultLocale);
     }
 
     /**
-     * Returns Link to given pathname including language and country.
+     * Returns link to given pathname including current language and country.
      *
      * @param pathname
      */
     getLinkTo(pathname: string): string
     {
-        const language = i18n.language;
-        const country = this.getCountryByLanguage(language);
-
-        this.clearFilterConfig();
-        this.setLanguage(language);
-        this.setCountry(country);
-
-        return this.getLinkFull(pathname, this.getConvertedFilterQueryString(true));
+        this.clear();
+        this.addLanguageAndCountry();
+        return this.getLinkFullConverted(pathname, true);
     }
 
     /**
-     * Returns Link to given pathname including language and country.
+     * Returns the current link including given language and country code.
+     *
+     * @param language
+     * @param country
+     */
+    getLinkCurrentByLanguage(
+        language: string|null = null,
+        country: string|null = null,
+    ): string
+    {
+        this.reset();
+        this.addLanguageAndCountry(language, country);
+        return this.getLinkFullConverted(null, true);
+    }
+
+    /**
+     * Returns the location detail link by given query.
      *
      * @param query
      */
     getLinkLocationQuery(query: string): string
     {
-        const pathname = routePathLocation;
-        const language = i18n.language;
-        const country = this.getCountryByLanguage(language);
+        this.reset();
 
-        this.resetFilterConfig();
         const ownPosition = this.getCurrentPosition();
 
-        this.clearFilterConfig();
+        this.clear();
         this.setQuery(query);
         this.setNextPlaces(true);
-        this.setLanguage(language);
-        this.setCountry(country);
+        this.setLanguage(i18n.language);
+        this.setCountry(this.getCountryByLanguage(this.getLanguage()));
 
         if (ownPosition !== null) {
             this.setCurrentPosition(ownPosition);
         }
 
-        return this.getLinkFull(pathname, this.getConvertedFilterQueryString(true));
+        return this.getLinkFullConverted(routePathLocation, true);
     }
 
     /**
-     * Returns Link to given pathname including language and country.
+     * Returns the location list link given by sort value.
+     *
+     * @param sort
      */
-    getLinkNextPlaces(
+    getLinkLocations(sort: string|null = null): string
+    {
+        this.reset();
+
+        if (sort !== null) {
+            this.setSort(sort);
+        }
+
+        this.setPage('1');
+
+        return this.getLinkFullConverted(routePathLocations, true);
+    }
+
+    /**
+     * Returns the location list link by distance.
+     */
+    getLinkLocationsSortByDistance(): string
+    {
+        return this.getLinkLocations(nameSortDistance);
+    }
+
+    /**
+     * Returns the location list link by distance user.
+     */
+    getLinkLocationsSortByDistanceUser(): string
+    {
+        return this.getLinkLocations(nameSortDistanceUser);
+    }
+
+    /**
+     * Returns the location list link by name.
+     */
+    getLinkLocationsSortByName(): string
+    {
+        return this.getLinkLocations(nameSortName);
+    }
+
+    /**
+     * Returns the location list link by relevance.
+     */
+    getLinkLocationsSortByRelevance(): string
+    {
+        return this.getLinkLocations(nameSortRelevance);
+    }
+
+    /**
+     * Returns the location list link by relevance user.
+     */
+    getLinkLocationsSortByRelevanceUser(): string
+    {
+        return this.getLinkLocations(nameSortRelevanceUser);
+    }
+
+    /**
+     * Returns the link to next places by next places config from the current location.
+     */
+    getLinkNextListPlacesByNextPlacesConfig(
         locationWrapper: LocationWrapper,
         key: string,
     ): string
     {
+        this.reset();
+
         const nextPlacesConfig = locationWrapper.getNextPlacesConfig();
 
         const query: string =
@@ -662,14 +786,12 @@ class FilterConfig
         const distance: number = nextPlacesConfig.getConfigByNexPlaceDistance(key) ?? 0;
         const limit: number = nextPlacesConfig.getConfigByNexPlaceLimit(key) ?? 0;
 
-        const pathname = routePathLocations;
         const language = i18n.language;
         const country = this.getCountryByLanguage(language);
 
-        this.resetFilterConfig();
         const ownPosition = this.getCurrentPosition();
 
-        this.clearFilterConfig();
+        this.clear();
         this.setQuery(query);
         this.setDistance(distance.toString());
         this.setLimit(limit.toString());
@@ -680,41 +802,20 @@ class FilterConfig
             this.setCurrentPosition(ownPosition);
         }
 
-        return this.getLinkFull(pathname, this.getConvertedFilterQueryString(true));
+        return this.getLinkFullConverted(routePathLocations, true);
     }
 
     /**
-     * Returns the current link including given language and country code.
-     *
-     * @param language
-     * @param country
-     * @param pathname
-     */
-    getCurrentLinkWithLanguage(
-        language: string|null = null,
-        country: string|null = null,
-        pathname: string|null = null,
-    ): string
-    {
-        language = language ?? i18n.language;
-        country = country ?? this.getCountryByLanguage(language);
-
-        this.resetFilterConfig();
-        this.setLanguage(language);
-        this.setCountry(country);
-
-        return this.getLinkFull(pathname, this.getConvertedFilterQueryString());
-    }
-
-    /**
-     * Returns the next places link with coordinate.
+     * Returns the next places list by location or coordinate.
      *
      * @param nextPlace
      */
-    getNextPlacesListLink(
+    getLinkNextPlacesList(
         nextPlace: NextPlaceWrapper
     ): string
     {
+        this.reset();
+
         const coordinate = nextPlace.getConfigCoordinateDecimal();
         const featureClass = nextPlace.getFeatureClassCode();
         const distance = nextPlace.getConfigDistanceMeter();
@@ -722,7 +823,6 @@ class FilterConfig
 
         switch (nextPlace.getConfigCoordinateType()) {
             case 'location':
-                this.resetFilterConfig();
                 this.setQuery(featureClass + ' ' + coordinate);
                 this.setDistance(distance.toString());
                 this.setLimit(limit.toString());
@@ -730,7 +830,6 @@ class FilterConfig
                 break;
 
             case 'coordinate':
-                this.resetFilterConfig();
                 this.setQuery(featureClass + ' ' + this.getQuery());
                 this.setDistance(distance.toString());
                 this.setLimit(limit.toString());
@@ -741,7 +840,7 @@ class FilterConfig
                 throw new Error('Unsupported coordinate type: ' + nextPlace.getConfigCoordinateType());
         }
 
-        return this.getLinkFull(routePathLocations, this.getConvertedFilterQueryString(true));
+        return this.getLinkFullConverted(routePathLocations, true);
     }
 }
 

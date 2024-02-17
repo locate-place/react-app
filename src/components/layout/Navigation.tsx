@@ -60,7 +60,7 @@ const Navigation = () =>
                                 language !== 'en' ?
                                     <li className="nav-item"><Link
                                         className="nav-link px-lg-3 py-3 py-lg-4"
-                                        to={query.getFilterConfig().getCurrentLinkWithLanguage('en')}
+                                        to={query.getFilterConfig().getLinkCurrentByLanguage('en')}
                                     ><Flag country="us" size={1} /> {t('TEXT_NAVIGATION_EN')}</Link></li> :
                                     <></>
                             }
@@ -68,7 +68,7 @@ const Navigation = () =>
                                 language !== 'de' ?
                                     <li className="nav-item"><Link
                                         className="nav-link px-lg-3 py-3 py-lg-4"
-                                        to={query.getFilterConfig().getCurrentLinkWithLanguage('de')}
+                                        to={query.getFilterConfig().getLinkCurrentByLanguage('de')}
                                     ><Flag country="de" size={1.0} /> {t('TEXT_NAVIGATION_GE')}</Link></li> :
                                     <></>
                             }

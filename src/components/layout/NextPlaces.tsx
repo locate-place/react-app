@@ -57,7 +57,7 @@ const NextPlaces = ({nextPlace}: NextPlacesProps) =>
                     {nextPlace.getConfigLimitationText(t)} -&nbsp;
                     {t('TEXT_NEXT_PLACE_SORTED_BY_DISTANCE_TEXT')} -&nbsp;
                     <LinkV2
-                        to={query.getFilterConfig().getNextPlacesListLink(nextPlace)}
+                        to={query.getFilterConfig().getLinkNextPlacesList(nextPlace)}
                     >{t('TEXT_NEXT_PLACE_SHOW_LIST_TEXT')}</LinkV2>
                 </small></p>
                 <table className="table table-last-line">

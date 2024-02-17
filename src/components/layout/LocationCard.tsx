@@ -159,7 +159,7 @@ const LocationCard = ({locationWrapper, apiResponseProperty, showOwnPosition, in
                                                 {index !== 0 ? ', ' : ''}
                                                 <Link
                                                     key={'next-place-' + key}
-                                                    to={filterConfig.getLinkNextPlaces(locationWrapper, key)}
+                                                    to={filterConfig.getLinkNextListPlacesByNextPlacesConfig(locationWrapper, key)}
                                                 >{t('TEXT_LOCATION_CARD_' + key.toUpperCase())}</Link>
                                             </span>
                                         );

@@ -80,7 +80,7 @@ class Query
      */
     getFilterConfigFilterConfig(): TypeFilterConfig
     {
-        return this.filterConfig.getFilterConfig();
+        return this.filterConfig.get();
     }
 
     /**
@@ -88,7 +88,7 @@ class Query
      */
     resetFilterConfig(): void
     {
-        this.filterConfig.resetFilterConfig();
+        this.filterConfig.reset();
     }
 
     /**
@@ -172,7 +172,7 @@ class Query
      *
      * @return {boolean}
      */
-    isCoordinateSearch(): boolean
+    isCoordinateSearch(includesOwnPosition: boolean = true): boolean
     {
         if (this.apiResponseProperty === null) {
             throw new Error('The property class must be set before using isCoordinateSearch.');
@@ -188,7 +188,7 @@ class Query
             return true;
         }
 
-        return this.filterConfig.hasCurrentPosition();
+        return includesOwnPosition && this.filterConfig.hasCurrentPosition();
     }
 
 

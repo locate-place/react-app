@@ -18,14 +18,8 @@ import {
     nameSortRelevanceUser
 } from "../../config/NameSort";
 
-/* Imports functions. */
-import {
-    sortByDistance,
-    sortByDistanceUser,
-    sortByName,
-    sortByRelevance,
-    sortByRelevanceUser
-} from "../../functions/QueryFunctions";
+/* Imports components. */
+import LinkV2 from "./LinkV2";
 
 /* Location sort properties. */
 type LocationSortProps = {
@@ -41,7 +35,7 @@ const LocationSort = ({query, apiResponseProperty}: LocationSortProps) =>
     /* Import translation. */
     const { t } = useTranslation();
 
-    const filterConfig = query.getFilterConfig().getFilterConfig();
+    const filterConfig = query.getFilterConfig();
 
     return (
         <>
@@ -59,52 +53,56 @@ const LocationSort = ({query, apiResponseProperty}: LocationSortProps) =>
                         }&nbsp;
                         <sup><small>{t('TEXT_ACTION_SORTING')}</small></sup>
                     </button>
-                    <button
+                    <LinkV2
+                        to={filterConfig.getLinkLocationsSortByName()}
+                        title={t('TEXT_TITLE_SORT_BY_NAME')}
                         className={'btn ' + (query.isSortedBy(nameSortName) ? 'btn-secondary' : 'btn-outline-secondary')}
-                        onClick={() => sortByName(filterConfig)} title={t('TEXT_TITLE_SORT_BY_NAME')}>
+                    >
                         <SortAlphaDown size={sizeIcon.Button}/> <sup><small>{t('TEXT_ACTION_NAME')}</small></sup>
-                    </button>
+                    </LinkV2>
                     {
-                        query.isCoordinateSearch() ?
-                            <button
-                                className={'btn ' + (query.isSortedBy([nameSortDistanceUser, nameSortDistance]) ? 'btn-secondary' : 'btn-outline-secondary')}
-                                onClick={() => sortByDistance(filterConfig)}
+                        query.isCoordinateSearch(false) ?
+                            <LinkV2
+                                to={filterConfig.getLinkLocationsSortByDistance()}
                                 title={t('TEXT_TITLE_SORT_BY_DISTANCE')}
+                                className={'btn ' + (query.isSortedBy([nameSortDistanceUser, nameSortDistance]) ? 'btn-secondary' : 'btn-outline-secondary')}
                             >
                                 <CursorFill size={sizeIcon.ButtonSmall}/>&nbsp;
                                 <SortNumericDown size={sizeIcon.Button}/>&nbsp;
                                 <sup><small>{t('TEXT_ACTION_KM')}</small></sup>
-                            </button> :
-                            <button
-                                className={'btn ' + (query.isSortedBy([nameSortDistanceUser, nameSortDistance]) ? 'btn-secondary' : 'btn-outline-secondary')}
-                                onClick={() => sortByDistanceUser(filterConfig)}
+                            </LinkV2> :
+                            <LinkV2
+                                to={filterConfig.getLinkLocationsSortByDistanceUser()}
+                                useCurrentPosition={true}
                                 title={t('TEXT_TITLE_SORT_BY_DISTANCE_FROM_USER')}
+                                className={'btn ' + (query.isSortedBy([nameSortDistanceUser, nameSortDistance]) ? 'btn-secondary' : 'btn-outline-secondary')}
                             >
                                 <SortNumericDown size={sizeIcon.Button}/>&nbsp;
                                 <sup><small>{t('TEXT_ACTION_KM')}</small></sup>
-                            </button>
+                            </LinkV2>
                     }
                     {
                         query.getFilterConfig().hasQuery() ?
                             (
                                 query.isCoordinateSearch() ?
-                                    <button
-                                        className={'btn ' + (query.isSortedBy([nameSortRelevanceUser, nameSortRelevance]) ? 'btn-secondary' : 'btn-outline-secondary')}
-                                        onClick={() => sortByRelevance(filterConfig)}
+                                    <LinkV2
+                                        to={filterConfig.getLinkLocationsSortByRelevance()}
                                         title={t('TEXT_TITLE_SORT_BY_RELEVANCE')}
+                                        className={'btn ' + (query.isSortedBy([nameSortRelevanceUser, nameSortRelevance]) ? 'btn-secondary' : 'btn-outline-secondary')}
                                     >
                                         <CursorFill size={sizeIcon.ButtonSmall}/>&nbsp;
                                         <SortDown size={sizeIcon.Button}/>
                                         <sup><small>{t('TEXT_ACTION_RELEVANCE')}</small></sup>
-                                    </button> :
-                                    <button
-                                        className={'btn ' + (query.isSortedBy([nameSortRelevanceUser, nameSortRelevance]) ? 'btn-secondary' : 'btn-outline-secondary')}
-                                        onClick={() => sortByRelevanceUser(filterConfig)}
+                                    </LinkV2> :
+                                    <LinkV2
+                                        to={filterConfig.getLinkLocationsSortByRelevanceUser()}
                                         title={t('TEXT_TITLE_SORT_BY_RELEVANCE_OF_THE_USER')}
+                                        useCurrentPosition={true}
+                                        className={'btn ' + (query.isSortedBy([nameSortRelevanceUser, nameSortRelevance]) ? 'btn-secondary' : 'btn-outline-secondary')}
                                     >
                                         <SortDown size={sizeIcon.Button}/>&nbsp;
                                         <sup><small>{t('TEXT_ACTION_RELEVANCE')}</small></sup>
-                                    </button>
+                                    </LinkV2>
                             ) :
                             <></>
                     }

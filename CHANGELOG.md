@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Changelogs
 
+### [0.2.6] - 2023-02-19
+
+* Improve error output and information
+
 ### [0.2.5] - 2023-02-18
 
 * Add calendar translation

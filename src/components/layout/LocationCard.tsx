@@ -217,7 +217,7 @@ const LocationCard = ({locationWrapper, apiResponseProperty, showOwnPosition, in
 
                         <br/>
                         <span>
-                            <strong>Letztes Update</strong>: {convertToGermanFormat(locationWrapper.getUpdateAt())}
+                            <strong>{t('TEXT_WORD_LAST_UPDATE')}</strong>: {convertToGermanFormat(locationWrapper.getUpdateAt())}
                         </span>
                     </small></small>
                 </div>
@@ -225,7 +225,7 @@ const LocationCard = ({locationWrapper, apiResponseProperty, showOwnPosition, in
                     {
                         showOwnPosition ?
                             <>
-                                <strong>Position</strong>: <span
+                                <strong>{t('TEXT_WORD_POSITION')}</strong>: <span
                                 title={latitudeDecimal ? latitudeDecimal.toString() : ''}>{latitudeDms}</span>, <span
                                 title={longitudeDecimal ? longitudeDecimal.toString() : ''}>{longitudeDms}</span>
                             </> :

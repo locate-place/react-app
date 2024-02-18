@@ -139,6 +139,13 @@
   "TEXT_ERROR_API_RESPONSE_INVALID": "Die API-Antwort ist ungültig.",
   "TEXT_ERROR_API_WRONG_TYPE": "Falscher API-Typ angegeben.",
 
+  "TEXT_COORDINATE_DISTANCE_DIRECTION_SEARCH_DISTANCE_DIRECTION": "Abstand und Richtung zur gesuchten Position",
+  "TEXT_COORDINATE_DISTANCE_DIRECTION_SEARCH_DISTANCE": "Abstand zur gesuchten Position",
+  "TEXT_COORDINATE_DISTANCE_DIRECTION_SEARCH_DIRECTION": "Richtung zur gesuchten Position",
+  "TEXT_COORDINATE_DISTANCE_DIRECTION_OWN_DISTANCE_DIRECTION": "Abstand und Richtung zur eigenen Position",
+  "TEXT_COORDINATE_DISTANCE_DIRECTION_OWN_DISTANCE": "Abstand zur eigenen Position",
+  "TEXT_COORDINATE_DISTANCE_DIRECTION_OWN_DIRECTION": "Richtung zur eigenen Position",
+
   "TEXT_WORD_API": "API",
   "TEXT_WORD_API_ERROR": "API Fehler",
   "TEXT_WORD_BACK_TO_THE_CALENDAR": "Zurück zum Kalender",
@@ -147,6 +154,7 @@
   "TEXT_WORD_COORDINATE": "Koordinate",
   "TEXT_WORD_CURRENT_VERSION": "Aktuelle Version",
   "TEXT_WORD_DISTANCE": "Abstand",
+  "TEXT_WORD_DISTANCE_OWN_POSITION": "Abstand eigene Postion",
   "TEXT_WORD_EMAIL": "E-Mail",
   "TEXT_WORD_ERROR": "Fehler",
   "TEXT_WORD_FEATURE_CODES": "Feature-Codes",

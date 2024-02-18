@@ -1,4 +1,5 @@
 import React from "react";
+import {useTranslation} from "react-i18next";
 
 /* Add configurations */
 import {sizeIcon} from "../../config/Config";
@@ -19,7 +20,11 @@ type CoordinateDistanceDirectionProps = {
 /**
  * This is the coordinate, distance and direction part.
  */
-const CoordinateDistanceDirection = ({location}: CoordinateDistanceDirectionProps) => {
+const CoordinateDistanceDirection = ({location}: CoordinateDistanceDirectionProps) =>
+{
+    /* Import translation. */
+    const { t } = useTranslation();
+
     const hasCoordinate: boolean = !!location.coordinate;
     const latitudeDms: string = hasCoordinate ? location.coordinate.latitude.dms : '';
     const longitudeDms: string = hasCoordinate ? location.coordinate.longitude.dms : '';
@@ -73,7 +78,7 @@ const CoordinateDistanceDirection = ({location}: CoordinateDistanceDirectionProp
                         <></>
                 }
 
-                <strong>Position</strong>:&nbsp;
+                <strong>{t('TEXT_WORD_POSITION')}</strong>:&nbsp;
                 <span style={{lineHeight: '10px'}}><Geo size={sizeIcon.TextSmall}/></span>&nbsp;
                 <span title={latitudeDecimal}>{latitudeDms}</span>,&nbsp;
                 <span title={longitudeDecimal}>{longitudeDms}</span>
@@ -81,18 +86,18 @@ const CoordinateDistanceDirection = ({location}: CoordinateDistanceDirectionProp
                     hasDistance || hasDirection ?
                         <>
                             <br/>
-                            <span title="Abstand und Richtung zur gesuchten Position">
-                                <strong>Abstand</strong>:&nbsp;
+                            <span title={t('TEXT_COORDINATE_DISTANCE_DIRECTION_SEARCH_DISTANCE_DIRECTION')}>
+                                <strong>{t('TEXT_WORD_DISTANCE')}</strong>:&nbsp;
                                 <sup><Compass size={sizeIcon.TextSmall}/></sup>&nbsp;
                             </span>
                             {
                                 hasDistance ?
-                                    <span title="Abstand zur gesuchten Position">{distance}</span> :
+                                    <span title={t('TEXT_COORDINATE_DISTANCE_DIRECTION_SEARCH_DISTANCE')}>{distance}</span> :
                                     <></>
                             }
                             {
                                 hasDirection ?
-                                    <span title="Richtung zur gesuchten Position"> - {direction}</span> :
+                                    <span title={t('TEXT_COORDINATE_DISTANCE_DIRECTION_SEARCH_DIRECTION')}> - {direction}</span> :
                                     <></>
                             }
                         </> :
@@ -102,18 +107,18 @@ const CoordinateDistanceDirection = ({location}: CoordinateDistanceDirectionProp
                     hasDistanceUser || hasDirectionUser ?
                         <>
                             <br/>
-                            <span title="Abstand und Richtung zur eigenen Position">
-                                <strong>Abstand eigene Postion</strong>:&nbsp;
+                            <span title={t('TEXT_COORDINATE_DISTANCE_DIRECTION_OWN_DISTANCE_DIRECTION')}>
+                                <strong>{t('TEXT_WORD_DISTANCE_OWN_POSITION')}</strong>:&nbsp;
                                 <Compass size={sizeIcon.TextSmall}/>&nbsp;
                             </span>
                             {
                                 hasDistanceUser ?
-                                    <span title="Abstand zur eigenen Position">{distanceUser}</span> :
+                                    <span title={t('TEXT_COORDINATE_DISTANCE_DIRECTION_OWN_DISTANCE')}>{distanceUser}</span> :
                                     <></>
                             }
                             {
                                 hasDirectionUser ?
-                                    <span title="Richtung zur eigenen Position"> - {directionUser}</span> :
+                                    <span title={t('TEXT_COORDINATE_DISTANCE_DIRECTION_OWN_DIRECTION')}> - {directionUser}</span> :
                                     <></>
                             }
                         </> :

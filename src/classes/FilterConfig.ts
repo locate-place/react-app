@@ -862,6 +862,19 @@ class FilterConfig
 
         return this.getLinkFullConverted(routePathLocations, true);
     }
+
+    /**
+     * Returns the next places link with the given page number.
+     */
+    getLinkNextPlacesPage(page: number): string
+    {
+        this.reset();
+
+        this.setPage(page.toString());
+
+        this.setDoNotResetOrClear();
+        return this.getLinkCurrent();
+    }
 }
 
 /*

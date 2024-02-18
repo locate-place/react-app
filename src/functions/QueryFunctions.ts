@@ -1,62 +1,6 @@
-/* Import types */
-import {TypeFilterConfig} from "../types/Types";
-
 /* Configurations */
 const reactPathLocations: string = '/locations.html';
 const reactPathLocation: string = '/location.html';
-
-/* Parameter names */
-const nameParameterPage: 'page' = 'page';
-
-/**
- * Converts the filter configuration into a query string.
- *
- * @param {TypeFilterConfig} filterConfig
- */
-const convertFilterToQueryString = (filterConfig: TypeFilterConfig): string =>
-{
-    const keyValuePairs = [];
-
-    for (let key in filterConfig) {
-        let value: string | null = filterConfig[key as keyof TypeFilterConfig] ?? null;
-
-        if (value === null) {
-            continue;
-        }
-
-        keyValuePairs.push(key + '=' + encodeURIComponent(value));
-    }
-
-    return keyValuePairs.join('&');
-}
-
-/**
- * Redirects to given filter configuration.
- *
- * @param {TypeFilterConfig} filterConfig
- */
-const redirectToFilter = (filterConfig: TypeFilterConfig): void =>
-{
-    window.location.href = reactPathLocations + '?' + convertFilterToQueryString(filterConfig);
-}
-
-/**
- * Redirects to the next page.
- *
- * @param {TypeFilterConfig} filterConfig
- * @param {string} page
- */
-const redirectNextPage = (
-    filterConfig: TypeFilterConfig,
-    page: number
-): void =>
-{
-    let filter = { ...filterConfig };
-
-    filter[nameParameterPage] = page.toString();
-
-    redirectToFilter(filter);
-}
 
 /**
  * Returns if the query contains a geoname id.
@@ -180,7 +124,6 @@ const trimString = (inputString: string): string =>
  * Export functions.
  */
 export {
-    redirectNextPage,
     getPathLocationApi,
     trimString
 }

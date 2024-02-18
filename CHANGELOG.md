@@ -7,6 +7,38 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Changelogs
 
+### [0.2.0] - 2023-02-18
+
+* Add menu closer on mobile view
+* Add compass callback to api call
+* Add translations and activation of the Spanish and English language
+  * First Spanish and English translations
+  * Add language switcher
+* Handle API errors
+* Add next_places to own location link
+* Link refactoring (no reload of the whole page anymore)
+* Add new components
+  * Add own Flag component
+  * Add LinkV2 component (with current position search)
+* Add wikipedia link to LocationCard
+* Add API wrapper classes to have easy access to the API
+  * Add jest unit tests
+  * Add location test with current location (mock)
+  * Increase jest performance
+  * etc.
+* Switch fully to Typescript (replace all vanilla javascript files)
+  * Fix reactJS issues
+  * Change index.js to index.tsx
+  * Change App.js to App.tsx
+  * Add missing types and fix all any types 
+  * etc.
+* Function refactoring
+  * Move many functions to classes structure (architecture) 
+* Api class refactoring
+* Query refactoring
+* Update npm packages
+* Add wikipedia link with soft hyphens
+
 ### [0.1.20] - 2023-01-26
 
 * Add pager

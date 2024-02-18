@@ -125,7 +125,7 @@ const About = () =>
                                     </ul>
                                 </div>
                                 <div className="card-footer fst-italic">
-                                    <small><small>Version {process.env.REACT_APP_VERSION_APP}</small></small>
+                                    <small><small>Version {process.env.REACT_APP_VERSION_APP} - {process.env.REACT_APP_VERSION_APP_DATE}</small></small>
                                 </div>
                             </div>
 

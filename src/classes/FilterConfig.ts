@@ -695,6 +695,18 @@ class FilterConfig
     }
 
     /**
+     * Returns the location detail link by current location.
+     */
+    getLinkLocationCurrent(): string
+    {
+        this.reset();
+
+        this.setNextPlaces(true);
+
+        return this.getLinkFullConverted(routePathLocation, true);
+    }
+
+    /**
      * Returns the location detail link by given query.
      *
      * @param query

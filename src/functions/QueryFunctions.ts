@@ -6,10 +6,7 @@ const reactPathLocations: string = '/locations.html';
 const reactPathLocation: string = '/location.html';
 
 /* Parameter names */
-const nameParameterQuery: 'q' = 'q';
-const nameParameterCurrentPosition: 'p' = 'p';
 const nameParameterPage: 'page' = 'page';
-const nameParameterNextPlaces: 'next_places' = 'next_places';
 
 /**
  * Converts the filter configuration into a query string.
@@ -59,48 +56,6 @@ const redirectNextPage = (
     filter[nameParameterPage] = page.toString();
 
     redirectToFilter(filter);
-}
-
-/**
- * Search with current position.
- */
-const redirectCurrentPosition = (): void =>
-{
-    /* Create a new filter */
-    let filter: TypeFilterConfig = {};
-
-    navigator.geolocation.getCurrentPosition((position) => {
-        let coordinate: string = getPosition(position);
-
-        filter[nameParameterQuery] = coordinate;
-        filter[nameParameterCurrentPosition] = coordinate;
-        filter[nameParameterNextPlaces] = '1';
-
-        window.location.href = reactPathLocation + '?' + convertFilterToQueryString(filter);
-    });
-}
-
-/**
- * Rounds the given value to the given number of decimals.
- *
- * @param {number} value
- * @param {number} decimals
- * @returns {number}
- */
-const round = (value: number, decimals: number): number =>
-{
-    return Number(Math.round(Number(value + 'e' + decimals)) + 'e-' + decimals);
-};
-
-/**
- * Returns the latitude and longitude of the current position.
- *
- * @param {GeolocationPosition} position
- * @returns {string}
- */
-const getPosition = (position: GeolocationPosition): string =>
-{
-    return round(position.coords.latitude, 6) + ',' + round(position.coords.longitude, 6);
 }
 
 /**
@@ -226,7 +181,6 @@ const trimString = (inputString: string): string =>
  */
 export {
     redirectNextPage,
-    redirectCurrentPosition,
     getPathLocationApi,
     trimString
 }

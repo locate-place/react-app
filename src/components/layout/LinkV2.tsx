@@ -9,6 +9,7 @@ interface CustomLinkProps extends LinkProps {
     to: To,
     children: ReactNode,
     useCurrentPosition?: boolean,
+    setQuery?: boolean
 }
 
 /**
@@ -20,7 +21,13 @@ interface CustomLinkProps extends LinkProps {
  * @param props
  * @constructor
  */
-const LinkV2: React.FC<CustomLinkProps> = ({to, children, useCurrentPosition = false, ...props}) =>
+const LinkV2: React.FC<CustomLinkProps> = ({
+    to,
+    children,
+    useCurrentPosition = false,
+    setQuery = false,
+    ...props
+}) =>
 {
     let navigate = useNavigate();
 
@@ -86,8 +93,15 @@ const LinkV2: React.FC<CustomLinkProps> = ({to, children, useCurrentPosition = f
         /* Add current position to query. */
         navigator.geolocation.getCurrentPosition((position) =>
         {
+            const positionString = getPosition(position);
+
             filterConfig.setDoNotResetOrClear();
-            filterConfig.setCurrentPosition(getPosition(position));
+            filterConfig.setCurrentPosition(positionString);
+
+            if (setQuery) {
+                filterConfig.setQuery(positionString);
+            }
+
             navigate(query.getFilterConfig().getLinkTo(pathName));
             return;
         });

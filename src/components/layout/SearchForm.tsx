@@ -10,10 +10,11 @@ import {sizeIcon} from "../../config/Config";
 import {GlobeAmericas, CursorFill, HouseFill} from "react-bootstrap-icons";
 
 /* Import functions */
-import {getPathLocationApi, redirectCurrentPosition} from "../../functions/QueryFunctions";
+import {getPathLocationApi} from "../../functions/QueryFunctions";
 
 /* Import classes. */
 import {Query} from "../../classes/Query";
+import LinkV2 from "./LinkV2";
 
 /* Search form properties. */
 type SearchFormProps = {
@@ -96,14 +97,16 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
                             value={queryString ? queryString : ''}
                             onChange={handleChange}
                         />
-                        <button
-                            className="btn btn-outline-primary button-own-position button-own-position-search"
+                        <LinkV2
+                            to={query.getFilterConfig().getLinkLocationCurrent()}
+                            useCurrentPosition={true}
+                            setQuery={true}
                             title={t('TEXT_TITLE_SEARCH_BY_CURRENT_POSITION')}
+                            className="btn btn-outline-primary button-own-position button-own-position-search"
                             type="button"
-                            onClick={redirectCurrentPosition}
                         >
                             <CursorFill size={sizeIcon.H3} />
-                        </button>
+                        </LinkV2>
 
                         <button
                             className="btn btn-primary"

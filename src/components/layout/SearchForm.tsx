@@ -14,7 +14,7 @@ import {Query} from "../../classes/Query";
 
 /* Import components. */
 import LinkV2 from "./LinkV2";
-import {nameParameterCountry, nameParameterLanguage} from "../../config/NameParameter";
+import {nameParameterCountry, nameParameterCurrentPosition, nameParameterLanguage} from "../../config/NameParameter";
 
 /* Search form properties. */
 type SearchFormProps = {
@@ -65,6 +65,8 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
         setQueryString(event.currentTarget.value);
     };
 
+    const currentPosition = query.getFilterConfig().getCurrentPosition(true);
+
     return (
         <>
             <h3><GlobeAmericas size={sizeIcon.H3}/> {t('TEXT_HEADER_LOCATION_SEARCH')} {
@@ -100,6 +102,12 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
 
                         <input type="hidden" name={nameParameterLanguage} value={query.getFilterConfig().getLanguage(true)} />
                         <input type="hidden" name={nameParameterCountry} value={query.getFilterConfig().getCountry(true)} />
+                        {
+                            currentPosition ?
+                                <input type="hidden" name={nameParameterCurrentPosition} value={currentPosition} /> :
+                                <></>
+                        }
+
 
                         <LinkV2
                             to={query.getFilterConfig().getLinkLocationCurrent()}

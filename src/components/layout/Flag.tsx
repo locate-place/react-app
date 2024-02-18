@@ -43,6 +43,7 @@ const Flag: React.FC<FlagProps> = ({ country, size = 1 , title = null}) => {
         <FlagSvg
             alt={country}
             style={dimensions}
+            className={'shadow-flag'}
         />
     </span>;
 };

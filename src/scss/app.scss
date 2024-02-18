@@ -16,6 +16,15 @@ body {
         transition: .3s transform cubic-bezier(.155,1.105,.295,1.12),.3s box-shadow,.3s -webkit-transform cubic-bezier(.155,1.105,.295,1.12);
     }
 
+    .shadow-flag {
+        border-radius: 3px;
+        //border-color: rgba(0, 0, 0, 0.176);
+        //border-width: 1px;
+        //border-style: solid;
+        box-shadow: 0 3px 10px rgba(0,0,0,.08), 0 0 3px rgba(0,0,0,.05);
+        transition: .3s transform cubic-bezier(.155,1.105,.295,1.12),.3s box-shadow,.3s -webkit-transform cubic-bezier(.155,1.105,.295,1.12);
+    }
+
     .card-body {
         table {
             td {

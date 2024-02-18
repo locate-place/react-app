@@ -1,0 +1,119 @@
+{
+  "TEXT_EXAMPLE_DESCRIPTION": "O empieza con los siguientes ejemplos.",
+  "TEXT_EXAMPLE_HEADER": "Ejemplos de localización",
+
+  "TEXT_HEADER_LOCATION_SEARCH": "Búsqueda de ubicación",
+  "TEXT_HEADER_CURRENT_LOCATION": "Ubicación actual",
+  "TEXT_HEADER_INFORMATION": "Información",
+  "TEXT_HEADER_NEXT_PLACES": "Próximos lugares",
+  "TEXT_HEADER_MAPS": "Mapas",
+
+  "TEXT_CAPTION_DISTRICT_LOCALITY": "Distrito / localidad",
+  "TEXT_CAPTION_CIUDAD_MUNICIPIO": "Ciudad / municipio",
+  "TEXT_CAPTION_STATE": "Estado",
+  "TEXT_CAPTION_COUNTRY": "País",
+  "TEXT_CAPTION_COUNTRY_CODE": "Código de país",
+  "TEXT_CAPTION_ELEVATION": "Elevación",
+  "TEXT_CAPTION_DMS": "DMS",
+  "TEXT_CAPTION_DECIMAL": "Decimal",
+  "TEXT_CAPTION_DISTANCE": "Distancia",
+  "TEXT_CAPTION_DIRECTION": "Dirección",
+  "TEXT_CAPTION_MASTER_CODE": "Clase de característica",
+  "TEXT_CAPTION_CODE": "Código de característica",
+  "TEXT_CAPTION_TIME_ZONE": "Zona horaria",
+  "TEXT_CAPTION_TIME_WIKIPEDIA": "Wikipedia",
+  "TEXT_CAPTION_TIME_GEONAME_ID": "Geoname ID",
+  "TEXT_CAPTION_TIME_LAST_UPDATE": "Última actualización",
+
+  "TEXT_NO_RESULT": "No se han encontrado resultados",
+  "TEXT_NO_RESULT_QUERY": "No se han encontrado resultados para \"{{query}}\".",
+
+  "TEXT_RESULT": "{{numberTotal}} resultados encontrados. Mostrar {{numberResults}}.",
+  "TEXT_RESULT_QUERY": "{{numberTotal}} resultados encontrados para \"{{query}}\". Mostrar {{numberFirstItem}}. - {{numberLastItem}}.",
+
+  "TEXT_SEARCH_RESULTS": "Resultados de la búsqueda",
+
+  "TEXT_ACTION_KM": "km",
+  "TEXT_ACTION_NAME": "Nombre",
+  "TEXT_ACTION_RELEVANCE": "Relevancia",
+  "TEXT_ACTION_SEARCH": "Búsqueda",
+  "TEXT_ACTION_SHOW_NEXT_PAGE": "Mostrar página siguiente",
+  "TEXT_ACTION_SORTING": "Clasificación",
+
+  "TEXT_ACTION_SHOW_CURRENT_POSITION": "Mostrar posición actual",
+
+  "TEXT_ACTION_SHOW_SEARCH_METRICS": "Mostrar métricas de búsqueda",
+
+  "TEXT_ACTION_SEARCH_METRICS_TITLE": "Métricas de búsqueda",
+  "TEXT_ACTION_SEARCH_METRICS_SEARCH_LIST_GENERAL": "Búsqueda con término de búsqueda",
+  "TEXT_ACTION_SEARCH_METRICS_SEARCH_LIST_WITH_FEATURES": "Búsqueda por coordenadas y características",
+  "TEXT_ACTION_SEARCH_METRICS_SEARCH_GEONAME_ID": "Búsqueda detallada por ID de geonombre",
+  "TEXT_ACTION_SEARCH_METRICS_SEARCH_COORDINATE": "Búsqueda detallada por coordenada",
+  "TEXT_ACTION_SEARCH_METRICS_SEARCH_UNKNOWN": "Término de búsqueda desconocido",
+
+  "TEXT_TITLE_SEARCH_BY_CURRENT_POSITION": "Buscar por posición actual",
+  "TEXT_TITLE_SORT_BY_DISTANCE": "Ordenar por distancia",
+  "TEXT_TITLE_SORT_BY_DISTANCE_FROM_USER": "Ordenar por distancia desde el usuario",
+  "TEXT_TITLE_SORT_BY_NAME": "Ordenar por nombre",
+  "TEXT_TITLE_SORT_BY_RELEVANCE": "Ordenar por relevancia",
+  "TEXT_TITLE_SORT_BY_RELEVANCE_OF_THE_USER": "Ordenar por relevancia del usuario",
+  "TEXT_TITLE_START_SEARCH": "Iniciar búsqueda",
+  "TEXT_TITLE_CURRENT_POSITION_IS_USED": "Se utiliza la posición actual",
+  "TEXT_TITLE_CURRENT_POSITION_USED": "Se utiliza la posición actual \"{{currentPosition}}\"",
+  "TEXT_TITLE_CURRENT_POSITION_NOT_USED": "Posición actual no utilizada",
+
+  "TEXT_CURRENT_POSITION_FROM_POSITION": "Desde la posición actual {{latitudeDms}}, {{longitudeDms}}",
+
+  "TEXT_NEXT_PLACE_TITLE": "Siguiente {{name}}",
+  "TEXT_NEXT_PLACE_SEARCH_PARAMS": "Parámetros de búsqueda",
+  "TEXT_NEXT_PLACE_DISTANCE_TEXT": "Distancia {{distance}} km",
+  "TEXT_NEXT_PLACE_LIMITATION_TEXT": "Limitación {{limitation}}",
+  "TEXT_NEXT_PLACE_SORTED_BY_DISTANCE_TEXT": "Ordenado por distancia a la búsqueda",
+  "TEXT_NEXT_PLACE_SHOW_LIST_TEXT": "Mostrar lista",
+  "TEXT_NEXT_PLACE_DISTANCE_HINT_LOCATION_TEXT_ALL": "Todas las distancias y direcciones según la ubicación mostrada \"{{location}}\" ({{coordinate}})",
+  "TEXT_NEXT_PLACE_DISTANCE_HINT_QUERY_TEXT_ALL": "Todas las distancias y direcciones según la ubicación de la consulta de búsqueda ({{coordinate}})",
+  "TEXT_NEXT_PLACE_DISTANCE_HINT_LOCATION_TEXT": "Distancia y dirección según la ubicación mostrada \"{{location}}\", ({{coordinate}}).",
+  "TEXT_NEXT_PLACE_DISTANCE_HINT_QUERY_TEXT": "Distancia y dirección según la ubicación de la consulta de búsqueda ({{coordinate}})",
+  "TEXT_NEXT_PLACE_INHABITANTS_TEXT": "{{inhabitants}} habitantes",
+  "TEXT_NEXT_PLACE_NO_IATA_CODE_SPECIFIED": "Sin código IATA especificado",
+
+  "TEXT_CONTACT_TITLE": "Contacto",
+
+  "TEXT_ABOUT_DESCRIPTION": "Este servicio es prestado por",
+  "TEXT_ABOUT_TITLE": "Versiones",
+  "TEXT_ABOUT_APP_TITLE": "App",
+  "TEXT_ABOUT_APP_DESCRIPTION": "Resumen de las versiones utilizadas de esta app",
+
+  "TEXT_CALENDARS_TITLE": "Visión general",
+  "TEXT_CALENDARS_SUBTITLE": "Visión general de todos los calendarios",
+
+  "TEXT_NAVIGATION_ICON": "CV",
+  "TEXT_NAVIGATION_HOME": "Calendarios",
+  "TEXT_NAVIGATION_LOCATIONS": "Ubicaciones",
+  "TEXT_NAVIGATION_ABOUT": "Acerca de",
+  "TEXT_NAVIGATION_CONTACT": "Contacto",
+
+  "TEXT_NAVIGATION_EN": "EN",
+  "TEXT_NAVIGATION_GE": "DE",
+  "TEXT_NAVIGATION_ES": "ES",
+
+  "TEXT_LOCATION_CARD_AIRPORTS": "Aeropuertos",
+  "TEXT_LOCATION_CARD_BEACHES": "Playas",
+  "TEXT_LOCATION_CARD_CHURCHES": "Iglesias",
+  "TEXT_LOCATION_CARD_CINEMAS": "Cines",
+  "TEXT_LOCATION_CARD_CITIES": "Ciudades",
+  "TEXT_LOCATION_CARD_HOSPITALS": "Hospitales",
+  "TEXT_LOCATION_CARD_HOTELS": "Hoteles",
+  "TEXT_LOCATION_CARD_MOUNTAINS": "Montañas",
+  "TEXT_LOCATION_CARD_PARKS": "Parques",
+  "TEXT_LOCATION_CARD_STATIONS": "Estaciones",
+  "TEXT_LOCATION_CARD_WATERS": "Aguas",
+
+  "TEXT_LOCATION_CURRENT_POSITION_UNKNOWN": "La ubicación del usuario es desconocida",
+  "TEXT_LOCATION_DETERMINE_CURRENT_POSITION": "Determinar la posición actual",
+
+  "TEXT_LOCATIONS_TITLE": "Ubicaciones",
+  "TEXT_LOCATIONS_SUBTITLE": "API de ubicaciones",
+
+  "TEXT_WORD_UNKNOWN": "Desconocido"
+}

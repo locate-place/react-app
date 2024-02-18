@@ -1,5 +1,6 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import {Link, useSearchParams} from 'react-router-dom';
+import {useTranslation} from "react-i18next";
 
 /* Import functions */
 import loadApiData from "../../functions/LoadApiData";
@@ -26,7 +27,11 @@ import Loader from "../layout/Loader";
 /**
  * This is the "calendar" component.
  */
-const Calendar = () => {
+const Calendar = () =>
+{
+    /* Import translation. */
+    const { t } = useTranslation();
+
     /* Get env variables */
     const env = useMemo(() => {
         return process.env;
@@ -100,7 +105,7 @@ const Calendar = () => {
                                         <h5 className="card-title mb-0">{item.page_title}</h5>
                                     </div>
                                     <div className="card-footer">
-                                        <p className="card-text one-line">{item.year}/{item.month === 0 ? 'Titelblatt' : item.month}</p>
+                                        <p className="card-text one-line">{item.year}/{item.month === 0 ? t('TEXT_WORD_TITLE_PAGE') : item.month}</p>
                                     </div>
                                 </div>
                             </div>

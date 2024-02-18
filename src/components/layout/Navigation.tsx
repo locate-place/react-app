@@ -72,14 +72,14 @@ const Navigation = () =>
                                     ><Flag country="de" size={1.0} /> {t('TEXT_NAVIGATION_GE')}</Link></li> :
                                     <></>
                             }
-                            {/*{*/}
-                            {/*    language !== 'es' ?*/}
-                            {/*        <li className="nav-item"><Link*/}
-                            {/*            className="nav-link px-lg-3 py-3 py-lg-4"*/}
-                            {/*            to={query.getFilterConfig().getCurrentLinkWithLanguage('es')}*/}
-                            {/*        ><Flag country="es" size={1.0} /> {t('TEXT_NAVIGATION_ES')}</Link></li> :*/}
-                            {/*        <></>*/}
-                            {/*}*/}
+                            {
+                                language !== 'es' ?
+                                    <li className="nav-item"><Link
+                                        className="nav-link px-lg-3 py-3 py-lg-4"
+                                        to={query.getFilterConfig().getLinkCurrentByLanguage('es')}
+                                    ><Flag country="es" size={1.0} /> {t('TEXT_NAVIGATION_ES')}</Link></li> :
+                                    <></>
+                            }
                         </ul>
                     </div>
                 </div>

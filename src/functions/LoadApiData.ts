@@ -95,7 +95,7 @@ const loadApiData = (
             /* Check API response */
             if (!valid) {
                 setLoaded(false);
-                setError({message: 'The API response is not valid.'});
+                setError({message: data.error || 'The API response is not valid.'});
                 return;
             }
 

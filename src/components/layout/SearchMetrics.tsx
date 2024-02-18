@@ -88,7 +88,7 @@ const SearchMetrics = ({
                                                         apiResponseProperty.hasGivenQueryParsedSearch() ?
                                                             <>
                                                                 <p className="mb-0">
-                                                                    <strong>Suchbegriff</strong>: {apiResponseProperty.getGivenQueryParsedSearch()}
+                                                                    <strong>{t('TEXT_WORD_SEARCH_TERM')}</strong>: {apiResponseProperty.getGivenQueryParsedSearch()}
                                                                 </p>
                                                             </> :
                                                             <></>
@@ -97,7 +97,7 @@ const SearchMetrics = ({
                                                         apiResponseProperty.hasGivenCoordinate() ?
                                                             <>
                                                                 <p className="mb-0">
-                                                                    <strong>Position</strong>: {apiResponseProperty.getGivenCoordinateParsedLatitudeDms()}, {apiResponseProperty.getGivenCoordinateParsedLongitudeDms()}
+                                                                    <strong>{t('TEXT_WORD_POSITION')}</strong>: {apiResponseProperty.getGivenCoordinateParsedLatitudeDms()}, {apiResponseProperty.getGivenCoordinateParsedLongitudeDms()}
                                                                 </p>
                                                             </> :
                                                             <></>
@@ -106,7 +106,7 @@ const SearchMetrics = ({
                                                         apiResponseProperty.hasGivenQueryParsedGeonameId() ?
                                                             <>
                                                                 <p className="mb-0">
-                                                                    <strong>Geoname-ID</strong>: {apiResponseProperty.getGivenQueryParsedGeonameId()}
+                                                                    <strong>{t('TEXT_WORD_GEONAME_ID')}</strong>: {apiResponseProperty.getGivenQueryParsedGeonameId()}
                                                                 </p>
                                                             </> :
                                                             <></>
@@ -115,7 +115,7 @@ const SearchMetrics = ({
                                                         apiResponseProperty.hasGivenQueryParsedFeatureCodes() ?
                                                             <>
                                                                 <p className="mb-0">
-                                                                    <strong>Feature-Codes</strong>
+                                                                    <strong>{t('TEXT_WORD_FEATURE_CODES')}</strong>
                                                                 </p>
                                                                 <ul className="mb-0">
                                                                     {apiResponseProperty.getGivenQueryParsedFeatureCodesArray().map((item, index) => (
@@ -130,10 +130,10 @@ const SearchMetrics = ({
                                                 </div>
                                                 <div className="card-footer">
                                                     <small><small>
-                                                        <strong>Query</strong>: <span
+                                                        <strong>{t('TEXT_WORD_QUERY')}</strong>: <span
                                                         className="fst-italic">"{apiResponseProperty.getGivenQueryRaw()}"</span>
                                                         <br/>
-                                                        <strong>Performance</strong>: {properties['time-taken']}, {properties['memory-taken']}
+                                                        <strong>{t('TEXT_WORD_PERFORMANCE')}</strong>: {properties['time-taken']}, {properties['memory-taken']}
                                                         <br/>
                                                         <strong>{properties['name']}</strong>: Version {properties['version']}
                                                     </small></small>

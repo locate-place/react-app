@@ -90,8 +90,8 @@ const LocationCard = ({locationWrapper, apiResponseProperty, showOwnPosition, in
         (ownPositionCard?.getLinks().getOpenStreetMap() ?? null) :
         locationWrapper.getLinks().getMaps(mapTypeOpenStreetMap);
 
-    let elevationText = locationWrapper.getProperties().getElevationText(locationWrapper, t, '-') ?? null;
-    let populationText = locationWrapper.getProperties().getPopulationText(locationWrapper, t, '-') ?? null;
+    let elevationText = locationWrapper.getProperties().getElevationText(locationWrapper, t, ' - ') ?? null;
+    let populationText = locationWrapper.getProperties().getPopulationText(locationWrapper, t, ' - ') ?? null;
     let airportCodesText = locationWrapper.getProperties().getAirportCodeText(locationWrapper, t, ' - ') ?? null;
 
     let queryString = useGeonameIdAsQuery ?

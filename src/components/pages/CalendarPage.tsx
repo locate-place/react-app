@@ -1,5 +1,5 @@
 import React, {useEffect, useMemo, useState} from 'react';
-import { useSearchParams } from 'react-router-dom';
+import {Link, useSearchParams} from 'react-router-dom';
 
 /* Import functions */
 import loadApiData from "../../functions/LoadApiData";
@@ -84,9 +84,9 @@ const CalendarPage = () =>
                                 <div style={{clear: 'both'}}></div>
                             </div>
                             <p>
-                                Koordinate (Google Maps): {data.google_maps !== null ? <a href={data.google_maps} target="_blank" rel="noreferrer">{data.coordinate_dms}</a> : data.coordinate}<br/>
-                                Koordinate (Location API): {data.coordinate_decimal !== null ? <a href={'location.html?q=' + data.coordinate_decimal.replace(/, /, ', ')}>{data.coordinate_decimal}</a> : data.coordinate_decimal}<br/>
-                                Koordinate (Twelvepics API): {data.coordinate_decimal !== null ? <a href={'https://twelvepics.com/location/' + data.coordinate_decimal.replace(/, /, '/')} target="_blank" rel="noreferrer">{data.coordinate_decimal}</a> : data.coordinate_decimal}<br/>
+                                Koordinate (Google Maps): {data.google_maps !== null ? <Link to={data.google_maps} target="_blank" rel="noreferrer">{data.coordinate_dms}</Link> : data.coordinate}<br/>
+                                Koordinate (Location API): {data.coordinate_decimal !== null ? <Link to={'/location.html?q=' + data.coordinate_decimal.replace(/, /, ', ') + '&next_places=1'}>{data.coordinate_decimal}</Link> : data.coordinate_decimal}<br/>
+                                Koordinate (Twelvepics API): {data.coordinate_decimal !== null ? <Link to={'https://twelvepics.com/location/' + data.coordinate_decimal.replace(/, /, '/')} target="_blank" rel="noreferrer">{data.coordinate_decimal}</Link> : data.coordinate_decimal}<br/>
                                 Kalenderblatt: {data.year}/{data.month === 0 ? 'Titelblatt' : data.month}<br/>
                             </p>
 

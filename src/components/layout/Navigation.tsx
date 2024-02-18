@@ -28,6 +28,26 @@ const Navigation = () =>
 
     const language = i18n.language;
 
+    /**
+     * Close the menu, if a menu link was clicked (mobile mode).
+     */
+    const closeMenu = () =>
+    {
+        const navbarToggler: HTMLElement|null = document.querySelector('.navbar-toggler');
+
+        if (!navbarToggler) {
+            return;
+        }
+
+        const isMenuExpanded = navbarToggler.getAttribute('aria-expanded') === 'true';
+
+        if (!isMenuExpanded) {
+            return;
+        }
+
+        navbarToggler.click();
+    };
+
     return (
         <>
             <nav className="navbar navbar-expand-lg navbar-light" id="mainNav">
@@ -44,23 +64,36 @@ const Navigation = () =>
                     >Menu<i className="fas fa-bars"></i></button>
                     <div className="collapse navbar-collapse" id="navbarResponsive">
                         <ul className="navbar-nav ms-auto py-4 py-lg-0">
-                            <li className="nav-item"><Link className="nav-link px-lg-3 py-3 py-lg-4"
-                                                           to={filterConfig.getLinkTo('/index.html')}>{t('TEXT_NAVIGATION_HOME')}</Link>
+                            <li className="nav-item"><Link
+                                className="nav-link px-lg-3 py-3 py-lg-4"
+                                to={filterConfig.getLinkTo('/index.html')}
+                                onClick={closeMenu}
+                            >{t('TEXT_NAVIGATION_HOME')}</Link>
                             </li>
-                            <li className="nav-item"><Link className="nav-link px-lg-3 py-3 py-lg-4"
-                                                           to={filterConfig.getLinkTo('/locations.html')}>{t('TEXT_NAVIGATION_LOCATIONS')}</Link>
+                            <li className="nav-item"><Link
+                                className="nav-link px-lg-3 py-3 py-lg-4"
+                                to={filterConfig.getLinkTo('/locations.html')}
+                                onClick={closeMenu}
+                            >{t('TEXT_NAVIGATION_LOCATIONS')}</Link>
                             </li>
-                            <li className="nav-item"><Link className="nav-link px-lg-3 py-3 py-lg-4"
-                                                           to={filterConfig.getLinkTo('/about.html')}>{t('TEXT_NAVIGATION_ABOUT')}</Link>
+                            <li className="nav-item"><Link
+                                className="nav-link px-lg-3 py-3 py-lg-4"
+                                to={filterConfig.getLinkTo('/about.html')}
+                                onClick={closeMenu}
+                            >{t('TEXT_NAVIGATION_ABOUT')}</Link>
                             </li>
-                            <li className="nav-item"><Link className="nav-link px-lg-3 py-3 py-lg-4"
-                                                           to={filterConfig.getLinkTo('/contact.html')}>{t('TEXT_NAVIGATION_CONTACT')}</Link>
+                            <li className="nav-item"><Link
+                                className="nav-link px-lg-3 py-3 py-lg-4"
+                                to={filterConfig.getLinkTo('/contact.html')}
+                                onClick={closeMenu}
+                            >{t('TEXT_NAVIGATION_CONTACT')}</Link>
                             </li>
                             {
                                 language !== 'en' ?
                                     <li className="nav-item"><Link
                                         className="nav-link px-lg-3 py-3 py-lg-4"
                                         to={query.getFilterConfig().getLinkCurrentByLanguage('en')}
+                                        onClick={closeMenu}
                                     ><Flag country="us" size={1} /> {t('TEXT_NAVIGATION_EN')}</Link></li> :
                                     <></>
                             }
@@ -69,6 +102,7 @@ const Navigation = () =>
                                     <li className="nav-item"><Link
                                         className="nav-link px-lg-3 py-3 py-lg-4"
                                         to={query.getFilterConfig().getLinkCurrentByLanguage('de')}
+                                        onClick={closeMenu}
                                     ><Flag country="de" size={1.0} /> {t('TEXT_NAVIGATION_GE')}</Link></li> :
                                     <></>
                             }
@@ -77,6 +111,7 @@ const Navigation = () =>
                                     <li className="nav-item"><Link
                                         className="nav-link px-lg-3 py-3 py-lg-4"
                                         to={query.getFilterConfig().getLinkCurrentByLanguage('es')}
+                                        onClick={closeMenu}
                                     ><Flag country="es" size={1.0} /> {t('TEXT_NAVIGATION_ES')}</Link></li> :
                                     <></>
                             }

@@ -9,9 +9,6 @@ import {sizeIcon} from "../../config/Config";
 /* Bootstrap icons; see https://icons.getbootstrap.com/?q=sort#usage */
 import {GlobeAmericas, CursorFill, HouseFill} from "react-bootstrap-icons";
 
-/* Import functions */
-import {getPathLocationApi} from "../../functions/QueryFunctions";
-
 /* Import classes. */
 import {Query} from "../../classes/Query";
 import LinkV2 from "./LinkV2";
@@ -52,7 +49,7 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
             return;
         }
 
-        setRoutePath(getPathLocationApi(queryString));
+        setRoutePath(query.getFilterConfig().getLinkQuery(queryString));
     }
 
     /**
@@ -60,7 +57,7 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
      *
      * @param {React.SyntheticEvent<HTMLInputElement>} event
      */
-    const handleChange = (event: React.SyntheticEvent<HTMLInputElement>) =>
+    const handleQueryStringChange = (event: React.SyntheticEvent<HTMLInputElement>) =>
     {
         setQueryString(event.currentTarget.value);
     };
@@ -95,7 +92,7 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
                             aria-label={t('TEXT_HEADER_LOCATION_SEARCH')}
                             aria-describedby="location-send"
                             value={queryString ? queryString : ''}
-                            onChange={handleChange}
+                            onChange={handleQueryStringChange}
                         />
                         <LinkV2
                             to={query.getFilterConfig().getLinkLocationCurrent()}

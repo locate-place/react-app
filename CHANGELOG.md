@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Changelogs
 
+### [0.2.4] - 2023-02-18
+
+* Add language to location(s) search
+* Add init parameter to FilterConfig getter
+
 ### [0.2.3] - 2023-02-18
 
 * Fix language forwarding

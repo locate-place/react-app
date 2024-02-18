@@ -136,6 +136,8 @@
 
   "TEXT_WORD_BACK_TO_THE_CALENDAR": "Volver al calendario",
   "TEXT_WORD_BIRTHDAYS": "Cumpleaños",
+  "TEXT_WORD_CALENDAR_PAGE": "Página del calendario",
+  "TEXT_WORD_COORDINATE": "Coordenada",
   "TEXT_WORD_EMAIL": "Correo electrónico",
   "TEXT_WORD_FEATURE_CODES": "Códigos de características",
   "TEXT_WORD_GEONAME_ID": "Geoname ID",
@@ -145,7 +147,9 @@
   "TEXT_WORD_PUBLIC_HOLIDAYS": "Días festivos",
   "TEXT_WORD_QUERY": "Query",
   "TEXT_WORD_SEARCH_TERM": "Término de búsqueda",
+  "TEXT_WORD_TITLE_PAGE": "Página del título",
   "TEXT_WORD_UNKNOWN": "Desconocido",
+  "TEXT_WORD_WHAT_DO_YOU_SEE": "¿Qué ves?",
 
   "TEXT_ADDRESS": "Innere Neustadt, Dresde, Sajonia, Alemania",
   "TEXT_DRESDEN": "Dresde"

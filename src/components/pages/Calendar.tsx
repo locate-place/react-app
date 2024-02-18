@@ -82,7 +82,7 @@ const Calendar = () => {
                             <div className="col-12 col-lg-6 col-xl-4 d-flex align-items-stretch" key={'image-' + index}>
                                 <div className="card card-hover">
                                     <Link
-                                        to={'/page.html?c=' + data.identifier + '&m=' + index}
+                                        to={query.getFilterConfig().getLinkTo('/page.html?c=' + data.identifier + '&m=' + index)}
                                         className="no-decoration stretched-link"
                                     >
                                         <ImageWithLoader

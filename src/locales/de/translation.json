@@ -136,6 +136,8 @@
 
   "TEXT_WORD_BACK_TO_THE_CALENDAR": "Zurück zum Kalender",
   "TEXT_WORD_BIRTHDAYS": "Geburtstage",
+  "TEXT_WORD_CALENDAR_PAGE": "Kalenderblatt",
+  "TEXT_WORD_COORDINATE": "Koordinate",
   "TEXT_WORD_EMAIL": "E-Mail",
   "TEXT_WORD_FEATURE_CODES": "Feature-Codes",
   "TEXT_WORD_GEONAME_ID": "Geoname-ID",
@@ -145,7 +147,9 @@
   "TEXT_WORD_PUBLIC_HOLIDAYS": "Feiertage",
   "TEXT_WORD_QUERY": "Query",
   "TEXT_WORD_SEARCH_TERM": "Suchbegriff",
+  "TEXT_WORD_TITLE_PAGE": "Titelblatt",
   "TEXT_WORD_UNKNOWN": "Unbekannt",
+  "TEXT_WORD_WHAT_DO_YOU_SEE": "Was siehst du?",
 
   "TEXT_ADDRESS": "Innere Neustadt, Dresden, Sachsen, Deutschland",
   "TEXT_DRESDEN": "Dresden"

@@ -88,10 +88,22 @@ const CalendarPage = () =>
                                 <div style={{clear: 'both'}}></div>
                             </div>
                             <p>
-                                Koordinate (Google Maps): {data.google_maps !== null ? <Link to={data.google_maps} target="_blank" rel="noreferrer">{data.coordinate_dms}</Link> : data.coordinate}<br/>
-                                Koordinate (Location API): {data.coordinate_decimal !== null ? <Link to={'/location.html?q=' + data.coordinate_decimal.replace(/, /, ', ') + '&next_places=1'}>{data.coordinate_decimal}</Link> : data.coordinate_decimal}<br/>
-                                Koordinate (Twelvepics API): {data.coordinate_decimal !== null ? <Link to={'https://twelvepics.com/location/' + data.coordinate_decimal.replace(/, /, '/')} target="_blank" rel="noreferrer">{data.coordinate_decimal}</Link> : data.coordinate_decimal}<br/>
-                                Kalenderblatt: {data.year}/{data.month === 0 ? 'Titelblatt' : data.month}<br/>
+                                <strong>{t('TEXT_WORD_COORDINATE')}</strong> (Google Maps): {data.google_maps !== null ?
+                                    <Link to={data.google_maps} target="_blank" rel="noreferrer">{data.coordinate_dms}</Link> :
+                                    data.coordinate
+                                }<br/>
+
+                                <strong>{t('TEXT_WORD_COORDINATE')}</strong> (Location API): {data.coordinate_decimal !== null ?
+                                    <Link to={'/location.html?q=' + data.coordinate_decimal.replace(/, /, ', ') + '&next_places=1'}>{data.coordinate_decimal}</Link> :
+                                    data.coordinate_decimal
+                                }<br/>
+
+                                <strong>{t('TEXT_WORD_COORDINATE')}</strong> (Twelvepics API): {data.coordinate_decimal !== null ?
+                                    <Link to={'https://twelvepics.com/location/' + data.coordinate_decimal.replace(/, /, '/')} target="_blank" rel="noreferrer">{data.coordinate_decimal}</Link> :
+                                    data.coordinate_decimal
+                                }<br/>
+
+                                <strong>{t('TEXT_WORD_CALENDAR_PAGE')}</strong>: {data.year}/{data.month === 0 ? t('TEXT_WORD_TITLE_PAGE') : data.month}<br/>
                             </p>
 
                             <div className="mb-5">
@@ -121,7 +133,7 @@ const CalendarPage = () =>
                             </div>
 
                             {data.description !== undefined ? <>
-                                <h3>Was siehst du?</h3>
+                                <h3>{t('TEXT_WORD_WHAT_DO_YOU_SEE')}</h3>
                                 <p style={{textAlign: 'justify'}}>
                                     {data.description.replace(/\n$/, '').split("\n").map(function (item, idx) {
                                         return (

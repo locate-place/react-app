@@ -34,6 +34,7 @@ import {CursorFill} from "react-bootstrap-icons";
 import {ApiResponseProperty} from "../../classes/Api/ApiResponseProperty";
 import Flag from "../layout/Flag";
 import LinkV2 from "../layout/LinkV2";
+import initializeCompass from "../../functions/Compass";
 
 /**
  * This is the app locations component.
@@ -74,6 +75,9 @@ const Location = () =>
             setProperties: setProperties,
             setLoaded: setLoaded,
             setError: setError,
+            callback: () => {
+                initializeCompass();
+            }
         });
     }, [apiType, apiPathWithFilter]);
 

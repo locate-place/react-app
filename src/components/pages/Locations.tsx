@@ -38,6 +38,7 @@ import LocationSort from "../layout/LocationSort";
 import {
     ListTask,
 } from "react-bootstrap-icons";
+import initializeCompass from "../../functions/Compass";
 
 /**
  * This is the app locations component.
@@ -79,7 +80,10 @@ const Locations = () =>
             setDataApi: setApi,
             setProperties: setProperties,
             setLoaded: setLoaded,
-            setError: setError
+            setError: setError,
+            callback: () => {
+                initializeCompass();
+            }
         });
     }, [apiType, apiPathWithFilter]);
 

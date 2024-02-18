@@ -7,7 +7,7 @@ import {
 
 /* Import classes. */
 import {ApiLocationWrapper} from "../../ApiLocationWrapper";
-import {getLocale} from "../../../../../functions/i18n";
+import {getLocale} from "../../../../../functions/I18n";
 import {LocationWrapper} from "../LocationWrapper";
 
 /**

@@ -1,4 +1,4 @@
-import {i18n} from "../functions/i18n";
+import {i18n} from "../functions/I18n";
 
 const translationsDE: Record<string, string> = {
     'AC': 'Ascension',

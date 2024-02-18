@@ -11,6 +11,8 @@ import {GlobeAmericas, CursorFill, HouseFill} from "react-bootstrap-icons";
 
 /* Import classes. */
 import {Query} from "../../classes/Query";
+
+/* Import components. */
 import LinkV2 from "./LinkV2";
 
 /* Search form properties. */

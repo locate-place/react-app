@@ -34,7 +34,7 @@ import './scss/fonts.scss';
 import 'bootstrap';
 
 /* Import translation libraries. */
-import {i18n, languageDefault} from "./functions/i18n";
+import {i18n, languageDefault} from "./functions/I18n";
 
 /**
  * This is the app main component.

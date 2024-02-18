@@ -156,8 +156,8 @@ class Query
 
         const properties = this.apiResponseProperty.get();
 
-        if (this.filterConfig.hasSort()) {
-            return this.filterConfig.getSort() as string;
+        if (this.filterConfig.hasSort(true)) {
+            return this.filterConfig.getSort(true) as string;
         }
 
         if (!this.filterConfig.hasQuery()) {

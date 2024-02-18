@@ -259,17 +259,21 @@ class FilterConfig
      *
      * @return {boolean}
      */
-    hasCalendar(): boolean
+    hasCalendar(init: boolean = false): boolean
     {
-        return !!this.filterConfig[nameParameterCalendar];
+        const value = init ? this.filterConfigInit : this.filterConfig;
+
+        return !!value[nameParameterCalendar];
     }
 
     /**
      * Returns the calendar filter config (c).
      */
-    getCalendar(): string|null
+    getCalendar(init: boolean = false): string|null
     {
-        return this.filterConfig[nameParameterCalendar] ?? null;
+        const value = init ? this.filterConfigInit : this.filterConfig;
+
+        return value[nameParameterCalendar] ?? null;
     }
 
     /**
@@ -287,17 +291,21 @@ class FilterConfig
      *
      * @return {boolean}
      */
-    hasMonth(): boolean
+    hasMonth(init: boolean = false): boolean
     {
-        return !!this.filterConfig[nameParameterMonth];
+        const value = init ? this.filterConfigInit : this.filterConfig;
+
+        return !!value[nameParameterMonth];
     }
 
     /**
      * Returns the month filter config (m).
      */
-    getMonth(): string|null
+    getMonth(init: boolean = false): string|null
     {
-        return this.filterConfig[nameParameterMonth] ?? null;
+        const value = init ? this.filterConfigInit : this.filterConfig;
+
+        return value[nameParameterMonth] ?? null;
     }
 
     /**
@@ -315,9 +323,11 @@ class FilterConfig
      *
      * @return {boolean}
      */
-    hasQuery(): boolean
+    hasQuery(init: boolean = false): boolean
     {
-        return !!this.filterConfig[nameParameterQuery];
+        const value = init ? this.filterConfigInit : this.filterConfig;
+
+        return !!value[nameParameterQuery];
     }
 
     /**
@@ -325,9 +335,11 @@ class FilterConfig
      *
      * @return {string|null}
      */
-    getQuery(): string|null
+    getQuery(init: boolean = false): string|null
     {
-        return this.filterConfig[nameParameterQuery] ?? null;
+        const value = init ? this.filterConfigInit : this.filterConfig;
+
+        return value[nameParameterQuery] ?? null;
     }
 
     /**
@@ -345,9 +357,11 @@ class FilterConfig
      *
      * @return {boolean}
      */
-    hasCurrentPosition(): boolean
+    hasCurrentPosition(init: boolean = false): boolean
     {
-        return !!this.filterConfig[nameParameterCurrentPosition];
+        const value = init ? this.filterConfigInit : this.filterConfig;
+
+        return !!value[nameParameterCurrentPosition];
     }
 
     /**
@@ -355,9 +369,11 @@ class FilterConfig
      *
      * @return {string|null}
      */
-    getCurrentPosition(): string|null
+    getCurrentPosition(init: boolean = false): string|null
     {
-        return this.filterConfig[nameParameterCurrentPosition] ?? null;
+        const value = init ? this.filterConfigInit : this.filterConfig;
+
+        return value[nameParameterCurrentPosition] ?? null;
     }
 
     /**
@@ -375,9 +391,11 @@ class FilterConfig
      *
      * @return {boolean}
      */
-    hasDistance(): boolean
+    hasDistance(init: boolean = false): boolean
     {
-        return !!this.filterConfig[nameParameterDistance];
+        const value = init ? this.filterConfigInit : this.filterConfig;
+
+        return !!value[nameParameterDistance];
     }
 
     /**
@@ -385,9 +403,11 @@ class FilterConfig
      *
      * @return {string|null}
      */
-    getDistance(): string|null
+    getDistance(init: boolean = false): string|null
     {
-        return this.filterConfig[nameParameterDistance] ?? null;
+        const value = init ? this.filterConfigInit : this.filterConfig;
+
+        return value[nameParameterDistance] ?? null;
     }
 
     /**
@@ -405,9 +425,11 @@ class FilterConfig
      *
      * @return {boolean}
      */
-    hasLimit(): boolean
+    hasLimit(init: boolean = false): boolean
     {
-        return !!this.filterConfig[nameParameterLimit];
+        const value = init ? this.filterConfigInit : this.filterConfig;
+
+        return !!value[nameParameterLimit];
     }
 
     /**
@@ -415,9 +437,11 @@ class FilterConfig
      *
      * @return {string|null}
      */
-    getLimit(): string|null
+    getLimit(init: boolean = false): string|null
     {
-        return this.filterConfig[nameParameterLimit] ?? null;
+        const value = init ? this.filterConfigInit : this.filterConfig;
+
+        return value[nameParameterLimit] ?? null;
     }
 
     /**
@@ -435,9 +459,11 @@ class FilterConfig
      *
      * @return {boolean}
      */
-    hasPage(): boolean
+    hasPage(init: boolean = false): boolean
     {
-        return !!this.filterConfig[nameParameterPage];
+        const value = init ? this.filterConfigInit : this.filterConfig;
+
+        return !!value[nameParameterPage];
     }
 
     /**
@@ -445,9 +471,11 @@ class FilterConfig
      *
      * @return {string|null}
      */
-    getPage(): string|null
+    getPage(init: boolean = false): string|null
     {
-        return this.filterConfig[nameParameterPage] ?? null;
+        const value = init ? this.filterConfigInit : this.filterConfig;
+
+        return value[nameParameterPage] ?? null;
     }
 
     /**
@@ -465,9 +493,11 @@ class FilterConfig
      *
      * @return {boolean}
      */
-    hasSort(): boolean
+    hasSort(init: boolean = false): boolean
     {
-        return !!this.filterConfigInit[nameParameterSort];
+        const value = init ? this.filterConfigInit : this.filterConfig;
+
+        return !!value[nameParameterSort];
     }
 
     /**
@@ -475,9 +505,11 @@ class FilterConfig
      *
      * @return {string|null}
      */
-    getSort(): string|null
+    getSort(init: boolean = false): string|null
     {
-        return this.filterConfigInit[nameParameterSort] ?? null;
+        const value = init ? this.filterConfigInit : this.filterConfig;
+
+        return value[nameParameterSort] ?? null;
     }
 
     /**
@@ -495,9 +527,11 @@ class FilterConfig
      *
      * @return {boolean}
      */
-    hasCountry(): boolean
+    hasCountry(init: boolean = false): boolean
     {
-        return !!this.filterConfig[nameParameterCountry];
+        const value = init ? this.filterConfigInit : this.filterConfig;
+
+        return !!value[nameParameterCountry];
     }
 
     /**
@@ -505,9 +539,11 @@ class FilterConfig
      *
      * @return {string}
      */
-    getCountry(): string
+    getCountry(init: boolean = false): string
     {
-        return this.filterConfig[nameParameterCountry] ?? countryDefault;
+        const value = init ? this.filterConfigInit : this.filterConfig;
+
+        return value[nameParameterCountry] ?? countryDefault;
     }
 
     /**
@@ -525,9 +561,11 @@ class FilterConfig
      *
      * @return {boolean}
      */
-    hasLanguage(): boolean
+    hasLanguage(init: boolean = false): boolean
     {
-        return !!this.filterConfig[nameParameterLanguage];
+        const value = init ? this.filterConfigInit : this.filterConfig;
+
+        return !!value[nameParameterLanguage];
     }
 
     /**
@@ -535,9 +573,11 @@ class FilterConfig
      *
      * @return {string}
      */
-    getLanguage(): string
+    getLanguage(init: boolean = false): string
     {
-        return this.filterConfig[nameParameterLanguage] ?? languageDE;
+        const value = init ? this.filterConfigInit : this.filterConfig;
+
+        return value[nameParameterLanguage] ?? languageDE;
     }
 
     /**
@@ -560,9 +600,11 @@ class FilterConfig
      *
      * @return {boolean}
      */
-    hasNextPlaces(): boolean
+    hasNextPlaces(init: boolean = false): boolean
     {
-        return !!this.filterConfig[nameParameterNextPlaces];
+        const value = init ? this.filterConfigInit : this.filterConfig;
+
+        return !!value[nameParameterNextPlaces];
     }
 
     /**
@@ -570,9 +612,9 @@ class FilterConfig
      *
      * @return {string}
      */
-    getNextPlaces(): boolean
+    getNextPlaces(init: boolean = false): boolean
     {
-        return this.hasNextPlaces();
+        return this.hasNextPlaces(init);
     }
 
     /**

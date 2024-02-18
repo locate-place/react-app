@@ -78,21 +78,22 @@ const Location = () =>
             callback: () => {
                 initializeCompass();
             }
-        });
+        }, t);
     }, [apiType, apiPathWithFilter]);
 
-    /* Skip empty data */
-    if (properties === null || api === null) {
-        return <></>;
+    let apiLocationWrapper: ApiLocationWrapper|null = null;
+    let apiResponseProperty: ApiResponseProperty|null = null;
+
+    if (api && properties) {
+        /* Get location wrapper. */
+        apiLocationWrapper = new ApiLocationWrapper(api);
+
+        /* Add apiResponseProperty to query class, to get more information. */
+        apiResponseProperty = new ApiResponseProperty(properties);
+        query.setApiResponseProperty(apiResponseProperty);
     }
 
-    /* Get location wrapper. */
-    let apiLocationWrapper = new ApiLocationWrapper(api);
-    let location = apiLocationWrapper.getLocation();
-
-    /* Add apiResponseProperty to query class, to get more information. */
-    const apiResponseProperty = new ApiResponseProperty(properties);
-    query.setApiResponseProperty(apiResponseProperty);
+    let location = apiLocationWrapper ? apiLocationWrapper.getLocation() : null;
 
     const classNamesFirstRow = ['fw-bold', 'pb-3', 'pt-3', 'px-3', 'text-responsive'];
     const classNamesSecondRow = ['pb-3', 'pt-3', 'px-3', 'text-responsive', 'text-minimized'];
@@ -113,7 +114,7 @@ const Location = () =>
                             query={query}
                         />
 
-                        {loaded ? <>
+                        {loaded && apiLocationWrapper && apiResponseProperty && location ? <>
                             {/* Renders the search metrics part. */}
                             <SearchMetrics apiResponseProperty={apiResponseProperty} />
 
@@ -311,7 +312,9 @@ const Location = () =>
                             {
                                 location.hasNextPlaces() ? <>
                                     {location.getNextPlacesFeatureClasses(true).map((featureClass) =>
-                                        <NextPlaces key={'feature-code-' + featureClass} nextPlace={location.getNextPlace(featureClass)} />
+                                        location ?
+                                            <NextPlaces key={'feature-code-' + featureClass} nextPlace={location.getNextPlace(featureClass)} /> :
+                                            <></>
                                     )}
                                 </> : <></>
                             }
@@ -322,7 +325,7 @@ const Location = () =>
                                 apiPathWithoutParameter={apiPath}
                                 apiPathWithParameter={apiPathWithFilter}
                             />
-                        </> : (error !== null ? <Error error={error} apiPath={properties['api-url']}/> : <Loader/>)}
+                        </> : (error !== null ? <Error error={error} apiPath={properties?.["api-url"] ?? ''}/> : <Loader/>)}
                     </div>
                 </div>
             </div>

@@ -64,7 +64,7 @@ const About = () =>
             setProperties: setPropertiesCalendarBuilder,
             setLoaded: setLoadedCalendarBuilder,
             setError: setErrorCalendarBuilder,
-        });
+        }, t);
         loadApiData({
             type: typeLocationApi,
             path: apiPathLocationApi,
@@ -72,7 +72,7 @@ const About = () =>
             setProperties: setPropertiesLocationApi,
             setLoaded: setLoadedLocationApi,
             setError: setErrorLocationApi,
-        });
+        }, t);
     }, [apiPathCalendarBuilder, apiPathLocationApi, typeCalendarBuilder, typeLocationApi]);
 
     /**

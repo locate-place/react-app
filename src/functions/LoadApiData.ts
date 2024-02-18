@@ -1,5 +1,6 @@
 import axios from "axios";
 import semver from "semver";
+import {TFunction} from "i18next";
 
 /* Import types. */
 import {
@@ -11,7 +12,8 @@ import {
  * API data load function.
  */
 const loadApiData = (
-    parameters: TypeLoadApiArguments
+    parameters: TypeLoadApiArguments,
+    t:  TFunction<"translation", undefined>
 ) =>
 {
     const type = parameters.type;
@@ -54,15 +56,15 @@ const loadApiData = (
     }
 
     if (!url) {
-        alert('Wrong API type given.');
+        alert(t('TEXT_ERROR_API_WRONG_TYPE'));
         return;
     }
 
     let apiUrl = url + path;
 
     axios.get(apiUrl)
-        .then(response => {
-
+        .then(response =>
+        {
             let versionResponse = !!path.match(/version.json/);
             let data = response.data;
 
@@ -95,7 +97,7 @@ const loadApiData = (
             /* Check API response */
             if (!valid) {
                 setLoaded(false);
-                setError({message: data.error || 'The API response is not valid.'});
+                setError({message: data.error || t('TEXT_ERROR_API_RESPONSE_INVALID')});
                 return;
             }
 
@@ -106,7 +108,13 @@ const loadApiData = (
             /* Check required api version */
             if (!semver.satisfies(version, calendarBuilderVersion)) {
                 setLoaded(false);
-                setError({message: 'The api version does not match the required version. Required version: ' + process.env.REACT_APP_CALENDAR_BUILDER_VERSION + '. Current version: ' + version});
+                setError({
+                    message:
+                        t('TEXT_ERROR_API_REQUIRED') + ' ' +
+                        t('TEXT_WORD_REQUIRED_VERSION') + ': ' +
+                        process.env.REACT_APP_CALENDAR_BUILDER_VERSION + '. ' +
+                        t('TEXT_WORD_CURRENT_VERSION') + ': ' + version
+                });
                 return;
             }
 
@@ -155,17 +163,20 @@ const loadApiData = (
                 callback();
             }
         })
-        .catch(error => {
+        .catch(error =>
+        {
             setLoaded(false);
             setError(error);
-            setProperties({
-                "valid": false,
-                "name": name,
-                "url": url,
-                "path": path,
-                "type": type,
-                "api-url": apiUrl
-            });
+            if (setProperties) {
+                setProperties({
+                    "valid": false,
+                    "name": name,
+                    "url": url,
+                    "path": path,
+                    "type": type,
+                    "api-url": apiUrl
+                });
+            }
         });
 }
 

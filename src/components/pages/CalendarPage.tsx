@@ -62,7 +62,7 @@ const CalendarPage = () =>
             setProperties: setProperties,
             setLoaded: setLoaded,
             setError: setError,
-        });
+        }, t);
     }, [apiType, apiPath]);
 
     /* Skip empty data */

@@ -1,4 +1,5 @@
 import React from "react";
+import {useTranslation} from "react-i18next";
 
 /* Import functions */
 import {convertToGermanFormatFromDate} from "../../functions/Date";
@@ -15,6 +16,9 @@ type HolidaysProps = {
  */
 const Holidays = ({data}: HolidaysProps) =>
 {
+    /* Import translation. */
+    const { t } = useTranslation();
+
     if (data === undefined || Object.keys(data).length <= 0) {
         return <></>
     }
@@ -24,7 +28,7 @@ const Holidays = ({data}: HolidaysProps) =>
 
     return (
         <>
-            <h3 className="mt-5">Feiertage</h3>
+            <h3 className="mt-5">{t('TEXT_WORD_PUBLIC_HOLIDAYS')}</h3>
             <ul className="list-group list-group-numbered">
                 {Object.entries(holidays).map(([index, holiday]) => (
                     <li key={'holiday-' + index} className="list-group-item d-flex justify-content-between align-items-start">

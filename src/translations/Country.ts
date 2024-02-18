@@ -846,6 +846,9 @@ const translateCountryCode = (countryCode: string, language: string = i18n.langu
         case 'es':
             translations = translationsES;
             break;
+        default:
+            translations = translationsEN;
+            break;
     }
 
     if (!translations) {

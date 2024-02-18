@@ -1,5 +1,6 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import {Link, useSearchParams} from 'react-router-dom';
+import {useTranslation} from "react-i18next";
 
 /* Import functions */
 import loadApiData from "../../functions/LoadApiData";
@@ -28,6 +29,9 @@ import Loader from "../layout/Loader";
  */
 const CalendarPage = () =>
 {
+    /* Import translation. */
+    const { t } = useTranslation();
+
     /* Get env variables */
     const env = useMemo(() => {
         return process.env;
@@ -91,8 +95,8 @@ const CalendarPage = () =>
                             </p>
 
                             <div className="mb-5">
-                                <a
-                                    href={properties.url + data.path + '?width=3072&quality=85'}
+                                <Link
+                                    to={properties.url + data.path + '?width=3072&quality=85'}
                                     className="no-decoration"
                                     target="_blank"
                                     rel="noreferrer"
@@ -113,7 +117,7 @@ const CalendarPage = () =>
                                         title={data.page_title + ' (' + data.coordinate + ')'}
                                         border={true}
                                     />
-                                </a>
+                                </Link>
                             </div>
 
                             {data.description !== undefined ? <>
@@ -132,7 +136,10 @@ const CalendarPage = () =>
                             <Birthdays data={data.birthdays} />
                             <Holidays data={data.holidays} />
                             <div className="mt-5">
-                                <p><a href={'calendar.html?c=' + data.identifier}>zurück zum Kalender</a></p>
+                                <p><Link
+                                    className="btn btn-primary"
+                                    to={query.getFilterConfig().getLinkTo('/calendar.html?c=' + data.identifier)}
+                                >{t('TEXT_WORD_BACK_TO_THE_CALENDAR')}</Link></p>
                             </div>
                         </div>
                     </> : (error !== null ? <Error error={error} apiPath={apiPath} /> : <Loader />)}

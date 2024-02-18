@@ -16,6 +16,7 @@ import {routePathLocations} from "../../config/Route";
 
 /* Import functions */
 import loadApiData from "../../functions/LoadApiData";
+import initializeCompass from "../../functions/Compass";
 
 /* Import classes */
 import {Query} from "../../classes/Query";
@@ -38,7 +39,6 @@ import LocationSort from "../layout/LocationSort";
 import {
     ListTask,
 } from "react-bootstrap-icons";
-import initializeCompass from "../../functions/Compass";
 
 /**
  * This is the app locations component.

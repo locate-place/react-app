@@ -78,11 +78,30 @@
   "TEXT_NEXT_PLACE_NO_IATA_CODE_SPECIFIED": "No IATA code specified",
 
   "TEXT_CONTACT_TITLE": "Contact",
+  "TEXT_CONTACT_SUBTITLE": "Contact page",
+  "TEXT_CONTACT_TEXT_EMAIL": "If you have any questions, please contact us by e-mail:",
+  "TEXT_CONTACT_TEXT_EMAIL_SEND": "Send us an email",
 
+  "TEXT_ABOUT_HEADER_TITLE": "Information",
+  "TEXT_ABOUT_HEADER_SUBTITLE": "About the app",
   "TEXT_ABOUT_DESCRIPTION": "This service is provided by",
   "TEXT_ABOUT_TITLE": "Versions",
   "TEXT_ABOUT_APP_TITLE": "App",
   "TEXT_ABOUT_APP_DESCRIPTION": "Overview of the versions of this app used.",
+  "TEXT_ABOUT_APP_USP_1": "Information about this app",
+  "TEXT_ABOUT_APP_USP_2": "Build on top of",
+  "TEXT_ABOUT_APP_USP_3": "Repository",
+  "TEXT_ABOUT_VERSION_TITLE": "APIs",
+  "TEXT_ABOUT_VERSION_DESCRIPTION": "Overview of all APIs used and their versions.",
+  "TEXT_ABOUT_VERSION_CALENDAR_USP_1": "Generates calendar images and plays them out",
+  "TEXT_ABOUT_VERSION_CALENDAR_USP_2": "Raw images and images with calendar information",
+  "TEXT_ABOUT_VERSION_CALENDAR_USP_3": "API used",
+  "TEXT_ABOUT_VERSION_CALENDAR_USP_4": "Repository",
+  "TEXT_ABOUT_VERSION_LOCATION_USP_1": "Provides a localization API (GeoInfoAPI) with currently around 6.5 million entries worldwide (size of SQL dump: > 1.8 GB)",
+  "TEXT_ABOUT_VERSION_LOCATION_USP_2": "approx. 200ms retrieval time for full information (100ms for basic information)",
+  "TEXT_ABOUT_VERSION_LOCATION_USP_3": "API used",
+  "TEXT_ABOUT_VERSION_LOCATION_USP_4": "Supported countries",
+  "TEXT_ABOUT_VERSION_LOCATION_USP_5": "Repository",
 
   "TEXT_CALENDARS_TITLE": "Overview",
   "TEXT_CALENDARS_SUBTITLE": "Overview of all calendars",
@@ -115,5 +134,13 @@
   "TEXT_LOCATIONS_TITLE": "Locations",
   "TEXT_LOCATIONS_SUBTITLE": "Locations API",
 
-  "TEXT_WORD_UNKNOWN": "Unknown"
+  "TEXT_WORD_BACK_TO_THE_CALENDAR": "Back to the calendar",
+  "TEXT_WORD_BIRTHDAYS": "Birthdays",
+  "TEXT_WORD_EMAIL": "Email",
+  "TEXT_WORD_LAST_UPDATE": "Last update",
+  "TEXT_WORD_PUBLIC_HOLIDAYS": "Public holidays",
+  "TEXT_WORD_UNKNOWN": "Unknown",
+
+  "TEXT_ADDRESS": "Innere Neustadt, Dresden, Saxony, Germany",
+  "TEXT_DRESDEN": "Dresden"
 }

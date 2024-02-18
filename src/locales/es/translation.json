@@ -78,11 +78,30 @@
   "TEXT_NEXT_PLACE_NO_IATA_CODE_SPECIFIED": "Sin código IATA especificado",
 
   "TEXT_CONTACT_TITLE": "Contacto",
+  "TEXT_CONTACT_SUBTITLE": "Página de contacto",
+  "TEXT_CONTACT_TEXT_EMAIL": "Si tiene alguna pregunta, póngase en contacto con nosotros por correo electrónico:",
+  "TEXT_CONTACT_TEXT_EMAIL_SEND": "Envíenos un correo electrónico",
 
+  "TEXT_ABOUT_HEADER_TITLE": "Información",
+  "TEXT_ABOUT_HEADER_SUBTITLE": "Acerca de la aplicación",
   "TEXT_ABOUT_DESCRIPTION": "Este servicio es prestado por",
   "TEXT_ABOUT_TITLE": "Versiones",
   "TEXT_ABOUT_APP_TITLE": "App",
   "TEXT_ABOUT_APP_DESCRIPTION": "Resumen de las versiones utilizadas de esta app",
+  "TEXT_ABOUT_APP_USP_1": "Información sobre esta aplicación",
+  "TEXT_ABOUT_APP_USP_2": "Construir sobre",
+  "TEXT_ABOUT_APP_USP_3": "Repositorio",
+  "TEXT_ABOUT_VERSION_TITLE": "APIs",
+  "TEXT_ABOUT_VERSION_DESCRIPTION": "Resumen de todas las API utilizadas y sus versiones.",
+  "TEXT_ABOUT_VERSION_CALENDAR_USP_1": "Genera imágenes de calendario y las reproduce",
+  "TEXT_ABOUT_VERSION_CALENDAR_USP_2": "Imágenes en bruto e imágenes con información del calendario",
+  "TEXT_ABOUT_VERSION_CALENDAR_USP_3": "API utilizada",
+  "TEXT_ABOUT_VERSION_CALENDAR_USP_4": "Repositorio",
+  "TEXT_ABOUT_VERSION_LOCATION_USP_1": "Proporciona una API de localización (GeoInfoAPI) con actualmente unos 6,5 millones de entradas en todo el mundo (tamaño del volcado SQL: > 1,8 GB)",
+  "TEXT_ABOUT_VERSION_LOCATION_USP_2": "Tiempo de recuperación aproximado de 200 ms para la información completa (100 ms para la información básica)",
+  "TEXT_ABOUT_VERSION_LOCATION_USP_3": "API utilizada",
+  "TEXT_ABOUT_VERSION_LOCATION_USP_4": "Países admitidos",
+  "TEXT_ABOUT_VERSION_LOCATION_USP_5": "Repositorio",
 
   "TEXT_CALENDARS_TITLE": "Visión general",
   "TEXT_CALENDARS_SUBTITLE": "Visión general de todos los calendarios",
@@ -115,5 +134,13 @@
   "TEXT_LOCATIONS_TITLE": "Ubicaciones",
   "TEXT_LOCATIONS_SUBTITLE": "API de ubicaciones",
 
-  "TEXT_WORD_UNKNOWN": "Desconocido"
+  "TEXT_WORD_BACK_TO_THE_CALENDAR": "Volver al calendario",
+  "TEXT_WORD_BIRTHDAYS": "Cumpleaños",
+  "TEXT_WORD_EMAIL": "Correo electrónico",
+  "TEXT_WORD_LAST_UPDATE": "Última actualización",
+  "TEXT_WORD_PUBLIC_HOLIDAYS": "Días festivos",
+  "TEXT_WORD_UNKNOWN": "Desconocido",
+
+  "TEXT_ADDRESS": "Innere Neustadt, Dresde, Sajonia, Alemania",
+  "TEXT_DRESDEN": "Dresde"
 }

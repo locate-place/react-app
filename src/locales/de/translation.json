@@ -78,11 +78,30 @@
   "TEXT_NEXT_PLACE_NO_IATA_CODE_SPECIFIED": "Kein IATA-Code angegeben",
 
   "TEXT_CONTACT_TITLE": "Kontakt",
+  "TEXT_CONTACT_SUBTITLE": "Kontaktseite",
+  "TEXT_CONTACT_TEXT_EMAIL": "Bei Fragen kontaktieren Sie uns bitte per E-Mail:",
+  "TEXT_CONTACT_TEXT_EMAIL_SEND": "Senden Sie uns eine E-Mail",
 
+  "TEXT_ABOUT_HEADER_TITLE": "Informationen",
+  "TEXT_ABOUT_HEADER_SUBTITLE": "Über die App",
   "TEXT_ABOUT_DESCRIPTION": "Dieser Service wird bereitgestellt von",
   "TEXT_ABOUT_TITLE": "Versionen",
   "TEXT_ABOUT_APP_TITLE": "App",
   "TEXT_ABOUT_APP_DESCRIPTION": "Übersicht über die Versionen dieser verwendeten App.",
+  "TEXT_ABOUT_APP_USP_1": "Information über diese App",
+  "TEXT_ABOUT_APP_USP_2": "Build on top of",
+  "TEXT_ABOUT_APP_USP_3": "Repository",
+  "TEXT_ABOUT_VERSION_TITLE": "APIs",
+  "TEXT_ABOUT_VERSION_DESCRIPTION": "Übersicht aller verwendeten APIs und deren Versionen.",
+  "TEXT_ABOUT_VERSION_CALENDAR_USP_1": "Generiert Kalenderbilder und spielt diese aus",
+  "TEXT_ABOUT_VERSION_CALENDAR_USP_2": "Raw Bilder und Bilder mit Kalenderinformationen",
+  "TEXT_ABOUT_VERSION_CALENDAR_USP_3": "Verwendete API",
+  "TEXT_ABOUT_VERSION_CALENDAR_USP_4": "Repository",
+  "TEXT_ABOUT_VERSION_LOCATION_USP_1": "Stellt eine Lokalisierungs-API bereit (GeoInfoAPI) mit aktuell rund 6,5 Millionen Einträgen weltweit (Größe des SQL Dumps: > 1,8 GB)",
+  "TEXT_ABOUT_VERSION_LOCATION_USP_2": "ca. 200ms Abrufzeit bei vollen Informationen (100ms bei Basisinformationen)",
+  "TEXT_ABOUT_VERSION_LOCATION_USP_3": "Verwendete API",
+  "TEXT_ABOUT_VERSION_LOCATION_USP_4": "Unterstützte Länder",
+  "TEXT_ABOUT_VERSION_LOCATION_USP_5": "Repository",
 
   "TEXT_CALENDARS_TITLE": "Übersicht",
   "TEXT_CALENDARS_SUBTITLE": "Übersicht über alle Kalender",
@@ -115,5 +134,13 @@
   "TEXT_LOCATIONS_TITLE": "Standorte",
   "TEXT_LOCATIONS_SUBTITLE": "Standort API",
 
-  "TEXT_WORD_UNKNOWN": "Unbekannt"
+  "TEXT_WORD_BACK_TO_THE_CALENDAR": "Zurück zum Kalender",
+  "TEXT_WORD_BIRTHDAYS": "Geburtstage",
+  "TEXT_WORD_EMAIL": "E-Mail",
+  "TEXT_WORD_LAST_UPDATE": "Letztes Update",
+  "TEXT_WORD_PUBLIC_HOLIDAYS": "Feiertage",
+  "TEXT_WORD_UNKNOWN": "Unbekannt",
+
+  "TEXT_ADDRESS": "Innere Neustadt, Dresden, Sachsen, Deutschland",
+  "TEXT_DRESDEN": "Dresden"
 }

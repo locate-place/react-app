@@ -80,7 +80,7 @@ const About = () =>
      */
     return (
         <>
-            <Header title="App Info" subtitle="Informationen über die App" />
+            <Header title={t('TEXT_ABOUT_HEADER_TITLE')} subtitle={t('TEXT_ABOUT_HEADER_SUBTITLE')} />
             <div className="about container mb-5 px-4 px-md-3">
                 <div className="row g-3">
                     {loadedCalendarBuilder && loadedLocationApi ? <>
@@ -105,11 +105,9 @@ const About = () =>
                                 </div>
                                 <div className="card-body">
                                     <ul className="mb-0">
+                                        <li>{t('TEXT_ABOUT_APP_USP_1')}</li>
                                         <li>
-                                            Diese App, welche gerade aufgerufen wurde
-                                        </li>
-                                        <li>
-                                            Build on top of <LinkV2
+                                            {t('TEXT_ABOUT_APP_USP_2')} <LinkV2
                                                 to={'https://react.dev/blog/2022/03/29/react-v18'}
                                                 target={'_blank'}
                                                 rel="noreferrer"
@@ -117,7 +115,7 @@ const About = () =>
                                                 React
                                             </LinkV2> 18.2.0
                                         </li>
-                                        <li>Repository: <LinkV2
+                                        <li>{t('TEXT_ABOUT_APP_USP_3')}: <LinkV2
                                             to={'https://github.com/twelvepics-com/react-calendar-viewer/blob/main/CHANGELOG.md'}
                                             target={'_blank'}
                                             rel="noreferrer"
@@ -129,10 +127,8 @@ const About = () =>
                                 </div>
                             </div>
 
-                            <h4 className="mt-5">APIs</h4>
-                            <p>
-                                Übersicht aller verwendeten APIs und deren Versionen.
-                            </p>
+                            <h4 className="mt-5">{t('TEXT_ABOUT_VERSION_TITLE')}</h4>
+                            <p>{t('TEXT_ABOUT_VERSION_DESCRIPTION')}</p>
 
                             <div className="row g-3 mb-5">
                                 <div className="col-12 col-lg-6 d-flex align-items-stretch">
@@ -140,14 +136,10 @@ const About = () =>
                                         <div className="card-header fw-bold"><FontAwesomeIcon icon={faIndustry} style={{'color': 'rgb(114, 126, 174)'}}/>&nbsp; PHP Calendar Builder</div>
                                         <div className="card-body">
                                             <ul className="mb-0">
+                                                <li>{t('TEXT_ABOUT_VERSION_CALENDAR_USP_1')}</li>
+                                                <li>{t('TEXT_ABOUT_VERSION_CALENDAR_USP_2')}</li>
                                                 <li>
-                                                    Generiert Kalenderbilder und spielt diese aus
-                                                </li>
-                                                <li>
-                                                    Raw Bilder und Bilder mit Kalenderinformationen
-                                                </li>
-                                                <li>
-                                                    Verwendete API: <a
+                                                    {t('TEXT_ABOUT_VERSION_CALENDAR_USP_3')}: <a
                                                         href={process.env.REACT_APP_CALENDAR_BUILDER_URL + '/api/v1/version.json'}
                                                         target={'_blank'} rel="noreferrer"
                                                     >
@@ -155,7 +147,7 @@ const About = () =>
                                                     </a> (<code>JSON</code>)
                                                 </li>
                                                 <li>
-                                                    Repository: <a
+                                                    {t('TEXT_ABOUT_VERSION_CALENDAR_USP_4')}: <a
                                                     href={'https://github.com/twelvepics-com/php-calendar-builder/blob/main/CHANGELOG.md'}
                                                     target={'_blank'} rel="noreferrer"
                                                 >
@@ -180,14 +172,10 @@ const About = () =>
                                         <div className="card-header fw-bold"><FontAwesomeIcon icon={faDatabase} style={{'color': 'rgb(75, 123, 107)'}} />&nbsp; PHP Location API</div>
                                         <div className="card-body">
                                             <ul className="mb-0">
+                                                <li>{t('TEXT_ABOUT_VERSION_LOCATION_USP_1')}</li>
+                                                <li>{t('TEXT_ABOUT_VERSION_LOCATION_USP_2')}</li>
                                                 <li>
-                                                    Stellt eine Lokalisierungs-API bereit (GeoInfoAPI) mit aktuell rund 6,5 Millionen Einträgen weltweit (Größe des SQL Dumps: &gt; 1,8 GB)
-                                                </li>
-                                                <li>
-                                                    ca. 200ms Abrufzeit bei vollen Informationen (100ms bei Basisinformationen)
-                                                </li>
-                                                <li>
-                                                    Verwendete API: <a
+                                                    {t('TEXT_ABOUT_VERSION_LOCATION_USP_3')}: <a
                                                         href={process.env.REACT_APP_LOCATION_API_URL + '/api/v1/version.json'}
                                                         target={'_blank'}
                                                         rel="noreferrer"
@@ -196,7 +184,7 @@ const About = () =>
                                                     </a> (<code>JSON</code>)
                                                 </li>
                                                 <li>
-                                                    Unterstützte Länder: <a
+                                                    {t('TEXT_ABOUT_VERSION_LOCATION_USP_4')}: <a
                                                         href={process.env.REACT_APP_LOCATION_API_URL + '/api/v1/import.json'}
                                                         target={'_blank'}
                                                         rel="noreferrer"
@@ -205,7 +193,7 @@ const About = () =>
                                                     </a> (<code>JSON</code>)
                                                 </li>
                                                 <li>
-                                                    Repository: <a
+                                                    {t('TEXT_ABOUT_VERSION_LOCATION_USP_5')}: <a
                                                     href={'https://github.com/twelvepics-com/php-location-api/blob/main/CHANGELOG.md'}
                                                     target={'_blank'}
                                                     rel="noreferrer"

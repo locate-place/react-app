@@ -1,5 +1,5 @@
 import React, {useEffect, useMemo, useState} from 'react';
-import { useSearchParams } from 'react-router-dom';
+import {Link, useSearchParams} from 'react-router-dom';
 
 /* Import functions */
 import loadApiData from "../../functions/LoadApiData";
@@ -60,9 +60,6 @@ const Calendar = () => {
         });
     }, [apiType, apiPath]);
 
-    console.log(data);
-    console.log(properties);
-
     /* Skip empty data */
     if (data === null || properties === null) {
         return <></>;
@@ -84,8 +81,8 @@ const Calendar = () => {
                         { !!data.pages ? data.pages.map((item, index) => (
                             <div className="col-12 col-lg-6 col-xl-4 d-flex align-items-stretch" key={'image-' + index}>
                                 <div className="card card-hover">
-                                    <a
-                                        href={'page.html?c=' + data.identifier + '&m=' + index}
+                                    <Link
+                                        to={'/page.html?c=' + data.identifier + '&m=' + index}
                                         className="no-decoration stretched-link"
                                     >
                                         <ImageWithLoader
@@ -98,7 +95,7 @@ const Calendar = () => {
                                             title={item.page_title + ' (' + item.coordinate + ')'}
                                             border={false}
                                         />
-                                    </a>
+                                    </Link>
                                     <div className="card-body">
                                         <h5 className="card-title mb-0">{item.page_title}</h5>
                                     </div>

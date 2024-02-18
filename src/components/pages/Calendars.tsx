@@ -1,6 +1,6 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import {useTranslation} from "react-i18next";
-import {useSearchParams} from "react-router-dom";
+import {Link, useSearchParams} from "react-router-dom";
 
 /* Import types. */
 import {TypeApiProperties, TypeDataCalendars, TypeErrorOwn, TypeLoaded} from "../../types/Types";
@@ -74,8 +74,8 @@ const Calendars = () =>
                     {loaded && data.calendars.length > 0 ? data.calendars.map((item, index) => (
                         <div className="col-12 col-lg-6 col-xl-4 d-flex align-items-stretch" key={'calendar-' + index}>
                             <div className="card card-hover">
-                                <a
-                                    href={'calendar.html?c=' + item.identifier}
+                                <Link
+                                    to={query.getFilterConfig().getLinkTo('/calendar.html?c=' + item.identifier)}
                                     className="no-decoration stretched-link"
                                 >
                                     <ImageWithLoader
@@ -88,7 +88,7 @@ const Calendars = () =>
                                         title={item.title}
                                         border={false}
                                     />
-                                </a>
+                                </Link>
                                 <div className="card-body">
                                     <h5 className="card-title mb-0">{item.title}</h5>
                                 </div>

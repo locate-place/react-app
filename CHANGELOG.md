@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Changelogs
 
+### [0.2.2] - 2023-02-18
+
+* SearchMetrics translations
+
 ### [0.2.1] - 2023-02-18
 
 * Translate about and contact page

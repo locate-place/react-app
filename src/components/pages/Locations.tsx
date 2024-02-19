@@ -90,6 +90,10 @@ const Locations = () =>
     let apiLocationWrapper: ApiLocationWrapper|null = null;
     let apiResponseProperty: ApiResponseProperty|null = null;
 
+
+    let page = 1;
+    let results = 10;
+
     if (api && properties) {
         /* Get location wrapper. */
         apiLocationWrapper = new ApiLocationWrapper(api);
@@ -97,6 +101,9 @@ const Locations = () =>
         /* Add apiResponseProperty to query class, to get more information. */
         apiResponseProperty = new ApiResponseProperty(properties);
         query.setApiResponseProperty(apiResponseProperty);
+
+        page = query.getApiResponseProperty().getResultsPage();
+        results = query.getApiResponseProperty().getResultsResults();
     }
 
     /**
@@ -146,11 +153,11 @@ const Locations = () =>
                                                 (apiLocationWrapper.getLocations() as LocationsWrapper).getLocationWrapperArray().map((locationWrapper, index) => (
                                                     apiResponseProperty ?
                                                         <LocationCard
-                                                            key={'location-card-' + index}
+                                                            key={'location-card-' + (index + 1)}
                                                             locationWrapper={locationWrapper}
                                                             apiResponseProperty={apiResponseProperty}
                                                             showOwnPosition={false}
-                                                            index={index}
+                                                            page={index + (page - 1) * results + 1}
                                                             useAlwaysName={!query.getFilterConfig().hasQuery()}
                                                         /> :
                                                         <></>

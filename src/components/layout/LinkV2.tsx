@@ -7,6 +7,7 @@ import {Query} from "../../classes/Query";
 /* Interface definitions. */
 interface CustomLinkProps extends LinkProps {
     to: To,
+    scrollTo?: number,
     children: ReactNode,
     useCurrentPosition?: boolean,
     setQuery?: boolean
@@ -23,6 +24,7 @@ interface CustomLinkProps extends LinkProps {
  */
 const LinkV2: React.FC<CustomLinkProps> = ({
     to,
+    scrollTo = null,
     children,
     useCurrentPosition = false,
     setQuery = false,
@@ -63,6 +65,23 @@ const LinkV2: React.FC<CustomLinkProps> = ({
     }
 
     /**
+     * ScrollToTop function.
+     *
+     * @param top
+     */
+    const scrollToTop = (top: number|null = null): void =>
+    {
+        if (top === null) {
+            return;
+        }
+
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth',
+        });
+    };
+
+    /**
      * Handles the click event.
      *
      * @param event
@@ -72,6 +91,8 @@ const LinkV2: React.FC<CustomLinkProps> = ({
         /* Use the "to" link directly. */
         if (!useCurrentPosition) {
             navigate(to);
+            scrollToTop(scrollTo);
+
             event.preventDefault();
             return;
         }
@@ -88,6 +109,7 @@ const LinkV2: React.FC<CustomLinkProps> = ({
         // /* The current position is set. Force to use the current one. */
         // if (filterConfig.getCurrentPosition()) {
         //     navigate(query.getFilterConfig().getCurrentLinkWithLanguage(null, null, pathName));
+        //     scrollToTop(scrollTo);
         //     event.preventDefault();
         //     return;
         // }
@@ -105,6 +127,7 @@ const LinkV2: React.FC<CustomLinkProps> = ({
             }
 
             navigate(query.getFilterConfig().getLinkTo(pathName));
+            scrollToTop(scrollTo);
             return;
         });
 

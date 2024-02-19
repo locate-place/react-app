@@ -33,6 +33,7 @@ const Pager = ({query}: PagerProps) =>
             <div className="mb-3 float-end">
                 <LinkV2
                     to={query.getFilterConfig().getLinkNextPlacesPage(page + 1)}
+                    scrollTo={0}
                     className="link-button"
                 >{t('TEXT_ACTION_SHOW_NEXT_PAGE')} <ArrowRightShort size={sizeIcon.H3} /></LinkV2>
             </div>

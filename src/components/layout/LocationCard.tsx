@@ -32,7 +32,7 @@ type LocationCardProps = {
     locationWrapper: LocationWrapper|null,
     apiResponseProperty: ApiResponseProperty,
     showOwnPosition: boolean,
-    index?: number,
+    page?: number,
     useAlwaysName?: boolean
 }
 
@@ -41,7 +41,7 @@ type LocationCardProps = {
  *
  * - ownPosition - Use own position instead of the one from the given location.
  */
-const LocationCard = ({locationWrapper, apiResponseProperty, showOwnPosition, index, useAlwaysName = false}: LocationCardProps) =>
+const LocationCard = ({locationWrapper, apiResponseProperty, showOwnPosition, page, useAlwaysName = false}: LocationCardProps) =>
 {
     /* true - use geoname id as query; false - use coordinate as query */
     let useGeonameIdAsQuery = true;
@@ -123,7 +123,7 @@ const LocationCard = ({locationWrapper, apiResponseProperty, showOwnPosition, in
                                 to={filterConfig.getLinkLocationQuery(queryString.toString())}
                             >
                                 <span>
-                                    <span className="fw-bold">{name}, <small>{translateCountryCode(locationWrapper.getProperties().getCountryCode())}</small></span>{index !== undefined ? <sup>&nbsp;(#{index + 1})</sup> : null}
+                                    <span className="fw-bold">{name}, <small>{translateCountryCode(locationWrapper.getProperties().getCountryCode())}</small></span>{page !== undefined ? <sup>&nbsp;(#{page})</sup> : null}
                                 </span>
                             </LinkV2>
                     }

@@ -355,7 +355,7 @@ const Location = () =>
                                     >
                                         <tbody>
                                         <tr>
-                                            <td className={classNamesRow1.join(' ')}>{t('TEXT_CAPTION_GOOGLE_MAPS')}</td>
+                                            <td className={classNamesRow1.join(' ')} dangerouslySetInnerHTML={{__html: t('TEXT_CAPTION_GOOGLE_MAPS')}} />
                                             <td className={classNamesRow2.join(' ')} colSpan={2}><a
                                                 href={location.getLinks().getMaps('google') ?? ''} target={'_blank'}
                                                 rel="noreferrer"
@@ -363,7 +363,7 @@ const Location = () =>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td className={classNamesRow1.join(' ')}>{t('TEXT_CAPTION_OPEN_STREET_MAP')}</td>
+                                            <td className={classNamesRow1.join(' ')} dangerouslySetInnerHTML={{__html: addSoftHyphens(t('TEXT_CAPTION_OPEN_STREET_MAP'))}} />
                                             <td className={classNamesRow2.join(' ')} colSpan={2}><a
                                                 href={location.getLinks().getMaps('openstreetmap') ?? ''}
                                                 target={'_blank'}

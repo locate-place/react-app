@@ -204,7 +204,7 @@ const LocationCard = ({locationWrapper, apiResponseProperty, showOwnPosition, pa
                                 })}
                             </p>
                         </div>
-                        <div className="col-12 col-md-6 col-lg-4">
+                        <div className="col-12 col-md-6 col-lg-4 mb-3">
                             <h4>{t('TEXT_HEADER_MAPS')}</h4>
                             <p className="m-0">
                                 {

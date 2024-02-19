@@ -85,7 +85,7 @@ const Locations = () =>
                 initializeCompass();
             }
         }, t);
-    }, [apiType, apiPathWithFilter]);
+    }, [apiType, apiPathWithFilter, t]);
 
     let apiLocationWrapper: ApiLocationWrapper|null = null;
     let apiResponseProperty: ApiResponseProperty|null = null;

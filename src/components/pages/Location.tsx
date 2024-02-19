@@ -7,7 +7,6 @@ import {useTranslation} from "react-i18next";
 /* Add configurations */
 import {sizeIcon} from "../../config/Config";
 import {routePathLocation} from "../../config/Route";
-import {colorBackgroundLocation} from "../../config/Colors";
 
 /* Import types. */
 import {TypeApiData, TypeApiProperties, TypeErrorOwn, TypeLoaded} from "../../types/Types";
@@ -81,7 +80,7 @@ const Location = () =>
                 initializeCompass();
             }
         }, t);
-    }, [apiType, apiPathWithFilter]);
+    }, [apiType, apiPathWithFilter, t]);
 
     let apiLocationWrapper: ApiLocationWrapper|null = null;
     let apiResponseProperty: ApiResponseProperty|null = null;

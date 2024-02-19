@@ -11,10 +11,12 @@ import {
 } from "react-bootstrap-icons";
 
 type CollapsibleCardProps = {
-    title: string,
+    title: string|JSX.Element,
     children?: JSX.Element|null|never[],
     introduction?: JSX.Element|null,
     footer?: JSX.Element|null,
+    footerInformation?: JSX.Element|null,
+    footerInformationAdditional?: JSX.Element|null,
     backgroundColor?: string,
     collapsed?: boolean,
     collapsable?: boolean,
@@ -50,6 +52,8 @@ const CollapsibleCard = ({
     children,
     introduction = null,
     footer = null,
+    footerInformation = null,
+    footerInformationAdditional = null,
     backgroundColor = colorBackgroundLocation,
     collapsed = false,
     collapsable = true,
@@ -62,7 +66,7 @@ const CollapsibleCard = ({
 
     return (
         <div className="accordion" id={idMain}>
-            <div className="card shadow-own mb-4 mt-4" style={{'backgroundColor': backgroundColor}}>
+            <div className="card shadow-own w-100 mb-4 mt-4" style={{'backgroundColor': backgroundColor}}>
                 <div
                     className={'card-header' + ( collapsed ? ' collapsed' : '')}
                     id={idToggler}
@@ -72,7 +76,7 @@ const CollapsibleCard = ({
                     aria-controls={idCollapse}
                     style={{"cursor": collapsable ? 'pointer' : 'auto'}}
                 >
-                    <p className="mb-0 fw-bold">
+                    <div className="fw-bold">
                         {
                             collapsable ? <>
                                 <ChevronDown size={sizeIcon.H3} className="collapse-close" />
@@ -80,7 +84,7 @@ const CollapsibleCard = ({
                             </> : <></>
                         }
                         {title}
-                    </p>
+                    </div>
                 </div>
 
                 <div
@@ -101,6 +105,16 @@ const CollapsibleCard = ({
                         </div> : <></>
                     }
                 </div>
+                {
+                    footerInformation ? <div className="card-footer">
+                        <small><small>{footerInformation}</small></small>
+                    </div> : <></>
+                }
+                {
+                    footerInformationAdditional ? <div className="card-footer">
+                        <small><small>{footerInformationAdditional}</small></small>
+                    </div> : <></>
+                }
             </div>
         </div>
     )

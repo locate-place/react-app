@@ -25,7 +25,8 @@ import {ApiResponseProperty} from "../../classes/Api/ApiResponseProperty";
 /* Import configuration. */
 import {mapTypeGoogle, mapTypeOpenStreetMap} from "../../config/MapTypes";
 import Flag from "./Flag";
-import {colorBackgroundLocation, colorBackgroundLocationOwn} from "../../config/Colors";
+import LinkV2 from "./LinkV2";
+import CollapsibleCard from "./CollapsibleCard";
 
 type LocationCardProps = {
     locationWrapper: LocationWrapper|null,
@@ -107,133 +108,136 @@ const LocationCard = ({locationWrapper, apiResponseProperty, showOwnPosition, in
 
     return (
         <>
-            <div className={'card w-100 mb-4' + (showOwnPosition ? '' : ' card-hover')}
-                 style={showOwnPosition ? {'backgroundColor': colorBackgroundLocationOwn} : {'backgroundColor': colorBackgroundLocation}}>
-                <div className="card-header">
+            <CollapsibleCard collapsed={true} title={
+                <>
                     <Flag
                         country={locationWrapper.getProperties().getCountryCode()}
                         size={1.5}
                     /> &nbsp;
                     {
                         showOwnPosition ?
-                            <span><span className="fw-bold">{name}, <small>{translateCountryCode(locationWrapper.getProperties().getCountryCode())}</small></span></span> :
-                            <span><span className="fw-bold">{name}, <small>{translateCountryCode(locationWrapper.getProperties().getCountryCode())}</small></span>{index !== undefined ? <sup>&nbsp;(#{index + 1})</sup> : null}</span>
+                            <span>
+                                <span className="fw-bold">{name}, <small>{translateCountryCode(locationWrapper.getProperties().getCountryCode())}</small></span>
+                            </span> :
+                            <LinkV2
+                                to={filterConfig.getLinkLocationQuery(queryString.toString())}
+                            >
+                                <span>
+                                    <span className="fw-bold">{name}, <small>{translateCountryCode(locationWrapper.getProperties().getCountryCode())}</small></span>{index !== undefined ? <sup>&nbsp;(#{index + 1})</sup> : null}
+                                </span>
+                            </LinkV2>
                     }
                     {
                         locationWrapper.getProperties().showAirportCode(locationWrapper) ?
                             <>{airportCodesText}</> :
                             <></>
                     }
-                </div>
-                <div className="card-body">
-                    <div className="container p-0">
-                        <div className="row">
-                            <div className="col-12 col-md-6 col-lg-4 mb-3">
-                                <h4>{t('TEXT_HEADER_INFORMATION')}</h4>
-                                <p className="m-0">
-                                    <Link
-                                        to={filterConfig.getLinkLocationQuery(queryString.toString())}
+                </>
+            } footerInformation={
+                <>
+                    <strong>
+                        {locationWrapper.getNameFull() ? locationWrapper.getNameFull() : locationWrapper.getName()}
+                    </strong>
+                    {elevationText}
+                    {populationText}
+                    {
+                        airportCodesText !== null ?
+                            <>{airportCodesText}</> :
+                            <></>
+                    }
+                    <br/>
+                    <span>
+                        <strong>{locationWrapper.getFeature().getCode().getName()}</strong>: {locationWrapper.getFeature().getClass().getName()} - <code>{locationWrapper.getFeature().getClass().getCode() + '::' + locationWrapper.getFeature().getCode().getCode()}</code>
+                    </span>
+                    <br/>
+                    <span>
+                        <strong>{t('TEXT_WORD_LAST_UPDATE')}</strong>: {convertToGermanFormat(locationWrapper.getUpdateAt())}
+                    </span>
+                </>
+            } footerInformationAdditional={
+                showOwnPosition ?
+                    <>
+                        <strong>{t('TEXT_WORD_POSITION')}</strong>: <span
+                        title={latitudeDecimal ? latitudeDecimal.toString() : ''}>{latitudeDms}</span>, <span
+                        title={longitudeDecimal ? longitudeDecimal.toString() : ''}>{longitudeDms}</span>
+                    </> :
+                    <CoordinateDistanceDirection location={locationWrapper.get()}/>
+            }>
+                <div className="container p-3 pb-0">
+                    <div className="row">
+                        <div className="col-12 col-md-6 col-lg-4 mb-3">
+                            <h4>{t('TEXT_HEADER_INFORMATION')}</h4>
+                            <p className="m-0">
+                                <Link
+                                    to={filterConfig.getLinkLocationQuery(queryString.toString())}
+                                ><span><FontAwesomeIcon
+                                    icon={faMaximize}
+                                    style={{'color': 'rgb(114, 135, 42)'}}
+                                /> {name}</span></Link>{
+                                wikipediaLink ?
+                                    <>,<br/><Link
+                                        to={wikipediaLink}
+                                        target={'_blank'}
+                                        rel="noreferrer"
                                     ><span><FontAwesomeIcon
                                         icon={faMaximize}
                                         style={{'color': 'rgb(114, 135, 42)'}}
-                                    /> {name}</span></Link>{
-                                        wikipediaLink ?
-                                            <>,<br /><Link
-                                                    to={wikipediaLink}
-                                                    target={'_blank'}
-                                                    rel="noreferrer"
-                                                ><span><FontAwesomeIcon
-                                                    icon={faMaximize}
-                                                    style={{'color': 'rgb(114, 135, 42)'}}
-                                                /> Wikipedia</span></Link>
-                                            </> :
-                                            null
-                                }
-                                </p>
-                            </div>
-                            <div className="col-12 col-md-6 col-lg-4 mb-3">
-                                <h4>{t('TEXT_HEADER_NEXT_PLACES')}</h4>
-                                <p className="m-0">
-                                    {locationWrapper.getNextPlacesConfig().getConfigKeysNextPlaces().map((key, index) => {
-                                        return (
-                                            <span key={'next-place-' + key}>
+                                    /> Wikipedia</span></Link>
+                                    </> :
+                                    null
+                            }
+                            </p>
+                        </div>
+                        <div className="col-12 col-md-6 col-lg-4 mb-3">
+                            <h4>{t('TEXT_HEADER_NEXT_PLACES')}</h4>
+                            <p className="m-0">
+                                {locationWrapper.getNextPlacesConfig().getConfigKeysNextPlaces().map((key, index) => {
+                                    return (
+                                        <span key={'next-place-' + key}>
                                                 {index !== 0 ? ', ' : ''}
-                                                <Link
-                                                    key={'next-place-' + key}
-                                                    to={filterConfig.getLinkNextListPlacesByNextPlacesConfig(locationWrapper, key)}
-                                                >{t('TEXT_LOCATION_CARD_' + key.toUpperCase())}</Link>
+                                            <Link
+                                                key={'next-place-' + key}
+                                                to={filterConfig.getLinkNextListPlacesByNextPlacesConfig(locationWrapper, key)}
+                                            >{t('TEXT_LOCATION_CARD_' + key.toUpperCase())}</Link>
                                             </span>
-                                        );
-                                    })}
-                                </p>
-                            </div>
-                            <div className="col-12 col-md-6 col-lg-4">
-                                <h4>{t('TEXT_HEADER_MAPS')}</h4>
-                                <p className="m-0">
-                                    {
-                                        linkGoogleMaps ?
-                                            <Link
-                                                to={linkGoogleMaps}
-                                                target="_blank"
-                                                rel="noreferrer"
-                                            >
+                                    );
+                                })}
+                            </p>
+                        </div>
+                        <div className="col-12 col-md-6 col-lg-4">
+                            <h4>{t('TEXT_HEADER_MAPS')}</h4>
+                            <p className="m-0">
+                                {
+                                    linkGoogleMaps ?
+                                        <Link
+                                            to={linkGoogleMaps}
+                                            target="_blank"
+                                            rel="noreferrer"
+                                        >
                                                 <span className="text-nowrap">
-                                                    <FontAwesomeIcon icon={faMapLocation} style={{'color': 'rgb(23, 34, 52)'}}/> Google Maps
+                                                    <FontAwesomeIcon icon={faMapLocation}
+                                                                     style={{'color': 'rgb(23, 34, 52)'}}/> Google Maps
                                                 </span>
-                                            </Link> : <></>
-                                    },<br/>
-                                    {
-                                        linkOpenStreetMaps ?
-                                            <Link
-                                                to={linkOpenStreetMaps}
-                                                target="_blank"
-                                                rel="noreferrer"
-                                            >
+                                        </Link> : <></>
+                                },<br/>
+                                {
+                                    linkOpenStreetMaps ?
+                                        <Link
+                                            to={linkOpenStreetMaps}
+                                            target="_blank"
+                                            rel="noreferrer"
+                                        >
                                                 <span className="text-nowrap">
-                                                    <FontAwesomeIcon icon={faMapLocation} style={{'color': 'rgb(23, 34, 52)'}}/> OpenStreetMap
+                                                    <FontAwesomeIcon icon={faMapLocation}
+                                                                     style={{'color': 'rgb(23, 34, 52)'}}/> OpenStreetMap
                                                 </span>
-                                            </Link> : <></>
-                                    }
-                                </p>
-                            </div>
+                                        </Link> : <></>
+                                }
+                            </p>
                         </div>
                     </div>
                 </div>
-                <div className="card-footer">
-                    <small><small>
-                        <strong>
-                            {locationWrapper.getNameFull() ? locationWrapper.getNameFull() : locationWrapper.getName()}
-                        </strong>
-                        {elevationText}
-                        {populationText}
-                        {
-                            airportCodesText !== null ?
-                                <>{airportCodesText}</> :
-                                <></>
-                        }
-                        <br/>
-                        <span>
-                            <strong>{locationWrapper.getFeature().getCode().getName()}</strong>: {locationWrapper.getFeature().getClass().getName()} - <code>{locationWrapper.getFeature().getClass().getCode() + '::' + locationWrapper.getFeature().getCode().getCode()}</code>
-                        </span>
-
-                        <br/>
-                        <span>
-                            <strong>{t('TEXT_WORD_LAST_UPDATE')}</strong>: {convertToGermanFormat(locationWrapper.getUpdateAt())}
-                        </span>
-                    </small></small>
-                </div>
-                <div className="card-footer"><small><small>
-                    {
-                        showOwnPosition ?
-                            <>
-                                <strong>{t('TEXT_WORD_POSITION')}</strong>: <span
-                                title={latitudeDecimal ? latitudeDecimal.toString() : ''}>{latitudeDms}</span>, <span
-                                title={longitudeDecimal ? longitudeDecimal.toString() : ''}>{longitudeDms}</span>
-                            </> :
-                            <CoordinateDistanceDirection location={locationWrapper.get()}/>
-                    }
-                </small></small></div>
-            </div>
+            </CollapsibleCard>
         </>
     )
 }

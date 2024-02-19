@@ -71,6 +71,8 @@ const LinkV2: React.FC<CustomLinkProps> = ({
     {
         /* Use the "to" link directly. */
         if (!useCurrentPosition) {
+            navigate(to);
+            event.preventDefault();
             return;
         }
 

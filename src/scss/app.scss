@@ -84,7 +84,7 @@ body {
         display: inline;
         margin: 0;
         padding: 0;
-        color: rgb(13, 110, 253);
+        font-weight: bold;
 
         &:hover {
             text-decoration: underline;
@@ -146,7 +146,7 @@ body {
     }
 
     .button-own-position {
-        background-color: #dfebfd;
+        background-color: #f1f0fe;
 
         &.button-own-position-search {
             border-top-left-radius: 6px;
@@ -156,7 +156,7 @@ body {
         }
 
         &:hover {
-            background-color: #0d6efd;
+            background-color: #180daf;
         }
     }
 

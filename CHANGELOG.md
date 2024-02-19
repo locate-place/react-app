@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Changelogs
 
+### [0.2.12] - 2023-02-19
+
+* Change next places layout from table to flex
+* Optimize layout for small mobile phones
+* Refactoring SearchPerformance
+* Color refactoring
+* CSS refactoring
+* Add CollapsibleCard with toggler
+* Add CollapsibleCard
+* Location structure refactoring
+
 ### [0.2.11] - 2023-02-19
 
 * Add parsed feature classes

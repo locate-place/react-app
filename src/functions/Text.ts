@@ -5,8 +5,11 @@
  */
 const addSoftHyphens = (text: string): string =>
 {
+    text = text.replaceAll('&', '&amp;&#8203;');
     text = text.replaceAll('/', '/&#8203;');
     text = text.replaceAll('-', '-&#8203;');
+    text = text.replaceAll('?', '?&#8203;');
+    text = text.replaceAll('=', '=&#8203;');
 
     return text;
 }

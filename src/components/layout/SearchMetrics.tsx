@@ -1,17 +1,18 @@
 import React from "react";
 import {useTranslation} from "react-i18next";
 
-/* Add configurations */
+/* Import configurations */
 import {sizeIcon} from "../../config/Config";
+import {colorBackgroundLocation} from "../../config/Colors";
 
 /* Import classes */
 import {ApiResponseProperty} from "../../classes/Api/ApiResponseProperty";
 
+/* Import component parts */
+import LocationCard from "./LocationCard";
+
 /* Bootstrap icons; see https://icons.getbootstrap.com/?q=sort#usage */
 import {GraphUp, HouseFill} from "react-bootstrap-icons";
-
-/* Add component parts */
-import LocationCard from "./LocationCard";
 
 type SearchMetricsProps = {
     apiResponseProperty: ApiResponseProperty
@@ -77,7 +78,7 @@ const SearchMetrics = ({
                                         >
                                             <h3 className="mt-3"><GraphUp size={sizeIcon.H3}/> {t('TEXT_ACTION_SEARCH_METRICS_TITLE')}</h3>
                                             <div className="card card-hover mb-4"
-                                                 style={{'backgroundColor': 'rgb(233, 235, 228)'}}>
+                                                 style={{'backgroundColor': colorBackgroundLocation}}>
                                                 <div className="card-header">
                                                         <span className="fw-bold"><GraphUp size={sizeIcon.Caption}/>&nbsp;
                                                             {t(apiResponseProperty.getGivenQueryParsedTypeTranslationKey())}

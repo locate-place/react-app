@@ -286,6 +286,34 @@ class CoordinateWrapper
     /**
      * Returns the cardinal direction of the location to user.
      */
+    getDirectionUserCode(): string|null
+    {
+        const direction = this.getDirectionUser();
+
+        if (direction === null) {
+            return null;
+        }
+
+        return direction["cardinal-direction"];
+    }
+
+    /**
+     * Returns the cardinal direction of the location to user.
+     */
+    getDirectionUserCodeTranslated(t: TFunction<"translation", undefined>): string|null
+    {
+        const directionCode = this.getDirectionUserCode();
+
+        if (directionCode === null) {
+            return null;
+        }
+
+        return t('TEXT_WORD_DIRECTION_' + directionCode);
+    }
+
+    /**
+     * Returns the cardinal direction of the location to user.
+     */
     getDirectionUserTranslated(): string|null
     {
         const direction = this.getDirectionUser();

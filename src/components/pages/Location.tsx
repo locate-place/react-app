@@ -7,6 +7,7 @@ import {useTranslation} from "react-i18next";
 /* Add configurations */
 import {sizeIcon} from "../../config/Config";
 import {routePathLocation} from "../../config/Route";
+import {colorBackgroundLocation} from "../../config/Colors";
 
 /* Import types. */
 import {TypeApiData, TypeApiProperties, TypeErrorOwn, TypeLoaded} from "../../types/Types";
@@ -95,8 +96,8 @@ const Location = () =>
 
     let location = apiLocationWrapper ? apiLocationWrapper.getLocation() : null;
 
-    const classNamesFirstRow = ['fw-bold', 'pb-3', 'pt-3', 'px-3', 'text-responsive'];
-    const classNamesSecondRow = ['pb-3', 'pt-3', 'px-3', 'text-responsive', 'text-minimized'];
+    const classNamesFirstRow = ['fw-bold', 'pb-3', 'pt-3', 'px-3', 'text-responsive', 'text-30'];
+    const classNamesSecondRow = ['pb-3', 'pt-3', 'px-3', 'text-responsive', 'text-minimized', 'text-70'];
 
     /**
      * The render function.
@@ -119,19 +120,23 @@ const Location = () =>
                             <SearchMetrics apiResponseProperty={apiResponseProperty} />
 
                             <div>
+                                {/* Compass. */}
                                 <div className="compass" id="compass">
                                     <div className="arrow"></div>
                                     <div className="disc" id="compassDisc"></div>
                                 </div>
 
+
+                                {/* Caption. */}
                                 <h2 className="mt-3">
                                     <Flag country={location.getProperties().getCountryCode()} size={1}
                                           title={location.getProperties().getCountryCodeTranslated()}/> &nbsp;
                                     {location.getName()}
                                 </h2>
 
-                                <div className="card shadow-own mb-5"
-                                     style={{'backgroundColor': 'rgb(233, 235, 228)'}}>
+
+                                {/* Location information. */}
+                                <div className="card shadow-own mb-4 mt-4" style={{'backgroundColor': colorBackgroundLocation}}>
                                     <div className="card-header">
                                         <p className="mb-0 fw-bold">{location.getNameFull()}</p>
                                     </div>
@@ -169,21 +174,37 @@ const Location = () =>
                                                 location.hasCountry() ? <tr>
                                                     <td className={classNamesFirstRow.join(' ')}>{t('TEXT_CAPTION_COUNTRY')}</td>
                                                     <td className={classNamesSecondRow.join(' ')}
-                                                        colSpan={2}>{location.getCountry()?.getName()}</td>
-                                                </tr> : <></>
-                                            }
-                                            <tr>
-                                                <td className={classNamesFirstRow.join(' ')}>{t('TEXT_CAPTION_COUNTRY_CODE')}</td>
-                                                <td className={classNamesSecondRow.join(' ')}
-                                                    colSpan={2}>{location.getProperties().getCountryCode()}</td>
-                                            </tr>
-                                            {
-                                                location.getProperties().hasElevation() ? <tr>
-                                                    <td className={classNamesFirstRow.join(' ')}>{t('TEXT_CAPTION_ELEVATION')}</td>
+                                                        colSpan={2}>{location.getCountry()?.getName()}, <code>{location.getProperties().getCountryCode()}</code>, <Flag country={location.getProperties().getCountryCode()} size={1} title={location.getProperties().getCountryCodeTranslated()} /></td>
+                                                </tr> : <tr>
+                                                    <td className={classNamesFirstRow.join(' ')}>{t('TEXT_CAPTION_COUNTRY_CODE')}</td>
                                                     <td className={classNamesSecondRow.join(' ')}
-                                                        colSpan={2}>{location.getProperties().getElevation()?.["value-formatted"]}</td>
-                                                </tr> : <></>
+                                                        colSpan={2}><code>{location.getProperties().getCountryCode()}</code>, <Flag country={location.getProperties().getCountryCode()} size={1} title={location.getProperties().getCountryCodeTranslated()} /></td>
+                                                </tr>
                                             }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div className="card-footer">
+                                        <small><small>
+                                        </small></small>
+                                    </div>
+                                </div>
+
+
+                                {/* Position location information. */}
+                                <div className="card shadow-own mb-4 mt-4" style={{'backgroundColor': colorBackgroundLocation}}>
+                                    <div className="card-header">
+                                        <p className="mb-0 fw-bold">{t('TEXT_WORD_POSITION_LOCATION')}</p>
+                                    </div>
+                                    <div className="card-body p-0">
+                                        <table
+                                            className="table table-responsive table-last-line location-detail mb-0"
+                                            style={{
+                                                borderCollapse: 'collapse',
+                                                backgroundColor: "transparent"
+                                            }}
+                                        >
+                                            <tbody>
                                             <tr>
                                                 <td className={classNamesFirstRow.join(' ')}>{t('TEXT_CAPTION_DMS')}</td>
                                                 <td className={classNamesSecondRow.join(' ')}
@@ -213,7 +234,7 @@ const Location = () =>
                                                                         <td className={classNamesSecondRow.join(' ')}
                                                                             title={location.getCoordinate().getDistanceUserText(t) ?? ''}
                                                                         >
-                                                                            {location.getCoordinate().getDirectionUserTranslated()}<sup>*)</sup>
+                                                                            {location.getCoordinate().getDirectionUserCode()} - {location.getCoordinate().getDirectionUserCodeTranslated(t)}<sup>*)</sup>
                                                                         </td>
                                                                         <td className={classNamesSecondRow.join(' ')}
                                                                             style={{
@@ -253,43 +274,6 @@ const Location = () =>
                                                         </td>
                                                     </tr>
                                             }
-                                            <tr>
-                                                <td className={classNamesFirstRow.join(' ')}>{t('TEXT_CAPTION_MASTER_CODE')}</td>
-                                                <td className={classNamesSecondRow.join(' ')} colSpan={2}>
-                                                    <code>{location.getFeature().getClass().getCode()}</code> - {location.getFeature().getClass().getName()}</td>
-                                            </tr>
-                                            <tr>
-                                                <td className={classNamesFirstRow.join(' ')}>{t('TEXT_CAPTION_CODE')}</td>
-                                                <td className={classNamesSecondRow.join(' ')} colSpan={2}>
-                                                    <code>{location.getFeature().getCode().getCode()}</code> - {location.getFeature().getCode().getName()}</td>
-                                            </tr>
-                                            {
-                                                location.hasTimezone() ?
-                                                <tr>
-                                                    <td className={classNamesFirstRow.join(' ')}>{t('TEXT_CAPTION_TIME_ZONE')}</td>
-                                                    <td
-                                                        className={classNamesSecondRow.join(' ')}
-                                                        colSpan={2}
-                                                        title={location.getTimezone()?.getCoordinate().getDMS() ?? ''}
-                                                    >{location.getTimezone()?.getTimezone()} <code>{location.getTimezone()?.getOffset()}</code></td>
-                                                </tr> : <></>
-                                            }
-                                            {
-                                                location.getLinks().hasWikipedia() ? <tr>
-                                                    <td className={classNamesFirstRow.join(' ')}>{t('TEXT_CAPTION_TIME_WIKIPEDIA')}</td>
-                                                    <td className={classNamesSecondRow.join(' ')} colSpan={2}><a href={location.getLinks().getWikipedia() ?? ''} target={'_blank'} rel="noreferrer" dangerouslySetInnerHTML={{__html: addSoftHyphens(location.getLinks().getWikipedia() ?? '')}} /></td>
-                                                </tr> : <></>
-                                            }
-                                            <tr>
-                                                <td className={classNamesFirstRow.join(' ')}>{t('TEXT_CAPTION_TIME_GEONAME_ID')}</td>
-                                                <td className={classNamesSecondRow.join(' ')}
-                                                    colSpan={2}>{location.getGeonameId()}</td>
-                                            </tr>
-                                            <tr>
-                                                <td className={classNamesFirstRow.join(' ')}>{t('TEXT_CAPTION_TIME_LAST_UPDATE')}</td>
-                                                <td className={classNamesSecondRow.join(' ')}
-                                                    colSpan={2}>{convertToGermanFormat(location.getUpdateAt())}</td>
-                                            </tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -306,6 +290,131 @@ const Location = () =>
                                         </small></small>
                                     </div>
                                 </div>
+
+
+                                {/* Location information. */}
+                                <div className="card shadow-own mb-4 mt-4" style={{'backgroundColor': colorBackgroundLocation}}>
+                                    <div className="card-header">
+                                        <p className="mb-0 fw-bold">{t('TEXT_WORD_LOCATION_INFORMATION')}</p>
+                                    </div>
+                                    <div className="card-body p-0">
+                                        <table
+                                            className="table table-responsive table-last-line location-detail mb-0"
+                                            style={{
+                                                borderCollapse: 'collapse',
+                                                backgroundColor: "transparent"
+                                            }}
+                                        >
+                                            <tbody>
+                                            <tr>
+                                                <td className={classNamesFirstRow.join(' ')}>{t('TEXT_CAPTION_MASTER_CODE')}</td>
+                                                <td className={classNamesSecondRow.join(' ')} colSpan={2}>
+                                                    <code>{location.getFeature().getClass().getCode()}</code> - {location.getFeature().getClass().getName()}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td className={classNamesFirstRow.join(' ')}>{t('TEXT_CAPTION_CODE')}</td>
+                                                <td className={classNamesSecondRow.join(' ')} colSpan={2}>
+                                                    <code>{location.getFeature().getCode().getCode()}</code> - {location.getFeature().getCode().getName()}
+                                                </td>
+                                            </tr>
+                                            {
+                                                location.hasTimezone() ?
+                                                    <tr>
+                                                        <td className={classNamesFirstRow.join(' ')}>{t('TEXT_CAPTION_TIME_ZONE')}</td>
+                                                        <td
+                                                            className={classNamesSecondRow.join(' ')}
+                                                            colSpan={2}
+                                                            title={location.getTimezone()?.getCoordinate().getDMS() ?? ''}
+                                                        >{location.getTimezone()?.getTimezone()}&nbsp;
+                                                            <code>{location.getTimezone()?.getOffset()}</code></td>
+                                                    </tr> : <></>
+                                            }
+                                            {
+                                                location.getProperties().hasElevation() ? <tr>
+                                                    <td className={classNamesFirstRow.join(' ')}>{t('TEXT_CAPTION_ELEVATION')}</td>
+                                                    <td className={classNamesSecondRow.join(' ')}
+                                                        colSpan={2}>{location.getProperties().getElevation()?.["value-formatted"]}</td>
+                                                </tr> : <></>
+                                            }
+                                            {
+                                                location.getProperties().hasPopulation() ? <tr>
+                                                    <td className={classNamesFirstRow.join(' ')}>{t('TEXT_CAPTION_POPULATION')}</td>
+                                                    <td className={classNamesSecondRow.join(' ')}
+                                                        colSpan={2}>{location.getProperties().getPopulation()?.["value-formatted"]} {t('TEXT_WORD_INHABITANTS')}</td>
+                                                </tr> : <></>
+                                            }
+                                            <tr>
+                                                <td className={classNamesFirstRow.join(' ')}>{t('TEXT_CAPTION_GEONAME_ID')}</td>
+                                                <td className={classNamesSecondRow.join(' ')}
+                                                    colSpan={2}>{location.getGeonameId()}</td>
+                                            </tr>
+                                            <tr>
+                                                <td className={classNamesFirstRow.join(' ')}>{t('TEXT_CAPTION_LAST_UPDATE')}</td>
+                                                <td className={classNamesSecondRow.join(' ')}
+                                                    colSpan={2}>{convertToGermanFormat(location.getUpdateAt())}</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div className="card-footer">
+                                        <small><small>
+                                        </small></small>
+                                    </div>
+                                </div>
+
+
+                                {/* Property / information. */}
+                                <div className="card shadow-own mb-4 mt-4"
+                                     style={{'backgroundColor': colorBackgroundLocation}}>
+                                    <div className="card-header">
+                                        <p className="mb-0 fw-bold">{t('TEXT_WORD_LINK_ADDRESSES_MAPS')}</p>
+                                    </div>
+                                    <div className="card-body p-0">
+                                        <table
+                                            className="table table-responsive table-last-line location-detail mb-0"
+                                            style={{
+                                                borderCollapse: 'collapse',
+                                                backgroundColor: "transparent"
+                                            }}
+                                        >
+                                            <tbody>
+                                            <tr>
+                                                <td className={classNamesFirstRow.join(' ')}>{t('TEXT_CAPTION_GOOGLE_MAPS')}</td>
+                                                <td className={classNamesSecondRow.join(' ')} colSpan={2}><a
+                                                    href={location.getLinks().getMaps('google') ?? ''} target={'_blank'}
+                                                    rel="noreferrer"
+                                                    dangerouslySetInnerHTML={{__html: addSoftHyphens(location.getLinks().getMaps('google') ?? '')}}/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td className={classNamesFirstRow.join(' ')}>{t('TEXT_CAPTION_OPEN_STREET_MAP')}</td>
+                                                <td className={classNamesSecondRow.join(' ')} colSpan={2}><a
+                                                    href={location.getLinks().getMaps('openstreetmap') ?? ''} target={'_blank'}
+                                                    rel="noreferrer"
+                                                    dangerouslySetInnerHTML={{__html: addSoftHyphens(location.getLinks().getMaps('openstreetmap') ?? '')}}/>
+                                                </td>
+                                            </tr>
+                                            {
+                                                location.getLinks().hasWikipedia() ? <tr>
+                                                    <td className={classNamesFirstRow.join(' ')}>{t('TEXT_CAPTION_WIKIPEDIA')}</td>
+                                                    <td className={classNamesSecondRow.join(' ')} colSpan={2}><a
+                                                        href={location.getLinks().getWikipedia() ?? ''}
+                                                        target={'_blank'} rel="noreferrer"
+                                                        dangerouslySetInnerHTML={{__html: addSoftHyphens(location.getLinks().getWikipedia() ?? '')}}/>
+                                                    </td>
+                                                </tr> : <></>
+                                            }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div className="card-footer">
+                                        <small><small>
+                                        </small></small>
+                                    </div>
+                                </div>
+
+
                             </div>
 
                             {/* Renders the next places parts */}

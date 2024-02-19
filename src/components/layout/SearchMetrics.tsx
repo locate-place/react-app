@@ -106,7 +106,7 @@ const SearchMetrics = ({
                                                         apiResponseProperty.hasGivenQueryParsedCoordinate() ?
                                                             <>
                                                                 <p className="mb-0">
-                                                                    <strong>{t('TEXT_WORD_POSITION')}</strong>: {apiResponseProperty.getGivenQueryParsedCoordinate()}
+                                                                    <strong>{t('TEXT_WORD_SEARCH_POSITION')}</strong>: {apiResponseProperty.getGivenQueryParsedCoordinate()}
                                                                 </p>
                                                             </> :
                                                             <></>

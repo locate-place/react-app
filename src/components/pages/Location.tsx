@@ -136,7 +136,7 @@ const Location = () =>
                                 </h2>
 
                                 {/* Location information. */}
-                                <CollapsibleCard title={location.getNameFull() ?? ''}>
+                                <CollapsibleCard title={'I) ' + location.getNameFull() ?? ''}>
                                     <table
                                         className="table table-responsive table-last-line location-detail mb-0"
                                         style={{
@@ -187,7 +187,7 @@ const Location = () =>
                                 </CollapsibleCard>
 
                                 {/* Position location information. */}
-                                <CollapsibleCard title={t('TEXT_WORD_POSITION_LOCATION')} collapsed={true} footer={
+                                <CollapsibleCard title={'II) ' + t('TEXT_WORD_POSITION_LOCATION')} collapsed={true} footer={
                                     location.getCoordinate().getDistanceUserKilometerValue() >= 0 ?
                                         <>
                                             <sup>*)</sup>&nbsp;
@@ -279,7 +279,7 @@ const Location = () =>
 
 
                                 {/* Location information. */}
-                                <CollapsibleCard title={t('TEXT_WORD_LOCATION_INFORMATION')} collapsed={true}>
+                                <CollapsibleCard title={'III) ' + t('TEXT_WORD_LOCATION_INFORMATION')} collapsed={true}>
                                     <table
                                         className="table table-responsive table-last-line location-detail mb-0"
                                         style={{
@@ -342,7 +342,7 @@ const Location = () =>
 
 
                                 {/* Property / information. */}
-                                <CollapsibleCard title={t('TEXT_WORD_LINK_ADDRESSES_MAPS')} collapsed={true}>
+                                <CollapsibleCard title={'IV) ' + t('TEXT_WORD_LINK_ADDRESSES_MAPS')} collapsed={true}>
                                     <table
                                         className="table table-responsive table-last-line location-detail mb-0"
                                         style={{

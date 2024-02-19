@@ -4,6 +4,9 @@ import {useTranslation} from "react-i18next";
 /* Import types */
 import {TypeErrorOwn} from "../../types/Types";
 
+/* Import colors */
+import {colorBackgroundError} from "../../config/Colors";
+
 type ErrorProps = {
     error: TypeErrorOwn,
     apiPath: string,
@@ -19,7 +22,7 @@ const Error = ({error, apiPath}: ErrorProps) =>
 
     return (
         <div className="col-12">
-            <div className="card" style={{'backgroundColor': 'rgb(235, 213, 218)'}}>
+            <div className="card" style={{'backgroundColor': colorBackgroundError}}>
                 <div className="card-header"><strong>{t('TEXT_WORD_API_ERROR')}</strong></div>
                 <div className="card-body">
                     <div className="card-text text-danger">

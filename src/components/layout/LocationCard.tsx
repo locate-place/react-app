@@ -25,6 +25,7 @@ import {ApiResponseProperty} from "../../classes/Api/ApiResponseProperty";
 /* Import configuration. */
 import {mapTypeGoogle, mapTypeOpenStreetMap} from "../../config/MapTypes";
 import Flag from "./Flag";
+import {colorBackgroundLocation, colorBackgroundLocationOwn} from "../../config/Colors";
 
 type LocationCardProps = {
     locationWrapper: LocationWrapper|null,
@@ -106,8 +107,8 @@ const LocationCard = ({locationWrapper, apiResponseProperty, showOwnPosition, in
 
     return (
         <>
-            <div className={'card card-hover w-100 mb-4'}
-                 style={showOwnPosition ? {'backgroundColor': 'rgb(235, 233, 228)'} : {'backgroundColor': 'rgb(228, 235, 233)'}}>
+            <div className={'card w-100 mb-4' + (showOwnPosition ? '' : ' card-hover')}
+                 style={showOwnPosition ? {'backgroundColor': colorBackgroundLocationOwn} : {'backgroundColor': colorBackgroundLocation}}>
                 <div className="card-header">
                     <Flag
                         country={locationWrapper.getProperties().getCountryCode()}

@@ -3,7 +3,7 @@ import {useTranslation} from "react-i18next";
 
 /* Import configurations */
 import {sizeIcon} from "../../config/Config";
-import {colorBackgroundLocation} from "../../config/Colors";
+import {colorBackgroundSearchMetrics} from "../../config/Colors";
 
 /* Import classes */
 import {ApiResponseProperty} from "../../classes/Api/ApiResponseProperty";
@@ -77,8 +77,8 @@ const SearchMetrics = ({
                                             id="parsedQuery"
                                         >
                                             <h3 className="mt-3"><GraphUp size={sizeIcon.H3}/> {t('TEXT_ACTION_SEARCH_METRICS_TITLE')}</h3>
-                                            <div className="card card-hover mb-4"
-                                                 style={{'backgroundColor': colorBackgroundLocation}}>
+                                            <div className="card mb-4"
+                                                 style={{'backgroundColor': colorBackgroundSearchMetrics}}>
                                                 <div className="card-header">
                                                         <span className="fw-bold"><GraphUp size={sizeIcon.Caption}/>&nbsp;
                                                             {t(apiResponseProperty.getGivenQueryParsedTypeTranslationKey())}

@@ -33,28 +33,27 @@ body {
         width: 70%;
     }
 
-
-
     .card-header {
         .collapse-open, .collapse-close {
             float: right;
         }
 
         .collapse-open {
-            display: none;
-        }
-        .collapse-close {
             display: inline-block;
         }
+        .collapse-close {
+            display: none;
+        }
 
-        // Wenn das nachfolgende Collapse-Element die Klasse .show hat, ändern Sie die Icon-Anzeige
-        &[aria-expanded="true"] {
+        &.collapsed {
             .collapse-open {
-                display: inline-block;
-            }
-            .collapse-close {
                 display: none;
             }
+            .collapse-close {
+                display: inline-block;
+            }
+
+            border-bottom-width: 0 !important;
         }
     }
 

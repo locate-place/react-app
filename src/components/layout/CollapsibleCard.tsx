@@ -60,7 +60,7 @@ const CollapsibleCard = ({
         <div className="accordion" id={idMain}>
             <div className="card shadow-own mb-4 mt-4" style={{'backgroundColor': backgroundColor}}>
                 <div
-                    className="card-header"
+                    className={'card-header' + ( collapsed ? ' collapsed' : '')}
                     id={idToggler}
                     data-bs-toggle="collapse"
                     data-bs-target={'#' + idCollapse}

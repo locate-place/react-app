@@ -97,7 +97,16 @@ const SearchMetrics = ({
                                                         apiResponseProperty.hasGivenCoordinate() ?
                                                             <>
                                                                 <p className="mb-0">
-                                                                    <strong>{t('TEXT_WORD_POSITION')}</strong>: {apiResponseProperty.getGivenCoordinateParsedLatitudeDms()}, {apiResponseProperty.getGivenCoordinateParsedLongitudeDms()}
+                                                                    <strong>{t('TEXT_WORD_OWN_POSITION')}</strong>: {apiResponseProperty.getGivenCoordinateParsedLatitudeDms()}, {apiResponseProperty.getGivenCoordinateParsedLongitudeDms()}
+                                                                </p>
+                                                            </> :
+                                                            <></>
+                                                    }
+                                                    {
+                                                        apiResponseProperty.hasGivenQueryParsedCoordinate() ?
+                                                            <>
+                                                                <p className="mb-0">
+                                                                    <strong>{t('TEXT_WORD_POSITION')}</strong>: {apiResponseProperty.getGivenQueryParsedCoordinate()}
                                                                 </p>
                                                             </> :
                                                             <></>

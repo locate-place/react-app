@@ -163,6 +163,29 @@ class ApiResponseProperty
     }
 
     /**
+     * Returns if the given query parsed coordinate exists.
+     */
+    hasGivenQueryParsedCoordinate(): boolean
+    {
+        return this.getGiven()?.getQuery()?.getParsed().hasCoordinate() ?? false;
+    }
+
+    /**
+     * Returns the given query parsed coordinate string.
+     */
+    getGivenQueryParsedCoordinate(): string|null
+    {
+        if (!this.getGiven()?.getQuery()?.getParsed().getCoordinate()) {
+            return null;
+        }
+
+        const latitude = this.getGiven()?.getQuery()?.getParsed().getCoordinate()?.getParsed().getLatitude().getDMS() ?? null;
+        const longitude = this.getGiven()?.getQuery()?.getParsed().getCoordinate()?.getParsed().getLongitude().getDMS() ?? null;
+
+        return latitude && longitude ? latitude + ', ' + longitude : null;
+    }
+
+    /**
      * Returns if the given coordinate wrapper exists.
      */
     hasGivenCoordinate(): boolean

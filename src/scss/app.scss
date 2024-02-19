@@ -61,6 +61,7 @@ body {
         table {
             td {
                 background-color: transparent;
+                padding: 1rem;
             }
         }
     }
@@ -88,11 +89,6 @@ body {
         &:hover {
             text-decoration: underline;
         }
-    }
-
-    .table-compass {
-        padding: .5rem 0;
-        width: 0;
     }
 
     .compass-area {
@@ -181,6 +177,62 @@ body {
 
             &:hover {
                 text-decoration: none;
+            }
+        }
+    }
+
+    .next-places {
+        .container {
+            .row {
+                .col {
+                    &.col-compass {
+                        display: none;
+                        width: auto;
+                        flex: 0 0 auto;
+                        padding-right: 0 !important;
+                    }
+
+                    &.col-content {
+                        flex-grow: 1;
+                        padding-right: 0 !important;
+                    }
+
+                    &.col-coordinate {
+                        width: 100%;
+                        flex: 0 0 100%;
+
+                        a {
+                            line-height: .875em;
+                            text-decoration: none;
+                            width: 100px;
+                        }
+                    }
+
+                    padding-top: 0 !important;
+                }
+
+                border-top: var(--bs-card-border-width) solid var(--bs-card-border-color);
+            }
+        }
+    }
+
+    @media (min-width: 768px) {
+        .next-places {
+            .container {
+                .row {
+                    .col {
+                        &.col-coordinate {
+                            width: auto;
+                            flex: 0 0 auto;
+
+                            a {
+                                line-height: .875em;
+                                text-decoration: none;
+                                width: 100px;
+                            }
+                        }
+                    }
+                }
             }
         }
     }

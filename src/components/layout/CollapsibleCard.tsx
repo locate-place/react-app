@@ -11,11 +11,13 @@ import {
 } from "react-bootstrap-icons";
 
 type CollapsibleCardProps = {
-    title: string;
-    children?: JSX.Element|null|never[];
-    footer?: JSX.Element|null;
-    backgroundColor?: string;
-    collapsed?: boolean;
+    title: string,
+    children?: JSX.Element|null|never[],
+    introduction?: JSX.Element|null,
+    footer?: JSX.Element|null,
+    backgroundColor?: string,
+    collapsed?: boolean,
+    collapsable?: boolean,
 }
 
 /**
@@ -46,9 +48,11 @@ const makeRandomId = (length: number): string =>
 const CollapsibleCard = ({
     title,
     children,
+    introduction = null,
     footer = null,
     backgroundColor = colorBackgroundLocation,
     collapsed = false,
+    collapsable = true,
 }: CollapsibleCardProps) =>
 {
     const id = makeRandomId(10);
@@ -62,15 +66,19 @@ const CollapsibleCard = ({
                 <div
                     className={'card-header' + ( collapsed ? ' collapsed' : '')}
                     id={idToggler}
-                    data-bs-toggle="collapse"
+                    data-bs-toggle={collapsable ? 'collapse' : ''}
                     data-bs-target={'#' + idCollapse}
                     aria-expanded={collapsed ? 'false' : 'true'}
                     aria-controls={idCollapse}
-                    style={{"cursor": 'pointer'}}
+                    style={{"cursor": collapsable ? 'pointer' : 'auto'}}
                 >
                     <p className="mb-0 fw-bold">
-                        <ChevronDown size={sizeIcon.H3} className="collapse-close" />
-                        <ChevronUp size={sizeIcon.H3} className="collapse-open" />
+                        {
+                            collapsable ? <>
+                                <ChevronDown size={sizeIcon.H3} className="collapse-close" />
+                                <ChevronUp size={sizeIcon.H3} className="collapse-open" />
+                            </> : <></>
+                        }
                         {title}
                     </p>
                 </div>
@@ -81,9 +89,12 @@ const CollapsibleCard = ({
                     aria-labelledby={idToggler}
                     data-bs-parent={'#' + idMain}
                 >
-                <div className="card-body p-0">
-                        {children ?? <></>}
-                    </div>
+                    {
+                        introduction ? <div className="card-body p-0">{introduction}</div> : <></>
+                    }
+                    {
+                        children ? <div className="card-body p-0">{children}</div> : <></>
+                    }
                     {
                         footer ? <div className="card-footer">
                             <small><small>{footer}</small></small>

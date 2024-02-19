@@ -32,6 +32,18 @@ const displayCompass = (): void =>
 
         item.style.display = 'block';
     }
+
+    let compassCol: HTMLCollectionOf<HTMLElement> = document.getElementsByClassName('col-compass') as HTMLCollectionOf<HTMLElement>;
+
+    for (let i = 0; i < compassCol.length; i++) {
+        let item: HTMLElement|null = compassCol.item(i);
+
+        if (item === null) {
+            continue;
+        }
+
+        item.style.display = 'block';
+    }
 }
 
 /**

@@ -1,5 +1,5 @@
 /* Import types. */
-import {TypeApiProperties, TypeGivenQueryParsedFeatureCode} from "../../types/Types";
+import {TypeApiProperties, TypeGivenQueryParsedFeatureClass, TypeGivenQueryParsedFeatureCode} from "../../types/Types";
 
 /* Import classes. */
 import {ResultsWrapper} from "./Base/Results/ResultsWrapper";
@@ -7,6 +7,7 @@ import {GivenWrapper} from "./Base/Given/GivenWrapper";
 import {QueryWrapper} from "./Base/Given/Query/QueryWrapper";
 import {CoordinateWrapper} from "./Base/Given/Coordinate/CoordinateWrapper";
 import {FeatureCodesWrapper} from "./Base/Given/Query/Parsed/FeatureCodes/FeatureCodesWrapper";
+import {FeatureClassesWrapper} from "./Base/Given/Query/Parsed/FeatureClasses/FeatureClassesWrapper";
 
 /**
  * Class ApiResponseProperty
@@ -255,6 +256,30 @@ class ApiResponseProperty
     getGivenQueryParsedFeatureCodesArray(): TypeGivenQueryParsedFeatureCode[]
     {
         return this.getGiven()?.getQuery()?.getParsed().getFeatureCodes()?.get() ?? [];
+    }
+
+    /**
+     * Returns if the given query parsed feature codes exist.
+     */
+    hasGivenQueryParsedFeatureClasses(): boolean
+    {
+        return this.getGiven()?.getQuery()?.getParsed().hasFeatureClasses() ?? false;
+    }
+
+    /**
+     * Returns the given query parsed feature codes wrapper.
+     */
+    getGivenQueryParsedFeatureClasses(): FeatureClassesWrapper|null
+    {
+        return this.getGiven()?.getQuery()?.getParsed().getFeatureClasses() ?? null;
+    }
+
+    /**
+     * Returns the given query parsed feature codes array.
+     */
+    getGivenQueryParsedFeatureClassesArray(): TypeGivenQueryParsedFeatureClass[]
+    {
+        return this.getGiven()?.getQuery()?.getParsed().getFeatureClasses()?.get() ?? [];
     }
 
 

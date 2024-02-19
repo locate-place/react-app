@@ -136,6 +136,22 @@ const SearchMetrics = ({
                                                             </> :
                                                             <></>
                                                     }
+                                                    {
+                                                        apiResponseProperty.hasGivenQueryParsedFeatureClasses() ?
+                                                            <>
+                                                                <p className="mb-0">
+                                                                    <strong>{t('TEXT_WORD_FEATURE_CLASSES')}</strong>
+                                                                </p>
+                                                                <ul className="mb-0">
+                                                                    {apiResponseProperty.getGivenQueryParsedFeatureClassesArray().map((item, index) => (
+                                                                        <li key={'feature-class-' + item.code}>
+                                                                            {item.code}
+                                                                        </li>
+                                                                    ))}
+                                                                </ul>
+                                                            </> :
+                                                            <></>
+                                                    }
                                                 </div>
                                                 <div className="card-footer">
                                                     <small><small>

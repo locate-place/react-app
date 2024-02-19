@@ -4,6 +4,7 @@ import {
 } from "../../../../../../types/Types";
 import {CoordinateWrapper} from "../../Coordinate/CoordinateWrapper";
 import {FeatureCodesWrapper} from "./FeatureCodes/FeatureCodesWrapper";
+import {FeatureClassesWrapper} from "./FeatureClasses/FeatureClassesWrapper";
 
 /**
  * Class ParsedWrapper
@@ -102,6 +103,22 @@ class ParsedWrapper
     getFeatureCodes(): FeatureCodesWrapper|null
     {
         return this.parsed["feature-codes"] ? new FeatureCodesWrapper(this.parsed["feature-codes"]) : null;
+    }
+
+    /**
+     * Returns if feature classes are set.
+     */
+    hasFeatureClasses(): boolean
+    {
+        return !!this.parsed["feature-classes"];
+    }
+
+    /**
+     * Returns feature codes wrapper.
+     */
+    getFeatureClasses(): FeatureClassesWrapper|null
+    {
+        return this.parsed["feature-classes"] ? new FeatureClassesWrapper(this.parsed["feature-classes"]) : null;
     }
 }
 

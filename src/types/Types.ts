@@ -364,12 +364,18 @@ type TypeGivenQueryParsedFeatureCode = {
     translated: string
 }
 
+type TypeGivenQueryParsedFeatureClass = {
+    code: string,
+    translated: string
+}
+
 type TypeGivenQueryParsed = {
     "type": string,
     "geoname-id"?: number,
     "search"?: string,
     "coordinate"?: TypeGivenCoordinate,
-    "feature-codes"?: TypeGivenQueryParsedFeatureCode[]
+    "feature-codes"?: TypeGivenQueryParsedFeatureCode[],
+    "feature-classes"?: TypeGivenQueryParsedFeatureClass[]
 };
 
 type TypeGivenQuery = {
@@ -482,6 +488,7 @@ export {
     TypeLocation,
     TypeLocations,
     TypeGivenQueryParsedFeatureCode,
+    TypeGivenQueryParsedFeatureClass,
     TypeGivenQueryParsed,
     TypeGivenQuery,
     TypeGivenLanguage,

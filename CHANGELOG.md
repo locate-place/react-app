@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Changelogs
 
+### [0.2.9] - 2023-02-19
+
+* Add own position and position to search metrics
+
 ### [0.2.8] - 2023-02-19
 
 * Add own position to the search form

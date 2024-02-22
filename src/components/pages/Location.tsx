@@ -377,7 +377,7 @@ const Location = () =>
                                                 <td className={classNamesRow2.join(' ')} colSpan={2}><a
                                                     href={location.getLinks().getWikipedia() ?? ''}
                                                     target={'_blank'} rel="noreferrer"
-                                                    dangerouslySetInnerHTML={{__html: addSoftHyphens(location.getLinks().getWikipedia() ?? '')}}/>
+                                                    dangerouslySetInnerHTML={{__html: addSoftHyphens(decodeURI(location.getLinks().getWikipedia() ?? ''))}}/>
                                                 </td>
                                             </tr> : <></>
                                         }

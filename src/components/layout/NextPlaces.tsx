@@ -17,6 +17,7 @@ import {Query} from "../../classes/Query";
 import LinkV2 from "./LinkV2";
 import CollapsibleCard from "./CollapsibleCard";
 import {colorBackgroundNextPlaces} from "../../config/Colors";
+import Flag from "./Flag";
 
 /* Argument properties. */
 type NextPlacesProps = {
@@ -43,7 +44,9 @@ const NextPlaces = ({nextPlace}: NextPlacesProps) =>
         return <></>;
     }
 
+    /* Gets the Query class to have access to the filter config. */
     let query = new Query(searchParams, env);
+    let filterConfig = query.getFilterConfig();
 
     return (
         nextPlace.hasPlaces() ?
@@ -53,8 +56,8 @@ const NextPlaces = ({nextPlace}: NextPlacesProps) =>
                     <>
                         <sup>*)</sup> {nextPlace.getConfigDistanceAndDirectionText(t, true)}
                     </>
-                } introduction={
-                    <p className="m-3"><small>
+                } epilogue={
+                    <>
                         <strong>{t('TEXT_NEXT_PLACE_SEARCH_PARAMS')}</strong>:&nbsp;
                         {t('TEXT_WORD_FEATURE_CLASS')}: <code>{nextPlace.getFeatureClassCode()}</code> -&nbsp;
                         {nextPlace.getConfigDistanceText(t)} -&nbsp;
@@ -63,7 +66,7 @@ const NextPlaces = ({nextPlace}: NextPlacesProps) =>
                         <LinkV2
                             to={query.getFilterConfig().getLinkNextPlacesList(nextPlace)}
                         >{t('TEXT_NEXT_PLACE_SHOW_LIST_TEXT')}</LinkV2>
-                    </small></p>
+                    </>
                 }>
                     <div className="next-places">
                         {nextPlace.getPlaces().map((place: LocationWrapper, index: number) =>
@@ -78,14 +81,21 @@ const NextPlaces = ({nextPlace}: NextPlacesProps) =>
                                         </div>
                                     </div>
                                     <div className="col col-content p-3">
-                                        <small>
-                                            <kbd className="shadow-own">{place.getFeature().getCode().getCode()}</kbd>&nbsp;
-                                            <br className="d-block d-sm-none"/><strong
-                                            dangerouslySetInnerHTML={{__html: (index + 1) + ') ' + addSoftHyphens(place.getName())}}/><br/>
-                                            {place.getFeature().getCode().getName()}
-                                            {place.getProperties().getElevationText(place, t, ' - ')}
-                                            {place.getProperties().getPopulationText(place, t, ' - ')}
-                                        </small>
+                                        <LinkV2
+                                            to={filterConfig.getLinkLocationQuery(place.getGeonameId().toString())}
+                                            scrollTo={0}
+                                        >
+                                            <Flag
+                                                country={place.getProperties().getCountryCode()}
+                                                size={0.8}
+                                            /> &nbsp;
+                                            <span className="fw-bold" dangerouslySetInnerHTML={{__html: addSoftHyphens(place.getName())}}/>
+                                            <span className="fw-bold"><sup>&nbsp;(#{index + 1})</sup></span>
+                                        </LinkV2><br/>
+                                        {place.getFeature().getCode().getName()}
+                                        {place.getProperties().getElevationText(place, t, ' - ')}
+                                        {place.getProperties().getPopulationText(place, t, ' - ')}
+                                        &nbsp;- <code>{place.getFeature().getCode().getCode()}</code>
                                     </div>
 
                                     {

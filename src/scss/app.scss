@@ -210,8 +210,12 @@ body {
 
                     padding-top: 0 !important;
                 }
+            }
 
-                border-top: var(--bs-card-border-width) solid var(--bs-card-border-color);
+            border-bottom: var(--bs-card-border-width) solid var(--bs-card-border-color);
+
+            &:last-child {
+                border-bottom: none;
             }
         }
     }

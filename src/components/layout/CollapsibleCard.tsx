@@ -14,6 +14,7 @@ type CollapsibleCardProps = {
     title: string|JSX.Element,
     children?: JSX.Element|null|never[],
     introduction?: JSX.Element|null,
+    epilogue?: JSX.Element|null,
     footer?: JSX.Element|null,
     footerInformation?: JSX.Element|null,
     footerInformationAdditional?: JSX.Element|null,
@@ -51,6 +52,7 @@ const CollapsibleCard = ({
     title,
     children,
     introduction = null,
+    epilogue = null,
     footer = null,
     footerInformation = null,
     footerInformationAdditional = null,
@@ -98,6 +100,11 @@ const CollapsibleCard = ({
                     }
                     {
                         children ? <div className="card-body p-0">{children}</div> : <></>
+                    }
+                    {
+                        epilogue ? <div className="card-footer">
+                            <small><small>{epilogue}</small></small>
+                        </div> : <></>
                     }
                     {
                         footer ? <div className="card-footer">

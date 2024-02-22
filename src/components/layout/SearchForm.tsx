@@ -14,7 +14,12 @@ import {Query} from "../../classes/Query";
 
 /* Import components. */
 import LinkV2 from "./LinkV2";
-import {nameParameterCountry, nameParameterCurrentPosition, nameParameterLanguage} from "../../config/NameParameter";
+import {
+    nameParameterCountry,
+    nameParameterCurrentPosition,
+    nameParameterLanguage,
+    nameParameterNextPlaces
+} from "../../config/NameParameter";
 
 /* Search form properties. */
 type SearchFormProps = {
@@ -102,6 +107,7 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
 
                         <input type="hidden" name={nameParameterLanguage} value={query.getFilterConfig().getLanguage(true)} />
                         <input type="hidden" name={nameParameterCountry} value={query.getFilterConfig().getCountry(true)} />
+                        <input type="hidden" name={nameParameterNextPlaces} value="1" />
                         {
                             currentPosition ?
                                 <input type="hidden" name={nameParameterCurrentPosition} value={currentPosition} /> :

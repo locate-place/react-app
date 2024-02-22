@@ -88,6 +88,11 @@ const LinkV2: React.FC<CustomLinkProps> = ({
      */
     const handleClick = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) =>
     {
+        /* Do not handle external links. */
+        if (to.toString().startsWith('http')) {
+            return;
+        }
+
         /* Use the "to" link directly. */
         if (!useCurrentPosition) {
             navigate(to);

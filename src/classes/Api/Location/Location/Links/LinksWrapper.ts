@@ -131,6 +131,28 @@ class LinksWrapper
 
         return link;
     }
+
+
+
+    /**
+     * Returns if the other link assigned to the location exists.
+     */
+    hasOther(): boolean
+    {
+        return !!this.links.other;
+    }
+
+    /**
+     * Returns the other links assigned to the location.
+     */
+    getOther(): string[]|null
+    {
+        if (!this.links.other) {
+            return null;
+        }
+
+        return this.links.other;
+    }
 }
 
 /*

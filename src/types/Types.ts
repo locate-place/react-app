@@ -281,9 +281,12 @@ type TypeLinksMaps = {
     "openstreetmap": string,
 }
 
+type TypeLinksOther = string[];
+
 type TypeLinks = {
     "wikipedia"?: TypeLinksWikipedia,
-    "maps"?: TypeLinksMaps
+    "maps"?: TypeLinksMaps,
+    "other"?: TypeLinksOther,
 };
 
 type TypeNextPlacesFeatureClassConfig = {
@@ -479,6 +482,7 @@ export {
     TypeLinksWikipediaNextPlaces,
     TypeLinksWikipedia,
     TypeLinksMaps,
+    TypeLinksOther,
     TypeLinks,
     TypeNextPlaces,
     TypeNextPlacesConfigConfigNextPlace,

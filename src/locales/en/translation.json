@@ -25,6 +25,7 @@
   "TEXT_CAPTION_GOOGLE_MAPS": "Google Maps",
   "TEXT_CAPTION_OPEN_STREET_MAP": "OpenStreetMap",
   "TEXT_CAPTION_WIKIPEDIA": "Wikipedia",
+  "TEXT_CAPTION_OTHER_LINK": "Other link",
   "TEXT_CAPTION_GEONAME_ID": "Geoname ID",
   "TEXT_CAPTION_LAST_UPDATE": "Last update",
 
@@ -168,7 +169,7 @@
   "TEXT_WORD_INHABITANTS": "Inhabitants",
   "TEXT_WORD_LAST_UPDATE": "Last update",
   "TEXT_WORD_LINK_ADDRESSES": "Link addresses",
-  "TEXT_WORD_LINK_ADDRESSES_MAPS": "Link addresses / Maps",
+  "TEXT_WORD_LINK_ADDRESSES_MAPS": "Maps / Link addresses",
   "TEXT_WORD_LINKS": "Links",
   "TEXT_WORD_LOCATION_INFORMATION": "Location information",
   "TEXT_WORD_OWN_POSITION": "Own position",

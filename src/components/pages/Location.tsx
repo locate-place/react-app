@@ -130,8 +130,8 @@ const Location = () =>
 
                                 {/* Caption. */}
                                 <h2 className="mt-3">
-                                    <Flag country={location.getProperties().getCountryCode()} size={1}
-                                          title={location.getProperties().getCountryCodeTranslated()}/> &nbsp;
+                                    <Flag country={location.getCountry()?.getProperties().getCountryCode() ?? 'DE'} size={1}
+                                          title={location.getCountry()?.getProperties().getCountryCodeTranslated()}/> &nbsp;
                                     {location.getName()}
                                 </h2>
 
@@ -170,9 +170,9 @@ const Location = () =>
                                             location.hasCountry() ? <tr>
                                                 <td className={classNamesRow1.join(' ')}>{t('TEXT_CAPTION_COUNTRY')}</td>
                                                 <td className={classNamesRow2.join(' ')}
-                                                    colSpan={2}>{location.getCountry()?.getName()}, <code>{location.getProperties().getCountryCode()}</code>, <Flag
-                                                    country={location.getProperties().getCountryCode()} size={1}
-                                                    title={location.getProperties().getCountryCodeTranslated()}/></td>
+                                                    colSpan={2}>{location.getCountry()?.getName()}, <code>{location.getCountry()?.getProperties()?.getCountryCode()}</code>, <Flag
+                                                    country={location.getCountry()?.getProperties()?.getCountryCode() ?? 'DE'} size={1}
+                                                    title={location.getCountry()?.getProperties().getCountryCodeTranslated()}/></td>
                                             </tr> : <tr>
                                                 <td className={classNamesRow1.join(' ')}>{t('TEXT_CAPTION_COUNTRY_CODE')}</td>
                                                 <td className={classNamesRow2.join(' ')}
@@ -380,6 +380,22 @@ const Location = () =>
                                                     dangerouslySetInnerHTML={{__html: addSoftHyphens(decodeURI(location.getLinks().getWikipedia() ?? ''))}}/>
                                                 </td>
                                             </tr> : <></>
+                                        }
+                                        {
+                                            location.getLinks().hasOther() ? <>
+                                            {
+                                                (location.getLinks().getOther() as string[]).map((link: string) =>
+                                                    <tr>
+                                                        <td className={classNamesRow1.join(' ')}>{t('TEXT_CAPTION_OTHER_LINK')}</td>
+                                                        <td className={classNamesRow2.join(' ')} colSpan={2}><a
+                                                            href={link}
+                                                            target={'_blank'} rel="noreferrer"
+                                                            dangerouslySetInnerHTML={{__html: addSoftHyphens(decodeURI(link))}}/>
+                                                        </td>
+                                                    </tr>
+                                                )
+                                            }
+                                            </> : <></>
                                         }
                                         </tbody>
                                     </table>

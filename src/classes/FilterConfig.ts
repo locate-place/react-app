@@ -878,7 +878,7 @@ class FilterConfig
             this.setCurrentPosition(ownPosition);
         }
 
-        return this.getLinkFullConverted(this.getPathLocations(), true);
+        return this.getLinkFullConverted(routePathLocations, true);
     }
 
     /**
@@ -916,7 +916,7 @@ class FilterConfig
                 throw new Error('Unsupported coordinate type: ' + nextPlace.getConfigCoordinateType());
         }
 
-        return this.getLinkFullConverted(this.getPathLocations(), true);
+        return this.getLinkFullConverted(routePathLocations, true);
     }
 
     /**

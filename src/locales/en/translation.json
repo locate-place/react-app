@@ -2,6 +2,8 @@
   "TEXT_EXAMPLE_DESCRIPTION": "Or start with the following examples.",
   "TEXT_EXAMPLE_HEADER": "Location examples",
 
+  "TEXT_COUNTRY_HEADER": "Country import",
+
   "TEXT_HEADER_LOCATION_SEARCH": "Location search",
   "TEXT_HEADER_CURRENT_LOCATION": "Current location",
   "TEXT_HEADER_INFORMATION": "Information",
@@ -113,6 +115,7 @@
   "TEXT_NAVIGATION_ICON": "CV",
   "TEXT_NAVIGATION_HOME": "Calendars",
   "TEXT_NAVIGATION_LOCATIONS": "Locations",
+  "TEXT_NAVIGATION_COUNTRIES": "Countries",
   "TEXT_NAVIGATION_ABOUT": "About",
   "TEXT_NAVIGATION_CONTACT": "Contact",
 
@@ -137,6 +140,9 @@
 
   "TEXT_LOCATIONS_TITLE": "Locations",
   "TEXT_LOCATIONS_SUBTITLE": "Locations API",
+
+  "TEXT_COUNTRIES_TITLE": "Countries",
+  "TEXT_COUNTRIES_SUBTITLE": "Import Countries",
 
   "TEXT_ERROR_API": "Error when trying to retrieve the Api endpoint.",
   "TEXT_ERROR_API_REQUIRED": "The api version does not match the required version.",

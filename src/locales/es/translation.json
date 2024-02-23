@@ -2,6 +2,8 @@
   "TEXT_EXAMPLE_DESCRIPTION": "O empieza con los siguientes ejemplos.",
   "TEXT_EXAMPLE_HEADER": "Ejemplos de localización",
 
+  "TEXT_COUNTRY_HEADER": "País de importación",
+
   "TEXT_HEADER_LOCATION_SEARCH": "Búsqueda de ubicación",
   "TEXT_HEADER_CURRENT_LOCATION": "Ubicación actual",
   "TEXT_HEADER_INFORMATION": "Información",
@@ -113,6 +115,7 @@
   "TEXT_NAVIGATION_ICON": "CV",
   "TEXT_NAVIGATION_HOME": "Calendarios",
   "TEXT_NAVIGATION_LOCATIONS": "Ubicaciones",
+  "TEXT_NAVIGATION_COUNTRIES": "Países",
   "TEXT_NAVIGATION_ABOUT": "Acerca de",
   "TEXT_NAVIGATION_CONTACT": "Contacto",
 
@@ -137,6 +140,9 @@
 
   "TEXT_LOCATIONS_TITLE": "Ubicaciones",
   "TEXT_LOCATIONS_SUBTITLE": "API de ubicaciones",
+
+  "TEXT_COUNTRIES_TITLE": "Países",
+  "TEXT_COUNTRIES_SUBTITLE": "Países importadores",
 
   "TEXT_ERROR_API": "Error al intentar recuperar el punto final de la API.",
   "TEXT_ERROR_API_REQUIRED": "La versión de la api no coincide con la versión requerida.",

@@ -6,6 +6,7 @@ const routePathCalendar: string = '/calendar.html';
 const routePathCalendarPage: string = '/page.html';
 const routePathLocations: string = '/locations.html';
 const routePathLocation: string = '/location.html';
+const routePathCountries: string = '/countries.html';
 
 /*
  * Export functions.
@@ -17,5 +18,6 @@ export {
     routePathCalendar,
     routePathCalendarPage,
     routePathLocations,
-    routePathLocation
+    routePathLocation,
+    routePathCountries
 }

@@ -1,8 +1,12 @@
 import React, {useMemo} from "react";
 import {Link, useSearchParams} from "react-router-dom";
 import {useTranslation} from "react-i18next";
-import {Query} from "../../classes/Query";
 import i18n from "i18next";
+
+/* Import classes. */
+import {Query} from "../../classes/Query";
+
+/* Import components. */
 import LinkV2 from "./LinkV2";
 import Flag from "./Flag";
 
@@ -75,6 +79,12 @@ const Navigation = () =>
                                 to={filterConfig.getLinkTo('/locations.html')}
                                 onClick={closeMenu}
                             >{t('TEXT_NAVIGATION_LOCATIONS')}</Link>
+                            </li>
+                            <li className="nav-item"><Link
+                                className="nav-link px-lg-3 py-3 py-lg-4"
+                                to={filterConfig.getLinkTo('/countries.html')}
+                                onClick={closeMenu}
+                            >{t('TEXT_NAVIGATION_COUNTRIES')}</Link>
                             </li>
                             <li className="nav-item"><Link
                                 className="nav-link px-lg-3 py-3 py-lg-4"

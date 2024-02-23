@@ -7,7 +7,7 @@ import {TypeApiProperties, TypeFilterConfig} from "../types/Types";
 import {
     routePathCalendar,
     routePathCalendarPage,
-    routePathCalendars,
+    routePathCalendars, routePathCountries,
     routePathHome,
     routePathLocation,
     routePathLocations, routePathRoot
@@ -25,6 +25,7 @@ import {
 /* Import classes. */
 import {ApiResponseProperty} from "./Api/ApiResponseProperty";
 import {FilterConfig} from "./FilterConfig";
+import {formatNumber} from "../functions/I18n";
 
 /* API paths */
 const apiPathCalendars: string = '/v.json';
@@ -32,6 +33,7 @@ const apiPathCalendarPage: string = '/v/%calendar%/%month%.json';
 const apiPathCalendar: string = '/v/%calendar%.json';
 const apiPathQuerySearch: string = '/api/v1/location.json';
 const apiPathExampleSearch: string = '/api/v1/location/examples.json';
+const apiPathCountrySearch: string = '/api/v1/location/countries.json';
 const apiPathDetail: string = '/api/v1/location/coordinate.json';
 
 /**
@@ -250,9 +252,13 @@ class Query
             case routePathLocations:
                 return this.filterConfig.hasQuery() ? apiPathQuerySearch : apiPathExampleSearch;
 
+            /* Countries. */
+            case routePathCountries:
+                return apiPathCountrySearch;
+
             /* Unknown path. */
             default:
-                throw new Error('Invalid path given: ' + window.location.pathname);
+                throw new Error('Invalid path given (getApiUrl): ' + window.location.pathname);
         }
     }
 
@@ -304,6 +310,7 @@ class Query
             /* Use the location api. */
             case routePathLocation:
             case routePathLocations:
+            case routePathCountries:
                 keyName = 'REACT_APP_TYPE_LOCATION_API'
 
                 if (!this.env.hasOwnProperty(keyName)) {
@@ -315,7 +322,7 @@ class Query
                 return value;
 
             default:
-                throw new Error('Invalid path given: ' + window.location.pathname);
+                throw new Error('Invalid path given (getApiType): ' + window.location.pathname);
         }
     }
 
@@ -342,13 +349,13 @@ class Query
         }
 
         if (!this.filterConfig.hasQuery()) {
-            const numberTotal = this.apiResponseProperty.getResultsTotal();
+            const numberTotal = formatNumber(this.apiResponseProperty.getResultsTotal());
             const numberResults = this.apiResponseProperty.getResultsResults();
 
             return t('TEXT_RESULT', {numberTotal, numberResults});
         }
 
-        const numberTotal = this.apiResponseProperty.getResultsTotal();
+        const numberTotal = formatNumber(this.apiResponseProperty.getResultsTotal());
         const query = this.filterConfig.getQuery();
         const numberFirstItem = (this.apiResponseProperty.getResultsPage() - 1) * this.apiResponseProperty.getResultsResults() + 1;
         const numberLastItem = this.apiResponseProperty.getResultsResults() * this.apiResponseProperty.getResultsPage();

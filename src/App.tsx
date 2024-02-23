@@ -20,6 +20,7 @@ import Locations from "./components/pages/Locations";
 import Location from "./components/pages/Location";
 import NotFound from "./components/pages/NotFound";
 import CalendarPage from "./components/pages/CalendarPage";
+import Countries from "./components/pages/Countries";
 
 /* Add component parts */
 import Footer from "./components/layout/Footer";
@@ -39,7 +40,8 @@ import {i18n, languageDefault} from "./functions/I18n";
 /**
  * This is the app main component.
  */
-const App = () => {
+const App = () =>
+{
     const navigateOrig = useNavigate();
 
     /**
@@ -80,6 +82,8 @@ const App = () => {
 
                 <Route path="/locations.html" element={<Locations />} />
                 <Route path="/location.html" element={<Location />} />
+
+                <Route path="/countries.html" element={<Countries />} />
 
                 <Route path="*" element={<NotFound />} />
             </Routes>

@@ -20,7 +20,7 @@ import {
 } from "../config/NameParameter";
 import {countryDefault} from "../config/Country";
 import {languageDE, languageDefault} from "../config/Language";
-import {routePathLocation, routePathLocations} from "../config/Route";
+import {routePathCountries, routePathLocation, routePathLocations} from "../config/Route";
 
 /* Import classes. */
 import {NextPlaceWrapper} from "./Api/Location/Location/NextPlaces/NextPlaceWrapper";
@@ -737,6 +737,20 @@ class FilterConfig
     }
 
     /**
+     * Returns the location path.
+     */
+    getPathLocations(): string
+    {
+        switch (window.location.pathname) {
+            case routePathCountries:
+                return routePathCountries;
+
+            default:
+                return routePathLocations;
+        }
+    }
+
+    /**
      * Returns the location detail link by current location.
      */
     getLinkLocationCurrent(): string
@@ -787,7 +801,7 @@ class FilterConfig
 
         this.setPage('1');
 
-        return this.getLinkFullConverted(routePathLocations, true);
+        return this.getLinkFullConverted(this.getPathLocations(), true);
     }
 
     /**
@@ -864,7 +878,7 @@ class FilterConfig
             this.setCurrentPosition(ownPosition);
         }
 
-        return this.getLinkFullConverted(routePathLocations, true);
+        return this.getLinkFullConverted(this.getPathLocations(), true);
     }
 
     /**
@@ -902,7 +916,7 @@ class FilterConfig
                 throw new Error('Unsupported coordinate type: ' + nextPlace.getConfigCoordinateType());
         }
 
-        return this.getLinkFullConverted(routePathLocations, true);
+        return this.getLinkFullConverted(this.getPathLocations(), true);
     }
 
     /**
@@ -1032,7 +1046,7 @@ class FilterConfig
             return routePathLocation;
         }
 
-        return routePathLocations;
+        return this.getPathLocations();
     }
 }
 

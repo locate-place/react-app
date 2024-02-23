@@ -39,6 +39,15 @@ const getLocale = (): string =>
     }
 }
 
+/**
+ * Formats the given number to current locale.
+ * @param number
+ */
+const formatNumber = (number: number|bigint): string =>
+{
+    return new Intl.NumberFormat(getLocale()).format(number);
+}
+
 i18n
     .use(initReactI18next) // passes i18n down to react-i18next
     .init({
@@ -57,6 +66,7 @@ i18n
 export {
     i18n,
     getLocale,
+    formatNumber,
     languageDefault,
     languageFallback
 }

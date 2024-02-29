@@ -65,6 +65,38 @@ class GivenWrapper
     }
 
     /**
+     * Returns if the given property query exists.
+     */
+    hasLimit(): boolean
+    {
+        return !!this.given.limit;
+    }
+
+    /**
+     * Returns the given property query.
+     */
+    getLimit(): number|null
+    {
+        return this.given.limit ? this.given.limit : null;
+    }
+
+    /**
+     * Returns if the given property query exists.
+     */
+    hasDistance(): boolean
+    {
+        return !!this.given.distance;
+    }
+
+    /**
+     * Returns the given property query.
+     */
+    getDistance(): number|null
+    {
+        return this.given.distance ? this.given.distance : null;
+    }
+
+    /**
      * Returns if the given property language exists.
      */
     hasLanguage(): boolean

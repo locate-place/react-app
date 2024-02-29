@@ -153,6 +153,20 @@ const SearchMetrics = ({
                                                             </> :
                                                             <></>
                                                     }
+                                                    {
+                                                        apiResponseProperty.hasLimit() ?
+                                                            <>
+                                                                <p className="mb-0"><strong>Limit: </strong> {apiResponseProperty.getLimit()}</p>
+                                                            </> :
+                                                            <></>
+                                                    }
+                                                    {
+                                                        apiResponseProperty.hasDistance() ?
+                                                            <>
+                                                                <p className="mb-0"><strong>Distance: </strong> {apiResponseProperty.getDistance()}</p>
+                                                            </> :
+                                                            <></>
+                                                    }
                                                 </div>
                                                 <div className="card-footer">
                                                     <small><small>

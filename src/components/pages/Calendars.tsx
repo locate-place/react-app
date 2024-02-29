@@ -56,10 +56,10 @@ const Calendars = () =>
             setLoaded: setLoaded,
             setError: setError,
         }, t);
-    }, [apiType, apiPath]);
+    }, [t, apiType, apiPath]);
 
     /* Skip empty data */
-    if (data === null || properties === null) {
+    if (properties === null) {
         return <></>;
     }
 
@@ -71,7 +71,7 @@ const Calendars = () =>
             <Header title={t('TEXT_CALENDARS_TITLE')} subtitle={t('TEXT_CALENDARS_SUBTITLE')} />
             <div className="calendars container mb-5 px-4 px-md-3">
                 <div className="row g-4">
-                    {loaded && data.calendars.length > 0 ? data.calendars.map((item, index) => (
+                    {loaded && data !== null && data.calendars.length > 0 ? data.calendars.map((item, index) => (
                         <div className="col-12 col-lg-6 col-xl-4 d-flex align-items-stretch" key={'calendar-' + index}>
                             <div className="card card-hover">
                                 <Link

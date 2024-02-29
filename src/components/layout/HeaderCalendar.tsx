@@ -1,7 +1,10 @@
 import React from "react";
 
+/* Import types */
+import {TypeDataCalendar} from "../../types/Types";
+
 type HeaderCalendarProps = {
-    data: any,
+    data: TypeDataCalendar|null,
 }
 
 /**
@@ -17,7 +20,7 @@ const HeaderCalendar = ({data}: HeaderCalendarProps) => {
     let subtitle = 'Lade. Bitte warten.';
     let imageUrl = '';
 
-    if (data.title !== undefined && data.subtitle !== undefined && data.image !== undefined) {
+    if (data!== null) {
         title = data.title;
         subtitle = data.subtitle;
         imageUrl = 'url(' + calendarBuilderUrl + data.image + '?width=1280&type=source)';

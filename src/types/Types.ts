@@ -419,6 +419,8 @@ type TypeGiven = {
     "language"?: TypeGivenLanguage,
     "country"?: TypeGivenCountry,
     "coordinate"?: TypeGivenCoordinate,
+    "limit"?: number,
+    "distance"?: number
 };
 
 type TypeApiData = {

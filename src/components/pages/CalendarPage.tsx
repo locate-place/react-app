@@ -66,7 +66,7 @@ const CalendarPage = () =>
     }, [apiType, apiPath, t]);
 
     /* Skip empty data */
-    if (data === null || properties === null) {
+    if (properties === null) {
         return <></>;
     }
 
@@ -75,10 +75,10 @@ const CalendarPage = () =>
      */
     return (
         <>
-            <HeaderImage pageTitle={data.page_title} title={data.title} color={data.color} />
+            <HeaderImage data={data} />
             <div className="page container mb-5 px-4 px-md-3">
                 <div className="row g-3">
-                    { loaded && data.page_title !== undefined ? <>
+                    { loaded && (data !== null) && data.page_title !== undefined ? <>
                         <div className="col-12 col-md-10 offset-md-1 col-xl-8 offset-xl-2">
                             <h2>{data.page_title}</h2>
                             <div>

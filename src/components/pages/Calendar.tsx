@@ -65,8 +65,10 @@ const Calendar = () =>
         }, t);
     }, [apiType, apiPath]);
 
+    console.log(data);
+
     /* Skip empty data */
-    if (data === null || properties === null) {
+    if (properties === null) {
         return <></>;
     }
 
@@ -78,7 +80,7 @@ const Calendar = () =>
             <HeaderCalendar data={data} />
             <div className="calendar container mb-5 px-4 px-md-3">
                 <div className="row g-4">
-                    {loaded ? <>
+                    {loaded && (data !== null) ? <>
                         <div className="col-12">
                             <h2>{data.title}</h2>
                             <p>{data.subtitle}</p>
@@ -114,7 +116,7 @@ const Calendar = () =>
                             <Birthdays data={data.birthdays} />
                             <Holidays data={data.holidays} />
                         </div>
-                    </> : (error !== null ? <Error error={error} apiPath={apiPath} /> : <Loader />)}
+                    </> : (error !== null ? <Error error={error} apiPath={properties['api-url']} /> : <Loader />)}
                 </div>
             </div>
         </>

@@ -282,6 +282,26 @@ class ApiResponseProperty
         return this.getGiven()?.getQuery()?.getParsed().getFeatureClasses()?.get() ?? [];
     }
 
+    hasLimit(): boolean
+    {
+        return this.getGiven()?.hasLimit() ?? false;
+    }
+
+    getLimit(): number|null
+    {
+        return this.getGiven()?.getLimit() ?? null;
+    }
+
+    hasDistance(): boolean
+    {
+        return this.getGiven()?.hasDistance() ?? false;
+    }
+
+    getDistance(): number|null
+    {
+        return this.getGiven()?.getDistance() ?? null;
+    }
+
 
 
     /**

@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Changelogs
 
+### [0.2.19] - 2023-03-09
+
+* Location text refactoring
+
 ### [0.2.18] - 2023-03-09
 
 * Use the location search button to also renew current position or search with current position

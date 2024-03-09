@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Changelogs
 
+### [0.2.15] - 2023-03-09
+
+* Add hyphen to text-30
+* Add current language to html.lang
+* Add compass to CollapsibleCard
+
 ### [0.2.14] - 2023-03-08
 
 * Card Refactoring

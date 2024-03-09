@@ -6,6 +6,7 @@ import {useTranslation} from "react-i18next";
 
 /* Import functions */
 import {addSoftHyphens} from "../../functions/Text";
+import {getLocationJsxText} from "../../functions/LocationTexts";
 
 /* Import classes. */
 import {NextPlaceWrapper} from "../../classes/Api/Location/Location/NextPlaces/NextPlaceWrapper";
@@ -93,8 +94,7 @@ const NextPlaces = ({nextPlace}: NextPlacesProps) =>
                                             <span className="fw-bold"><sup>&nbsp;(#{index + 1})</sup></span>
                                         </LinkV2><br/>
                                         {place.getFeature().getCode().getName()}
-                                        {place.getProperties().getElevationText(place, t, ' - ')}
-                                        {place.getProperties().getPopulationText(place, t, ' - ')}
+                                        {getLocationJsxText(place, t)}
                                         &nbsp;- <code>{place.getFeature().getCode().getCode()}</code>
                                     </div>
 

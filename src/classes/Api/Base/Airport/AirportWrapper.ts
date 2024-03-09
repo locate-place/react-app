@@ -1,6 +1,11 @@
+import {TFunction} from "i18next";
+
 /* Import types. */
 import {TypeAirport,} from "../../../../types/Types";
+
+/* Import functions. */
 import {ucFirst} from "../../../../functions/Text";
+import {formatNumber} from "../../../../functions/I18n";
 
 /**
  * Class AirportWrapper
@@ -90,6 +95,20 @@ class AirportWrapper
     getPassengers(): number|null
     {
         return this.airport.passengers ? Number(this.airport.passengers) :  null;
+    }
+
+    /**
+     * Returns the wmo code.
+     */
+    getPassengersText(t: TFunction<"translation", undefined>): string|null
+    {
+        const passengers = this.getPassengers();
+
+        if (passengers === null) {
+            return null;
+        }
+
+        return this.airport.passengers ? formatNumber(passengers) + t('TEXT_LOCATION_AIRPORT_PASSENGERS') : null;
     }
 
     /**

@@ -1,4 +1,3 @@
-import React from 'react';
 import {TFunction} from "i18next";
 
 /* Import types. */
@@ -95,7 +94,7 @@ class PropertiesWrapper
     /**
      * Return the elevation text from location.
      */
-    getElevationText(location: LocationWrapper, t: TFunction<"translation", undefined>, separator: string = ''): string|null
+    getElevationText(location: LocationWrapper, t: TFunction<"translation", undefined>): string|null
     {
         if (!this.showElevationText(location)) {
             return null;
@@ -105,7 +104,7 @@ class PropertiesWrapper
             return null;
         }
 
-        return separator + location.getProperties().getElevation()?.["value-formatted"];
+        return location.getProperties().getElevation()?.["value-formatted"] ?? null;
     }
 
     /**
@@ -138,7 +137,7 @@ class PropertiesWrapper
     /**
      * Returns the population text from location.
      */
-    getPopulationText(location: LocationWrapper, t: TFunction<"translation", undefined>, separator: string = ''): string|null
+    getPopulationText(location: LocationWrapper, t: TFunction<"translation", undefined>): string|null
     {
         if (!this.showPopulationText(location)) {
             return null;
@@ -150,7 +149,7 @@ class PropertiesWrapper
 
         const inhabitants = location.getProperties().getPopulation()?.["value-formatted"];
 
-        return separator + t('TEXT_NEXT_PLACE_INHABITANTS_TEXT', {inhabitants});
+        return t('TEXT_NEXT_PLACE_INHABITANTS_TEXT', {inhabitants});
     }
 
     /**
@@ -200,7 +199,7 @@ class PropertiesWrapper
     /**
      * Returns the population for the given place.
      */
-    getAirportCodeText = (location: LocationWrapper, t: TFunction<"translation", undefined>, separator: string|null = null) =>
+    getAirportCodeText = (location: LocationWrapper, t: TFunction<"translation", undefined>): JSX.Element|string|null =>
     {
         let showMissingAirportCode: boolean = false;
 
@@ -209,24 +208,10 @@ class PropertiesWrapper
         }
 
         if (!this.hasAirportCodes() || !this.getAirportCodes()?.hasIata()) {
-            return showMissingAirportCode ?
-                separator + t('TEXT_NEXT_PLACE_NO_IATA_CODE_SPECIFIED') :
-                null;
+            return showMissingAirportCode ? t('TEXT_NEXT_PLACE_NO_IATA_CODE_SPECIFIED') : null;
         }
 
-        return <>
-            {
-                separator ?
-                    <span>{separator}</span> :
-                    <></>
-            }
-            {
-                <code title="IATA-Code">
-                    {
-                        this.getAirportCodes()?.getIata() ?? <></>}
-                </code>
-            }
-        </>;
+        return this.getAirportCodes()?.getIata() ?? '';
     }
 }
 

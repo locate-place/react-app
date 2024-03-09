@@ -1,15 +1,17 @@
 import React, {useMemo} from "react";
 import {Link, useSearchParams} from "react-router-dom";
-
-/* Import translation libraries. */
 import {useTranslation} from "react-i18next";
 
 /* Add font awesome icons */
 import {faMapLocation, faMaximize} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
+/* Import configuration. */
+import {mapTypeGoogle, mapTypeOpenStreetMap} from "../../config/MapTypes";
+
 /* Import functions */
 import {convertToGermanFormat} from "../../functions/Date";
+import {getLocationAirportCodeJsxText, getLocationJsxText} from "../../functions/LocationTexts";
 
 /* Add translations */
 import {translateCountryCode} from "../../translations/Country";
@@ -23,7 +25,6 @@ import {LocationWrapper} from "../../classes/Api/Location/Location/LocationWrapp
 import {ApiResponseProperty} from "../../classes/Api/ApiResponseProperty";
 
 /* Import configuration. */
-import {mapTypeGoogle, mapTypeOpenStreetMap} from "../../config/MapTypes";
 import Flag from "./Flag";
 import LinkV2 from "./LinkV2";
 import CollapsibleCard from "./CollapsibleCard";
@@ -92,9 +93,8 @@ const LocationCard = ({locationWrapper, apiResponseProperty, showOwnPosition, pa
         (ownPositionCard?.getLinks().getOpenStreetMap() ?? null) :
         locationWrapper.getLinks().getMaps(mapTypeOpenStreetMap);
 
-    let elevationText = locationWrapper.getProperties().getElevationText(locationWrapper, t, ' - ') ?? null;
-    let populationText = locationWrapper.getProperties().getPopulationText(locationWrapper, t, ' - ') ?? null;
-    let airportCodesText = locationWrapper.getProperties().getAirportCodeText(locationWrapper, t, ' - ') ?? null;
+    let locationText = getLocationJsxText(locationWrapper, t);
+    let airportText = getLocationAirportCodeJsxText(locationWrapper, t);
 
     let queryString = useGeonameIdAsQuery ?
         locationWrapper.getGeonameId() :
@@ -129,7 +129,7 @@ const LocationCard = ({locationWrapper, apiResponseProperty, showOwnPosition, pa
                     }
                     {
                         locationWrapper.getProperties().showAirportCode(locationWrapper) ?
-                            <>{airportCodesText}</> :
+                            <>{airportText}</> :
                             <></>
                     }
                 </>
@@ -138,13 +138,7 @@ const LocationCard = ({locationWrapper, apiResponseProperty, showOwnPosition, pa
                     <strong>
                         {locationWrapper.getNameFull() ? locationWrapper.getNameFull() : locationWrapper.getName()}
                     </strong>
-                    {elevationText}
-                    {populationText}
-                    {
-                        airportCodesText !== null ?
-                            <>{airportCodesText}</> :
-                            <></>
-                    }
+                    {locationText}
                     <br/>
                     <span>
                         <strong>{locationWrapper.getFeature().getCode().getName()}</strong>: {locationWrapper.getFeature().getClass().getName()} - <code>{locationWrapper.getFeature().getClass().getCode() + '::' + locationWrapper.getFeature().getCode().getCode()}</code>

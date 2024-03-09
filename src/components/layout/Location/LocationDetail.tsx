@@ -41,21 +41,21 @@ const LocationDetail = ({location}: LocationDetailProps) =>
                         <td className={classNamesRow1.join(' ')}>{t('TEXT_CAPTION_DISTRICT_LOCALITY')}</td>
                         <td className={classNamesRow2.join(' ')}
                             colSpan={2}>{location.getDistrictLocality()?.getName()}</td>
-                    </tr> : <></>
+                    </tr> : null
                 }
                 {
                     location.hasCityMunicipality() ? <tr>
                         <td className={classNamesRow1.join(' ')}>{t('TEXT_CAPTION_CITY_MUNICIPALITY')}</td>
                         <td className={classNamesRow2.join(' ')}
                             colSpan={2}>{location.getCityMunicipality()?.getName()}</td>
-                    </tr> : <></>
+                    </tr> : null
                 }
                 {
                     location.hasState() ? <tr>
                         <td className={classNamesRow1.join(' ')}>{t('TEXT_CAPTION_STATE')}</td>
                         <td className={classNamesRow2.join(' ')}
                             colSpan={2}>{location.getState()?.getName()}</td>
-                    </tr> : <></>
+                    </tr> : null
                 }
                 {
                     location.hasCountry() ? <tr>

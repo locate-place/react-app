@@ -26,11 +26,15 @@ body {
     }
 
     .text-30 {
-        width: 30%;
+        width: 50%;
+        hyphens: auto;
+        word-break: break-word;
+        -webkit-hyphens: auto;
+        -moz-hyphens: auto;
     }
 
     .text-70 {
-        width: 70%;
+        width: 50%;
     }
 
     .modal-dialog.birthday-modal {
@@ -291,6 +295,18 @@ body {
     }
 
     @media (min-width: 768px) {
+        .text-30 {
+            width: 30%;
+            hyphens: auto;
+            word-break: break-word;
+            -webkit-hyphens: auto;
+            -moz-hyphens: auto;
+        }
+
+        .text-70 {
+            width: 70%;
+        }
+
         .next-places {
             .container {
                 .row {

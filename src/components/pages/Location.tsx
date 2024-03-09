@@ -31,6 +31,7 @@ import SearchPerformance from "../layout/SearchPerformance";
 import LocationInformation from "../layout/Location/LocationInformation";
 import LocationMapsLinks from "../layout/Location/LocationMapsLinks";
 import LocationPropertyAirport from "../layout/Location/Property/LocationPropertyAirport";
+import LocationCompass from "../layout/Location/LocationCompass";
 
 /**
  * This is the app locations component.
@@ -113,19 +114,15 @@ const Location = () =>
 
                             {/* Renders the location parts */}
                             <div>
-                                {/* Compass. */}
-                                <div className="compass" id="compass">
-                                    <div className="arrow"></div>
-                                    <div className="disc" id="compassDisc"></div>
-                                </div>
-
-
                                 {/* Caption. */}
                                 <h2 className="mt-3">
                                     <Flag country={location.getCountry()?.getProperties().getCountryCode() ?? 'DE'} size={1}
                                           title={location.getCountry()?.getProperties().getCountryCodeTranslated()}/> &nbsp;
                                     {location.getName()}
                                 </h2>
+                                
+                                {/* Compass. */}
+                                <LocationCompass />
 
                                 {/* Location information. */}
                                 <LocationDetail location={location} />

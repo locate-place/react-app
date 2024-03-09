@@ -21,10 +21,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 * Add next_places and Location refactoring
 
-### [0.2.13] - 2023-02-22
-
-* Add next_places and Location refactoring
-
 ### [0.2.12] - 2023-02-19
 
 * Change next places layout from table to flex

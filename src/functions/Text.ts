@@ -13,6 +13,7 @@ const addSoftHyphens = (text: string): string =>
     text = text.replaceAll('=', '=&#8203;');
     text = text.replaceAll('.', '.&#8203;');
     text = text.replace(/([a-z])([A-Z])/g, '$1&#8203;$2');
+    text = text.replaceAll('<hyphen>', '&#8203;');
 
     return text;
 }

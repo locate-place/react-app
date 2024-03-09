@@ -62,8 +62,11 @@ const App = () =>
         addOnScrollListener();
         redirect(navigate);
 
-        /* Change language to german. */
+        /* Change language to given one. */
         i18n.changeLanguage(language).then();
+
+        /* Change html.lang. */
+        document.documentElement.lang = language;
     }, [navigate, language]);
 
     return (

@@ -21,6 +21,7 @@ type CollapsibleCardProps = {
     backgroundColor?: string,
     collapsed?: boolean,
     collapsable?: boolean,
+    className?: string|null
 }
 
 /**
@@ -59,15 +60,17 @@ const CollapsibleCard = ({
     backgroundColor = colorBackgroundLocation,
     collapsed = false,
     collapsable = true,
+    className = null
 }: CollapsibleCardProps) =>
 {
     const id = makeRandomId(10);
+
     const idMain = 'accordion-' + id;
     const idCollapse = 'collapse-' + id;
     const idToggler = 'toggler-' + id;
 
     return (
-        <div className="accordion" id={idMain}>
+        <div className={"accordion " + (className ? className : '')} id={idMain}>
             <div className="card shadow-own w-100 mb-4 mt-4" style={{'backgroundColor': backgroundColor}}>
                 <div
                     className={'card-header' + ( collapsed ? ' collapsed' : '')}

@@ -3,6 +3,18 @@
  */
 const displayCompass = (): void =>
 {
+    let compassCollapsibles: HTMLCollectionOf<HTMLElement> = document.getElementsByClassName('compass-collapsible') as HTMLCollectionOf<HTMLElement>;
+
+    for (let i = 0; i < compassCollapsibles.length; i++) {
+        let item: HTMLElement|null = compassCollapsibles.item(i);
+
+        if (item === null) {
+            continue;
+        }
+
+        item.style.display = 'block';
+    }
+
     let compass: HTMLElement|null = document.getElementById('compass');
 
     if (compass !== null) {

@@ -13,7 +13,7 @@ const LocationCompass = () =>
     const { t } = useTranslation();
 
     return (
-        <CollapsibleCard title={t('TEXT_WORD_COMPASS')} collapsable={true} collapsed={true}>
+        <CollapsibleCard title={t('TEXT_WORD_COMPASS')} collapsable={true} collapsed={true} className="compass-collapsible">
             <div className="compass" id="compass">
                 <div className="arrow"></div>
                 <div className="disc" id="compassDisc"></div>

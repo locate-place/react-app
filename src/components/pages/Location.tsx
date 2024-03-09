@@ -120,7 +120,7 @@ const Location = () =>
                                           title={location.getCountry()?.getProperties().getCountryCodeTranslated()}/> &nbsp;
                                     {location.getName()}
                                 </h2>
-                                
+
                                 {/* Compass. */}
                                 <LocationCompass />
 

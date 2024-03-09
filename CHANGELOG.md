@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Changelogs
 
+### [0.2.20] - 2023-03-09
+
+* Adopt location api search to version 0.1.53
+
 ### [0.2.19] - 2023-03-09
 
 * Location text refactoring

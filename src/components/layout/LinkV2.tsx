@@ -3,6 +3,7 @@ import {Link, LinkProps, To, useNavigate, useSearchParams} from 'react-router-do
 
 /* Import classes. */
 import {Query} from "../../classes/Query";
+import {routePathLocation} from "../../config/Route";
 
 /* Interface definitions. */
 interface CustomLinkProps extends LinkProps {
@@ -10,6 +11,7 @@ interface CustomLinkProps extends LinkProps {
     scrollTo?: number,
     children: ReactNode,
     useCurrentPosition?: boolean,
+    queryString?: string|null,
     setQuery?: boolean
 }
 
@@ -27,6 +29,7 @@ const LinkV2: React.FC<CustomLinkProps> = ({
     scrollTo = null,
     children,
     useCurrentPosition = false,
+    queryString = null,
     setQuery = false,
     ...props
 }) =>
@@ -111,6 +114,10 @@ const LinkV2: React.FC<CustomLinkProps> = ({
         /* Extract the path name from the "to" link. */
         let pathName = filterConfig.getPathname(to);
 
+        if (queryString !== null && queryString !== '') {
+            pathName = filterConfig.getLinkQuery(queryString);
+        }
+
         // /* The current position is set. Force to use the current one. */
         // if (filterConfig.getCurrentPosition()) {
         //     navigate(query.getFilterConfig().getCurrentLinkWithLanguage(null, null, pathName));
@@ -127,8 +134,12 @@ const LinkV2: React.FC<CustomLinkProps> = ({
             filterConfig.setDoNotResetOrClear();
             filterConfig.setCurrentPosition(positionString);
 
-            if (setQuery) {
+            if (setQuery && queryString === null) {
                 filterConfig.setQuery(positionString);
+            }
+
+            if (setQuery && queryString !== null) {
+                filterConfig.setQuery(queryString !== '' ? queryString : positionString);
             }
 
             navigate(query.getFilterConfig().getLinkTo(pathName));

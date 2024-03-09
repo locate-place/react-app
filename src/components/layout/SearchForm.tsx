@@ -123,6 +123,7 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
                             <LinkV2
                                 to={query.getFilterConfig().getLinkLocationCurrent()}
                                 useCurrentPosition={true}
+                                queryString={queryString}
                                 setQuery={true}
                                 title={t('TEXT_TITLE_SEARCH_BY_CURRENT_POSITION')}
                                 className="btn btn-outline-primary button-own-position button-own-position-search"

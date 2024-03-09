@@ -1,3 +1,9 @@
+@mixin shadow-own {
+    border-radius: 6px !important;
+    box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(0,0,0,.05) !important;
+    transition: .3s transform cubic-bezier(.155,1.105,.295,1.12),.3s box-shadow,.3s -webkit-transform cubic-bezier(.155,1.105,.295,1.12) !important;
+}
+
 /**
  * General styles
  */
@@ -11,9 +17,7 @@ body {
     }
 
     .shadow-own {
-        border-radius: 6px;
-        box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(0,0,0,.05);
-        transition: .3s transform cubic-bezier(.155,1.105,.295,1.12),.3s box-shadow,.3s -webkit-transform cubic-bezier(.155,1.105,.295,1.12);
+        @include shadow-own;
     }
 
     .shadow-flag {
@@ -23,6 +27,18 @@ body {
         //border-style: solid;
         box-shadow: 0 3px 10px rgba(0,0,0,.08), 0 0 3px rgba(0,0,0,.05);
         transition: .3s transform cubic-bezier(.155,1.105,.295,1.12),.3s box-shadow,.3s -webkit-transform cubic-bezier(.155,1.105,.295,1.12);
+    }
+
+    .shadow-text {
+        text-shadow: 2px 2px 5px #000;
+    }
+
+    .shadow-svg {
+        filter: drop-shadow(1px 1px 1px rgb(0, 0, 0, .4));
+    }
+
+    .shadow-svg-blue {
+        filter: drop-shadow(1px 1px 1px rgb(24, 13, 175, .4));
     }
 
     .text-30 {
@@ -223,18 +239,91 @@ body {
         }
     }
 
-    .button-own-position {
-        background-color: #f1f0fe;
+    .search-form {
+        //
 
-        &.button-own-position-search {
-            border-top-left-radius: 6px;
-            border-bottom-left-radius: 6px;
-            margin-left: -6px;
-            z-index: 100;
+        .search-group-shadow {
+            .input-group {
+                &.responsive-group {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: stretch;
+
+                    .form-control {
+                        width: 100%;
+                        margin-bottom: 10px;
+                        @include shadow-own;
+                    }
+
+                    .link-button-wrapper {
+                        display: flex;
+                        flex-direction: row;
+                        align-items: center;
+                        justify-content: center;
+                        gap: 10px;
+
+                        .button-own-position {
+                            background-color: #f1f0fe;
+                            @include shadow-own;
+
+                            &.button-own-position-search {
+                                //border-top-left-radius: 6px;
+                                //border-bottom-left-radius: 6px;
+                                //margin-left: -6px;
+                                z-index: 100;
+                            }
+
+                            &:hover {
+                                background-color: #180daf;
+                            }
+                        }
+
+                        .button-search {
+                            @include shadow-own;
+                        }
+                    }
+                }
+            }
         }
+    }
 
-        &:hover {
-            background-color: #180daf;
+    @media (min-width: 768px) {
+        .search-form {
+            .search-group-shadow {
+                @include shadow-own;
+
+                .input-group {
+                    &.responsive-group {
+                        flex-direction: row;
+                        justify-content: space-between;
+                        align-items: center;
+
+                        .form-control {
+                            flex-grow: 1;
+                            margin-bottom: 0;
+                            width: auto;
+                            border-bottom-right-radius: 0 !important;
+                            border-top-right-radius: 0 !important;
+                        }
+
+                        .link-button-wrapper {
+                            flex-direction: row;
+                            justify-content: space-between;
+                            align-items: center;
+                            gap: 0;
+
+                            .button-own-position {
+                                border-radius: 0 !important;
+                            }
+
+                            .button-search {
+                                border-bottom-left-radius: 0 !important;
+                                border-top-left-radius: 0 !important;
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 

@@ -5,9 +5,10 @@ import {useTranslation} from "react-i18next";
 
 /* Add configurations */
 import {sizeIcon} from "../../config/Config";
+import {colorCurrentPosition, colorCurrentPositionDisabled} from "../../config/Colors";
 
 /* Bootstrap icons; see https://icons.getbootstrap.com/?q=sort#usage */
-import {GlobeAmericas, CursorFill, HouseFill} from "react-bootstrap-icons";
+import {GlobeAmericas, CursorFill, HouseFill, House} from "react-bootstrap-icons";
 
 /* Import classes. */
 import {Query} from "../../classes/Query";
@@ -71,25 +72,29 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
     };
 
     const currentPosition = query.getFilterConfig().getCurrentPosition(true);
+    const titleProperty = query.getFilterConfig().hasCurrentPosition() ? {title: t('TEXT_TITLE_CURRENT_POSITION_IS_USED')} : {};
 
     return (
         <>
-            <h3><GlobeAmericas size={sizeIcon.H3}/> {t('TEXT_HEADER_LOCATION_SEARCH')} {
-                query.getFilterConfig().hasCurrentPosition() ? <sup>
-                    <small><small><small><HouseFill size={sizeIcon.ButtonSmall} /> {t('TEXT_TITLE_CURRENT_POSITION_IS_USED')}</small></small></small>
-                </sup> : null
+            <h3 {...titleProperty}><GlobeAmericas size={sizeIcon.H3}/> {t('TEXT_HEADER_LOCATION_SEARCH')} {
+                query.getFilterConfig().hasCurrentPosition() ? <sup style={{color: colorCurrentPosition}} className="shadow-svg-blue">
+                    <small><small><small><HouseFill size={sizeIcon.ButtonSmall}/></small></small></small>
+                </sup> : <sup style={{color: colorCurrentPositionDisabled}} className="shadow-svg">
+                    <small><small><small><House size={sizeIcon.ButtonSmall}/></small></small></small>
+                </sup>
             }</h3>
 
             <form
                 id="searchForm"
+                className="search-form"
                 action={routePath}
                 onSubmit={onSubmit}
             >
                 <div
-                    className="d-flex justify-content-center w-100 mb-4 shadow-own"
+                    className="d-flex justify-content-center w-100 mb-4 search-group-shadow"
                 >
                     <div
-                        className="input-group w-100"
+                        className="input-group responsive-group w-100"
                         style={{backgroundColor: "transparent"}}
                     >
                         <input
@@ -114,25 +119,26 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
                                 <></>
                         }
 
+                        <div className="link-button-wrapper">
+                            <LinkV2
+                                to={query.getFilterConfig().getLinkLocationCurrent()}
+                                useCurrentPosition={true}
+                                setQuery={true}
+                                title={t('TEXT_TITLE_SEARCH_BY_CURRENT_POSITION')}
+                                className="btn btn-outline-primary button-own-position button-own-position-search"
+                                type="button"
+                            >
+                                <CursorFill size={sizeIcon.H3} />
+                            </LinkV2>
 
-                        <LinkV2
-                            to={query.getFilterConfig().getLinkLocationCurrent()}
-                            useCurrentPosition={true}
-                            setQuery={true}
-                            title={t('TEXT_TITLE_SEARCH_BY_CURRENT_POSITION')}
-                            className="btn btn-outline-primary button-own-position button-own-position-search"
-                            type="button"
-                        >
-                            <CursorFill size={sizeIcon.H3} />
-                        </LinkV2>
-
-                        <button
-                            className="btn btn-primary"
-                            title={t('TEXT_TITLE_START_SEARCH')}
-                            type="submit"
-                            id="location-send"
-                            data-mdb-ripple-color="dark"
-                        >{t('TEXT_ACTION_SEARCH')}</button>
+                            <button
+                                className="btn btn-primary button-search"
+                                title={t('TEXT_TITLE_START_SEARCH')}
+                                type="submit"
+                                id="location-send"
+                                data-mdb-ripple-color="dark"
+                            >{t('TEXT_ACTION_SEARCH')}</button>
+                        </div>
                     </div>
                 </div>
             </form>

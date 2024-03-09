@@ -7,6 +7,9 @@ const colorBackgroundNextPlaces = 'rgb(228, 240, 228)';
 
 const colorBackgroundError = 'rgb(235, 213, 218)';
 
+const colorCurrentPosition = 'rgb(24, 13, 175)';
+const colorCurrentPositionDisabled = 'rgb(180, 180, 180)';
+
 /*
  * Export functions.
  */
@@ -16,5 +19,7 @@ export {
     colorBackgroundSearchMetrics,
     colorBackgroundPerformance,
     colorBackgroundNextPlaces,
-    colorBackgroundError
+    colorBackgroundError,
+    colorCurrentPosition,
+    colorCurrentPositionDisabled
 }

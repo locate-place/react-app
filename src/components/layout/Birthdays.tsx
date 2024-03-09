@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 
 /* Import functions */
@@ -6,10 +6,25 @@ import {convertToGermanFormatFromDate} from "../../functions/Date";
 
 /* Import types */
 import {TypeBirthdays} from "../../types/Types";
+import {Button, Modal} from "react-bootstrap";
 
 type HolidaysProps = {
     data: TypeBirthdays|undefined
 }
+
+/**
+ * Checks the holidays today.
+ */
+const getTodaysBirthdayNames = (birthdays: TypeBirthdays): string[] =>
+{
+    const today = new Date().toISOString().slice(0, 10);
+
+    if (!birthdays || !(today in birthdays)) {
+        return [];
+    }
+
+    return birthdays[today].map(birthday => birthday.name.replace(/ \(\d+\)$/, ''));
+};
 
 /**
  * This is the birthday part.
@@ -19,12 +34,53 @@ const Birthdays = ({data}: HolidaysProps) =>
     /* Import translation. */
     const { t } = useTranslation();
 
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [todaysBirthdays, setTodaysBirthdays] = useState<string[]>([]);
+
+    useEffect(() => {
+        if (data === undefined) {
+            return;
+        }
+
+        const birthdayNames = getTodaysBirthdayNames(data);
+
+        if (birthdayNames.length > 0) {
+            setTodaysBirthdays(birthdayNames);
+            setIsModalOpen(true);
+        }
+    }, [data]);
+
     if (data === undefined || Object.keys(data).length <= 0) {
         return <></>
     }
 
+    const handleClose = () => setIsModalOpen(false);
+
     return (
         <>
+            <Modal dialogClassName="birthday-modal" onHide={handleClose} show={isModalOpen}>
+                <Modal.Dialog>
+                    <Modal.Header closeButton>
+                        <Modal.Title>
+                            {t('TEXT_WORD_BIRTHDAYS')}
+                        </Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body className="first">
+                        <ul>
+                            {todaysBirthdays.map((name, index) => (
+                                <li key={'birthday-name-' + index}>{name}</li>
+                            ))}
+                        </ul>
+                    </Modal.Body>
+                    <Modal.Body>
+                        {t('TEXT_WORD_HAPPY_BIRTHDAY')}
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button onClick={handleClose}>{t('TEXT_WORD_CLOSE')}</Button>
+                    </Modal.Footer>
+                </Modal.Dialog>
+            </Modal>
+
             <h3 className="mt-5">{t('TEXT_WORD_BIRTHDAYS')}</h3>
             <ul className="list-group list-group-numbered">
                 {Object.entries(data).map(([date, birthdays]) => (

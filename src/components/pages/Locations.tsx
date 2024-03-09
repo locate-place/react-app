@@ -173,6 +173,7 @@ const Locations = () =>
 
                             {/* Renders the search performance part. */}
                             <SearchPerformance
+                                type={'location'}
                                 properties={properties}
                                 apiPathWithoutParameter={apiPath}
                                 apiPathWithParameter={apiPathWithFilter}

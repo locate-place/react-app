@@ -16,6 +16,7 @@ import Error from "../layout/Error";
 import Header from "../layout/Header";
 import ImageWithLoader from "../layout/ImageWithLoader";
 import Loader from "../layout/Loader";
+import SearchPerformance from "../layout/SearchPerformance";
 
 /**
  * This is the "calendars" component.
@@ -42,6 +43,7 @@ const Calendars = () =>
     /* Gets the api url */
     let query = new Query(searchParams, env);
     const apiPath = query.getApiUrl();
+    const apiPathWithFilter = query.getApiUrlWithFilter();
     const apiType = query.getApiType();
 
     /**
@@ -70,35 +72,47 @@ const Calendars = () =>
         <>
             <Header title={t('TEXT_CALENDARS_TITLE')} subtitle={t('TEXT_CALENDARS_SUBTITLE')} />
             <div className="calendars container mb-5 px-4 px-md-3">
-                <div className="row g-4">
-                    {loaded && data !== null && data.calendars.length > 0 ? data.calendars.map((item, index) => (
-                        <div className="col-12 col-lg-6 col-xl-4 d-flex align-items-stretch" key={'calendar-' + index}>
-                            <div className="card card-hover">
-                                <Link
-                                    to={query.getFilterConfig().getLinkTo('/calendar.html?c=' + item.identifier)}
-                                    className="no-decoration stretched-link"
-                                >
-                                    <ImageWithLoader
-                                        src={properties.url + item.image + '?width=500'}
-                                        srcSet={[
-                                            { srcSet: properties.url + item.image + '?width=500', media: "(max-width: 600px)" },
-                                            { srcSet: properties.url + item.image + '?width=500', media: "(max-width: 1200px)" }
-                                        ]}
-                                        alt={item.title}
-                                        title={item.title}
-                                        border={false}
-                                    />
-                                </Link>
-                                <div className="card-body">
-                                    <h5 className="card-title mb-0">{item.title}</h5>
-                                </div>
-                                <div className="card-footer">
-                                    <p className="card-text one-line">{item.subtitle}</p>
-                                </div>
-                            </div>
+                    {loaded && data !== null ? <>
+                        <div className="row g-4">
+                            {
+                                data.calendars.length > 0 ? data.calendars.map((item, index) => (
+                                    <div className="col-12 col-lg-6 col-xl-4 d-flex align-items-stretch" key={'calendar-' + index}>
+                                        <div className="card card-hover">
+                                            <Link
+                                                to={query.getFilterConfig().getLinkTo('/calendar.html?c=' + item.identifier)}
+                                                className="no-decoration stretched-link"
+                                            >
+                                                <ImageWithLoader
+                                                    src={properties.url + item.image + '?width=500'}
+                                                    srcSet={[
+                                                        { srcSet: properties.url + item.image + '?width=500', media: "(max-width: 600px)" },
+                                                        { srcSet: properties.url + item.image + '?width=500', media: "(max-width: 1200px)" }
+                                                    ]}
+                                                    alt={item.title}
+                                                    title={item.title}
+                                                    border={false}
+                                                />
+                                            </Link>
+                                            <div className="card-body">
+                                                <h5 className="card-title mb-0">{item.title}</h5>
+                                            </div>
+                                            <div className="card-footer">
+                                                <p className="card-text one-line">{item.subtitle}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )) : <></>
+                            }
                         </div>
-                    )) : (error !== null ? <Error error={error} apiPath={properties['api-url']} /> : <Loader />)}
-                </div>
+                        <div className="mt-5">
+                            <SearchPerformance
+                                type={'calendar'}
+                                properties={properties}
+                                apiPathWithoutParameter={apiPath}
+                                apiPathWithParameter={apiPathWithFilter}
+                            />
+                        </div>
+                    </> : (error !== null ? <Error error={error} apiPath={properties['api-url']} /> : <Loader />)}
             </div>
         </>
     );

@@ -47,13 +47,36 @@ type TypeHoliday = {
     "name_short": string,
 };
 
-type TypeBirthdays = TypeBirthday[][];
+type TypeBirthdays = {
+    [key: string]: TypeBirthday[];
+};
 
 type TypeHolidays = TypeHoliday[];
 
 type TypeAirportCodes = {
     "iata"?: string,
     "icao"?: string,
+}
+
+type TypeAirport = {
+    "iata"?: string,
+    "icao"?: string,
+    "wmo"?: string,
+    "passengers"?: string,
+    "movements"?: string,
+    "cargo"?: string,
+    "website"?: string,
+    "operator"?: string,
+    "opened"?: string,
+    "type"?: string,
+    "statistics-year"?: string,
+    "direction"?: string[],
+    "length"?: string[],
+    "surface"?: string[]
+}
+
+type TypeGeneral = {
+    "elevation"?: string,
 }
 
 type TypePlace = {
@@ -196,6 +219,8 @@ type TypeProperties = {
     "elevation"?: TypeValue,
     "population"?: TypeValue,
     "airport_codes"?: TypeAirportCodes,
+    "airport"?: TypeAirport,
+    "general"?: TypeGeneral,
     "country": string,
 }
 
@@ -463,6 +488,8 @@ export {
     TypeLoadApiArguments,
     TypeSearchTypeTranslation,
     TypeAirportCodes,
+    TypeAirport,
+    TypeGeneral,
 
     /* Full API Types. */
     TypeDataLicence,

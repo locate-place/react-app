@@ -2,6 +2,7 @@ import React from "react";
 
 /* Import types */
 import {TypeDataCalendar} from "../../types/Types";
+import {useTranslation} from "react-i18next";
 
 type HeaderCalendarProps = {
     data: TypeDataCalendar|null,
@@ -10,14 +11,18 @@ type HeaderCalendarProps = {
 /**
  * This is the header calendar part.
  */
-const HeaderCalendar = ({data}: HeaderCalendarProps) => {
+const HeaderCalendar = ({data}: HeaderCalendarProps) =>
+{
+    /* Import translation. */
+    const { t } = useTranslation();
+
     let calendarBuilderUrl: string = process.env.REACT_APP_CALENDAR_BUILDER_URL !== undefined ?
-                                         process.env.REACT_APP_CALENDAR_BUILDER_URL :
-                                         '0.1.0';
+        process.env.REACT_APP_CALENDAR_BUILDER_URL :
+        '0.1.0';
 
     /* Generated variables */
     let title = '...';
-    let subtitle = 'Lade. Bitte warten.';
+    let subtitle = t('TEXT_WORD_LOAD');
     let imageUrl = '';
 
     if (data!== null) {

@@ -29,8 +29,12 @@ const convertToGermanFormat = (dateTime: string): string =>
  *
  * @param date
  */
-const convertToGermanFormatFromDate = (date: string): string =>
+const convertToGermanFormatFromDate = (date: string|null): string =>
 {
+    if (date === null) {
+        return 'n/a';
+    }
+
     const parts = date.split('-');
 
     return parts[2] + '.' + parts[1] + '.' + parts[0];

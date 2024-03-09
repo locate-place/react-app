@@ -1,11 +1,8 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import {useSearchParams} from "react-router-dom";
-
-/* Import translation libraries. */
 import {useTranslation} from "react-i18next";
 
 /* Add configurations */
-import {sizeIcon} from "../../config/Config";
 import {routePathLocation} from "../../config/Route";
 
 /* Import types. */
@@ -14,28 +11,26 @@ import {TypeApiData, TypeApiProperties, TypeErrorOwn, TypeLoaded} from "../../ty
 /* Import classes */
 import {Query} from "../../classes/Query";
 import {ApiLocationWrapper} from "../../classes/Api/Location/ApiLocationWrapper";
+import {ApiResponseProperty} from "../../classes/Api/ApiResponseProperty";
 
 /* Add functions */
+import initializeCompass from "../../functions/Compass";
 import loadApiData from "../../functions/LoadApiData";
-import {convertToGermanFormat} from "../../functions/Date";
-import {addSoftHyphens} from "../../functions/Text";
 
 /* Add component parts */
 import Error from "../layout/Error";
+import Flag from "../layout/Flag";
 import HeaderSmall from "../layout/HeaderSmall";
 import Loader from "../layout/Loader";
+import LocationDetail from "../layout/Location/LocationDetail";
+import LocationPosition from "../layout/Location/LocationPosition";
 import NextPlaces from "../layout/NextPlaces";
 import SearchForm from "../layout/SearchForm";
 import SearchMetrics from "../layout/SearchMetrics";
 import SearchPerformance from "../layout/SearchPerformance";
-
-/* Bootstrap icons; see https://icons.getbootstrap.com/?q=sort#usage */
-import {CursorFill} from "react-bootstrap-icons";
-import {ApiResponseProperty} from "../../classes/Api/ApiResponseProperty";
-import Flag from "../layout/Flag";
-import LinkV2 from "../layout/LinkV2";
-import initializeCompass from "../../functions/Compass";
-import CollapsibleCard from "../layout/CollapsibleCard";
+import LocationInformation from "../layout/Location/LocationInformation";
+import LocationMapsLinks from "../layout/Location/LocationMapsLinks";
+import LocationPropertyAirport from "../layout/Location/Property/LocationPropertyAirport";
 
 /**
  * This is the app locations component.
@@ -96,10 +91,6 @@ const Location = () =>
 
     let location = apiLocationWrapper ? apiLocationWrapper.getLocation() : null;
 
-    const classNamesRow1 = ['fw-bold', 'pb-3', 'pt-3', 'px-3', 'text-responsive', 'text-30'];
-    const classNamesRow2 = ['pb-3', 'pt-3', 'px-3', 'text-responsive', 'text-minimized', 'text-70'];
-    const classNamesRow3 = ['pb-3', 'pt-3', 'px-3', 'text-responsive', 'text-minimized'];
-
     /**
      * The render function.
      */
@@ -120,6 +111,7 @@ const Location = () =>
                             {/* Renders the search metrics part. */}
                             <SearchMetrics apiResponseProperty={apiResponseProperty} />
 
+                            {/* Renders the location parts */}
                             <div>
                                 {/* Compass. */}
                                 <div className="compass" id="compass">
@@ -136,270 +128,17 @@ const Location = () =>
                                 </h2>
 
                                 {/* Location information. */}
-                                <CollapsibleCard title={location.getNameFull() ?? ''} collapsable={false}>
-                                    <table
-                                        className="table table-responsive table-last-line location-detail mb-0"
-                                        style={{
-                                            borderCollapse: 'collapse',
-                                            backgroundColor: "transparent"
-                                        }}
-                                    >
-                                        <tbody>
-                                        {
-                                            location.hasDistrictLocality() ? <tr>
-                                                <td className={classNamesRow1.join(' ')}>{t('TEXT_CAPTION_DISTRICT_LOCALITY')}</td>
-                                                <td className={classNamesRow2.join(' ')}
-                                                    colSpan={2}>{location.getDistrictLocality()?.getName()}</td>
-                                            </tr> : <></>
-                                        }
-                                        {
-                                            location.hasCityMunicipality() ? <tr>
-                                                <td className={classNamesRow1.join(' ')}>{t('TEXT_CAPTION_CITY_MUNICIPALITY')}</td>
-                                                <td className={classNamesRow2.join(' ')}
-                                                    colSpan={2}>{location.getCityMunicipality()?.getName()}</td>
-                                            </tr> : <></>
-                                        }
-                                        {
-                                            location.hasState() ? <tr>
-                                                <td className={classNamesRow1.join(' ')}>{t('TEXT_CAPTION_STATE')}</td>
-                                                <td className={classNamesRow2.join(' ')}
-                                                    colSpan={2}>{location.getState()?.getName()}</td>
-                                            </tr> : <></>
-                                        }
-                                        {
-                                            location.hasCountry() ? <tr>
-                                                <td className={classNamesRow1.join(' ')}>{t('TEXT_CAPTION_COUNTRY')}</td>
-                                                <td className={classNamesRow2.join(' ')}
-                                                    colSpan={2}>{location.getCountry()?.getName()}, <code>{location.getCountry()?.getProperties()?.getCountryCode()}</code>, <Flag
-                                                    country={location.getCountry()?.getProperties()?.getCountryCode() ?? 'DE'} size={1}
-                                                    title={location.getCountry()?.getProperties().getCountryCodeTranslated()}/></td>
-                                            </tr> : <tr>
-                                                <td className={classNamesRow1.join(' ')}>{t('TEXT_CAPTION_COUNTRY_CODE')}</td>
-                                                <td className={classNamesRow2.join(' ')}
-                                                    colSpan={2}>
-                                                    <code>{location.getProperties().getCountryCode()}</code>, <Flag
-                                                    country={location.getProperties().getCountryCode()} size={1}
-                                                    title={location.getProperties().getCountryCodeTranslated()}/></td>
-                                            </tr>
-                                        }
-                                        </tbody>
-                                    </table>
-                                </CollapsibleCard>
+                                <LocationDetail location={location} />
 
                                 <h3>{t('TEXT_WORD_INFORMATION')}</h3>
 
-                                {/* Position location information. */}
-                                <CollapsibleCard title={'I) ' + t('TEXT_WORD_POSITION_LOCATION')} collapsed={true}
-                                                 footer={
-                                                     location.getCoordinate().getDistanceUserKilometerValue() >= 0 ?
-                                                         <>
-                                                             <sup>*)</sup>&nbsp;
-                                                             {location.getCoordinate().getDistanceUserText(t)}
-                                                         </> :
-                                                         null
-                                                 }>
-                                    <table
-                                        className="table table-responsive table-last-line location-detail mb-0"
-                                        style={{
-                                            borderCollapse: 'collapse',
-                                            backgroundColor: "transparent"
-                                        }}
-                                    >
-                                        <tbody>
-                                        <tr>
-                                            <td className={classNamesRow1.join(' ')}>{t('TEXT_CAPTION_DMS')}</td>
-                                            <td className={classNamesRow2.join(' ')}
-                                                colSpan={2}>{location.getCoordinate().getDMS()}</td>
-                                        </tr>
-                                        <tr>
-                                            <td className={classNamesRow1.join(' ')}>{t('TEXT_CAPTION_DECIMAL')}</td>
-                                            <td className={classNamesRow2.join(' ')}
-                                                colSpan={2}>{location.getCoordinate().getDecimal()}</td>
-                                        </tr>
-                                        {
-                                            location.getCoordinate().hasDistanceUser() ?
-                                                <>
-                                                    {
-                                                        location.getCoordinate().getDistanceUserKilometerValue() > 0 ?
-                                                            <>
-                                                                <tr>
-                                                                    <td className={classNamesRow1.join(' ')}>{t('TEXT_CAPTION_DISTANCE')}</td>
-                                                                    <td className={classNamesRow2.join(' ')}
-                                                                        colSpan={2}
-                                                                        title={location.getCoordinate().getDistanceUserText(t) ?? ''}>
-                                                                        {location.getCoordinate().getDistanceUserKilometerFormatted()}<sup>*)</sup>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td className={classNamesRow1.join(' ')}>{t('TEXT_CAPTION_DIRECTION')}</td>
-                                                                    <td className={classNamesRow2.join(' ')}
-                                                                        title={location.getCoordinate().getDistanceUserText(t) ?? ''}
-                                                                    >
-                                                                        {location.getCoordinate().getDirectionUserCode()} - {location.getCoordinate().getDirectionUserCodeTranslated(t)}<sup>*)</sup>
-                                                                    </td>
-                                                                    <td className={classNamesRow3.join(' ')}
-                                                                        style={{
-                                                                            display: "flex",
-                                                                            justifyContent: "flex-end"
-                                                                        }}>
-                                                                        <div
-                                                                            className="compass compass-direction shadow-own">
-                                                                            <div className="arrow arrow-direction"
-                                                                                 data-degree={location.getCoordinate().getDirectionUserDegree()}></div>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                            </> :
-                                                            <>
-                                                            </>
-                                                    }
-                                                </>
-                                                :
-                                                <tr>
-                                                    <td className={classNamesRow1.join(' ')}>{t('TEXT_CAPTION_DISTANCE')}</td>
-                                                    <td className={classNamesRow2.join(' ')}
-                                                        title={location.getCoordinate().getDistanceUserText(t) ?? ''}
-                                                    >
-                                                        {t('TEXT_LOCATION_CURRENT_POSITION_UNKNOWN')}
-                                                    </td>
-                                                    <td className={classNamesRow2.join(' ')}
-                                                        title={location.getCoordinate().getDistanceUserText(t) ?? ''}
-                                                        style={{textAlign: 'right'}}>
-                                                        <LinkV2
-                                                            to={query.getFilterConfig().getLinkCurrent()}
-                                                            useCurrentPosition={true}
-                                                            className="btn btn-outline-primary shadow-own mt-2 mb-2 button-own-position button-minimized"
-                                                            title={t('TEXT_LOCATION_DETERMINE_CURRENT_POSITION')}
-                                                        >
-                                                            <CursorFill size={sizeIcon.H3}/>
-                                                        </LinkV2>
-                                                    </td>
-                                                </tr>
-                                        }
-                                        </tbody>
-                                    </table>
-                                </CollapsibleCard>
+                                {/* Single location information. */}
+                                <LocationPosition location={location} query={query} number={1} />
+                                <LocationInformation location={location} number={2} />
+                                <LocationMapsLinks location={location} number={3} />
 
-
-                                {/* Location information. */}
-                                <CollapsibleCard title={'II) ' + t('TEXT_WORD_LOCATION_INFORMATION')} collapsed={true}>
-                                    <table
-                                        className="table table-responsive table-last-line location-detail mb-0"
-                                        style={{
-                                            borderCollapse: 'collapse',
-                                            backgroundColor: "transparent"
-                                        }}
-                                    >
-                                        <tbody>
-                                        <tr>
-                                            <td className={classNamesRow1.join(' ')}>{t('TEXT_CAPTION_MASTER_CODE')}</td>
-                                            <td className={classNamesRow2.join(' ')} colSpan={2}>
-                                                <code>{location.getFeature().getClass().getCode()}</code> - {location.getFeature().getClass().getName()}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td className={classNamesRow1.join(' ')}>{t('TEXT_CAPTION_CODE')}</td>
-                                            <td className={classNamesRow2.join(' ')} colSpan={2}>
-                                                <code>{location.getFeature().getCode().getCode()}</code> - {location.getFeature().getCode().getName()}
-                                            </td>
-                                        </tr>
-                                        {
-                                            location.hasTimezone() ?
-                                                <tr>
-                                                    <td className={classNamesRow1.join(' ')}>{t('TEXT_CAPTION_TIME_ZONE')}</td>
-                                                    <td
-                                                        className={classNamesRow2.join(' ')}
-                                                        colSpan={2}
-                                                        title={location.getTimezone()?.getCoordinate().getDMS() ?? ''}
-                                                    >{location.getTimezone()?.getTimezone()}&nbsp;
-                                                        <code>{location.getTimezone()?.getOffset()}</code></td>
-                                                </tr> : <></>
-                                        }
-                                        {
-                                            location.getProperties().hasElevation() ? <tr>
-                                                <td className={classNamesRow1.join(' ')}>{t('TEXT_CAPTION_ELEVATION')}</td>
-                                                <td className={classNamesRow2.join(' ')}
-                                                    colSpan={2}>{location.getProperties().getElevation()?.["value-formatted"]}</td>
-                                            </tr> : <></>
-                                        }
-                                        {
-                                            location.getProperties().hasPopulation() ? <tr>
-                                                <td className={classNamesRow1.join(' ')}>{t('TEXT_CAPTION_POPULATION')}</td>
-                                                <td className={classNamesRow2.join(' ')}
-                                                    colSpan={2}>{location.getProperties().getPopulation()?.["value-formatted"]} {t('TEXT_WORD_INHABITANTS')}</td>
-                                            </tr> : <></>
-                                        }
-                                        <tr>
-                                            <td className={classNamesRow1.join(' ')}>{t('TEXT_CAPTION_GEONAME_ID')}</td>
-                                            <td className={classNamesRow2.join(' ')}
-                                                colSpan={2}>{location.getGeonameId()}</td>
-                                        </tr>
-                                        <tr>
-                                            <td className={classNamesRow1.join(' ')}>{t('TEXT_CAPTION_LAST_UPDATE')}</td>
-                                            <td className={classNamesRow2.join(' ')}
-                                                colSpan={2}>{convertToGermanFormat(location.getUpdateAt())}</td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </CollapsibleCard>
-
-
-                                {/* Property / information. */}
-                                <CollapsibleCard title={'III) ' + t('TEXT_WORD_LINK_ADDRESSES_MAPS')} collapsed={true}>
-                                    <table
-                                        className="table table-responsive table-last-line location-detail mb-0"
-                                        style={{
-                                            borderCollapse: 'collapse',
-                                            backgroundColor: "transparent"
-                                        }}
-                                    >
-                                        <tbody>
-                                        <tr>
-                                            <td className={classNamesRow1.join(' ')} dangerouslySetInnerHTML={{__html: t('TEXT_CAPTION_GOOGLE_MAPS')}} />
-                                            <td className={classNamesRow2.join(' ')} colSpan={2}><a
-                                                href={location.getLinks().getMaps('google') ?? ''} target={'_blank'}
-                                                rel="noreferrer"
-                                                dangerouslySetInnerHTML={{__html: addSoftHyphens(location.getLinks().getMaps('google') ?? '')}}/>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td className={classNamesRow1.join(' ')} dangerouslySetInnerHTML={{__html: addSoftHyphens(t('TEXT_CAPTION_OPEN_STREET_MAP'))}} />
-                                            <td className={classNamesRow2.join(' ')} colSpan={2}><a
-                                                href={location.getLinks().getMaps('openstreetmap') ?? ''}
-                                                target={'_blank'}
-                                                rel="noreferrer"
-                                                dangerouslySetInnerHTML={{__html: addSoftHyphens(location.getLinks().getMaps('openstreetmap') ?? '')}}/>
-                                            </td>
-                                        </tr>
-                                        {
-                                            location.getLinks().hasWikipedia() ? <tr>
-                                                <td className={classNamesRow1.join(' ')}>{t('TEXT_CAPTION_WIKIPEDIA')}</td>
-                                                <td className={classNamesRow2.join(' ')} colSpan={2}><a
-                                                    href={location.getLinks().getWikipedia() ?? ''}
-                                                    target={'_blank'} rel="noreferrer"
-                                                    dangerouslySetInnerHTML={{__html: addSoftHyphens(decodeURI(location.getLinks().getWikipedia() ?? ''))}}/>
-                                                </td>
-                                            </tr> : <></>
-                                        }
-                                        {
-                                            location.getLinks().hasOther() ? <>
-                                            {
-                                                (location.getLinks().getOther() as string[]).map((link: string) =>
-                                                    <tr>
-                                                        <td className={classNamesRow1.join(' ')}>{t('TEXT_CAPTION_OTHER_LINK')}</td>
-                                                        <td className={classNamesRow2.join(' ')} colSpan={2}><a
-                                                            href={link}
-                                                            target={'_blank'} rel="noreferrer"
-                                                            dangerouslySetInnerHTML={{__html: addSoftHyphens(decodeURI(link))}}/>
-                                                        </td>
-                                                    </tr>
-                                                )
-                                            }
-                                            </> : <></>
-                                        }
-                                        </tbody>
-                                    </table>
-                                </CollapsibleCard>
+                                {/* Properties */}
+                                { location.getProperties().hasAirport() ? <LocationPropertyAirport location={location} number={4} /> : <></> }
                             </div>
 
                             {/* Renders the next places parts */}
@@ -420,11 +159,12 @@ const Location = () =>
 
                             {/* Renders the search performance part. */}
                             <SearchPerformance
+                                type={'location'}
                                 properties={properties}
                                 apiPathWithoutParameter={apiPath}
                                 apiPathWithParameter={apiPathWithFilter}
                             />
-                        </> : (error !== null ? <Error error={error} apiPath={properties?.["api-url"] ?? ''}/> :
+                        </> : (error !== null ? <Error error={error} apiPath={properties?.["api-url"] ?? ''} /> :
                             <Loader/>)}
                     </div>
                 </div>

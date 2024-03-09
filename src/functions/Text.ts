@@ -17,9 +17,15 @@ const addSoftHyphens = (text: string): string =>
     return text;
 }
 
+const ucFirst = (text: string): string =>
+{
+    return text.charAt(0).toUpperCase() + text.slice(1);
+}
+
 /*
  * Export functions.
  */
 export {
-    addSoftHyphens
+    addSoftHyphens,
+    ucFirst
 }

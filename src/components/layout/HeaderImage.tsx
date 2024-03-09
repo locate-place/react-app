@@ -1,4 +1,5 @@
 import React from "react";
+import {useTranslation} from "react-i18next";
 
 /* Import types. */
 import {TypeDataCalendarPage} from "../../types/Types";
@@ -10,11 +11,14 @@ type HeaderImageProps = {
 /**
  * This is the header image part.
  */
-const HeaderImage = ({data}: HeaderImageProps) => {
+const HeaderImage = ({data}: HeaderImageProps) =>
+{
+    /* Import translation. */
+    const { t } = useTranslation();
 
     /* Generated variables */
     let title = '...';
-    let subtitle = 'Lade. Bitte warten.';
+    let subtitle = t('TEXT_WORD_LOAD');
     let color = '#f0f0f0';
 
     if (data !== null) {

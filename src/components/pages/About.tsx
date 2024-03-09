@@ -73,7 +73,7 @@ const About = () =>
             setLoaded: setLoadedLocationApi,
             setError: setErrorLocationApi,
         }, t);
-    }, [apiPathCalendarBuilder, apiPathLocationApi, typeCalendarBuilder, typeLocationApi]);
+    }, [apiPathCalendarBuilder, apiPathLocationApi, typeCalendarBuilder, typeLocationApi, t]);
 
     /**
      * The render function.

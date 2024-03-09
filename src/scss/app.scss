@@ -33,6 +33,76 @@ body {
         width: 70%;
     }
 
+    .modal-dialog.birthday-modal {
+        .modal-content {
+            .modal-dialog {
+                margin: 0 !important;
+
+                .modal-body {
+                    &.first {
+                        border-bottom-width: 1px;
+                        border-bottom-style: solid;
+                        border-bottom-color: rgb(220, 220, 220);
+                    }
+
+                    ul {
+                        margin-bottom: 0;
+                    }
+                }
+            }
+        }
+    }
+
+    .modal-dialog.custom-modal {
+        margin: 0 auto;
+        max-width: 100%;
+        max-height: calc(100vh - 40px);
+        padding: 20px 5px 20px 20px;
+        display: flex;
+        flex-direction: column;
+
+        .modal-content {
+            display: flex;
+            flex-direction: column;
+            height: calc(100vh - 40px);
+
+            .modal-dialog {
+                margin: 0;
+                max-width: 100%;
+
+                .modal-content {
+                    .modal-header {
+                        background-color: rgb(230, 230, 230);
+
+                        .modal-title {
+                            margin-bottom: 0;
+                            margin-top: 10px;
+                        }
+                    }
+
+                    .modal-body {
+                        background-color: rgb(240, 240, 240);
+
+                        &.first {
+                            border-bottom-width: 1px;
+                            border-bottom-style: solid;
+                            border-bottom-color: rgb(220, 220, 220);
+                        }
+
+                        &.scrollable {
+                            overflow-y: auto;
+                            background-color: #1e1e1e;
+                        }
+                    }
+
+                    .modal-footer {
+                        background-color: rgb(230, 230, 230);
+                    }
+                }
+            }
+        }
+    }
+
     .card-header {
         .collapse-open, .collapse-close {
             float: right;

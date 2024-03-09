@@ -23,6 +23,7 @@ import HeaderImage from "../layout/HeaderImage";
 import Holidays from "../layout/Holidays";
 import ImageWithLoader from "../layout/ImageWithLoader";
 import Loader from "../layout/Loader";
+import SearchPerformance from "../layout/SearchPerformance";
 
 /**
  * This is the "calendar page" component.
@@ -49,6 +50,7 @@ const CalendarPage = () =>
     /* Gets the api url */
     let query = new Query(searchParams, env);
     const apiPath = query.getApiUrl();
+    const apiPathWithFilter = query.getApiUrlWithFilter();
     const apiType = query.getApiType();
 
     /**
@@ -152,6 +154,14 @@ const CalendarPage = () =>
                                     className="btn btn-primary"
                                     to={query.getFilterConfig().getLinkTo('/calendar.html?c=' + data.identifier)}
                                 >{t('TEXT_WORD_BACK_TO_THE_CALENDAR')}</Link></p>
+                            </div>
+                            <div className="mt-5">
+                                <SearchPerformance
+                                    type={'calendar'}
+                                    properties={properties}
+                                    apiPathWithoutParameter={apiPath}
+                                    apiPathWithParameter={apiPathWithFilter}
+                                />
                             </div>
                         </div>
                     </> : (error !== null ? <Error error={error} apiPath={apiPath} /> : <Loader />)}

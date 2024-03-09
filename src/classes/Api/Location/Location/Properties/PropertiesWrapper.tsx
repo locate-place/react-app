@@ -14,6 +14,7 @@ import {translateCountryCode} from "../../../../../translations/Country";
 import {ApiLocationWrapper} from "../../ApiLocationWrapper";
 import {LocationWrapper} from "../LocationWrapper";
 import {AirportCodesWrapper} from "../../../Base/AirportCodes/AirportCodesWrapper";
+import {AirportWrapper} from "../../../Base/Airport/AirportWrapper";
 
 /**
  * Class PropertiesWrapper
@@ -166,6 +167,22 @@ class PropertiesWrapper
     getAirportCodes(): AirportCodesWrapper|null
     {
         return this.properties.airport_codes ? new AirportCodesWrapper(this.properties.airport_codes) : null;
+    }
+
+    /**
+     * Returns if the airport exists.
+     */
+    hasAirport(): boolean
+    {
+        return !!this.properties.airport;
+    }
+
+    /**
+     * Returns the airport.
+     */
+    getAirport(): AirportWrapper|null
+    {
+        return this.properties.airport ? new AirportWrapper(this.properties.airport) : null;
     }
 
     /**

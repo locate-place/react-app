@@ -23,6 +23,7 @@ import HeaderCalendar from "../layout/HeaderCalendar";
 import Holidays from "../layout/Holidays";
 import ImageWithLoader from "../layout/ImageWithLoader";
 import Loader from "../layout/Loader";
+import SearchPerformance from "../layout/SearchPerformance";
 
 /**
  * This is the "calendar" component.
@@ -49,6 +50,7 @@ const Calendar = () =>
     /* Gets the api url */
     let query = new Query(searchParams, env);
     const apiPath = query.getApiUrl();
+    const apiPathWithFilter = query.getApiUrlWithFilter();
     const apiType = query.getApiType();
 
     /**
@@ -63,9 +65,7 @@ const Calendar = () =>
             setLoaded: setLoaded,
             setError: setError,
         }, t);
-    }, [apiType, apiPath]);
-
-    console.log(data);
+    }, [apiType, apiPath, t]);
 
     /* Skip empty data */
     if (properties === null) {
@@ -115,6 +115,15 @@ const Calendar = () =>
                         <div className="col-12">
                             <Birthdays data={data.birthdays} />
                             <Holidays data={data.holidays} />
+
+                            <div className="mt-5">
+                                <SearchPerformance
+                                    type={'calendar'}
+                                    properties={properties}
+                                    apiPathWithoutParameter={apiPath}
+                                    apiPathWithParameter={apiPathWithFilter}
+                                />
+                            </div>
                         </div>
                     </> : (error !== null ? <Error error={error} apiPath={properties['api-url']} /> : <Loader />)}
                 </div>

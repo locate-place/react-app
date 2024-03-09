@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Changelogs
 
+### [0.2.17] - 2023-03-09
+
+* Location search optimization on small devices
+
 ### [0.2.16] - 2023-03-09
 
 * Disable compass collapsible on desktop devices

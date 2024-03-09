@@ -108,7 +108,7 @@ class AirportWrapper
             return null;
         }
 
-        return this.airport.passengers ? formatNumber(passengers) + t('TEXT_LOCATION_AIRPORT_PASSENGERS') : null;
+        return this.airport.passengers ? formatNumber(passengers) + ' ' + t('TEXT_LOCATION_AIRPORT_PASSENGERS') : null;
     }
 
     /**

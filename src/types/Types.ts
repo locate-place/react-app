@@ -400,7 +400,7 @@ type TypeGivenQueryParsedFeatureClass = {
 type TypeGivenQueryParsed = {
     "type": string,
     "geoname-id"?: number,
-    "search"?: string,
+    "search"?: string[],
     "coordinate"?: TypeGivenCoordinate,
     "feature-codes"?: TypeGivenQueryParsedFeatureCode[],
     "feature-classes"?: TypeGivenQueryParsedFeatureClass[]

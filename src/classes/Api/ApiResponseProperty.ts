@@ -160,7 +160,13 @@ class ApiResponseProperty
      */
     getGivenQueryParsedSearch(): string|null
     {
-        return this.getGiven()?.getQuery()?.getParsed().getSearch() ?? null;
+        const givenQueryParsedSearch: string[]|null = this.getGiven()?.getQuery()?.getParsed().getSearch() ?? null
+
+        if (givenQueryParsedSearch === null) {
+            return null;
+        }
+
+        return givenQueryParsedSearch.join(' ');
     }
 
     /**

@@ -68,7 +68,7 @@ class ParsedWrapper
     /**
      * Returns the search string of parsed data.
      */
-    getSearch(): string|null
+    getSearch(): string[]|null
     {
         return this.parsed.search ?? null;
     }

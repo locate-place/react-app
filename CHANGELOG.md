@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Changelogs
 
+### [0.2.22] - 2023-03-10
+
+* Add translations for today's birthdays
+
 ### [0.2.21] - 2023-03-10
 
 * Add direction request button to locations match items if user position is not known

@@ -6,21 +6,24 @@ import {sizeIcon} from "../../config/Config";
 
 /* Bootstrap icons; see https://icons.getbootstrap.com/?q=sort#usage */
 import {
-    Compass,
+    Compass, CursorFill,
     Geo
 } from "react-bootstrap-icons";
 
 /* Import types */
 import {TypeLocationCoordinate} from "../../types/Types";
+import LinkV2 from "./LinkV2";
+import {Query} from "../../classes/Query";
 
 type CoordinateDistanceDirectionProps = {
     location: TypeLocationCoordinate,
+    query?: Query|null,
 }
 
 /**
  * This is the coordinate, distance and direction part.
  */
-const CoordinateDistanceDirection = ({location}: CoordinateDistanceDirectionProps) =>
+const CoordinateDistanceDirection = ({location, query}: CoordinateDistanceDirectionProps) =>
 {
     /* Import translation. */
     const { t } = useTranslation();
@@ -51,31 +54,42 @@ const CoordinateDistanceDirection = ({location}: CoordinateDistanceDirectionProp
         hasCoordinate ?
             <>
                 {
+                    query && !hasDistanceUser ? <>
+                        <div className="own-position-request float-end" style={{marginLeft: '0.5rem'}}>
+                            <LinkV2
+                                to={query.getFilterConfig().getLinkCurrent()}
+                                useCurrentPosition={true}
+                                className="btn btn-outline-primary shadow-own mt-2 mb-2 button-own-position button-minimized"
+                                title={t('TEXT_LOCATION_DETERMINE_CURRENT_POSITION')}
+                            >
+                                <CursorFill size={sizeIcon.H3}/>
+                            </LinkV2>&nbsp;
+                        </div>
+                    </> : null
+                }
+
+                {
                     hasDirection || hasDirectionUser ?
                         <>
                             {
                                 hasDirectionUser ?
-                                    <>
-                                        <div className="compass-area float-end" style={{marginLeft: '1rem'}}>
-                                            <div className="compass compass-direction shadow-own">
-                                                <div className="arrow arrow-direction"
-                                                     data-degree={degreeUser}
-                                                ></div>
-                                            </div>
+                                    <div className="compass-area float-end" style={{marginLeft: '0.5rem'}}>
+                                        <div className="compass compass-direction shadow-own">
+                                            <div className="arrow arrow-direction"
+                                                 data-degree={degreeUser}
+                                            ></div>
                                         </div>
-                                    </> :
-                                    <>
-                                        <div className="compass-area">
-                                            <div className="compass compass-direction shadow-own">
-                                                <div className="arrow arrow-direction"
-                                                     data-degree={degree}
-                                                ></div>
-                                            </div>
+                                    </div> :
+                                    <div className="compass-area float-end" style={{marginLeft: '0.5rem'}}>
+                                        <div className="compass compass-direction shadow-own">
+                                            <div className="arrow arrow-direction"
+                                                 data-degree={degree}
+                                            ></div>
                                         </div>
-                                    </>
+                                    </div>
                             }
                         </> :
-                        <></>
+                        null
                 }
 
                 <strong>{t('TEXT_WORD_POSITION')}</strong>:&nbsp;

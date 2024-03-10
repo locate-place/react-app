@@ -155,7 +155,7 @@ const LocationCard = ({locationWrapper, apiResponseProperty, showOwnPosition, pa
                         title={latitudeDecimal ? latitudeDecimal.toString() : ''}>{latitudeDms}</span>, <span
                         title={longitudeDecimal ? longitudeDecimal.toString() : ''}>{longitudeDms}</span>
                     </> :
-                    <CoordinateDistanceDirection location={locationWrapper.get()}/>
+                    <CoordinateDistanceDirection location={locationWrapper.get()} query={query} />
             }>
                 <div className="container p-3 pb-0">
                     <div className="row">

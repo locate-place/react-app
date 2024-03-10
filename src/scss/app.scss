@@ -327,6 +327,26 @@ body {
         }
     }
 
+    .card {
+        .card-footer {
+            .own-position-request {
+                a {
+                    margin-top: 3px !important;
+                    margin-bottom: 3px !important;
+                    height: 40px;
+                    width: 40px;
+
+                    svg {
+                        margin-left: -2px;
+                    }
+                }
+            }
+        }
+    }
+
+
+
+
     hr {
         border-color: #dee2e6;
         opacity: 1;

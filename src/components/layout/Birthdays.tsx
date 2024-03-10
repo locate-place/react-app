@@ -62,7 +62,7 @@ const Birthdays = ({data}: HolidaysProps) =>
                 <Modal.Dialog>
                     <Modal.Header closeButton>
                         <Modal.Title>
-                            {t('TEXT_WORD_BIRTHDAYS')}
+                            {t('TEXT_WORD_BIRTHDAYS_TODAY')}
                         </Modal.Title>
                     </Modal.Header>
                     <Modal.Body className="first">

@@ -1,18 +1,27 @@
 import React, {ReactNode, useMemo} from 'react';
 import {Link, LinkProps, To, useNavigate, useSearchParams} from 'react-router-dom';
+import {useTranslation} from "react-i18next";
 
 /* Import classes. */
 import {Query} from "../../classes/Query";
-import {routePathLocation} from "../../config/Route";
+
+/* Import components. */
+import {useLoader} from "./LoaderContext";
+
+/* Import types. */
+import {CallableString} from "../../types/Types";
 
 /* Interface definitions. */
-interface CustomLinkProps extends LinkProps {
+interface LinkV2Props extends LinkProps {
     to: To,
     scrollTo?: number,
     children: ReactNode,
     useCurrentPosition?: boolean,
     queryString?: string|null,
-    setQuery?: boolean
+    setQuery?: boolean,
+    textLoader?: string|null,
+    textInformation?: CallableString|string|null,
+    textInformationAdditional?: CallableString|string|null
 }
 
 /**
@@ -24,17 +33,25 @@ interface CustomLinkProps extends LinkProps {
  * @param props
  * @constructor
  */
-const LinkV2: React.FC<CustomLinkProps> = ({
+const LinkV2: React.FC<LinkV2Props> = ({
     to,
     scrollTo = null,
     children,
     useCurrentPosition = false,
     queryString = null,
     setQuery = false,
+    textLoader = null,
+    textInformation = null,
+    textInformationAdditional = null,
     ...props
 }) =>
 {
+    /* Import translation. */
+    const { t } = useTranslation();
+
     let navigate = useNavigate();
+
+    const { showLoader, hideLoader } = useLoader();
 
     /* API types */
     const env = useMemo(() => {
@@ -126,6 +143,13 @@ const LinkV2: React.FC<CustomLinkProps> = ({
         //     return;
         // }
 
+        /* Shows the loader before querying the current position. */
+        showLoader(
+            textLoader !== null ? textLoader : t('TEXT_WORD_LOAD'),
+            textInformation,
+            textInformationAdditional
+        );
+
         /* Add current position to query. */
         navigator.geolocation.getCurrentPosition((position) =>
         {
@@ -142,8 +166,12 @@ const LinkV2: React.FC<CustomLinkProps> = ({
                 filterConfig.setQuery(queryString !== '' ? queryString : positionString);
             }
 
-            navigate(query.getFilterConfig().getLinkTo(pathName));
-            scrollToTop(scrollTo);
+            setTimeout(() => {
+                navigate(query.getFilterConfig().getLinkTo(pathName));
+                scrollToTop(scrollTo);
+                hideLoader(textInformation, t('TEXT_WORD_POSITION') + ': ' + positionString);
+            }, 1000);
+
             return;
         });
 

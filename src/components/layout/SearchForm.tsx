@@ -128,6 +128,8 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
                                 title={t('TEXT_TITLE_SEARCH_BY_CURRENT_POSITION')}
                                 className="btn btn-outline-primary button-own-position button-own-position-search"
                                 type="button"
+                                textLoader={t('TEXT_WORD_DETERMINE_CURRENT_LOCATION')}
+                                textInformation={t('TEXT_WORD_DETERMINED_CURRENT_LOCATION')}
                             >
                                 <CursorFill size={sizeIcon.H3} />
                             </LinkV2>

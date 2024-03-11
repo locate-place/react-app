@@ -461,6 +461,8 @@ type TypeApiData = {
     "version": string,
 }
 
+type CallableString = () => string;
+
 /*
  * Export functions.
  */
@@ -532,5 +534,7 @@ export {
     TypeApiData,
 
     typeLocations,
-    typeLocation
+    typeLocation,
+
+    CallableString
 }

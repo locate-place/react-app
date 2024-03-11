@@ -70,6 +70,14 @@ class Query
     }
 
     /**
+     * Returns the URLSearchParams object.
+     */
+    getSearchParams(): URLSearchParams|null
+    {
+        return this.searchParams;
+    }
+
+    /**
      * Returns the filter config.
      */
     getFilterConfig(): FilterConfig

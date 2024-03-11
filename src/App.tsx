@@ -36,6 +36,7 @@ import 'bootstrap';
 
 /* Import translation libraries. */
 import {i18n, languageDefault} from "./functions/I18n";
+import {LoaderProvider} from "./components/layout/LoaderContext";
 
 /**
  * This is the app main component.
@@ -71,26 +72,28 @@ const App = () =>
 
     return (
         <div className="App">
-            <Navigation />
-            <Routes>
-                <Route index element={<Calendars />} />
+            <LoaderProvider>
+                <Navigation />
+                <Routes>
+                    <Route index element={<Calendars />} />
 
-                <Route path="/index.html" element={<Calendars />} />
-                <Route path="/calendar.html" element={<Calendar />} />
-                <Route path="/page.html" element={<CalendarPage />} />
+                    <Route path="/index.html" element={<Calendars />} />
+                    <Route path="/calendar.html" element={<Calendar />} />
+                    <Route path="/page.html" element={<CalendarPage />} />
 
-                <Route path="/home.html" element={<Home />} />
-                <Route path="/contact.html" element={<Contact />} />
-                <Route path="/about.html" element={<About />} />
+                    <Route path="/home.html" element={<Home />} />
+                    <Route path="/contact.html" element={<Contact />} />
+                    <Route path="/about.html" element={<About />} />
 
-                <Route path="/locations.html" element={<Locations />} />
-                <Route path="/location.html" element={<Location />} />
+                    <Route path="/locations.html" element={<Locations />} />
+                    <Route path="/location.html" element={<Location />} />
 
-                <Route path="/countries.html" element={<Countries />} />
+                    <Route path="/countries.html" element={<Countries />} />
 
-                <Route path="*" element={<NotFound />} />
-            </Routes>
-            <Footer />
+                    <Route path="*" element={<NotFound />} />
+                </Routes>
+                <Footer />
+            </LoaderProvider>
         </div>
     );
 }

@@ -119,6 +119,8 @@ const LocationPosition = ({location, query, number}: LocationPositionProps) =>
                                     useCurrentPosition={true}
                                     className="btn btn-outline-primary shadow-own mt-2 mb-2 button-own-position button-minimized"
                                     title={t('TEXT_LOCATION_DETERMINE_CURRENT_POSITION')}
+                                    textLoader={t('TEXT_WORD_DETERMINE_CURRENT_LOCATION')}
+                                    textInformation={t('TEXT_WORD_DETERMINED_CURRENT_LOCATION')}
                                 >
                                     <CursorFill size={sizeIcon.H3}/>
                                 </LinkV2>

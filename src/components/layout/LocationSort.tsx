@@ -72,7 +72,10 @@ const LocationSort = ({query, apiResponseProperty}: LocationSortProps) =>
                             <LinkV2
                                 to={filterConfig.getLinkLocationsSortByDistance()}
                                 title={t('TEXT_TITLE_SORT_BY_DISTANCE')}
+                                useCurrentPosition={true}
                                 className={'btn ' + (query.isSortedBy([nameSortDistanceUser, nameSortDistance]) ? 'btn-secondary' : 'btn-outline-secondary')}
+                                textLoader={t('TEXT_WORD_DETERMINE_CURRENT_LOCATION')}
+                                textInformation={t('TEXT_WORD_DETERMINED_CURRENT_LOCATION')}
                             >
                                 <CursorFill size={sizeIcon.ButtonSmall}/>&nbsp;
                                 <SortNumericDown size={sizeIcon.Button}/>&nbsp;
@@ -83,6 +86,8 @@ const LocationSort = ({query, apiResponseProperty}: LocationSortProps) =>
                                 useCurrentPosition={true}
                                 title={t('TEXT_TITLE_SORT_BY_DISTANCE_FROM_USER')}
                                 className={'btn ' + (query.isSortedBy([nameSortDistanceUser, nameSortDistance]) ? 'btn-secondary' : 'btn-outline-secondary')}
+                                textLoader={t('TEXT_WORD_DETERMINE_CURRENT_LOCATION')}
+                                textInformation={t('TEXT_WORD_DETERMINED_CURRENT_LOCATION')}
                             >
                                 <SortNumericDown size={sizeIcon.Button}/>&nbsp;
                                 <sup><small>{t('TEXT_ACTION_KM')}</small></sup>
@@ -94,8 +99,11 @@ const LocationSort = ({query, apiResponseProperty}: LocationSortProps) =>
                                 query.isCoordinateSearch() ?
                                     <LinkV2
                                         to={filterConfig.getLinkLocationsSortByRelevance()}
+                                        useCurrentPosition={true}
                                         title={t('TEXT_TITLE_SORT_BY_RELEVANCE')}
                                         className={'btn ' + (query.isSortedBy([nameSortRelevanceUser, nameSortRelevance]) ? 'btn-secondary' : 'btn-outline-secondary')}
+                                        textLoader={t('TEXT_WORD_DETERMINE_CURRENT_LOCATION')}
+                                        textInformation={t('TEXT_WORD_DETERMINED_CURRENT_LOCATION')}
                                     >
                                         <CursorFill size={sizeIcon.ButtonSmall}/>&nbsp;
                                         <SortDown size={sizeIcon.Button}/>
@@ -103,9 +111,11 @@ const LocationSort = ({query, apiResponseProperty}: LocationSortProps) =>
                                     </LinkV2> :
                                     <LinkV2
                                         to={filterConfig.getLinkLocationsSortByRelevanceUser()}
-                                        title={t('TEXT_TITLE_SORT_BY_RELEVANCE_OF_THE_USER')}
                                         useCurrentPosition={true}
+                                        title={t('TEXT_TITLE_SORT_BY_RELEVANCE_OF_THE_USER')}
                                         className={'btn ' + (query.isSortedBy([nameSortRelevanceUser, nameSortRelevance]) ? 'btn-secondary' : 'btn-outline-secondary')}
+                                        textLoader={t('TEXT_WORD_DETERMINE_CURRENT_LOCATION')}
+                                        textInformation={t('TEXT_WORD_DETERMINED_CURRENT_LOCATION')}
                                     >
                                         <SortDown size={sizeIcon.Button}/>&nbsp;
                                         <sup><small>{t('TEXT_ACTION_RELEVANCE')}</small></sup>

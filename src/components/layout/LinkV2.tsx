@@ -166,11 +166,9 @@ const LinkV2: React.FC<LinkV2Props> = ({
                 filterConfig.setQuery(queryString !== '' ? queryString : positionString);
             }
 
-            setTimeout(() => {
-                navigate(query.getFilterConfig().getLinkTo(pathName));
-                scrollToTop(scrollTo);
-                hideLoader(textInformation, t('TEXT_WORD_POSITION') + ': ' + positionString);
-            }, 1000);
+            navigate(query.getFilterConfig().getLinkTo(pathName));
+            scrollToTop(scrollTo);
+            hideLoader(textInformation, t('TEXT_WORD_POSITION') + ': ' + positionString);
 
             return;
         });

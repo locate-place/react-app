@@ -57,12 +57,14 @@ const CoordinateDistanceDirection = ({location, query}: CoordinateDistanceDirect
                     query && !hasDistanceUser ? <>
                         <div className="own-position-request float-end" style={{marginLeft: '0.5rem'}}>
                             <LinkV2
-                                to={query.getFilterConfig().getLinkCurrent()}
+                                to={query.getFilterConfig().getLinkCurrent({'s': 'distance-user'})}
                                 useCurrentPosition={true}
                                 className="btn btn-outline-primary shadow-own mt-2 mb-2 button-own-position button-minimized"
                                 title={t('TEXT_LOCATION_DETERMINE_CURRENT_POSITION')}
+                                textLoader={t('TEXT_WORD_DETERMINE_CURRENT_LOCATION')}
+                                textInformation={t('TEXT_WORD_DETERMINED_CURRENT_LOCATION')}
                             >
-                                <CursorFill size={sizeIcon.H3}/>
+                                <CursorFill size={sizeIcon.H3} />
                             </LinkV2>&nbsp;
                         </div>
                     </> : null

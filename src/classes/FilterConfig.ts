@@ -139,11 +139,59 @@ class FilterConfig
         this.setCountry(country ? country : countryDefault);
 
         /* Add parameter "language". */
-        this.setLanguage(language? language : languageDefault);
+        this.setLanguage(language ? language : languageDefault);
 
         /* Add parameter "next_places". */
         nextPlaces && this.setNextPlaces(true);
     };
+
+    addByFilterConfig(filterConfig: TypeFilterConfig): void
+    {
+        const calendar: string|null = filterConfig.c ?? null;
+        const month: string|null = filterConfig.m ?? null;
+        const query: string|null = filterConfig.q ?? null;
+        const currentPosition: string|null = filterConfig.p ?? null;
+        const country: string|null = filterConfig.country ?? null;
+        const language: string|null = filterConfig.language ?? null;
+        const distance: string|null = filterConfig.distance ?? null;
+        const limit: string|null = filterConfig.limit ?? null;
+        const page: string|null = filterConfig.page ?? null;
+        const sort: string|null = filterConfig.s ?? null;
+        const nextPlaces: string|null = filterConfig.next_places ?? null;
+
+        /* Add calendar parameter. */
+        calendar && this.setCalendar(calendar);
+
+        /* Add month parameter. */
+        month && this.setMonth(month);
+
+        /* Add parameter "q". */
+        query && this.setQuery(query);
+
+        /* Add parameter "c". */
+        currentPosition && this.setCurrentPosition(currentPosition);
+
+        /* Add parameter "distance". */
+        distance && this.setDistance(distance);
+
+        /* Add parameter "limit". */
+        limit && this.setLimit(limit);
+
+        /* Add parameter "limit". */
+        page && this.setPage(page);
+
+        /* Add parameter "sort". */
+        sort && this.setSort(sort);
+
+        /* Add parameter "country". */
+        country && this.setCountry(country);
+
+        /* Add parameter "language". */
+        language && this.setLanguage(language);
+
+        /* Add parameter "next_places". */
+        nextPlaces && this.setNextPlaces(true);
+    }
 
     /**
      * Returns the filter configuration.
@@ -482,10 +530,13 @@ class FilterConfig
      * Sets the page filter config (s).
      *
      * @param sort
+     * @return FilterConfig
      */
-    setSort(sort: string): void
+    setSort(sort: string): FilterConfig
     {
         this.filterConfig[nameParameterSort] = sort;
+
+        return this;
     }
 
     /**
@@ -714,9 +765,14 @@ class FilterConfig
     /**
      * Returns the current link.
      */
-    getLinkCurrent(): string
+    getLinkCurrent(filterConfig: TypeFilterConfig|null = null): string
     {
         this.reset();
+
+        if (filterConfig !== null) {
+            this.addByFilterConfig(filterConfig);
+        }
+
         return this.getLinkFullConverted(null, true);
     }
 

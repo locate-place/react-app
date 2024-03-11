@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Changelogs
 
+### [0.2.25] - 2023-03-11
+
+* Add title, language, meta description changer
+
 ### [0.2.24] - 2023-03-11
 
 * Add loader text to some current position search buttons and links

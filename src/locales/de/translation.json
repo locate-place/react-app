@@ -164,7 +164,7 @@
   "TEXT_LOCATION_AIRPORT_CARGO": "Frachtgut",
   "TEXT_LOCATION_AIRPORT_OPERATOR": "Betreiber",
   "TEXT_LOCATION_AIRPORT_TYPE": "Flughafen-Typ",
-  "TEXT_LOCATION_AIRPORT_RUNWAY": "Startbahn",
+  "TEXT_LOCATION_AIRPORT_RUNWAY": "Start- und Landebahn",
 
   "TEXT_WORD_AIRPORT": "Flughafen",
   "TEXT_WORD_API": "API",

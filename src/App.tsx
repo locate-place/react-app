@@ -1,5 +1,6 @@
 import React, {useEffect, useMemo} from 'react';
 import {Route, Routes, useNavigate, useSearchParams} from 'react-router-dom';
+import {useTranslation} from "react-i18next";
 
 /* Import configurations. */
 import {nameParameterLanguage} from "./config/NameParameter";
@@ -25,6 +26,7 @@ import Countries from "./components/pages/Countries";
 /* Add component parts */
 import Footer from "./components/layout/Footer";
 import Navigation from "./components/layout/Navigation";
+import {LoaderProvider} from "./components/layout/LoaderContext";
 
 /* Add styles */
 import './scss/bootstrap.scss';
@@ -36,13 +38,16 @@ import 'bootstrap';
 
 /* Import translation libraries. */
 import {i18n, languageDefault} from "./functions/I18n";
-import {LoaderProvider} from "./components/layout/LoaderContext";
+
 
 /**
  * This is the app main component.
  */
 const App = () =>
 {
+    /* Import translation. */
+    const { t } = useTranslation();
+
     const navigateOrig = useNavigate();
 
     /**
@@ -56,6 +61,25 @@ const App = () =>
     const [searchParams] = useSearchParams();
     const language = searchParams.get(nameParameterLanguage) ?? languageDefault;
 
+    const changeMetaAndTitle = (
+        description: string,
+        title: string,
+        language: string
+    ): void => {
+        const metaDescription = document.querySelector('meta[name="description"]');
+
+        /* Change meta description. */
+        if (metaDescription) {
+            metaDescription.setAttribute('content', description);
+        }
+
+        /* Change title. */
+        document.title = title;
+
+        /* Change html.lang. */
+        document.documentElement.lang = language;
+    }
+
     /**
      * useEffect function.
      */
@@ -66,8 +90,11 @@ const App = () =>
         /* Change language to given one. */
         i18n.changeLanguage(language).then();
 
-        /* Change html.lang. */
-        document.documentElement.lang = language;
+        changeMetaAndTitle(
+            t('TEXT_WORD_DESCRIPTION'),
+            t('TEXT_WORD_TITLE'),
+            language
+        );
     }, [navigate, language]);
 
     return (

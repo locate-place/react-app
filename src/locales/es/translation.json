@@ -31,6 +31,10 @@
   "TEXT_CAPTION_GEONAME_ID": "Geoname ID",
   "TEXT_CAPTION_LAST_UPDATE": "Última actualización",
 
+  "TEXT_HOME_TITLE": "location.place",
+  "TEXT_HOME_SUBTITLE": "Localice su ubicación",
+  "TEXT_HOME_H2": "Localización",
+
   "TEXT_NO_RESULT": "No se han encontrado resultados",
   "TEXT_NO_RESULT_QUERY": "No se han encontrado resultados para \"{{query}}\".",
 

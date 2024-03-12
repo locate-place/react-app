@@ -70,12 +70,6 @@ const Navigation = () =>
                         <ul className="navbar-nav ms-auto py-4 py-lg-0">
                             <li className="nav-item"><Link
                                 className="nav-link px-lg-3 py-3 py-lg-4"
-                                to={filterConfig.getLinkTo('/index.html')}
-                                onClick={closeMenu}
-                            >{t('TEXT_NAVIGATION_HOME')}</Link>
-                            </li>
-                            <li className="nav-item"><Link
-                                className="nav-link px-lg-3 py-3 py-lg-4"
                                 to={filterConfig.getLinkTo('/locations.html')}
                                 onClick={closeMenu}
                             >{t('TEXT_NAVIGATION_LOCATIONS')}</Link>

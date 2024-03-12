@@ -13,14 +13,11 @@ import redirect from "./redirect/Redirect";
 
 /* Add components */
 import About from "./components/pages/About";
-import Calendars from "./components/pages/Calendars";
-import Calendar from "./components/pages/Calendar";
 import Contact from "./components/pages/Contact";
 import Home from "./components/pages/Home";
 import Locations from "./components/pages/Locations";
 import Location from "./components/pages/Location";
 import NotFound from "./components/pages/NotFound";
-import CalendarPage from "./components/pages/CalendarPage";
 import Countries from "./components/pages/Countries";
 
 /* Add component parts */
@@ -102,11 +99,9 @@ const App = () =>
             <LoaderProvider>
                 <Navigation />
                 <Routes>
-                    <Route index element={<Calendars />} />
+                    <Route index element={<Home />} />
 
-                    <Route path="/index.html" element={<Calendars />} />
-                    <Route path="/calendar.html" element={<Calendar />} />
-                    <Route path="/page.html" element={<CalendarPage />} />
+                    <Route path="/index.html" element={<Home />} />
 
                     <Route path="/home.html" element={<Home />} />
                     <Route path="/contact.html" element={<Contact />} />

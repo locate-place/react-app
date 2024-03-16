@@ -21,11 +21,11 @@ const Home = () =>
                     {/* One column */}
                     <div className="col-12">
                         <h1>{t('TEXT_HOME_TITLE')}</h1>
-                        <p>Willkommen bei location.place - Ihr umfassender Assistent für Ortsinformationen!</p>
+                        <p>Willkommen bei locate.place - Ihr umfassender Assistent für Ortsinformationen!</p>
 
                         <p>
                             Egal, ob Sie auf der Suche nach detaillierten Informationen zu einem bestimmten Ort sind oder einfach nur mehr über Ihre aktuelle Umgebung erfahren möchten,&nbsp;
-                            <Link to={'/locations.html'}>location.place</Link> ist hier, um Ihnen zu helfen. Mit nur wenigen Klicks erhalten Sie Zugang zu einer Vielzahl von Daten zu nahezu jedem Ort auf der Welt.
+                            <Link to={'/locations.html'}>locate.place</Link> ist hier, um Ihnen zu helfen. Mit nur wenigen Klicks erhalten Sie Zugang zu einer Vielzahl von Daten zu nahezu jedem Ort auf der Welt.
                         </p>
 
                         <p>Unser Dienst bietet Ihnen:</p>
@@ -44,11 +44,11 @@ const Home = () =>
                         </p>
 
                         <p>
-                            Die Nutzung von location.place ist denkbar einfach. Geben Sie einfach den Namen des gesuchten Ortes in unsere Suchleiste ein oder nutzen Sie unsere Funktion zur Erkennung des aktuellen Standorts, um Informationen zu Ihrer unmittelbaren Umgebung zu erhalten. Innerhalb von Sekunden präsentieren wir Ihnen eine umfassende Liste von Daten, die Ihnen helfen, den gesuchten Ort besser zu verstehen.
+                            Die Nutzung von locate.place ist denkbar einfach. Geben Sie einfach den Namen des gesuchten Ortes in unsere Suchleiste ein oder nutzen Sie unsere Funktion zur Erkennung des aktuellen Standorts, um Informationen zu Ihrer unmittelbaren Umgebung zu erhalten. Innerhalb von Sekunden präsentieren wir Ihnen eine umfassende Liste von Daten, die Ihnen helfen, den gesuchten Ort besser zu verstehen.
                         </p>
 
                         <p>
-                            Starten Sie jetzt Ihre Entdeckungsreise mit <Link to={'/locations.html'}>location.place</Link> und entdecken Sie die Welt um sich herum auf eine völlig neue Weise!
+                            Starten Sie jetzt Ihre Entdeckungsreise mit <Link to={'/locations.html'}>locate.place</Link> und entdecken Sie die Welt um sich herum auf eine völlig neue Weise!
                         </p>
 
                         <h2>{t('TEXT_HOME_H2')}</h2>

@@ -9,28 +9,28 @@ services:
             # enable traefik
             - "traefik.enable=true"
             # middleware -> https redirect
-            - "traefik.http.middlewares.${NAMESPACE_UNDERLINE_DEVELOPMENT}_https.redirectscheme.scheme=https"
+            - "traefik.http.middlewares.location_place_https.redirectscheme.scheme=https"
             # middleware -> remove headers
-            - "traefik.http.middlewares.${NAMESPACE_UNDERLINE_DEVELOPMENT}_remove_headers.headers.customResponseHeaders.Server="
-            - "traefik.http.middlewares.${NAMESPACE_UNDERLINE_DEVELOPMENT}_remove_headers.headers.customResponseHeaders.X-Powered-By="
+            - "traefik.http.middlewares.location_place_remove_headers.headers.customResponseHeaders.Server="
+            - "traefik.http.middlewares.location_place_remove_headers.headers.customResponseHeaders.X-Powered-By="
             # middleware -> chain -> frame
-            - "traefik.http.middlewares.${NAMESPACE_UNDERLINE_DEVELOPMENT}_chain_without_auth.chain.middlewares=${NAMESPACE_UNDERLINE_DEVELOPMENT}_remove_headers"
+            - "traefik.http.middlewares.location_place_chain_without_auth.chain.middlewares=location_place_remove_headers"
             # service -> load balancer
-            - "traefik.http.services.${NAMESPACE_UNDERLINE_DEVELOPMENT}_https_lb.loadbalancer.server.port=${PORT_HTTP}"
-            - "traefik.http.services.${NAMESPACE_UNDERLINE_DEVELOPMENT}_https_lb.loadbalancer.server.scheme=http"
+            - "traefik.http.services.location_place_https_lb.loadbalancer.server.port=${PORT_HTTP}"
+            - "traefik.http.services.location_place_https_lb.loadbalancer.server.scheme=http"
             
             # router -> http layer -> redirect https
-            - "traefik.http.routers.${NAMESPACE_UNDERLINE_DEVELOPMENT}_http.entrypoints=web"
-            - "traefik.http.routers.${NAMESPACE_UNDERLINE_DEVELOPMENT}_http.rule=Host(`${URL_PRODUCTION}`) || Host(`${URL_PRODUCTION_SHORT}`)"
-            - "traefik.http.routers.${NAMESPACE_UNDERLINE_DEVELOPMENT}_http.middlewares=${NAMESPACE_UNDERLINE_DEVELOPMENT}_https,${NAMESPACE_UNDERLINE_DEVELOPMENT}_chain_without_auth"
+            - "traefik.http.routers.location_place_http.entrypoints=web"
+            - "traefik.http.routers.location_place_http.rule=Host(`${URL_PRODUCTION}`) || Host(`${URL_PRODUCTION_SHORT}`)"
+            - "traefik.http.routers.location_place_http.middlewares=location_place_https,location_place_chain_without_auth"
             
             # router -> https layer -> GET, POST, etc.
-            - "traefik.http.routers.${NAMESPACE_UNDERLINE_DEVELOPMENT}_https.entrypoints=websecure"
-            - "traefik.http.routers.${NAMESPACE_UNDERLINE_DEVELOPMENT}_https.rule=Host(`${URL_PRODUCTION}`) || Host(`${URL_PRODUCTION_SHORT}`)"
-            - "traefik.http.routers.${NAMESPACE_UNDERLINE_DEVELOPMENT}_https.middlewares=${NAMESPACE_UNDERLINE_DEVELOPMENT}_chain_without_auth"
-            - "traefik.http.routers.${NAMESPACE_UNDERLINE_DEVELOPMENT}_https.service=${NAMESPACE_UNDERLINE_DEVELOPMENT}_https_lb"
-            - "traefik.http.routers.${NAMESPACE_UNDERLINE_DEVELOPMENT}_https.tls=true"
-            - "traefik.http.routers.${NAMESPACE_UNDERLINE_DEVELOPMENT}_https.tls.certresolver=letsencryptresolver"
+            - "traefik.http.routers.location_place_https.entrypoints=websecure"
+            - "traefik.http.routers.location_place_https.rule=Host(`${URL_PRODUCTION}`) || Host(`${URL_PRODUCTION_SHORT}`)"
+            - "traefik.http.routers.location_place_https.middlewares=location_place_chain_without_auth"
+            - "traefik.http.routers.location_place_https.service=location_place_https_lb"
+            - "traefik.http.routers.location_place_https.tls=true"
+            - "traefik.http.routers.location_place_https.tls.certresolver=letsencryptresolver"
             # network
             - "traefik.docker.network=${NETWORK_NAME_TRAEFIK_PUBLIC_PRODUCTION}"
         restart: always

@@ -32,7 +32,7 @@
   "TEXT_CAPTION_LAST_UPDATE": "Letztes Update",
   "TEXT_CAPTION_ZIP_CODE": "Postleitzahl",
 
-  "TEXT_HOME_TITLE": "location.place",
+  "TEXT_HOME_TITLE": "locate.place",
   "TEXT_HOME_SUBTITLE": "Lokalisiere deinen Standort",
   "TEXT_HOME_DESCRIPTION": "",
   "TEXT_HOME_H2": "Lokalisierung",

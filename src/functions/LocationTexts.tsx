@@ -3,7 +3,6 @@ import {TFunction} from "i18next";
 
 /* Import classes. */
 import {LocationWrapper} from "../classes/Api/Location/Location/LocationWrapper";
-import {formatNumber} from "./I18n";
 
 /**
  * JSX wrapper function for locationWrapper.getProperties().getAirportCodeText().

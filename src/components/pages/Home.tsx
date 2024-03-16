@@ -40,7 +40,7 @@ const Home = () =>
                         </ul>
 
                         <p>
-                            Unser Ziel ist es, Ihnen einen einfachen und schnellen Zugang zu den Informationen zu bieten, die Sie benötigen. Egal, ob Sie einen Umzug planen, eine Reise vorbereiten oder einfach nur aus Neugier mehr über einen Ort erfahren möchten, [Name Ihres Dienstes] ist Ihr zuverlässiger Partner.
+                            Unser Ziel ist es, Ihnen einen einfachen und schnellen Zugang zu den Informationen zu bieten, die Sie benötigen. Egal, ob Sie einen Umzug planen, eine Reise vorbereiten oder einfach nur aus Neugier mehr über einen Ort erfahren möchten, locate.place ist Ihr zuverlässiger Partner.
                         </p>
 
                         <p>

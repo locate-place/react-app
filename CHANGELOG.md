@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Changelogs
 
+### [0.2.28] - 2023-03-16
+
+* Adopt to location api version 0.1.58
+
 ### [0.2.27] - 2023-03-16
 
 * Add zip code to location information

@@ -10,10 +10,6 @@ services:
             - "traefik.enable=true"
             # middleware -> https redirect
             - "traefik.http.middlewares.${NAMESPACE_UNDERLINE_DEVELOPMENT}_https.redirectscheme.scheme=https"
-            # middleware -> domain redirect
-            - "traefik.http.middlewares.${NAMESPACE_UNDERLINE_DEVELOPMENT}_redirect.redirectregex.regex=^https?://c\\.twelvepics\\.com/(.*)"
-            - "traefik.http.middlewares.${NAMESPACE_UNDERLINE_DEVELOPMENT}_redirect.redirectregex.replacement=https://calendar.twelvepics.com/$${1}"
-            - "traefik.http.middlewares.${NAMESPACE_UNDERLINE_DEVELOPMENT}_redirect.redirectregex.permanent=true"
             # middleware -> remove headers
             - "traefik.http.middlewares.${NAMESPACE_UNDERLINE_DEVELOPMENT}_remove_headers.headers.customResponseHeaders.Server="
             - "traefik.http.middlewares.${NAMESPACE_UNDERLINE_DEVELOPMENT}_remove_headers.headers.customResponseHeaders.X-Powered-By="
@@ -31,7 +27,7 @@ services:
             # router -> https layer -> GET, POST, etc.
             - "traefik.http.routers.${NAMESPACE_UNDERLINE_DEVELOPMENT}_https.entrypoints=websecure"
             - "traefik.http.routers.${NAMESPACE_UNDERLINE_DEVELOPMENT}_https.rule=Host(`${URL_PRODUCTION}`) || Host(`${URL_PRODUCTION_SHORT}`)"
-            - "traefik.http.routers.${NAMESPACE_UNDERLINE_DEVELOPMENT}_https.middlewares=${NAMESPACE_UNDERLINE_DEVELOPMENT}_redirect,${NAMESPACE_UNDERLINE_DEVELOPMENT}_chain_without_auth"
+            - "traefik.http.routers.${NAMESPACE_UNDERLINE_DEVELOPMENT}_https.middlewares=${NAMESPACE_UNDERLINE_DEVELOPMENT}_chain_without_auth"
             - "traefik.http.routers.${NAMESPACE_UNDERLINE_DEVELOPMENT}_https.service=${NAMESPACE_UNDERLINE_DEVELOPMENT}_https_lb"
             - "traefik.http.routers.${NAMESPACE_UNDERLINE_DEVELOPMENT}_https.tls=true"
             - "traefik.http.routers.${NAMESPACE_UNDERLINE_DEVELOPMENT}_https.tls.certresolver=letsencryptresolver"

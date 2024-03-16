@@ -299,23 +299,9 @@ class Query
         let value: string = '';
 
         switch (window.location.pathname) {
-            /* Use the calendar builder api. */
+            /* Use the location api. */
             case routePathRoot:
             case routePathHome:
-            case routePathCalendars:
-            case routePathCalendar:
-            case routePathCalendarPage:
-                keyName = 'REACT_APP_TYPE_CALENDAR_BUILDER'
-
-                if (!this.env.hasOwnProperty(keyName)) {
-                    throw new Error(keyName + ' environment variable is missing within the .env file.');
-                }
-
-                value = this.env[keyName];
-
-                return value;
-
-            /* Use the location api. */
             case routePathLocation:
             case routePathLocations:
             case routePathCountries:

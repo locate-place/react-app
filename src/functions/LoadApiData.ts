@@ -36,13 +36,6 @@ const loadApiData = (
     let name: string|null = null;
 
     switch (type) {
-        case process.env.REACT_APP_TYPE_CALENDAR_BUILDER:
-            url = process.env.REACT_APP_CALENDAR_BUILDER_URL !== undefined ?
-                process.env.REACT_APP_CALENDAR_BUILDER_URL :
-                null;
-            name = 'PHP Calendar Builder';
-            break;
-
         case process.env.REACT_APP_TYPE_LOCATION_API:
             url = process.env.REACT_APP_LOCATION_API_URL !== undefined ?
                 process.env.REACT_APP_LOCATION_API_URL :
@@ -101,18 +94,18 @@ const loadApiData = (
                 return;
             }
 
-            let calendarBuilderVersion: string = process.env.REACT_APP_CALENDAR_BUILDER_VERSION !== undefined ?
-                process.env.REACT_APP_CALENDAR_BUILDER_VERSION :
+            let locationApiVersion: string = process.env.REACT_APP_LOCATION_API_VERSION !== undefined ?
+                process.env.REACT_APP_LOCATION_API_VERSION :
                 '0.1.0';
 
             /* Check required api version */
-            if (!semver.satisfies(version, calendarBuilderVersion)) {
+            if (!semver.satisfies(version, locationApiVersion)) {
                 setLoaded(false);
                 setError({
                     message:
                         t('TEXT_ERROR_API_REQUIRED') + ' ' +
                         t('TEXT_WORD_REQUIRED_VERSION') + ': ' +
-                        process.env.REACT_APP_CALENDAR_BUILDER_VERSION + '. ' +
+                        process.env.REACT_APP_LOCATION_API_VERSION + '. ' +
                         t('TEXT_WORD_CURRENT_VERSION') + ': ' + version
                 });
                 return;

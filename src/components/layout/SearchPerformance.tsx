@@ -41,13 +41,6 @@ const SearchPerformance = ({
     let name: string|null = null;
 
     switch (type) {
-        case 'calendar':
-            url = process.env.REACT_APP_CALENDAR_BUILDER_URL !== undefined ?
-                process.env.REACT_APP_CALENDAR_BUILDER_URL :
-                null;
-            name = t('TEXT_WORD_API_DATA') + ': PHP Calendar Builder';
-            break;
-
         case 'location':
             url = process.env.REACT_APP_LOCATION_API_URL !== undefined ?
                 process.env.REACT_APP_LOCATION_API_URL :

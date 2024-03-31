@@ -105,6 +105,31 @@ const getLocationPopulationJsxText = (
 }
 
 /**
+ * JSX wrapper function for locationWrapper.getProperties().getRiverLengthText().
+ *
+ * @param locationWrapper
+ * @param t
+ * @param separator
+ */
+const getLocationRiverLengthJsxText = (
+    locationWrapper: LocationWrapper,
+    t: TFunction<"translation", undefined>,
+    separator: string|null = ' - '
+): JSX.Element|null =>
+{
+    const riverLengthText = locationWrapper.getProperties().getRiverLengthText(locationWrapper, t) ?? null;
+
+    if (riverLengthText === null) {
+        return null;
+    }
+
+    return <>
+        {separator ? <span>{separator}</span> : null}
+        {riverLengthText}
+    </>;
+}
+
+/**
  * JSX function to get additional location information.
  */
 const getLocationJsxText = (
@@ -117,7 +142,8 @@ const getLocationJsxText = (
         getLocationAirportCodeJsxText,
         getLocationAirportPassengerJsxText,
         getLocationElevationJsxText,
-        getLocationPopulationJsxText
+        getLocationPopulationJsxText,
+        getLocationRiverLengthJsxText
     ];
 
     let texts: JSX.Element[] = jsxTextFunctions
@@ -142,6 +168,7 @@ export {
     getLocationAirportCodeJsxText,
     getLocationElevationJsxText,
     getLocationPopulationJsxText,
+    getLocationRiverLengthJsxText,
 
     getLocationJsxText
 }

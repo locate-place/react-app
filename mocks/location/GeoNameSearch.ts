@@ -50,6 +50,7 @@ const GeoNameSearch: TypeApiData = {
         "geoname-id": 2935022,
         "name": "Dresden",
         "name-full": "Innere Altstadt, Dresden, Sachsen, Deutschland",
+        "zip-code": "12345",
         "updated-at": "2023-08-21T18:59:58+00:00",
         "properties": {
             "population": {
@@ -276,6 +277,7 @@ const GeoNameSearch: TypeApiData = {
             "district-locality": {
                 "geoname-id": 12500891,
                 "name": "Innere Altstadt",
+                "zip-code": "12345",
                 "updated-at": "2023-08-21T19:02:10+00:00",
                 "coordinate": {
                     "latitude": {
@@ -423,6 +425,7 @@ const GeoNameSearch: TypeApiData = {
             "city-municipality": {
                 "geoname-id": 2935022,
                 "name": "Dresden",
+                "zip-code": "12345",
                 "updated-at": "2023-08-21T18:59:58+00:00",
                 "coordinate": {
                     "latitude": {
@@ -578,6 +581,7 @@ const GeoNameSearch: TypeApiData = {
             "state": {
                 "geoname-id": 2842566,
                 "name": "Sachsen",
+                "zip-code": "12345",
                 "updated-at": "2023-08-21T18:56:50+00:00",
                 "coordinate": {
                     "latitude": {
@@ -733,6 +737,7 @@ const GeoNameSearch: TypeApiData = {
             "country": {
                 "geoname-id": 2921044,
                 "name": "Deutschland",
+                "zip-code": "12345",
                 "updated-at": "2023-08-21T18:59:25+00:00",
                 "coordinate": {
                     "latitude": {
@@ -916,6 +921,7 @@ const GeoNameSearch: TypeApiData = {
                     {
                         "geoname-id": 2852073,
                         "name": "Prießnitz",
+                        "zip-code": "12345",
                         "updated-at": "2023-08-21T18:57:09+00:00",
                         "coordinate": {
                             "latitude": {
@@ -1083,6 +1089,7 @@ const GeoNameSearch: TypeApiData = {
                     {
                         "geoname-id": 2931254,
                         "name": "Alberthafen",
+                        "zip-code": "12345",
                         "updated-at": "2023-08-21T18:59:44+00:00",
                         "coordinate": {
                             "latitude": {
@@ -1247,6 +1254,7 @@ const GeoNameSearch: TypeApiData = {
                     {
                         "geoname-id": 2811802,
                         "name": "Weißeritz",
+                        "zip-code": "12345",
                         "updated-at": "2023-08-21T18:55:51+00:00",
                         "coordinate": {
                             "latitude": {
@@ -1414,6 +1422,7 @@ const GeoNameSearch: TypeApiData = {
                     {
                         "geoname-id": 2876520,
                         "name": "Lockwitzbach",
+                        "zip-code": "12345",
                         "updated-at": "2023-08-21T18:58:05+00:00",
                         "coordinate": {
                             "latitude": {
@@ -1581,6 +1590,7 @@ const GeoNameSearch: TypeApiData = {
                     {
                         "geoname-id": 2852926,
                         "name": "Poisenbach",
+                        "zip-code": "12345",
                         "updated-at": "2023-08-21T18:57:10+00:00",
                         "coordinate": {
                             "latitude": {
@@ -1773,6 +1783,7 @@ const GeoNameSearch: TypeApiData = {
                     {
                         "geoname-id": 2916391,
                         "name": "Großer Garten",
+                        "zip-code": "12345",
                         "updated-at": "2023-08-21T18:59:21+00:00",
                         "coordinate": {
                             "latitude": {
@@ -1940,6 +1951,7 @@ const GeoNameSearch: TypeApiData = {
                     {
                         "geoname-id": 2823903,
                         "name": "Wachwitzgrund",
+                        "zip-code": "12345",
                         "updated-at": "2023-08-21T18:56:24+00:00",
                         "coordinate": {
                             "latitude": {
@@ -2104,6 +2116,7 @@ const GeoNameSearch: TypeApiData = {
                     {
                         "geoname-id": 2815774,
                         "name": "Helfenberger Grund",
+                        "zip-code": "12345",
                         "updated-at": "2023-08-21T18:56:06+00:00",
                         "coordinate": {
                             "latitude": {
@@ -2268,6 +2281,7 @@ const GeoNameSearch: TypeApiData = {
                     {
                         "geoname-id": 2902602,
                         "name": "Hofewiese",
+                        "zip-code": "12345",
                         "updated-at": "2023-08-21T18:58:47+00:00",
                         "coordinate": {
                             "latitude": {
@@ -2460,6 +2474,7 @@ const GeoNameSearch: TypeApiData = {
                     {
                         "geoname-id": 2935022,
                         "name": "Dresden",
+                        "zip-code": "12345",
                         "updated-at": "2023-08-21T18:59:58+00:00",
                         "coordinate": {
                             "latitude": {
@@ -2632,6 +2647,7 @@ const GeoNameSearch: TypeApiData = {
                     {
                         "geoname-id": 12500891,
                         "name": "Innere Altstadt",
+                        "zip-code": "12345",
                         "updated-at": "2023-08-21T19:02:10+00:00",
                         "coordinate": {
                             "latitude": {
@@ -2796,6 +2812,7 @@ const GeoNameSearch: TypeApiData = {
                     {
                         "geoname-id": 2956832,
                         "name": "Altstadt",
+                        "zip-code": "12345",
                         "updated-at": "2023-08-21T19:00:41+00:00",
                         "coordinate": {
                             "latitude": {
@@ -2960,6 +2977,7 @@ const GeoNameSearch: TypeApiData = {
                     {
                         "geoname-id": 12196347,
                         "name": "Innere Neustadt",
+                        "zip-code": "12345",
                         "updated-at": "2023-08-21T19:02:09+00:00",
                         "coordinate": {
                             "latitude": {
@@ -3124,6 +3142,7 @@ const GeoNameSearch: TypeApiData = {
                     {
                         "geoname-id": 12500908,
                         "name": "Pirnaische Vorstadt",
+                        "zip-code": "12345",
                         "updated-at": "2023-08-21T19:02:10+00:00",
                         "coordinate": {
                             "latitude": {
@@ -3288,6 +3307,7 @@ const GeoNameSearch: TypeApiData = {
                     {
                         "geoname-id": 12500902,
                         "name": "Wilsdruffer Vorstadt/Seevorstadt-West",
+                        "zip-code": "12345",
                         "updated-at": "2023-08-21T19:02:10+00:00",
                         "coordinate": {
                             "latitude": {
@@ -3452,6 +3472,7 @@ const GeoNameSearch: TypeApiData = {
                     {
                         "geoname-id": 12500894,
                         "name": "Seevorstadt-Ost/Großer Garten",
+                        "zip-code": "12345",
                         "updated-at": "2023-08-21T19:02:10+00:00",
                         "coordinate": {
                             "latitude": {
@@ -3616,6 +3637,7 @@ const GeoNameSearch: TypeApiData = {
                     {
                         "geoname-id": 12500895,
                         "name": "Johannstadt-Süd",
+                        "zip-code": "12345",
                         "updated-at": "2023-08-21T19:02:10+00:00",
                         "coordinate": {
                             "latitude": {
@@ -3780,6 +3802,7 @@ const GeoNameSearch: TypeApiData = {
                     {
                         "geoname-id": 12500906,
                         "name": "Südvorstadt-Ost",
+                        "zip-code": "12345",
                         "updated-at": "2023-08-21T19:02:10+00:00",
                         "coordinate": {
                             "latitude": {
@@ -3944,6 +3967,7 @@ const GeoNameSearch: TypeApiData = {
                     {
                         "geoname-id": 12500876,
                         "name": "Südvorstadt-West",
+                        "zip-code": "12345",
                         "updated-at": "2023-08-21T19:02:10+00:00",
                         "coordinate": {
                             "latitude": {
@@ -4136,6 +4160,7 @@ const GeoNameSearch: TypeApiData = {
                     {
                         "geoname-id": 12500928,
                         "name": "Bürgerwiese",
+                        "zip-code": "12345",
                         "updated-at": "2023-08-21T19:02:10+00:00",
                         "coordinate": {
                             "latitude": {
@@ -4328,6 +4353,7 @@ const GeoNameSearch: TypeApiData = {
                     {
                         "geoname-id": 10278776,
                         "name": "Star Inn Hotel Premium Dresden Im Haus Altmarkt",
+                        "zip-code": "12345",
                         "updated-at": "2023-08-21T19:01:45+00:00",
                         "coordinate": {
                             "latitude": {
@@ -4492,6 +4518,7 @@ const GeoNameSearch: TypeApiData = {
                     {
                         "geoname-id": 6496476,
                         "name": "Steigenberger Hotel De Saxe",
+                        "zip-code": "12345",
                         "updated-at": "2023-08-21T19:01:00+00:00",
                         "coordinate": {
                             "latitude": {
@@ -4656,6 +4683,7 @@ const GeoNameSearch: TypeApiData = {
                     {
                         "geoname-id": 10123614,
                         "name": "Swissotel Dresden Am Schloss",
+                        "zip-code": "12345",
                         "updated-at": "2023-08-21T19:01:44+00:00",
                         "coordinate": {
                             "latitude": {
@@ -4820,6 +4848,7 @@ const GeoNameSearch: TypeApiData = {
                     {
                         "geoname-id": 9253402,
                         "name": "Qf An Der Frauenkirche",
+                        "zip-code": "12345",
                         "updated-at": "2023-08-21T19:01:43+00:00",
                         "coordinate": {
                             "latitude": {
@@ -4984,6 +5013,7 @@ const GeoNameSearch: TypeApiData = {
                     {
                         "geoname-id": 6946641,
                         "name": "Hotel Neumarkt Aparthotel",
+                        "zip-code": "12345",
                         "updated-at": "2023-08-21T19:01:25+00:00",
                         "coordinate": {
                             "latitude": {
@@ -5148,6 +5178,7 @@ const GeoNameSearch: TypeApiData = {
                     {
                         "geoname-id": 7645965,
                         "name": "Residenzschloß Dresden",
+                        "zip-code": "12345",
                         "updated-at": "2023-08-21T19:01:27+00:00",
                         "coordinate": {
                             "latitude": {
@@ -5315,6 +5346,7 @@ const GeoNameSearch: TypeApiData = {
                     {
                         "geoname-id": 6472447,
                         "name": "Kempinski Taschenbergpalais Dresden",
+                        "zip-code": "12345",
                         "updated-at": "2023-08-21T19:00:47+00:00",
                         "coordinate": {
                             "latitude": {
@@ -5479,6 +5511,7 @@ const GeoNameSearch: TypeApiData = {
                     {
                         "geoname-id": 6527774,
                         "name": "Taschenbergpalais Dresden",
+                        "zip-code": "12345",
                         "updated-at": "2023-08-21T19:01:01+00:00",
                         "coordinate": {
                             "latitude": {
@@ -5643,6 +5676,7 @@ const GeoNameSearch: TypeApiData = {
                     {
                         "geoname-id": 9253254,
                         "name": "Nh Altmarkt",
+                        "zip-code": "12345",
                         "updated-at": "2023-08-21T19:01:43+00:00",
                         "coordinate": {
                             "latitude": {
@@ -5807,6 +5841,7 @@ const GeoNameSearch: TypeApiData = {
                     {
                         "geoname-id": 9964944,
                         "name": "Nh Dresden Altmark",
+                        "zip-code": "12345",
                         "updated-at": "2023-08-21T19:01:44+00:00",
                         "coordinate": {
                             "latitude": {
@@ -5999,6 +6034,7 @@ const GeoNameSearch: TypeApiData = {
                     {
                         "geoname-id": 2851881,
                         "name": "Proschhübel",
+                        "zip-code": "12345",
                         "updated-at": "2023-08-21T18:57:08+00:00",
                         "coordinate": {
                             "latitude": {
@@ -6163,6 +6199,7 @@ const GeoNameSearch: TypeApiData = {
                     {
                         "geoname-id": 2806585,
                         "name": "Wolfshügel",
+                        "zip-code": "12345",
                         "updated-at": "2023-08-21T18:55:45+00:00",
                         "coordinate": {
                             "latitude": {
@@ -6327,6 +6364,7 @@ const GeoNameSearch: TypeApiData = {
                     {
                         "geoname-id": 2939918,
                         "name": "Collmberg",
+                        "zip-code": "12345",
                         "updated-at": "2023-08-21T19:00:03+00:00",
                         "coordinate": {
                             "latitude": {
@@ -6491,6 +6529,7 @@ const GeoNameSearch: TypeApiData = {
                     {
                         "geoname-id": 2911155,
                         "name": "Hammerberg",
+                        "zip-code": "12345",
                         "updated-at": "2023-08-21T18:59:06+00:00",
                         "coordinate": {
                             "latitude": {
@@ -6655,6 +6694,7 @@ const GeoNameSearch: TypeApiData = {
                     {
                         "geoname-id": 2895385,
                         "name": "Jägerhübel",
+                        "zip-code": "12345",
                         "updated-at": "2023-08-21T18:58:41+00:00",
                         "coordinate": {
                             "latitude": {
@@ -6819,6 +6859,7 @@ const GeoNameSearch: TypeApiData = {
                     {
                         "geoname-id": 2922771,
                         "name": "Gamighübel",
+                        "zip-code": "12345",
                         "updated-at": "2023-08-21T18:59:26+00:00",
                         "coordinate": {
                             "latitude": {
@@ -6983,6 +7024,7 @@ const GeoNameSearch: TypeApiData = {
                     {
                         "geoname-id": 2820807,
                         "name": "Tümmelsberg",
+                        "zip-code": "12345",
                         "updated-at": "2023-08-21T18:56:11+00:00",
                         "coordinate": {
                             "latitude": {
@@ -7147,6 +7189,7 @@ const GeoNameSearch: TypeApiData = {
                     {
                         "geoname-id": 2891189,
                         "name": "Kieferberg",
+                        "zip-code": "12345",
                         "updated-at": "2023-08-21T18:58:28+00:00",
                         "coordinate": {
                             "latitude": {
@@ -7311,6 +7354,7 @@ const GeoNameSearch: TypeApiData = {
                     {
                         "geoname-id": 7304169,
                         "name": "Goldene Höhe",
+                        "zip-code": "12345",
                         "updated-at": "2023-08-21T19:01:27+00:00",
                         "coordinate": {
                             "latitude": {
@@ -7475,6 +7519,7 @@ const GeoNameSearch: TypeApiData = {
                     {
                         "geoname-id": 2820875,
                         "name": "Trutzsch",
+                        "zip-code": "12345",
                         "updated-at": "2023-08-21T18:56:11+00:00",
                         "coordinate": {
                             "latitude": {
@@ -7639,6 +7684,7 @@ const GeoNameSearch: TypeApiData = {
                     {
                         "geoname-id": 2808285,
                         "name": "Windberg",
+                        "zip-code": "12345",
                         "updated-at": "2023-08-21T18:55:47+00:00",
                         "coordinate": {
                             "latitude": {
@@ -7806,6 +7852,7 @@ const GeoNameSearch: TypeApiData = {
                     {
                         "geoname-id": 2803747,
                         "name": "Babisnauer Pappel",
+                        "zip-code": "12345",
                         "updated-at": "2023-08-21T18:55:41+00:00",
                         "coordinate": {
                             "latitude": {
@@ -7970,6 +8017,7 @@ const GeoNameSearch: TypeApiData = {
                     {
                         "geoname-id": 7645967,
                         "name": "Spitzhaus",
+                        "zip-code": "12345",
                         "updated-at": "2023-08-21T19:01:27+00:00",
                         "coordinate": {
                             "latitude": {
@@ -8134,6 +8182,7 @@ const GeoNameSearch: TypeApiData = {
                     {
                         "geoname-id": 7304170,
                         "name": "Wahnsdorfer Kuppe",
+                        "zip-code": "12345",
                         "updated-at": "2023-08-21T19:01:27+00:00",
                         "coordinate": {
                             "latitude": {
@@ -8298,6 +8347,7 @@ const GeoNameSearch: TypeApiData = {
                     {
                         "geoname-id": 2830335,
                         "name": "Spitzberg",
+                        "zip-code": "12345",
                         "updated-at": "2023-08-21T18:56:30+00:00",
                         "coordinate": {
                             "latitude": {
@@ -8517,6 +8567,7 @@ const GeoNameSearch: TypeApiData = {
                     {
                         "geoname-id": 12076798,
                         "name": "Radeberger Land",
+                        "zip-code": "12345",
                         "updated-at": "2023-08-21T19:02:09+00:00",
                         "coordinate": {
                             "latitude": {
@@ -8681,6 +8732,7 @@ const GeoNameSearch: TypeApiData = {
                     {
                         "geoname-id": 8224654,
                         "name": "Kaditzer Linde",
+                        "zip-code": "12345",
                         "updated-at": "2023-08-21T19:01:29+00:00",
                         "coordinate": {
                             "latitude": {
@@ -8848,6 +8900,7 @@ const GeoNameSearch: TypeApiData = {
                     {
                         "geoname-id": 2815015,
                         "name": "Waldfriedhof",
+                        "zip-code": "12345",
                         "updated-at": "2023-08-21T18:56:05+00:00",
                         "coordinate": {
                             "latitude": {
@@ -9012,6 +9065,7 @@ const GeoNameSearch: TypeApiData = {
                     {
                         "geoname-id": 7645961,
                         "name": "König-Albert-Eiche",
+                        "zip-code": "12345",
                         "updated-at": "2023-08-21T19:01:27+00:00",
                         "coordinate": {
                             "latitude": {
@@ -9176,6 +9230,7 @@ const GeoNameSearch: TypeApiData = {
                     {
                         "geoname-id": 2941223,
                         "name": "Forst Burgk",
+                        "zip-code": "12345",
                         "updated-at": "2023-08-21T19:00:04+00:00",
                         "coordinate": {
                             "latitude": {
@@ -9340,6 +9395,7 @@ const GeoNameSearch: TypeApiData = {
                     {
                         "geoname-id": 2935019,
                         "name": "Dresdener Heide",
+                        "zip-code": "12345",
                         "updated-at": "2023-08-21T18:59:58+00:00",
                         "coordinate": {
                             "latitude": {
@@ -9504,6 +9560,7 @@ const GeoNameSearch: TypeApiData = {
                     {
                         "geoname-id": 2953756,
                         "name": "Babisnauer Pappel",
+                        "zip-code": "12345",
                         "updated-at": "2023-08-21T19:00:26+00:00",
                         "coordinate": {
                             "latitude": {
@@ -9668,6 +9725,7 @@ const GeoNameSearch: TypeApiData = {
                     {
                         "geoname-id": 2852925,
                         "name": "Poisenwald",
+                        "zip-code": "12345",
                         "updated-at": "2023-08-21T18:57:10+00:00",
                         "coordinate": {
                             "latitude": {
@@ -9832,6 +9890,7 @@ const GeoNameSearch: TypeApiData = {
                     {
                         "geoname-id": 7645960,
                         "name": "Burgstädtler Linde",
+                        "zip-code": "12345",
                         "updated-at": "2023-08-21T19:01:27+00:00",
                         "coordinate": {
                             "latitude": {
@@ -9996,6 +10055,7 @@ const GeoNameSearch: TypeApiData = {
                     {
                         "geoname-id": 2942194,
                         "name": "Buchwald",
+                        "zip-code": "12345",
                         "updated-at": "2023-08-21T19:00:05+00:00",
                         "coordinate": {
                             "latitude": {

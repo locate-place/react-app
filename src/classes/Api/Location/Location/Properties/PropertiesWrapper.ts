@@ -14,6 +14,7 @@ import {ApiLocationWrapper} from "../../ApiLocationWrapper";
 import {LocationWrapper} from "../LocationWrapper";
 import {AirportCodesWrapper} from "../../../Base/AirportCodes/AirportCodesWrapper";
 import {AirportWrapper} from "../../../Base/Airport/AirportWrapper";
+import {RiverLengthWrapper} from "../../../Base/RiverLength/RiverLengthWrapper";
 
 /**
  * Class PropertiesWrapper
@@ -212,6 +213,55 @@ class PropertiesWrapper
         }
 
         return this.getAirportCodes()?.getIata() ?? '';
+    }
+
+    /**
+     * Returns if the river length exists.
+     */
+    hasRiverLength(): boolean
+    {
+        return !!this.properties["river-length"];
+    }
+
+    /**
+     * Returns the river length.
+     */
+    getRiverLength(): RiverLengthWrapper|null
+    {
+        return this.properties["river-length"] ? new RiverLengthWrapper(this.properties["river-length"]) : null;
+    }
+
+    /**
+     * Returns if the river length should be shown for the given feature code.
+     *
+     * @param {string} location
+     */
+    showRiverLength(location: LocationWrapper): boolean
+    {
+        return [
+            'STM'
+        ].includes(location.getFeature().getCode().getCode());
+    }
+
+    /**
+     * Returns the river length for the given place.
+     *
+     * @param location
+     * @param t
+     */
+    getRiverLengthText = (location: LocationWrapper, t: TFunction<"translation", undefined>): JSX.Element|string|null =>
+    {
+        let showMissingRiverLength: boolean = false;
+
+        if (!this.showRiverLength(location)) {
+            return null;
+        }
+
+        if (!this.hasRiverLength()) {
+            return showMissingRiverLength ? t('TEXT_NEXT_PLACE_NO_RIVER_LENGTH_SPECIFIED') : null;
+        }
+
+        return this.getRiverLength()?.getFormatted() ?? '';
     }
 }
 

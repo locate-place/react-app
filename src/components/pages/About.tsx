@@ -64,7 +64,7 @@ const About = () =>
                 <div className="row g-3">
                     {loadedLocationApi ? <>
                         <div className="col-12 col-md-10 offset-md-1 col-xl-8 offset-xl-2">
-                            <h2>React Calendar Viewer</h2>
+                            <h2>locate.place</h2>
                             <p>
                                 {t('TEXT_ABOUT_DESCRIPTION')} <LinkV2
                                     to="https://twelvepics.com"
@@ -80,7 +80,7 @@ const About = () =>
 
                             <div className="card w-100 shadow-own">
                                 <div className="card-header fw-bold">
-                                    <FontAwesomeIcon icon={faImages} style={{'color': 'rgb(255, 90, 55)'}}/>&nbsp; React Calendar Viewer
+                                    <FontAwesomeIcon icon={faImages} style={{'color': 'rgb(255, 90, 55)'}}/>&nbsp; locate.place
                                 </div>
                                 <div className="card-body">
                                     <ul className="mb-0">
@@ -95,10 +95,10 @@ const About = () =>
                                             </LinkV2> 18.2.0
                                         </li>
                                         <li>{t('TEXT_ABOUT_APP_USP_3')}: <LinkV2
-                                            to={'https://github.com/twelvepics-com/react-calendar-viewer/blob/main/CHANGELOG.md'}
+                                            to={'https://github.com/locate-place/react-app/blob/main/CHANGELOG.md'}
                                             target={'_blank'}
                                             rel="noreferrer"
-                                        >React Calendar Viewer</LinkV2></li>
+                                        >locate.place</LinkV2></li>
                                     </ul>
                                 </div>
                                 <div className="card-footer fst-italic">

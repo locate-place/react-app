@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Changelogs
 
+### [0.2.29] - 2023-03-31
+
+* Adopt to location api version 0.1.59
+* Add river length to properties
+* Some jest unit test fixes
+
 ### [0.2.28] - 2023-03-16
 
 * Adopt to location api version 0.1.58

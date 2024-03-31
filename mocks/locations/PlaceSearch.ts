@@ -1847,7 +1847,7 @@ const PlaceSearch: TypeApiData = {
             "raw": "Dresden",
             "parsed": {
                 "type": "search-list-general",
-                "search": "Dresden"
+                "search": ["Dresden"]
             }
         },
         "language": {

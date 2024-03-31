@@ -88,9 +88,9 @@ class LocationWrapper
      *
      * @return {number}
      */
-    getZipCode(): string
+    getZipCode(): string|null
     {
-        return this.location["zip-code"];
+        return this.location["zip-code"] ?? null;
     }
 
     /**

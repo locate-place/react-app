@@ -87,6 +87,7 @@
   "TEXT_NEXT_PLACE_DISTANCE_HINT_QUERY_TEXT": "Distancia y dirección según la ubicación de la consulta de búsqueda ({{coordinate}})",
   "TEXT_NEXT_PLACE_INHABITANTS_TEXT": "{{inhabitants}} habitantes",
   "TEXT_NEXT_PLACE_NO_IATA_CODE_SPECIFIED": "Sin código IATA especificado",
+  "TEXT_NEXT_PLACE_NO_RIVER_LENGTH_SPECIFIED": "No se especifica la longitud del río",
 
   "TEXT_CONTACT_TITLE": "Contacto",
   "TEXT_CONTACT_SUBTITLE": "Página de contacto",

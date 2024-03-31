@@ -221,6 +221,7 @@ type TypeProperties = {
     "airport_codes"?: TypeAirportCodes,
     "airport"?: TypeAirport,
     "general"?: TypeGeneral,
+    "river-length"?: TypeValue,
     "country": string,
 }
 
@@ -383,7 +384,7 @@ type TypeLocation = {
     "properties": TypeProperties,
     "timezone"?: TypeTimezone,
     "updated-at": string,
-    "zip-code": string,
+    "zip-code"?: string,
 }
 
 type TypeLocations = TypeLocation[];

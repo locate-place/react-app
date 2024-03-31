@@ -6,9 +6,9 @@ import Header from "../layout/Header";
 import {Link} from "react-router-dom";
 
 /**
- * This is the app home page.
+ * This is the app info page.
  */
-const Home = () =>
+const Info = () =>
 {
     /* Import translation. */
     const { t } = useTranslation();
@@ -60,4 +60,4 @@ const Home = () =>
     );
 }
 
-export default Home;
+export default Info;

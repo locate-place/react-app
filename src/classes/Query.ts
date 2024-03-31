@@ -225,7 +225,7 @@ class Query
             case routePathRoot:
             case routePathHome:
             case routePathCalendars:
-                return apiPathCalendars;
+                return apiPathExampleSearch;
 
             /* Calendar page. */
             case routePathCalendarPage:

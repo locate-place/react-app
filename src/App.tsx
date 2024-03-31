@@ -14,7 +14,7 @@ import redirect from "./redirect/Redirect";
 /* Add components */
 import About from "./components/pages/About";
 import Contact from "./components/pages/Contact";
-import Home from "./components/pages/Home";
+import Info from "./components/pages/Info";
 import Locations from "./components/pages/Locations";
 import Location from "./components/pages/Location";
 import NotFound from "./components/pages/NotFound";
@@ -99,11 +99,11 @@ const App = () =>
             <LoaderProvider>
                 <Navigation />
                 <Routes>
-                    <Route index element={<Home />} />
+                    <Route index element={<Info />} />
 
-                    <Route path="/index.html" element={<Home />} />
+                    <Route path="/index.html" element={<Locations />} />
 
-                    <Route path="/home.html" element={<Home />} />
+                    <Route path="/info.html" element={<Info />} />
                     <Route path="/contact.html" element={<Contact />} />
                     <Route path="/about.html" element={<About />} />
 

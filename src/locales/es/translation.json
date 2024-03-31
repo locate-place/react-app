@@ -118,11 +118,12 @@
   "TEXT_CALENDARS_TITLE": "Visión general",
   "TEXT_CALENDARS_SUBTITLE": "Visión general de todos los calendarios",
 
-  "TEXT_NAVIGATION_ICON": "CV",
+  "TEXT_NAVIGATION_ICON": "loc8",
   "TEXT_NAVIGATION_HOME": "Calendarios",
   "TEXT_NAVIGATION_LOCATIONS": "Ubicaciones",
   "TEXT_NAVIGATION_COUNTRIES": "Países",
   "TEXT_NAVIGATION_ABOUT": "Acerca de",
+  "TEXT_NAVIGATION_INFO": "Info",
   "TEXT_NAVIGATION_CONTACT": "Contacto",
 
   "TEXT_NAVIGATION_EN": "EN",

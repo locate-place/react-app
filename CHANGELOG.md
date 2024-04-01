@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Changelogs
 
+### [0.2.32] - 2023-04-01
+
+* Improved current position modal
+* Add more information texts and possibility to switch and show current position
+
 ### [0.2.31] - 2023-04-01
 
 * Add info page

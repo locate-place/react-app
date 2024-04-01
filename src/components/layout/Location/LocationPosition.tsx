@@ -18,6 +18,7 @@ import CollapsibleCard from "../CollapsibleCard";
 
 /* Bootstrap icons; see https://icons.getbootstrap.com/?q=sort#usage */
 import {CursorFill} from "react-bootstrap-icons";
+import {Link} from "react-router-dom";
 
 type LocationPositionProps = {
     location: LocationWrapper,
@@ -57,13 +58,23 @@ const LocationPosition = ({location, query, number}: LocationPositionProps) =>
                 <tbody>
                 <tr>
                     <td className={classNamesRow1.join(' ')}>{t('TEXT_CAPTION_DMS')}</td>
-                    <td className={classNamesRow2.join(' ')}
-                        colSpan={2}>{location.getCoordinate().getDMS()}</td>
+                    <td className={classNamesRow2.join(' ')} colSpan={2}>
+                        <Link
+                            to={query.getFilterConfig().getLinkCurrent({q: location.getCoordinate().getDMS()})}
+                        >
+                            {location.getCoordinate().getDMS()}
+                        </Link>
+                    </td>
                 </tr>
                 <tr>
                     <td className={classNamesRow1.join(' ')}>{t('TEXT_CAPTION_DECIMAL')}</td>
-                    <td className={classNamesRow2.join(' ')}
-                        colSpan={2}>{location.getCoordinate().getDecimal()}</td>
+                    <td className={classNamesRow2.join(' ')} colSpan={2}>
+                        <Link
+                            to={query.getFilterConfig().getLinkCurrent({q: location.getCoordinate().getDecimal()})}
+                        >
+                            {location.getCoordinate().getDecimal()}
+                        </Link>
+                    </td>
                 </tr>
                 {
                     location.getCoordinate().hasDistanceUser() ?

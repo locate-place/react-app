@@ -5,11 +5,32 @@ import {Button} from "react-bootstrap";
 
 /* Import types. */
 import {CallableString} from "../../types/Types";
+import {Link} from "react-router-dom";
+import {Query} from "../../classes/Query";
+import {
+    searchTypeCoordinate,
+    searchTypeCoordinateDecimal,
+    searchTypeCoordinateDms,
+    searchTypeEmpty
+} from "../../config/SearchType";
 
 interface LoaderContextType {
-    showLoader: (messageLoader: string, messageInformation?: CallableString|string|null, messageInformationAdditional?: CallableString|string|null) => void,
-    hideLoader: (messageInformation?: CallableString|string|null, messageInformationAdditional?: CallableString|string|null) => void,
-    showInformation: (messageInformation: string) => void,
+    showLoader: (
+        messageLoader: string,
+        messageInformation?: CallableString|string|null,
+        messageInformationAdditional?: CallableString|string|null
+    ) => void,
+    hideLoader: (
+        messageInformation?: CallableString|string|null,
+        messageInformationAdditional?: CallableString|string|null,
+        queryString?: string|null,
+        queryType?: string|null,
+        positionString?: string|null,
+        query?: Query|null
+    ) => void,
+    showInformation: (
+        messageInformation: string
+    ) => void,
     hideInformation: () => void,
 }
 
@@ -41,7 +62,7 @@ interface LoaderProviderProps {
  */
 export const LoaderProvider: React.FC<LoaderProviderProps> = ({ children }) =>
 {
-    const waitGapStart = 200;
+    const waitGapStart = 500;
     const waitGapClose = 1000;
 
     const { t } = useTranslation();
@@ -52,8 +73,17 @@ export const LoaderProvider: React.FC<LoaderProviderProps> = ({ children }) =>
     const [isShowInformation, setIsShowInformation] = useState<boolean>(false);
     const [messageInformation, setMessageInformation] = useState<string|null>(null);
     const [messageInformationAdditional, setMessageInformationAdditional] = useState<string|null>(null);
+    const [queryString, setQueryString] = useState<string|null>(null);
+    const [queryType, setQueryType] = useState<string|null>(null);
+    const [positionString, setPositionString] = useState<string|null>(null);
+    const [query, setQuery] = useState<Query|null>(null);
+
     const messageInformationRef = useRef<CallableString|string|null>(null);
     const messageInformationAdditionalRef = useRef<CallableString|string|null>(null);
+    const queryStringRef = useRef<string|null>(null);
+    const queryTypeRef = useRef<string|null>(null);
+    const positionStringRef = useRef<string|null>(null);
+    const queryRef = useRef<Query|null>(null);
 
     const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
 
@@ -88,7 +118,11 @@ export const LoaderProvider: React.FC<LoaderProviderProps> = ({ children }) =>
      */
     const hideLoader = (
         messageInformation: CallableString|string|null = null,
-        messageInformationAdditional: CallableString|string|null = null
+        messageInformationAdditional: CallableString|string|null = null,
+        queryString: string|null = null,
+        queryType: string|null = null,
+        positionString: string|null = null,
+        query: Query|null = null
     ) =>
     {
         if (messageInformation !== null) {
@@ -96,6 +130,18 @@ export const LoaderProvider: React.FC<LoaderProviderProps> = ({ children }) =>
         }
         if (messageInformationAdditional !== null) {
             messageInformationAdditionalRef.current = messageInformationAdditional;
+        }
+        if (queryString !== null) {
+            queryStringRef.current = queryString;
+        }
+        if (queryType !== null) {
+            queryTypeRef.current = queryType;
+        }
+        if (positionString !== null) {
+            positionStringRef.current = positionString;
+        }
+        if (query !== null) {
+            queryRef.current = query;
         }
 
         if (timeoutId) {
@@ -171,6 +217,10 @@ export const LoaderProvider: React.FC<LoaderProviderProps> = ({ children }) =>
     {
         setMessageInformation(processMessageInformation());
         setMessageInformationAdditional(processMessageAdditionalInformation());
+        setQueryString(queryStringRef.current);
+        setQueryType(queryTypeRef.current);
+        setPositionString(positionStringRef.current);
+        setQuery(queryRef.current);
 
         return () =>
         {
@@ -178,7 +228,21 @@ export const LoaderProvider: React.FC<LoaderProviderProps> = ({ children }) =>
                 clearTimeout(timeoutId);
             }
         };
-    }, [timeoutId, messageInformationRef, messageInformationAdditionalRef]);
+    }, [
+        timeoutId,
+        messageInformationRef,
+        messageInformationAdditionalRef,
+        queryStringRef,
+        positionStringRef,
+        queryRef
+    ]);
+
+    let isCoordinateSearch: boolean|null = queryType === null ? null : (
+        queryType === searchTypeCoordinateDms ||
+        queryType === searchTypeCoordinateDecimal ||
+        queryType === searchTypeCoordinate ||
+        queryType === searchTypeEmpty
+    );
 
     return (
         <LoaderContext.Provider value={{ showLoader, hideLoader, showInformation, hideInformation }}>
@@ -200,7 +264,22 @@ export const LoaderProvider: React.FC<LoaderProviderProps> = ({ children }) =>
                 <Modal.Body>
                     <div>
                         <p className="m-3">{messageInformation}</p>
-                        <p className="m-3">{messageInformationAdditional}</p>
+                        <p className="m-3" dangerouslySetInnerHTML={{__html: messageInformationAdditional ?? ''}} />
+                        <p className="m-3">
+                            {
+                                isCoordinateSearch !== null && !isCoordinateSearch && positionString !== null && query !== null ? <>
+                                        {t('TEXT_WORD_POSITION_CURRENT_ADOPT')}:&nbsp;
+                                        <Link
+                                            to={query.getFilterConfig().getLinkCurrent({q: positionString})}
+                                            onClick={hideInformation}
+                                        >
+                                            {positionString}
+                                        </Link>
+                                    </>
+                                     :
+                                    null
+                            }
+                        </p>
                     </div>
                 </Modal.Body>
                 <Modal.Footer>

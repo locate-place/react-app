@@ -21,6 +21,13 @@ import {
 import {countryDefault} from "../config/Country";
 import {languageDE, languageDefault} from "../config/Language";
 import {routePathCountries, routePathLocation, routePathLocations} from "../config/Route";
+import {
+    searchTypeCoordinateDecimal,
+    searchTypeCoordinateDms,
+    searchTypeGeonameId,
+    searchTypeListGeneral,
+    searchTypeEmpty
+} from "../config/SearchType";
 
 /* Import classes. */
 import {NextPlaceWrapper} from "./Api/Location/Location/NextPlaces/NextPlaceWrapper";
@@ -1080,29 +1087,69 @@ class FilterConfig
      *
      * All others will be a locations search.
      *
-     * @param {string} query
+     * @param {string} queryString
      * @return {string}
      */
-    getLinkQuery(query: string): string
+    getLinkQuery(queryString: string): string
     {
-        query = this.trimString(query);
+        queryString = this.trimString(queryString);
 
         /* A "location" string was found. */
-        if (this.hasQueryGeonameId(query)) {
+        if (this.hasQueryGeonameId(queryString)) {
             return routePathLocation;
         }
 
         /* A "decimal coordinate" string was found. */
-        if (this.hasQueryCoordinateDecimal(query)) {
+        if (this.hasQueryCoordinateDecimal(queryString)) {
             return routePathLocation;
         }
 
         /* A "dms coordinate" string was found. */
-        if (this.hasQueryCoordinateDms(query)) {
+        if (this.hasQueryCoordinateDms(queryString)) {
             return routePathLocation;
         }
 
         return this.getPathLocations();
+    }
+
+    /**
+     * Returns the query type according to given query string.
+     *
+     * - searchTypeEmpty: 'search-empty'
+     * - searchTypeGeonameId: 'search-geoname-id'
+     * - searchTypeCoordinateDecimal: 'search-coordinate-decimal'
+     * - searchTypeCoordinateDms: 'search-coordinate-dms'
+     *
+     * @param queryString
+     */
+    getQueryType(queryString: string|null): string
+    {
+        if (queryString === null) {
+            queryString = '';
+        }
+
+        queryString = this.trimString(queryString);
+
+        if (queryString === '') {
+            return searchTypeEmpty;
+        }
+
+        /* A "location" string was found. */
+        if (this.hasQueryGeonameId(queryString)) {
+            return searchTypeGeonameId;
+        }
+
+        /* A "decimal coordinate" string was found. */
+        if (this.hasQueryCoordinateDecimal(queryString)) {
+            return searchTypeCoordinateDecimal;
+        }
+
+        /* A "dms coordinate" string was found. */
+        if (this.hasQueryCoordinateDms(queryString)) {
+            return searchTypeCoordinateDms;
+        }
+
+        return searchTypeListGeneral;
     }
 }
 

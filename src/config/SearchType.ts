@@ -6,6 +6,12 @@ const searchTypeGeonameId: string = 'search-geoname-id';
 
 const searchTypeCoordinate: string = 'search-coordinate';
 
+const searchTypeCoordinateDecimal: string = 'search-coordinate-decimal';
+
+const searchTypeCoordinateDms: string = 'search-coordinate-dms';
+
+const searchTypeEmpty: string = 'search-empty';
+
 /*
  * Export functions.
  */
@@ -14,4 +20,7 @@ export {
     searchTypeListWithFeatures,
     searchTypeGeonameId,
     searchTypeCoordinate,
+    searchTypeCoordinateDecimal,
+    searchTypeCoordinateDms,
+    searchTypeEmpty
 }

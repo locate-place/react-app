@@ -10,6 +10,12 @@ import {useLoader} from "./LoaderContext";
 
 /* Import types. */
 import {CallableString} from "../../types/Types";
+import {
+    searchTypeCoordinate,
+    searchTypeCoordinateDecimal,
+    searchTypeCoordinateDms,
+    searchTypeEmpty
+} from "../../config/SearchType";
 
 /* Interface definitions. */
 interface LinkV2Props extends LinkProps {
@@ -17,6 +23,7 @@ interface LinkV2Props extends LinkProps {
     scrollTo?: number,
     children: ReactNode,
     useCurrentPosition?: boolean,
+    showAdoptionText?: boolean,
     queryString?: string|null,
     setQuery?: boolean,
     textLoader?: string|null,
@@ -38,6 +45,7 @@ const LinkV2: React.FC<LinkV2Props> = ({
     scrollTo = null,
     children,
     useCurrentPosition = false,
+    showAdoptionText = false,
     queryString = null,
     setQuery = false,
     textLoader = null,
@@ -154,6 +162,7 @@ const LinkV2: React.FC<LinkV2Props> = ({
         navigator.geolocation.getCurrentPosition((position) =>
         {
             const positionString = getPosition(position);
+            const queryType = filterConfig.getQueryType(queryString);
 
             filterConfig.setDoNotResetOrClear();
             filterConfig.setCurrentPosition(positionString);
@@ -163,13 +172,45 @@ const LinkV2: React.FC<LinkV2Props> = ({
             }
 
             if (setQuery && queryString !== null) {
-                filterConfig.setQuery(queryString !== '' ? queryString : positionString);
+                let queryStringNew = queryString !== '' ? queryString : positionString;
+
+                if (queryType === searchTypeCoordinateDms || queryType === searchTypeCoordinateDecimal || queryType === searchTypeCoordinate) {
+                    queryStringNew = positionString;
+                }
+
+                filterConfig.setQuery(queryStringNew);
             }
+
+            let isCoordinateSearch = queryType === searchTypeCoordinateDms ||
+                queryType === searchTypeCoordinateDecimal ||
+                queryType === searchTypeCoordinate ||
+                queryType === searchTypeEmpty;
+
+            let textInformationAdditional = showAdoptionText ? (
+                isCoordinateSearch ?
+                    t('TEXT_WORD_POSITION_ADAPTED_SEARCH_QUERY') :
+                    t('TEXT_WORD_POSITION_ADAPTED_LOCATION')
+            ) : null;
 
             navigate(query.getFilterConfig().getLinkTo(pathName));
             scrollToTop(scrollTo);
-            hideLoader(textInformation, t('TEXT_WORD_POSITION') + ': ' + positionString);
 
+            if (showAdoptionText) {
+                hideLoader(
+                    textInformation + ': ' + positionString,
+                    textInformationAdditional,
+                    queryString,
+                    queryType,
+                    positionString,
+                    query
+                );
+                return;
+            }
+
+            hideLoader(
+                textInformation + ': ' + positionString,
+                textInformationAdditional
+            );
             return;
         });
 

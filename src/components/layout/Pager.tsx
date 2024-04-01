@@ -24,7 +24,7 @@ const Pager = ({query}: PagerProps) =>
     const results = query.getApiResponseProperty().getResultsResults();
     const total = query.getApiResponseProperty().getResultsTotal();
 
-    if (((page + 1) * results) >= total) {
+    if (page * results >= total) {
         return <></>;
     }
 

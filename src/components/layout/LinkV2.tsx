@@ -89,7 +89,7 @@ const LinkV2: React.FC<LinkV2Props> = ({
      */
     const getPosition = (position: GeolocationPosition): string =>
     {
-        return round(position.coords.latitude, 6) + ',' + round(position.coords.longitude, 6);
+        return round(position.coords.latitude, 6) + ', ' + round(position.coords.longitude, 6);
     }
 
     /**

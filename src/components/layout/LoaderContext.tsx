@@ -267,7 +267,7 @@ export const LoaderProvider: React.FC<LoaderProviderProps> = ({ children }) =>
                         <p className="m-3" dangerouslySetInnerHTML={{__html: messageInformationAdditional ?? ''}} />
                         <p className="m-3">
                             {
-                                isCoordinateSearch !== null && !isCoordinateSearch && positionString !== null && query !== null ? <>
+                                messageInformationAdditional !== null && isCoordinateSearch !== null && !isCoordinateSearch && positionString !== null && query !== null ? <>
                                         {t('TEXT_WORD_POSITION_CURRENT_ADOPT')}?&nbsp;
                                         <Link
                                             to={query.getFilterConfig().getLinkCurrent({q: positionString})}

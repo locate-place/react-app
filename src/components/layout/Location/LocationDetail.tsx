@@ -44,6 +44,13 @@ const LocationDetail = ({location}: LocationDetailProps) =>
                     </tr> : null
                 }
                 {
+                    location.hasBoroughLocality() ? <tr>
+                        <td className={classNamesRow1.join(' ')}>{t('TEXT_CAPTION_BOROUGH')}</td>
+                        <td className={classNamesRow2.join(' ')}
+                            colSpan={2}>{location.getBoroughLocality()?.getName()}</td>
+                    </tr> : null
+                }
+                {
                     location.hasCityMunicipality() ? <tr>
                         <td className={classNamesRow1.join(' ')}>{t('TEXT_CAPTION_CITY_MUNICIPALITY')}</td>
                         <td className={classNamesRow2.join(' ')}

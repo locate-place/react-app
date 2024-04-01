@@ -11,6 +11,7 @@
   "TEXT_HEADER_MAPS": "Maps",
 
   "TEXT_CAPTION_DISTRICT_LOCALITY": "District, Locality",
+  "TEXT_CAPTION_BOROUGH": "Borough",
   "TEXT_CAPTION_CITY_MUNICIPALITY": "City, Municipality",
   "TEXT_CAPTION_STATE": "State",
   "TEXT_CAPTION_COUNTRY": "Country",

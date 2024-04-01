@@ -7,6 +7,7 @@ import {
 
 /* Import config. */
 import {
+    administrativeLocationBoroughLocality,
     administrativeLocationCityMunicipality,
     administrativeLocationCountry,
     administrativeLocationDistrictLocality,
@@ -167,6 +168,22 @@ class LocationWrapper
     getDistrictLocality(): LocationWrapper|null
     {
         return this.getAdministrativeLocation(administrativeLocationDistrictLocality);
+    }
+
+    /**
+     * Returns if the borough/locality from administrative locations exist.
+     */
+    hasBoroughLocality(): boolean
+    {
+        return this.hasAdministrativeLocation(administrativeLocationBoroughLocality);
+    }
+
+    /**
+     * Returns the borough/locality from administrative locations.
+     */
+    getBoroughLocality(): LocationWrapper|null
+    {
+        return this.getAdministrativeLocation(administrativeLocationBoroughLocality);
     }
 
     /**

@@ -267,6 +267,7 @@ type TypeTimezone = {
 
 type TypeAdministrativeLocations = {
     "district-locality": TypeLocation,
+    "borough-locality": TypeLocation,
     "city-municipality": TypeLocation,
     "state": TypeLocation,
     "country": TypeLocation

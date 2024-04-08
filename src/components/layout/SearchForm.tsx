@@ -194,7 +194,11 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
         setLocations([]);
 
         if (formRef.current) {
-            formRef.current.submit();
+            let formRefCurrent = formRef.current;
+
+            setTimeout(() => {
+                formRefCurrent.submit();
+            }, 300);
         }
     }
 

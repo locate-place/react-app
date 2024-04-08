@@ -261,7 +261,9 @@ class PropertiesWrapper
             return showMissingRiverLength ? t('TEXT_NEXT_PLACE_NO_RIVER_LENGTH_SPECIFIED') : null;
         }
 
-        return this.getRiverLength()?.getFormatted() ?? '';
+        const length = this.getRiverLength()?.getFormatted() ?? null;
+
+        return length === null ? null : t('TEXT_WORD_LENGTH') + ' ' + length;
     }
 }
 

@@ -772,7 +772,7 @@ class FilterConfig
     /**
      * Returns the current link.
      */
-    getLinkCurrent(filterConfig: TypeFilterConfig|null = null): string
+    getLinkCurrent(filterConfig: TypeFilterConfig|null = null, pathname: string|null = null): string
     {
         this.reset();
 
@@ -780,7 +780,7 @@ class FilterConfig
             this.addByFilterConfig(filterConfig);
         }
 
-        return this.getLinkFullConverted(null, true);
+        return this.getLinkFullConverted(pathname, true);
     }
 
     /**

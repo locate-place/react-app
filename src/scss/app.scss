@@ -73,6 +73,40 @@ body {
         }
     }
 
+    .autocomplete {
+        position: absolute;
+        top: 37px;
+        z-index: 1000;
+        background-color: white;
+        border: 1px solid rgb(108, 117, 125);
+        border-radius: 6px !important;
+        width: 100%;
+
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+
+            li {
+                cursor: pointer;
+            }
+        }
+    }
+
+    .input-loader {
+        position: absolute;
+        top: -40px;
+        height: 40px;
+        z-index: 1000;
+        background-color: rgb(230, 230, 230);
+        border: 1px solid rgb(108, 117, 125);
+        border-radius: 6px !important;
+        line-height: 30px;
+        padding: 5px 14px;
+        font-size: 0.8em;
+        display: none;
+    }
+
     .modal-dialog.custom-modal {
         margin: 0 auto;
         max-width: 100%;

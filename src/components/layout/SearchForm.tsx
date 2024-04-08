@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {KeyboardEventHandler, useEffect, useState} from "react";
 
 /* Import translation libraries. */
 import {useTranslation} from "react-i18next";
@@ -21,12 +21,34 @@ import {
     nameParameterLanguage,
     nameParameterNextPlaces
 } from "../../config/NameParameter";
+import Flag from "./Flag";
 
 /* Search form properties. */
 type SearchFormProps = {
     routePathDefault: string,
     queryDefault: string|null,
     query: Query
+}
+
+interface AutoCompleteLocation {
+    id: number;
+    name: string;
+    country: string|null;
+}
+
+interface AutoCompleteFeature {
+    id: number;
+    name: string;
+}
+
+interface AutoCompleteData {
+    locations: AutoCompleteLocation[];
+    "feature-classes": AutoCompleteFeature[];
+    "feature-codes": AutoCompleteFeature[];
+}
+
+interface AutoCompleteApi {
+    data: AutoCompleteData;
 }
 
 /**
@@ -40,10 +62,64 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
     /* State variables */
     const [queryString, setQueryString] = useState<string>(queryDefault ?? '');
     const [routePath, setRoutePath] = useState<string>(routePathDefault);
+    const [locations, setLocations] = useState<AutoCompleteLocation[]>([]);
+    const [featureClasses, setFeatureClasses] = useState<AutoCompleteFeature[]>([]);
+    const [featureCodes, setFeatureCodes] = useState<AutoCompleteFeature[]>([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const [isFocus, setIsFocus] = useState(false);
+    const [highlightedIndex, setHighlightedIndex] = useState(-1);
 
-    useEffect(() => {
-        setQueryString(queryDefault ?? '');
+    useEffect(() =>
+    {
+        setQueryString(queryDefault ?? queryString);
     }, [queryDefault]);
+
+    useEffect(() =>
+    {
+        setQueryString(queryString);
+
+        if (!queryString) {
+            setLocations([]);
+            setFeatureClasses([]);
+            setFeatureCodes([]);
+            return;
+        }
+
+        if (queryString.length < 3) {
+            setLocations([]);
+            setFeatureClasses([]);
+            setFeatureCodes([]);
+            return;
+        }
+
+        if (!isFocus) {
+            setLocations([]);
+            setFeatureClasses([]);
+            setFeatureCodes([]);
+            return;
+        }
+
+        const fetchData = async () =>
+        {
+            setIsLoading(true);
+            try {
+                const response = await fetch(`https://www.location-api.localhost/api/v1/autocomplete.json?q=${queryString}`);
+                const data: AutoCompleteApi = await response.json();
+                setLocations(data.data.locations);
+                setFeatureClasses(data.data["feature-classes"]);
+                setFeatureCodes(data.data["feature-codes"]);
+            } catch (error) {
+                console.error('Error when retrieving the auto-complete data:', error);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        const delayDebounce = setTimeout(() => fetchData(), 500);
+
+        return () => clearTimeout(delayDebounce);
+
+    }, [queryString]);
 
     /**
      * Handles the search "form submit".
@@ -62,6 +138,23 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
     }
 
     /**
+     * Handles the key events.
+     *
+     * @param e
+     */
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) =>
+    {
+        if (e.key === 'ArrowDown') {
+            setHighlightedIndex((prevIndex) => (prevIndex < locations.length - 1 ? prevIndex + 1 : prevIndex));
+        } else if (e.key === 'ArrowUp') {
+            setHighlightedIndex((prevIndex) => (prevIndex > 0 ? prevIndex - 1 : 0));
+        } else if (e.key === 'Enter' && highlightedIndex >= 0) {
+            setQueryString(locations[highlightedIndex].name);
+            setLocations([]);
+        }
+    };
+
+    /**
      * Saves input changes.
      *
      * @param {React.SyntheticEvent<HTMLInputElement>} event
@@ -70,6 +163,34 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
     {
         setQueryString(event.currentTarget.value);
     };
+
+    /**
+     * Sets on focus.
+     *
+     * @param {React.SyntheticEvent<HTMLInputElement>} event
+     */
+    const handleOnFocus = (event: React.SyntheticEvent<HTMLInputElement>) =>
+    {
+        setIsFocus(true);
+    };
+
+    /**
+     * Disable on focus.
+     *
+     * @param {React.SyntheticEvent<HTMLInputElement>} event
+     */
+    const handleOnBlur = (event: React.SyntheticEvent<HTMLInputElement>) =>
+    {
+        setTimeout(() => {
+            setIsFocus(false);
+        }, 300);
+    };
+
+    const onClick = (value: string) =>
+    {
+        setQueryString(value);
+        setLocations([]);
+    }
 
     const currentPosition = query.getFilterConfig().getCurrentPosition(true);
     const titleProperty = query.getFilterConfig().hasCurrentPosition() ? {title: t('TEXT_TITLE_CURRENT_POSITION_IS_USED')} : {};
@@ -87,6 +208,7 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
             <form
                 id="searchForm"
                 className="search-form"
+                autoComplete="false"
                 action={routePath}
                 onSubmit={onSubmit}
             >
@@ -95,7 +217,7 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
                 >
                     <div
                         className="input-group responsive-group w-100"
-                        style={{backgroundColor: "transparent"}}
+                        style={{backgroundColor: "transparent", position: "relative"}}
                     >
                         <input
                             name="q"
@@ -106,16 +228,48 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
                             placeholder="52°31′14.322″N, 13°24′35.2044″E"
                             aria-label={t('TEXT_HEADER_LOCATION_SEARCH')}
                             aria-describedby="location-send"
+                            autoComplete="false"
                             value={queryString ? queryString : ''}
                             onChange={handleQueryStringChange}
+                            onKeyDown={handleKeyDown}
+                            onFocus={handleOnFocus}
+                            onBlur={handleOnBlur}
                         />
 
-                        <input type="hidden" name={nameParameterLanguage} value={query.getFilterConfig().getLanguage(true)} />
-                        <input type="hidden" name={nameParameterCountry} value={query.getFilterConfig().getCountry(true)} />
-                        <input type="hidden" name={nameParameterNextPlaces} value="1" />
+                        {isLoading && <div className="input-loader search-group-shadow">{t('TEXT_WORD_LOAD')} ...</div> }
+
+                        {
+                            isFocus && locations.length > 0 && <div className="autocomplete search-group-shadow py-2 px-3">
+                                <ul>
+                                    {locations.map((item: AutoCompleteLocation, index: number) => (
+                                        <li
+                                            className="py-1 px-2"
+                                            key={item.id}
+                                            onClick={() => {
+                                                onClick(item.name);
+                                            }}
+                                            style={{backgroundColor: highlightedIndex === index ? 'lightgray' : 'transparent'}}
+                                        >
+                                            {
+                                                item.country &&
+                                                <>
+                                                    <Flag country={item.country} size={1.0} />&nbsp;&nbsp;
+                                                </>
+                                            }{item.name}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        }
+
+                        <input type="hidden" name={nameParameterLanguage}
+                               value={query.getFilterConfig().getLanguage(true)}/>
+                        <input type="hidden" name={nameParameterCountry}
+                               value={query.getFilterConfig().getCountry(true)}/>
+                        <input type="hidden" name={nameParameterNextPlaces} value="1"/>
                         {
                             currentPosition ?
-                                <input type="hidden" name={nameParameterCurrentPosition} value={currentPosition} /> :
+                                <input type="hidden" name={nameParameterCurrentPosition} value={currentPosition}/> :
                                 <></>
                         }
 
@@ -132,7 +286,7 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
                                 textLoader={t('TEXT_WORD_DETERMINE_CURRENT_LOCATION')}
                                 textInformation={t('TEXT_WORD_DETERMINED_CURRENT_LOCATION')}
                             >
-                                <CursorFill size={sizeIcon.H3} />
+                                <CursorFill size={sizeIcon.H3}/>
                             </LinkV2>
 
                             <button

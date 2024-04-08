@@ -103,7 +103,7 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
         {
             setIsLoading(true);
             try {
-                const response = await fetch(`https://www.location-api.localhost/api/v1/autocomplete.json?q=${queryString}`);
+                const response = await fetch(process.env.REACT_APP_LOCATION_API_URL + '/api/v1/autocomplete.json?q='+queryString);
                 const data: AutoCompleteApi = await response.json();
                 setLocations(data.data.locations);
                 setFeatureClasses(data.data["feature-classes"]);
@@ -230,7 +230,7 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
                             aria-describedby="location-send"
                             autoComplete="false"
                             value={queryString ? queryString : ''}
-                            onChange={handleQueryStringChange}
+                            // onChange={handleQueryStringChange}
                             onInput={handleQueryStringChange}
                             onKeyDown={handleKeyDown}
                             onFocus={handleOnFocus}

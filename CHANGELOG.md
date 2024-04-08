@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Changelogs
 
+### [0.2.35] - 2023-04-08
+
+* Add autocomplete to the search form
+* Adopt to location api version 0.1.67
+
 ### [0.2.34] - 2023-04-01
 
 * Add borough part to location overview

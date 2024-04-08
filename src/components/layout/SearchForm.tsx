@@ -1,4 +1,4 @@
-import React, {KeyboardEventHandler, useEffect, useState} from "react";
+import React, {KeyboardEventHandler, useEffect, useRef, useState} from "react";
 
 /* Import translation libraries. */
 import {useTranslation} from "react-i18next";
@@ -58,6 +58,8 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
 {
     /* Import translation. */
     const { t } = useTranslation();
+
+    const formRef = useRef<HTMLFormElement>(null);
 
     /* State variables */
     const [queryString, setQueryString] = useState<string>(queryDefault ?? '');
@@ -190,6 +192,10 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
     {
         setQueryString(value);
         setLocations([]);
+
+        if (formRef.current) {
+            formRef.current.submit();
+        }
     }
 
     const currentPosition = query.getFilterConfig().getCurrentPosition(true);
@@ -206,6 +212,7 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
             }</h3>
 
             <form
+                ref={formRef}
                 id="searchForm"
                 className="search-form"
                 autoComplete="false"

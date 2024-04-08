@@ -195,6 +195,7 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
 
         if (formRef.current) {
             let formRefCurrent = formRef.current;
+            setRoutePath(query.getFilterConfig().getLinkQuery(value));
 
             setTimeout(() => {
                 formRefCurrent.submit();

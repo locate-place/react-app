@@ -231,6 +231,7 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
                             autoComplete="false"
                             value={queryString ? queryString : ''}
                             onChange={handleQueryStringChange}
+                            onInput={handleQueryStringChange}
                             onKeyDown={handleKeyDown}
                             onFocus={handleOnFocus}
                             onBlur={handleOnBlur}

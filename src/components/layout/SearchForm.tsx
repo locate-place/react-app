@@ -47,8 +47,27 @@ interface AutoCompleteData {
     "feature-codes": AutoCompleteFeature[];
 }
 
+interface QueryData {
+    query: {
+        raw: string;
+        parsed: {
+            type: string;
+            search: string[];
+            "feature-classes"?: {
+                code: string;
+                translated: string;
+            }[];
+            "feature-codes"?: {
+                code: string;
+                translated: string;
+            }[];
+        }
+    };
+}
+
 interface AutoCompleteApi {
     data: AutoCompleteData;
+    given: QueryData;
 }
 
 /**
@@ -67,6 +86,7 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
     const [locations, setLocations] = useState<AutoCompleteLocation[]>([]);
     const [featureClasses, setFeatureClasses] = useState<AutoCompleteFeature[]>([]);
     const [featureCodes, setFeatureCodes] = useState<AutoCompleteFeature[]>([]);
+    const [additionalQuery, setAdditionalQuery] = useState<string|null>(null);
     const [isLoading, setIsLoading] = useState(false);
     const [isFocus, setIsFocus] = useState(false);
     const [highlightedIndex, setHighlightedIndex] = useState(-1);
@@ -110,6 +130,18 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
                 setLocations(data.data.locations);
                 setFeatureClasses(data.data["feature-classes"]);
                 setFeatureCodes(data.data["feature-codes"]);
+
+                const featureCodes = data.given.query.parsed["feature-codes"] ?? null;
+
+                if (featureCodes !== null) {
+                    const featureCodesString = featureCodes
+                        .map((fc) => fc.code)
+                        .join('|');
+
+                    setAdditionalQuery(featureCodesString);
+                } else {
+                    setAdditionalQuery(null);
+                }
             } catch (error) {
                 console.error('Error when retrieving the auto-complete data:', error);
             } finally {
@@ -151,7 +183,7 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
         } else if (e.key === 'ArrowUp') {
             setHighlightedIndex((prevIndex) => (prevIndex > 0 ? prevIndex - 1 : 0));
         } else if (e.key === 'Enter' && highlightedIndex >= 0) {
-            setQueryString(locations[highlightedIndex].name);
+            setQueryString((additionalQuery !== null ? (additionalQuery + ' ') : '') + locations[highlightedIndex].name);
             setLocations([]);
         }
     };
@@ -190,7 +222,7 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
 
     const onClick = (value: string) =>
     {
-        setQueryString(value);
+        setQueryString((additionalQuery !== null ? (additionalQuery + ' ') : '') + value);
         setLocations([]);
 
         if (formRef.current) {

@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Changelogs
 
+### [0.2.36] - 2023-04-08
+
+* Add feature codes to query search if given 
+* Adopt to location api version 0.1.69
+
 ### [0.2.35] - 2023-04-08
 
 * Add autocomplete to the search form

@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Changelogs
 
+### [0.2.37] - 2023-04-20
+
+* Adoptions to new location api version 0.1.77
+  * query parser with country, limit and distance
+* Improved autocomplete
+  * Country search and more
+
 ### [0.2.36] - 2023-04-08
 
 * Add feature codes to query search if given 

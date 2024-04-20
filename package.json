@@ -1,6 +1,6 @@
 {
   "name": "react-locate-place",
-  "version": "0.2.36",
+  "version": "0.2.37",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.5.1",

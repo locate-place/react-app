@@ -343,18 +343,25 @@ class Query
         }
 
         if (!this.filterConfig.hasQuery()) {
-            const numberTotal = formatNumber(this.apiResponseProperty.getResultsTotal());
-            const numberResults = this.apiResponseProperty.getResultsResults();
+            const resultsTotal = formatNumber(this.apiResponseProperty.getResultsTotal());
+            const resultsCurrent = this.apiResponseProperty.getResultsCurrent();
 
-            return t('TEXT_RESULT', {numberTotal, numberResults});
+            return t('TEXT_RESULT', {numberTotal: resultsTotal, numberResults: resultsCurrent});
         }
 
-        const numberTotal = formatNumber(this.apiResponseProperty.getResultsTotal());
-        const query = this.filterConfig.getQuery();
-        const numberFirstItem = (this.apiResponseProperty.getResultsPage() - 1) * this.apiResponseProperty.getResultsResults() + 1;
-        const numberLastItem = this.apiResponseProperty.getResultsResults() * this.apiResponseProperty.getResultsPage();
+        let query = this.filterConfig.getQuery();
 
-        return t('TEXT_RESULT_QUERY', {numberTotal, query, numberFirstItem, numberLastItem});
+        let resultsTotal = this.apiResponseProperty.getResultsTotal();
+
+        let numberFirstItem = this.apiResponseProperty.getNumberItemFirst();
+        let numberLastItem = this.apiResponseProperty.getNumberItemLast();
+
+        return t('TEXT_RESULT_QUERY', {
+            numberTotal: formatNumber(resultsTotal),
+            query: query,
+            numberFirstItem: numberFirstItem,
+            numberLastItem: numberLastItem
+        });
     }
 }
 

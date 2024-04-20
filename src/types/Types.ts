@@ -210,9 +210,10 @@ type TypeDataLicence = {
 type TypePerformance = object;
 
 type TypeResults = {
-    "total": number,
-    "results": number,
-    "page": number,
+    "results-current": number;
+    "results-total": number;
+    "page-current": number;
+    "page-size": number;
 }
 
 type TypeProperties = {

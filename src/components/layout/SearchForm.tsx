@@ -1,4 +1,4 @@
-import React, {KeyboardEventHandler, useEffect, useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 
 /* Import translation libraries. */
 import {useTranslation} from "react-i18next";
@@ -88,7 +88,8 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
     const [featureCodes, setFeatureCodes] = useState<AutoCompleteFeature[]>([]);
     const [additionalQuery, setAdditionalQuery] = useState<string|null>(null);
     const [isLoading, setIsLoading] = useState(false);
-    const [isFocus, setIsFocus] = useState(false);
+    const [showAutocompleteBox, setShowAutocompleteBox] = useState(false);
+    const [isApiLoadMode, setIsApiLoadMode] = useState(false);
     const [highlightedIndex, setHighlightedIndex] = useState(-1);
 
     useEffect(() =>
@@ -114,10 +115,14 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
             return;
         }
 
-        if (!isFocus) {
+        if (!showAutocompleteBox) {
             setLocations([]);
             setFeatureClasses([]);
             setFeatureCodes([]);
+            return;
+        }
+
+        if (!isApiLoadMode) {
             return;
         }
 
@@ -179,12 +184,43 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) =>
     {
         if (e.key === 'ArrowDown') {
-            setHighlightedIndex((prevIndex) => (prevIndex < locations.length - 1 ? prevIndex + 1 : prevIndex));
+            if (locations.length <= 0) {
+                return;
+            }
+            let highlightedIndexNew = highlightedIndex < locations.length - 1 ? highlightedIndex + 1 : highlightedIndex;
+            setHighlightedIndex(highlightedIndexNew);
+            setIsApiLoadMode(false);
+            setQuery(locations[highlightedIndexNew]?.name ?? '', locations[highlightedIndexNew]?.country ?? '');
+            e.preventDefault();
         } else if (e.key === 'ArrowUp') {
-            setHighlightedIndex((prevIndex) => (prevIndex > 0 ? prevIndex - 1 : 0));
-        } else if (e.key === 'Enter' && highlightedIndex >= 0) {
-            setQueryString((additionalQuery !== null ? (additionalQuery + ' ') : '') + locations[highlightedIndex].name);
+            if (locations.length <= 0) {
+                return;
+            }
+            let highlightedIndexNew = highlightedIndex > 0 ? highlightedIndex - 1 : 0;
+            setHighlightedIndex(highlightedIndexNew);
+            setIsApiLoadMode(false);
+            setQuery(locations[highlightedIndexNew]?.name ?? '', locations[highlightedIndexNew]?.country ?? '');
+            e.preventDefault();
+        } else if (e.key === 'Enter') {
+            if (locations.length <= 0) {
+                return;
+            }
             setLocations([]);
+            if (highlightedIndex !== -1) {
+                e.preventDefault();
+            }
+        } else if (e.key === 'Escape') {
+            if (locations.length <= 0) {
+                return;
+            }
+            setLocations([]);
+            setHighlightedIndex(-1);
+            setIsApiLoadMode(false);
+            setShowAutocompleteBox(false);
+        } else {
+            setHighlightedIndex(-1);
+            setIsApiLoadMode(true);
+            setShowAutocompleteBox(true);
         }
     };
 
@@ -205,7 +241,8 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
      */
     const handleOnFocus = (event: React.SyntheticEvent<HTMLInputElement>) =>
     {
-        setIsFocus(true);
+        setShowAutocompleteBox(true);
+        setIsApiLoadMode(true);
     };
 
     /**
@@ -216,23 +253,38 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
     const handleOnBlur = (event: React.SyntheticEvent<HTMLInputElement>) =>
     {
         setTimeout(() => {
-            setIsFocus(false);
+            setShowAutocompleteBox(false);
+            setIsApiLoadMode(false);
         }, 300);
     };
 
-    const onClick = (value: string) =>
+    /**
+     * Sets the query to form.
+     *
+     * @param value
+     * @param country
+     */
+    const setQuery = (value: string, country: string|null) =>
     {
-        setQueryString((additionalQuery !== null ? (additionalQuery + ' ') : '') + value);
-        setLocations([]);
+        let queryString = (additionalQuery !== null ? (additionalQuery + ' ') : '') + value;
 
-        if (formRef.current) {
-            let formRefCurrent = formRef.current;
-            setRoutePath(query.getFilterConfig().getLinkQuery(value));
-
-            setTimeout(() => {
-                formRefCurrent.submit();
-            }, 300);
+        if (country !== null) {
+            queryString += ' country:' + country.toUpperCase();
         }
+
+        setQueryString(queryString);
+    }
+
+    /**
+     * Onclick function.
+     *
+     * @param value
+     * @param country
+     */
+    const onClick = (value: string, country: string|null) =>
+    {
+        setQuery(value, country);
+        setLocations([]);
     }
 
     const currentPosition = query.getFilterConfig().getCurrentPosition(true);
@@ -284,14 +336,14 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
                         {isLoading && <div className="input-loader search-group-shadow">{t('TEXT_WORD_LOAD')} ...</div> }
 
                         {
-                            isFocus && locations.length > 0 && <div className="autocomplete search-group-shadow py-2 px-3">
+                            showAutocompleteBox && locations.length > 0 && <div className="autocomplete search-group-shadow py-2 px-3">
                                 <ul>
                                     {locations.map((item: AutoCompleteLocation, index: number) => (
                                         <li
                                             className="py-1 px-2"
                                             key={item.id}
                                             onClick={() => {
-                                                onClick(item.name);
+                                                onClick(item.name, item.country);
                                             }}
                                             style={{backgroundColor: highlightedIndex === index ? 'lightgray' : 'transparent'}}
                                         >

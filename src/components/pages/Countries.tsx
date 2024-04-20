@@ -98,8 +98,8 @@ const Countries = () =>
         apiResponseProperty = new ApiResponseProperty(properties);
         query.setApiResponseProperty(apiResponseProperty);
 
-        page = query.getApiResponseProperty().getResultsPage();
-        results = query.getApiResponseProperty().getResultsResults();
+        page = query.getApiResponseProperty().getPageCurrent();
+        results = query.getApiResponseProperty().getResultsCurrent();
     }
 
     /**

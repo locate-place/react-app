@@ -33,25 +33,33 @@ class ResultsWrapper
     /**
      * Returns the total number of results.
      */
-    getTotal(): number
+    getResultsTotal(): number
     {
-        return this.results.total;
+        return this.results["results-total"];
     }
 
     /**
      * Returns the shown number of results.
      */
-    getResults(): number
+    getResultsCurrent(): number
     {
-        return this.results.results;
+        return this.results["results-current"];
     }
 
     /**
      * Returns the page of the results.
      */
-    getPage(): number
+    getPageCurrent(): number
     {
-        return this.results.page;
+        return this.results["page-current"];
+    }
+
+    /**
+     * Returns the size of the page.
+     */
+    getPageSize(): number
+    {
+        return this.results["page-size"];
     }
 }
 

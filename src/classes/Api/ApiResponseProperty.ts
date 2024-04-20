@@ -329,9 +329,9 @@ class ApiResponseProperty
     /**
      * Returns the result of the api response.
      */
-    getResultsResults(): number
+    getResultsCurrent(): number
     {
-        return this.getResults()?.getResults() ?? 0;
+        return this.getResults()?.getResultsCurrent() ?? 0;
     }
 
     /**
@@ -339,15 +339,62 @@ class ApiResponseProperty
      */
     getResultsTotal(): number
     {
-        return this.getResults()?.getTotal() ?? 0;
+        return this.getResults()?.getResultsTotal() ?? 0;
     }
 
     /**
      * Returns the current page of the api response.
      */
-    getResultsPage(): number
+    getPageCurrent(): number
     {
-        return this.getResults()?.getPage() ?? 0;
+        return this.getResults()?.getPageCurrent() ?? 0;
+    }
+
+    /**
+     * Returns the number of elements of a page.
+     */
+    getPageSize(): number
+    {
+        return this.getResults()?.getPageSize() ?? 0;
+    }
+
+    /**
+     * Returns the number of the first element of the current page.
+     */
+    getNumberItemFirst(): number
+    {
+        return (this.getPageCurrent() - 1) * this.getPageSize() + 1;
+    }
+
+    /**
+     * Returns the number of given current element of the current page.
+     *
+     * @param current
+     */
+    getNumberItemCurrent(current: number)
+    {
+        if (current <= 0) {
+            current = 1;
+        }
+
+        return (this.getPageCurrent() - 1) * this.getPageSize() + current;
+    }
+
+    /**
+     * Returns the number of the last element of the current page.
+     */
+    getNumberItemLast(): number
+    {
+        const pageSize = this.getPageSize();
+        const numberLastItem = (this.getPageCurrent() - 1) * pageSize + pageSize;
+
+        const resultsTotal = this.getResultsTotal();
+
+        if (numberLastItem <= resultsTotal) {
+            return numberLastItem;
+        }
+
+        return resultsTotal;
     }
 
 

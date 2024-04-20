@@ -102,8 +102,8 @@ const Locations = () =>
         apiResponseProperty = new ApiResponseProperty(properties);
         query.setApiResponseProperty(apiResponseProperty);
 
-        page = query.getApiResponseProperty().getResultsPage();
-        results = query.getApiResponseProperty().getResultsResults();
+        page = query.getApiResponseProperty().getPageCurrent();
+        results = query.getApiResponseProperty().getResultsCurrent();
     }
 
     /**
@@ -157,7 +157,7 @@ const Locations = () =>
                                                             locationWrapper={locationWrapper}
                                                             apiResponseProperty={apiResponseProperty}
                                                             showOwnPosition={false}
-                                                            page={index + (page - 1) * results + 1}
+                                                            page={apiResponseProperty.getNumberItemCurrent(index + 1)}
                                                             useAlwaysName={!query.getFilterConfig().hasQuery()}
                                                         /> :
                                                         <></>

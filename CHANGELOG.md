@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Changelogs
 
+### [0.2.39] - 2023-04-25
+
+* Submit form on click
+
 ### [0.2.38] - 2023-04-25
 
 * Fix pager

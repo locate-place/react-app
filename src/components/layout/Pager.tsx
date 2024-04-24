@@ -21,10 +21,10 @@ const Pager = ({query}: PagerProps) =>
     const { t } = useTranslation();
 
     const page = query.getApiResponseProperty().getPageCurrent();
-    const results = query.getApiResponseProperty().getResultsCurrent();
     const total = query.getApiResponseProperty().getResultsTotal();
+    const limit = query.getApiResponseProperty().getLimit() ?? 10;
 
-    if (page * results >= total) {
+    if (page * limit >= total) {
         return <></>;
     }
 

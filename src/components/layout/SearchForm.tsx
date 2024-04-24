@@ -285,6 +285,13 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
     {
         setQuery(value, country);
         setLocations([]);
+
+        setRoutePath(query.getFilterConfig().getLinkQuery(queryString));
+
+        setTimeout(() => {
+            formRef.current?.submit();
+        }, 300);
+
     }
 
     const currentPosition = query.getFilterConfig().getCurrentPosition(true);

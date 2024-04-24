@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Changelogs
 
+### [0.2.38] - 2023-04-25
+
+* Fix pager
+
 ### [0.2.37] - 2023-04-20
 
 * Adoptions to new location api version 0.1.77

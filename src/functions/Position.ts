@@ -19,7 +19,7 @@ const classUserNoDistance = 'user-no-distance';
 
 const classFlashBackground = 'flash-background';
 
-const randomPositionValue = false;
+const randomPositionValue = true;
 
 interface TypeCoordinateDms {
     latitude: string,
@@ -195,7 +195,7 @@ const updateUserPositionDecimalElements = (
     longitudeFrom: number
 ) =>
 {
-    updateUserElements(latitudeFrom, longitudeFrom, classUserPositionDms, (htmlElement, latitudeFrom, longitudeFrom, latitudeTo, longitudeTo) => {
+    updateUserElements(latitudeFrom, longitudeFrom, classUserPositionDecimal, (htmlElement, latitudeFrom, longitudeFrom, latitudeTo, longitudeTo) => {
         htmlElement.innerText = latitudeFrom.toString() + ', ' + longitudeFrom.toString();
         updateUserElementFlash(htmlElement);
     });

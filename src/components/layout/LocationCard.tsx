@@ -28,6 +28,7 @@ import {ApiResponseProperty} from "../../classes/Api/ApiResponseProperty";
 import Flag from "./Flag";
 import LinkV2 from "./LinkV2";
 import CollapsibleCard from "./CollapsibleCard";
+import {classUserPositionDms, updateUserPosition} from "../../functions/Position";
 
 type LocationCardProps = {
     locationWrapper: LocationWrapper|null,
@@ -152,8 +153,11 @@ const LocationCard = ({locationWrapper, apiResponseProperty, showOwnPosition, pa
                 showOwnPosition ?
                     <>
                         <strong>{t('TEXT_WORD_POSITION')}</strong>: <span
-                        title={latitudeDecimal ? latitudeDecimal.toString() : ''}>{latitudeDms}</span>, <span
-                        title={longitudeDecimal ? longitudeDecimal.toString() : ''}>{longitudeDms}</span>
+                            className={classUserPositionDms}
+                            onClick={() => { updateUserPosition(t) }}
+                            data-latitude={latitudeDecimal?.toString()}
+                            data-longitude={longitudeDecimal?.toString()}
+                        >{latitudeDms}, {longitudeDms}</span>
                     </> :
                     <CoordinateDistanceDirection location={locationWrapper.get()} query={query} />
             }>

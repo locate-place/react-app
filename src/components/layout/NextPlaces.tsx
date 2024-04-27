@@ -15,6 +15,7 @@ import LinkV2 from "./LinkV2";
 import CollapsibleCard from "./CollapsibleCard";
 import {colorBackgroundNextPlaces} from "../../config/Colors";
 import NextPlace from "./NextPlace";
+import {classUserPositionDms, updateUserPosition} from "../../functions/Position";
 
 /* Argument properties. */
 type NextPlacesProps = {
@@ -60,7 +61,13 @@ const NextPlaces = ({nextPlace, showUserDistance, currentPosition = null}: NextP
             footer={
                 showUserDistance ?
                     <div className={'next-place-current'}>
-                        <sup>**)</sup> {nextPlace.getConfigDistanceAndDirectionTextPosition(t, currentPosition)}
+                        <sup>**)</sup> {nextPlace.getConfigDistanceAndDirectionTextPositionText(t)}:&nbsp;
+                        <span
+                            className={classUserPositionDms}
+                            data-latitude={currentPosition?.getLatitude().getDecimal() ?? null}
+                            data-longitude={currentPosition?.getLongitude().getDecimal() ?? null}
+                            onClick={() => { updateUserPosition(t) }}
+                        >{nextPlace.getConfigDistanceAndDirectionTextPositionCoordinate(currentPosition)}</span>
                     </div> :
                     <div className={'next-place-search'}>
                         <sup>*)</sup> {nextPlace.getConfigDistanceAndDirectionText(t, true)}

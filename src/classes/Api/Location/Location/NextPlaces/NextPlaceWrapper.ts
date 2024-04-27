@@ -205,6 +205,30 @@ class NextPlaceWrapper
 
         return t('TEXT_NEXT_PLACE_DISTANCE_HINT_POSITION', {coordinate: currentPosition.getLatitude().getDMS() + ', ' + currentPosition.getLongitude().getDMS()});
     }
+
+    /**
+     * Returns the config distance and direction text.
+     *
+     * @param t
+     */
+    getConfigDistanceAndDirectionTextPositionText(t: TFunction<"translation", undefined>): string
+    {
+        return t('TEXT_NEXT_PLACE_DISTANCE_HINT_POSITION_SIMPLE');
+    }
+
+    /**
+     * Returns the config distance and direction text.
+     *
+     * @param currentPosition
+     */
+    getConfigDistanceAndDirectionTextPositionCoordinate(currentPosition: CoordinateParsedWrapper|null = null): string
+    {
+        if (currentPosition === null) {
+            return '';
+        }
+
+        return currentPosition.getLatitude().getDMS() + ', ' + currentPosition.getLongitude().getDMS();
+    }
 }
 
 /*

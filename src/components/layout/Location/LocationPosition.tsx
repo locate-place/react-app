@@ -24,7 +24,7 @@ import LinkV2 from "../LinkV2";
 import CollapsibleCard from "../CollapsibleCard";
 
 /* Bootstrap icons; see https://icons.getbootstrap.com/?q=sort#usage */
-import {CursorFill} from "react-bootstrap-icons";
+import {ArrowClockwise, CursorFill} from "react-bootstrap-icons";
 import {Link} from "react-router-dom";
 
 type LocationPositionProps = {

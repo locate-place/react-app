@@ -177,7 +177,12 @@ const Location = () =>
                                 </h2>
 
                                 {/* Compass. */}
-                                <LocationCompass />
+                                <LocationCompass
+                                    degree={location.getCoordinate().getDirectionUserDegree()}
+                                    latitude={location.getCoordinate().getLatitudeDecimal()}
+                                    longitude={location.getCoordinate().getLongitudeDecimal()}
+                                    distance={location.getCoordinate().getDistanceUserKilometerFormatted()}
+                                />
 
                                 {/* Location information. */}
                                 <LocationDetail location={location} />

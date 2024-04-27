@@ -19,7 +19,13 @@ const classUserNoDistance = 'user-no-distance';
 
 const classFlashBackground = 'flash-background';
 
-const randomPositionValue = true;
+const classPositionToggler = 'position-toggler';
+
+const randomPositionValue = false;
+
+let updateRegularly = false;
+
+let updateTime = 5000;
 
 interface TypeCoordinateDms {
     latitude: string,
@@ -265,7 +271,39 @@ const updateUserPosition = (t:  TFunction<"translation", undefined>) =>
         updateUserPositionDmsElements(latitudeFrom, longitudeFrom);
         updateUserDirectionElements(latitudeFrom, longitudeFrom, t);
         updateUserDirectionShortElements(latitudeFrom, longitudeFrom);
+
+        if (updateRegularly) {
+            window.setTimeout(() => {
+                updateUserPosition(t);
+            }, updateTime);
+        }
     });
+}
+
+/**
+ * Toggle update.
+ *
+ * @param t
+ */
+const updateUserPositionRegularly = (t:  TFunction<"translation", undefined>) =>
+{
+    updateRegularly = !updateRegularly;
+
+    const elements = document.querySelectorAll('.' + classPositionToggler);
+
+    elements.forEach(element => {
+        const htmlElement = element as HTMLElement;
+
+        if (updateRegularly) {
+            htmlElement.classList.remove('btn-outline-secondary');
+            htmlElement.classList.add('btn-secondary');
+        } else {
+            htmlElement.classList.remove('btn-secondary');
+            htmlElement.classList.add('btn-outline-secondary');
+        }
+    });
+
+    updateUserPosition(t);
 }
 
 /**
@@ -400,6 +438,7 @@ const round = (value: number, decimals: number): number =>
  * Export functions.
  */
 export {
+    updateRegularly,
     decimalNumberCoordinate,
     decimalNumberDistance,
     classUserDistance,
@@ -410,11 +449,13 @@ export {
     classUserPositionDms,
     classUserNoDistance,
     classFlashBackground,
+    classPositionToggler,
     getCurrentPosition,
     getPosition,
     calculateDistance,
     updateUserElements,
     updateUserPosition,
+    updateUserPositionRegularly,
     updateUserPositionDecimalElements,
     updateUserPositionDmsElements,
     decimalToDms,

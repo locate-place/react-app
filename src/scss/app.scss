@@ -474,6 +474,25 @@ body {
         animation: flashAnimation 1s;
     }
 
+    .position-toggler {
+        &.btn-outline-secondary {
+            background-color: rgba(0, 0, 0, 0.1);
+
+            &:hover {
+                background-color: var(--bs-btn-hover-bg);
+            }
+            &:focus {
+                background-color: rgba(0, 0, 0, 0.1);
+            }
+        }
+    }
+
+    .flex-between {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
     @keyframes flashAnimation {
         0%, 100% {
             background-color: transparent;

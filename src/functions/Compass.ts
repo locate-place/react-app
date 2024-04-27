@@ -1,5 +1,7 @@
 let lastBearing: number = 0;
 
+let debug: boolean = false;
+
 /**
  * Shows the main and detail compasses.
  */
@@ -70,6 +72,22 @@ const setDirection = (direction: number): void =>
     lastBearing = direction;
 
     let compassDisc: HTMLElement|null = document.getElementById('compassDisc');
+    let compassArrow: HTMLElement|null = document.getElementById('compassArrow');
+
+    if (compassArrow !== null) {
+        let dataDegreeString = compassArrow.getAttribute('data-degree');
+
+        if (dataDegreeString !== null) {
+            let dataDegree = parseFloat(dataDegreeString);
+            let dirArrow = dataDegree + direction;
+
+            compassArrow.style.transform = `rotate(${dirArrow}deg)`;
+        }
+
+        if (dataDegreeString === null) {
+            compassArrow.style.transform = `rotate(0deg)`;
+        }
+    }
 
     if (compassDisc !== null) {
         compassDisc.style.transform = `rotate(${direction}deg)`;
@@ -102,8 +120,11 @@ const setDirection = (direction: number): void =>
  */
 const initializeCompass = (): void =>
 {
-    // displayCompass();
-    // setDirection(-135);
+    if (debug) {
+        displayCompass();
+        //setDirection(-135);
+        setDirection(0);
+    }
 
     if (window.DeviceOrientationEvent && 'ontouchstart' in window) {
         setTimeout(() => {

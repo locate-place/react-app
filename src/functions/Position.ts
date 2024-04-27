@@ -15,9 +15,11 @@ const classUserDirectionShort = 'user-direction-short';
 const classUserPositionDecimal = 'user-position-decimal';
 const classUserPositionDms = 'user-position-dms';
 
+const classUserNoDistance = 'user-no-distance';
+
 const classFlashBackground = 'flash-background';
 
-const randomPositionValue = false;
+const randomPositionValue = true;
 
 interface TypeCoordinateDms {
     latitude: string,
@@ -406,6 +408,7 @@ export {
     classUserDirectionShort,
     classUserPositionDecimal,
     classUserPositionDms,
+    classUserNoDistance,
     classFlashBackground,
     getCurrentPosition,
     getPosition,

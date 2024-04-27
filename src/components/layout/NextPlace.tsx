@@ -19,6 +19,12 @@ import {NextPlaceWrapper} from "../../classes/Api/Location/Location/NextPlaces/N
 /* Import components. */
 import LinkV2 from "./LinkV2";
 import Flag from "./Flag";
+import {
+    classUserDegree,
+    classUserDirectionShort,
+    classUserDistance,
+    classUserNoDistance, updateUserPosition
+} from "../../functions/Position";
 
 /* Argument properties. */
 type NextPlaceProps = {
@@ -51,8 +57,11 @@ const NextPlace = ({index, featureClassCode, place, filterConfig, nextPlace, sho
                     <div className="col col-compass p-3">
                         <div className="compass compass-direction shadow-own" title={t('TEXT_COORDINATE_DISTANCE_DIRECTION_SEARCH_DIRECTION')}>
                             <div
-                                className="arrow arrow-direction"
+                                className={'arrow arrow-direction' + (hasCurrentPosition ? ' ' + classUserDegree : '')}
                                 data-degree={(hasCurrentPosition ? place.getCoordinate().getDirectionUserDegree() : place.getCoordinate().getDirectionDegree())}
+                                data-latitude={place.getCoordinate().getLatitudeDecimal()}
+                                data-longitude={place.getCoordinate().getLongitudeDecimal()}
+                                onClick={() => { hasCurrentPosition && updateUserPosition(t) }}
                             ></div>
                         </div>
                     </div>
@@ -85,10 +94,42 @@ const NextPlace = ({index, featureClassCode, place, filterConfig, nextPlace, sho
                                         title={hasCurrentPosition ? nextPlace.getConfigDistanceAndDirectionTextPosition(t, currentPosition) : nextPlace.getConfigDistanceAndDirectionText(t)}
                                     ><small>
                                         <span className="text-nowrap">
-                                            {(hasCurrentPosition ? place.getCoordinate().getDistanceUserKilometerFormatted() : place.getCoordinate().getDistanceKilometerFormatted()) ?? ''}<sup>{hasCurrentPosition ? '**)' : '*)'}</sup>
+                                            {
+                                                hasCurrentPosition && <>
+                                                    <span
+                                                        className={[classUserDistance, classUserNoDistance].join(' ')}
+                                                        data-latitude={place.getCoordinate().getLatitudeDecimal()}
+                                                        data-longitude={place.getCoordinate().getLongitudeDecimal()}
+                                                    >{place.getCoordinate().getDistanceUserKilometerFormatted()}</span>
+                                                    <sup>**)</sup>
+                                                </>
+                                            }
+                                            {
+                                                !hasCurrentPosition && <>
+                                                    <span>{place.getCoordinate().getDistanceKilometerFormatted()}</span>
+                                                    <sup>*)</sup>
+                                                </>
+                                            }
                                         </span>
                                         <br/>
-                                        - {(hasCurrentPosition ? place.getCoordinate().getDirectionUserTranslatedShort() : place.getCoordinate().getDirectionTranslatedShort()) ?? ''} -
+                                        {
+                                            hasCurrentPosition && <>
+                                                - <span
+                                                      className={[classUserDirectionShort, classUserNoDistance].join(' ')}
+                                                      data-latitude={place.getCoordinate().getLatitudeDecimal()}
+                                                      data-longitude={place.getCoordinate().getLongitudeDecimal()}
+                                                  >
+                                                    { place.getCoordinate().getDirectionUserTranslatedShort() ?? '' }
+                                                </span> -
+                                            </>
+                                        }
+                                        {
+                                            !hasCurrentPosition && <>
+                                                - <span>
+                                                    { place.getCoordinate().getDirectionTranslatedShort() ?? '' }
+                                                </span> -
+                                            </>
+                                        }
                                     </small></LinkV2>
                                 </div>
                             </> : <></>

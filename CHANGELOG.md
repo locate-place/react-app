@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Changelogs
 
+### [0.2.43] - 2023-04-27
+
+* Implements an ad hoc update also to current position card
+
 ### [0.2.42] - 2023-04-27
 
 * Implements an ad hoc update also to next places

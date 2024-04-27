@@ -9,6 +9,7 @@ import {
 import {ApiLocationWrapper} from "../../ApiLocationWrapper";
 import {getLocale} from "../../../../../functions/I18n";
 import {LocationWrapper} from "../LocationWrapper";
+import {CoordinateParsedWrapper} from "../../../Base/Given/Coordinate/Parsed/CoordinateParsedWrapper";
 
 /**
  * Class NextPlaceWrapper
@@ -188,6 +189,21 @@ class NextPlaceWrapper
             default:
                 return t(i18nQuery, {coordinate});
         }
+    }
+
+    /**
+     * Returns the config distance and direction text.
+     *
+     * @param t
+     * @param currentPosition
+     */
+    getConfigDistanceAndDirectionTextPosition(t: TFunction<"translation", undefined>, currentPosition: CoordinateParsedWrapper|null = null): string
+    {
+        if (currentPosition === null) {
+            return '';
+        }
+
+        return t('TEXT_NEXT_PLACE_DISTANCE_HINT_POSITION', {coordinate: currentPosition.getLatitude().getDMS() + ', ' + currentPosition.getLongitude().getDMS()});
     }
 }
 

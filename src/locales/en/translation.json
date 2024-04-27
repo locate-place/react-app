@@ -51,6 +51,7 @@
   "TEXT_ACTION_SEARCH": "Search",
   "TEXT_ACTION_SHOW_NEXT_PAGE": "Show next page",
   "TEXT_ACTION_SORTING": "Sorting",
+  "TEXT_ACTION_DISTANCE": "Distance",
 
   "TEXT_ACTION_SHOW_CURRENT_POSITION": "Show current location",
 
@@ -89,9 +90,14 @@
   "TEXT_NEXT_PLACE_DISTANCE_HINT_QUERY_TEXT_ALL": "All distances and directions according to the location of the search query ({{coordinate}}).",
   "TEXT_NEXT_PLACE_DISTANCE_HINT_LOCATION_TEXT": "Distance and direction according to the displayed location \"{{location}}\" ({{coordinate}}).",
   "TEXT_NEXT_PLACE_DISTANCE_HINT_QUERY_TEXT": "Distance and direction according to the location of the search query ({{coordinate}}).",
+  "TEXT_NEXT_PLACE_DISTANCE_HINT_POSITION": "All distances and directions according to the current position ({{coordinate}}).",
   "TEXT_NEXT_PLACE_INHABITANTS_TEXT": "{{inhabitants}} Inhabitants",
   "TEXT_NEXT_PLACE_NO_IATA_CODE_SPECIFIED": "No IATA code specified",
   "TEXT_NEXT_PLACE_NO_RIVER_LENGTH_SPECIFIED": "No river length specified",
+  "TEXT_NEXT_PLACE_DESCRIPTION": "For the searched location \"{{name}}\".",
+  "TEXT_NEXT_PLACE_DESCRIPTION_POSITION": "For the current position \"{{position}}\".",
+  "TEXT_NEXT_PLACE_BUTTON_SEARCH": "Location",
+  "TEXT_NEXT_PLACE_BUTTON_POSITION": "Position",
 
   "TEXT_CONTACT_TITLE": "Contact",
   "TEXT_CONTACT_SUBTITLE": "Contact page",

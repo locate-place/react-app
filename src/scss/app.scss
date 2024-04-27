@@ -425,7 +425,7 @@ body {
                         a {
                             line-height: .875em;
                             text-decoration: none;
-                            width: 100px;
+                            width: 110px;
                         }
                     }
 
@@ -435,7 +435,7 @@ body {
 
             border-bottom: var(--bs-card-border-width) solid var(--bs-card-border-color);
 
-            &:last-child {
+            &:last-child, &.container-last {
                 border-bottom: none;
             }
         }
@@ -465,7 +465,7 @@ body {
                             a {
                                 line-height: .875em;
                                 text-decoration: none;
-                                width: 100px;
+                                width: 110px;
                             }
                         }
                     }

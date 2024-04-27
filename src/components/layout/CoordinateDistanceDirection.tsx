@@ -75,14 +75,14 @@ const CoordinateDistanceDirection = ({location, query}: CoordinateDistanceDirect
                         <>
                             {
                                 hasDirectionUser ?
-                                    <div className="compass-area float-end" style={{marginLeft: '0.5rem'}}>
+                                    <div className="compass-area float-end" style={{marginLeft: '0.5rem'}} title={t('TEXT_COORDINATE_DISTANCE_DIRECTION_OWN_DIRECTION')}>
                                         <div className="compass compass-direction shadow-own">
                                             <div className="arrow arrow-direction"
                                                  data-degree={degreeUser}
                                             ></div>
                                         </div>
                                     </div> :
-                                    <div className="compass-area float-end" style={{marginLeft: '0.5rem'}}>
+                                    <div className="compass-area float-end" style={{marginLeft: '0.5rem'}} title={t('TEXT_COORDINATE_DISTANCE_DIRECTION_SEARCH_DIRECTION')}>
                                         <div className="compass compass-direction shadow-own">
                                             <div className="arrow arrow-direction"
                                                  data-degree={degree}
@@ -107,14 +107,13 @@ const CoordinateDistanceDirection = ({location, query}: CoordinateDistanceDirect
                                 <sup><Compass size={sizeIcon.TextSmall}/></sup>&nbsp;
                             </span>
                             {
-                                hasDistance ?
-                                    <span title={t('TEXT_COORDINATE_DISTANCE_DIRECTION_SEARCH_DISTANCE')}>{distance}</span> :
-                                    <></>
+                                hasDistance && <span title={t('TEXT_COORDINATE_DISTANCE_DIRECTION_SEARCH_DISTANCE')}>{distance}</span>
                             }
                             {
-                                hasDirection ?
-                                    <span title={t('TEXT_COORDINATE_DISTANCE_DIRECTION_SEARCH_DIRECTION')}> - {direction}</span> :
-                                    <></>
+                                hasDirection && <>
+                                    &nbsp;-&nbsp;
+                                    <span title={t('TEXT_COORDINATE_DISTANCE_DIRECTION_SEARCH_DIRECTION')}>{direction}</span>
+                                </>
                             }
                         </> :
                         <></>
@@ -128,14 +127,15 @@ const CoordinateDistanceDirection = ({location, query}: CoordinateDistanceDirect
                                 <Compass size={sizeIcon.TextSmall}/>&nbsp;
                             </span>
                             {
-                                hasDistanceUser ?
-                                    <span title={t('TEXT_COORDINATE_DISTANCE_DIRECTION_OWN_DISTANCE')}>{distanceUser}</span> :
-                                    <></>
+                                hasDistanceUser && <span title={t('TEXT_COORDINATE_DISTANCE_DIRECTION_OWN_DISTANCE')} className="user-distance" data-latitude={latitudeDecimal} data-longitude={longitudeDecimal}>
+                                    {distanceUser}
+                                </span>
                             }
                             {
-                                hasDirectionUser ?
-                                    <span title={t('TEXT_COORDINATE_DISTANCE_DIRECTION_OWN_DIRECTION')}> - {directionUser}</span> :
-                                    <></>
+                                hasDirectionUser && <>
+                                    &nbsp;-&nbsp;
+                                    <span title={t('TEXT_COORDINATE_DISTANCE_DIRECTION_OWN_DIRECTION')} className="user-direction" data-latitude={latitudeDecimal} data-longitude={longitudeDecimal}>{directionUser}</span>
+                                </>
                             }
                         </> :
                         <></>

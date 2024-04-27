@@ -52,6 +52,7 @@
   "TEXT_ACTION_SEARCH": "Suche",
   "TEXT_ACTION_SHOW_NEXT_PAGE": "Zeige nächste Seite",
   "TEXT_ACTION_SORTING": "Sortierung",
+  "TEXT_ACTION_DISTANCE": "Entfernung",
 
   "TEXT_ACTION_SHOW_CURRENT_POSITION": "Zeige akt. Standort",
 
@@ -90,9 +91,14 @@
   "TEXT_NEXT_PLACE_DISTANCE_HINT_QUERY_TEXT_ALL": "Alle Abstände und Richtungen entsprechend der Location vom Suchquery ({{coordinate}}).",
   "TEXT_NEXT_PLACE_DISTANCE_HINT_LOCATION_TEXT": "Abstand und Richtung entsprechend dem angezeigtem Ort \"{{location}}\" ({{coordinate}}).",
   "TEXT_NEXT_PLACE_DISTANCE_HINT_QUERY_TEXT": "Abstand und Richtung entsprechend der Location vom Suchquery ({{coordinate}}).",
+  "TEXT_NEXT_PLACE_DISTANCE_HINT_POSITION": "Alle Abstände und Richtungen entsprechend der aktuellen Position ({{coordinate}}).",
   "TEXT_NEXT_PLACE_INHABITANTS_TEXT": "{{inhabitants}} Einwohner",
   "TEXT_NEXT_PLACE_NO_IATA_CODE_SPECIFIED": "Kein IATA-Code angegeben",
   "TEXT_NEXT_PLACE_NO_RIVER_LENGTH_SPECIFIED": "Keine Flusslänge angegeben",
+  "TEXT_NEXT_PLACE_DESCRIPTION": "Für den gesuchten Ort \"{{name}}\".",
+  "TEXT_NEXT_PLACE_DESCRIPTION_POSITION": "Für die aktuelle Position \"{{position}}\".",
+  "TEXT_NEXT_PLACE_BUTTON_SEARCH": "Ort",
+  "TEXT_NEXT_PLACE_BUTTON_POSITION": "Standort",
 
   "TEXT_CONTACT_TITLE": "Kontakt",
   "TEXT_CONTACT_SUBTITLE": "Kontaktseite",

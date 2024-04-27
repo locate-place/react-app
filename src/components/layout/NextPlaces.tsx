@@ -4,32 +4,32 @@ import {useSearchParams} from "react-router-dom";
 /* Import translation functions. */
 import {useTranslation} from "react-i18next";
 
-/* Import functions */
-import {addSoftHyphens} from "../../functions/Text";
-import {getLocationJsxText} from "../../functions/LocationTexts";
-
 /* Import classes. */
 import {NextPlaceWrapper} from "../../classes/Api/Location/Location/NextPlaces/NextPlaceWrapper";
 import {LocationWrapper} from "../../classes/Api/Location/Location/LocationWrapper";
-import {mapTypeGoogle} from "../../config/MapTypes";
+import {CoordinateParsedWrapper} from "../../classes/Api/Base/Given/Coordinate/Parsed/CoordinateParsedWrapper";
 import {Query} from "../../classes/Query";
 
 /* Import components. */
 import LinkV2 from "./LinkV2";
 import CollapsibleCard from "./CollapsibleCard";
 import {colorBackgroundNextPlaces} from "../../config/Colors";
-import Flag from "./Flag";
+import NextPlace from "./NextPlace";
 
 /* Argument properties. */
 type NextPlacesProps = {
-    nextPlace: NextPlaceWrapper|null
+    nextPlace: NextPlaceWrapper|null,
+    showUserDistance: boolean,
+    currentPosition?: CoordinateParsedWrapper|null
 }
 
 /**
  * This is the next places part.
  */
-const NextPlaces = ({nextPlace}: NextPlacesProps) =>
+const NextPlaces = ({nextPlace, showUserDistance, currentPosition = null}: NextPlacesProps) =>
 {
+    const hasCurrentPosition = currentPosition !== null;
+
     /* Import translation. */
     const { t } = useTranslation();
 
@@ -49,82 +49,65 @@ const NextPlaces = ({nextPlace}: NextPlacesProps) =>
     let query = new Query(searchParams, env);
     let filterConfig = query.getFilterConfig();
 
-    return (
-        nextPlace.hasPlaces() ?
-            <>
-                <CollapsibleCard title={nextPlace.getFeatureClassCode() + ') ' + nextPlace.getTitle(t)} collapsed={true}
-                                 backgroundColor={colorBackgroundNextPlaces} footer={
-                    <>
-                        <sup>*)</sup> {nextPlace.getConfigDistanceAndDirectionText(t, true)}
-                    </>
-                } epilogue={
-                    <>
-                        <strong>{t('TEXT_NEXT_PLACE_SEARCH_PARAMS')}</strong>:&nbsp;
-                        {t('TEXT_WORD_FEATURE_CLASS')}: <code>{nextPlace.getFeatureClassCode()}</code> -&nbsp;
-                        {nextPlace.getConfigDistanceText(t)} -&nbsp;
-                        {nextPlace.getConfigLimitationText(t)} -&nbsp;
-                        {t('TEXT_NEXT_PLACE_SORTED_BY_DISTANCE_TEXT')} -&nbsp;
-                        <LinkV2
-                            to={query.getFilterConfig().getLinkNextPlacesList(nextPlace)}
-                        >{t('TEXT_NEXT_PLACE_SHOW_LIST_TEXT')}</LinkV2>
-                    </>
-                }>
-                    <div className="next-places">
-                        {nextPlace.getPlaces().map((place: LocationWrapper, index: number) =>
-                            <div className="container" key={'place-' + nextPlace.getFeatureClassCode() + '-' + index}>
-                                <div className="row pt-3">
-                                    <div className="col col-compass p-3">
-                                        <div className="compass compass-direction shadow-own">
-                                            <div
-                                                className="arrow arrow-direction"
-                                                data-degree={place.getCoordinate().getDirectionDegree()}
-                                            ></div>
-                                        </div>
-                                    </div>
-                                    <div className="col col-content p-3">
-                                        <LinkV2
-                                            to={filterConfig.getLinkLocationQuery(place.getGeonameId().toString())}
-                                            scrollTo={0}
-                                        >
-                                            <Flag
-                                                country={place.getProperties().getCountryCode()}
-                                                size={0.8}
-                                            /> &nbsp;
-                                            <span className="fw-bold" dangerouslySetInnerHTML={{__html: addSoftHyphens(place.getName())}}/>
-                                            <span className="fw-bold"><sup>&nbsp;(#{index + 1})</sup></span>
-                                        </LinkV2><br/>
-                                        {place.getFeature().getCode().getName()}
-                                        {getLocationJsxText(place, t)}
-                                        &nbsp;- <code>{place.getFeature().getCode().getCode()}</code>
-                                    </div>
+    if (!nextPlace.hasPlaces()) {
+        return <></>;
+    }
 
-                                    {
-                                        place.getCoordinate().hasDistance() ?
-                                            <>
-                                                <div className="col p-3 col-coordinate text-end">
-                                                    <LinkV2
-                                                        className="btn btn-primary shadow-own"
-                                                        to={place.getLinks().getMaps(mapTypeGoogle) ?? ''}
-                                                        target={'_blank'}
-                                                        rel="noreferrer"
-                                                        title={nextPlace.getConfigDistanceAndDirectionText(t)}
-                                                    ><small>
-                                                        <span className="text-nowrap">
-                                                            {place.getCoordinate().getDistanceKilometerFormatted() ?? ''}<sup>*)</sup>
-                                                        </span>
-                                                        <br/>
-                                                        - {place.getCoordinate().getDirectionTranslatedShort() ?? ''} -
-                                                    </small></LinkV2>
-                                                </div>
-                                            </> : <></>
-                                    }
-                                </div>
-                            </div>
-                        )}
+    return (
+        <CollapsibleCard
+            title={nextPlace.getFeatureClassCode() + ') ' + nextPlace.getTitle(t)} collapsed={true}
+            backgroundColor={colorBackgroundNextPlaces}
+            footer={
+                showUserDistance ?
+                    <div className={'next-place-current'}>
+                        <sup>**)</sup> {nextPlace.getConfigDistanceAndDirectionTextPosition(t, currentPosition)}
+                    </div> :
+                    <div className={'next-place-search'}>
+                        <sup>*)</sup> {nextPlace.getConfigDistanceAndDirectionText(t, true)}
                     </div>
-                </CollapsibleCard>
-            </> :
-            <></>
+            }
+            epilogue={
+                <>
+                    <strong>{t('TEXT_NEXT_PLACE_SEARCH_PARAMS')}</strong>:&nbsp;
+                    {t('TEXT_WORD_FEATURE_CLASS')}: <code>{nextPlace.getFeatureClassCode()}</code> -&nbsp;
+                    {nextPlace.getConfigDistanceText(t)} -&nbsp;
+                    {nextPlace.getConfigLimitationText(t)} -&nbsp;
+                    {t('TEXT_NEXT_PLACE_SORTED_BY_DISTANCE_TEXT')} -&nbsp;
+                    <LinkV2
+                        to={query.getFilterConfig().getLinkNextPlacesList(nextPlace)}
+                    >{t('TEXT_NEXT_PLACE_SHOW_LIST_TEXT')}</LinkV2>
+                </>
+            }
+        >
+            <div className="next-places">
+                {nextPlace.getPlaces().map((place: LocationWrapper, index: number) =>
+                    <NextPlace
+                        key={'next-place-search-' + nextPlace.getFeatureClassCode() + '-' + index}
+                        index={index}
+                        place={place}
+                        filterConfig={filterConfig}
+                        nextPlace={nextPlace}
+                        featureClassCode={nextPlace.getFeatureClassCode()}
+                        showUserDistance={showUserDistance}
+                        currentPosition={null}
+                        lastElement={nextPlace.getPlaces().length - 1 === index}
+                    />
+                )}
+                {hasCurrentPosition && nextPlace.getPlaces().map((place: LocationWrapper, index: number) =>
+                    <NextPlace
+                        key={'next-place-position-' + nextPlace.getFeatureClassCode() + '-' + index}
+                        index={index}
+                        place={place}
+                        filterConfig={filterConfig}
+                        nextPlace={nextPlace}
+                        featureClassCode={nextPlace.getFeatureClassCode()}
+                        showUserDistance={showUserDistance}
+                        currentPosition={currentPosition}
+                        lastElement={nextPlace.getPlaces().length - 1 === index}
+                    />
+                )}
+            </div>
+        </CollapsibleCard>
     )
 }
 

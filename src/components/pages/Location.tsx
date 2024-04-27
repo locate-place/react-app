@@ -32,6 +32,10 @@ import LocationInformation from "../layout/Location/LocationInformation";
 import LocationMapsLinks from "../layout/Location/LocationMapsLinks";
 import LocationPropertyAirport from "../layout/Location/Property/LocationPropertyAirport";
 import LocationCompass from "../layout/Location/LocationCompass";
+import {LocationWrapper} from "../../classes/Api/Location/Location/LocationWrapper";
+import {CoordinateParsedWrapper} from "../../classes/Api/Base/Given/Coordinate/Parsed/CoordinateParsedWrapper";
+import {ArrowLeftRight, GeoAltFill, GlobeAmericas, GraphUp, HouseFill} from "react-bootstrap-icons";
+import {sizeIcon} from "../../config/Config";
 
 /**
  * This is the app locations component.
@@ -51,6 +55,7 @@ const Location = () =>
     const [properties, setProperties] = useState<TypeApiProperties|null>(null);
     const [loaded, setLoaded] = useState<TypeLoaded>(false);
     const [error, setError] = useState<TypeErrorOwn>(null);
+    const [showUserDistance, setShowUserDistance] = useState(false);
 
     /* Memorized variables. */
     const [searchParams] = useSearchParams();
@@ -81,6 +86,10 @@ const Location = () =>
     let apiLocationWrapper: ApiLocationWrapper|null = null;
     let apiResponseProperty: ApiResponseProperty|null = null;
 
+
+
+    let isCoordinateSearch = false;
+
     if (api && properties) {
         /* Get location wrapper. */
         apiLocationWrapper = new ApiLocationWrapper(api);
@@ -88,9 +97,55 @@ const Location = () =>
         /* Add apiResponseProperty to query class, to get more information. */
         apiResponseProperty = new ApiResponseProperty(properties);
         query.setApiResponseProperty(apiResponseProperty);
+
+        isCoordinateSearch = query.isCoordinateSearch(false);
     }
 
     let location = apiLocationWrapper ? apiLocationWrapper.getLocation() : null;
+
+    const showDescriptionNextPlacesSearch = (location: LocationWrapper, query: Query) =>
+    {
+        let coordinateParsedQuery = query.getApiResponseProperty().getGivenQuery()?.getParsed()?.getCoordinate()?.getParsed() ?? null;
+
+        if (coordinateParsedQuery !== null) {
+            return t('TEXT_NEXT_PLACE_DESCRIPTION', {name: coordinateParsedQuery.getLatitude().getDecimal() + ', ' + coordinateParsedQuery.getLongitude().getDecimal()});
+        }
+
+        return t('TEXT_NEXT_PLACE_DESCRIPTION', {name: location.getName()});
+    }
+
+    const showDescriptionNextPlacesPosition = (location: LocationWrapper, query: Query): string|null =>
+    {
+        let coordinateParsedQuery = query.getApiResponseProperty().getGiven()?.getCoordinate()?.getParsed() ?? null;
+
+        if (coordinateParsedQuery === null) {
+            return null;
+        }
+
+        return t('TEXT_NEXT_PLACE_DESCRIPTION_POSITION', {position: coordinateParsedQuery.getLatitude().getDMS() + ', ' + coordinateParsedQuery.getLongitude().getDMS()});
+    }
+
+    const getCurrentPosition = (query: Query): null|CoordinateParsedWrapper =>
+    {
+        let coordinateParsedCurrent = query.getApiResponseProperty().getGiven()?.getCoordinate()?.getParsed() ?? null;
+
+        if (coordinateParsedCurrent === null) {
+            return null;
+        }
+
+        return coordinateParsedCurrent;
+    }
+
+    const hasCurrentPosition = (query: Query): boolean =>
+    {
+        let coordinateParsedCurrent = query.getApiResponseProperty().getGiven()?.getCoordinate()?.getParsed() ?? null;
+
+        if (coordinateParsedCurrent === null) {
+            return false;
+        }
+
+        return true;
+    }
 
     /**
      * The render function.
@@ -143,13 +198,53 @@ const Location = () =>
                                 location.hasNextPlaces() ? <>
                                     <h3>{t('TEXT_HEADER_NEXT_PLACES')}</h3>
 
+                                    { hasCurrentPosition(query) && !isCoordinateSearch && <>
+                                        <div className="float-end pb-3" style={{marginLeft: '1rem'}}>
+                                            <div className="btn-group shadow-own">
+                                                <button className="btn btn-outline-secondary without-hover">
+                                                    <ArrowLeftRight size={sizeIcon.Button}/>&nbsp;
+                                                    <sup><small>{t('TEXT_ACTION_DISTANCE')}</small></sup>
+                                                </button>
+
+                                                <button
+                                                    className={'btn ' + (!showUserDistance ? 'btn-secondary' : 'btn-outline-secondary')}
+                                                    onClick={() => {
+                                                        setShowUserDistance(false)
+                                                    }}
+                                                >
+                                                    <GlobeAmericas size={sizeIcon.Button}/>&nbsp;
+                                                    <sup><small>{t('TEXT_NEXT_PLACE_BUTTON_SEARCH')}</small></sup>
+                                                </button>
+
+                                                <button
+                                                    className={'btn ' + (showUserDistance ? 'btn-secondary' : 'btn-outline-secondary')}
+                                                    onClick={() => {
+                                                        setShowUserDistance(true)
+                                                    }}
+                                                >
+                                                    <GeoAltFill size={sizeIcon.Button}/>&nbsp;
+                                                    <sup><small>{t('TEXT_NEXT_PLACE_BUTTON_POSITION')}</small></sup>
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        {
+                                            showUserDistance ?
+                                                <p style={{paddingLeft: 0}}>{showDescriptionNextPlacesPosition(location, query)}</p> :
+                                                <p>{showDescriptionNextPlacesSearch(location, query)}</p>
+                                        }
+
+                                        <div className="clearfix"></div>
+                                    </>}
+
                                     {location.getNextPlacesFeatureClasses(true).map((featureClass) =>
-                                        location ?
-                                            <NextPlaces
-                                                key={'feature-code-' + featureClass}
-                                                nextPlace={location.getNextPlace(featureClass)}
-                                            /> :
-                                            <></>
+                                        location &&
+                                        <NextPlaces
+                                            key={'feature-code-' + featureClass}
+                                            nextPlace={location.getNextPlace(featureClass)}
+                                            showUserDistance={showUserDistance}
+                                            currentPosition={!isCoordinateSearch ? getCurrentPosition(query) : null}
+                                        />
                                     )}
                                 </> : <></>
                             }
@@ -161,7 +256,7 @@ const Location = () =>
                                 apiPathWithoutParameter={apiPath}
                                 apiPathWithParameter={apiPathWithFilter}
                             />
-                        </> : (error !== null ? <Error error={error} apiPath={properties?.["api-url"] ?? ''} /> :
+                        </> : (error !== null ? <Error error={error} apiPath={properties?.["api-url"] ?? ''}/> :
                             <Loader/>)}
                     </div>
                 </div>

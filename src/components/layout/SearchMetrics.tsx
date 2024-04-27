@@ -12,7 +12,7 @@ import {ApiResponseProperty} from "../../classes/Api/ApiResponseProperty";
 import LocationCard from "./LocationCard";
 
 /* Bootstrap icons; see https://icons.getbootstrap.com/?q=sort#usage */
-import {GraphUp, HouseFill} from "react-bootstrap-icons";
+import {GeoAltFill, GraphUp, HouseFill} from "react-bootstrap-icons";
 
 type SearchMetricsProps = {
     apiResponseProperty: ApiResponseProperty
@@ -59,7 +59,7 @@ const SearchMetrics = ({
                                             data-bs-toggle="collapse"
                                             data-bs-target="#currentPosition"
                                         >
-                                            <HouseFill size={sizeIcon.Button}/> <sup><small>{t('TEXT_ACTION_SHOW_CURRENT_POSITION')}</small></sup>
+                                            <GeoAltFill size={sizeIcon.Button}/> <sup><small>{t('TEXT_ACTION_SHOW_CURRENT_POSITION')}</small></sup>
                                         </button> :
                                         <></>
                                 }

@@ -328,6 +328,20 @@ class CoordinateWrapper
     /**
      * Returns the cardinal direction of the location to user.
      */
+    getDirectionUserTranslatedShort(): string|null
+    {
+        const direction = this.getDirectionUser();
+
+        if (direction === null) {
+            return null;
+        }
+
+        return direction["cardinal-direction"];
+    }
+
+    /**
+     * Returns the cardinal direction of the location to user.
+     */
     getDirectionUserDegree(): number
     {
         const direction = this.getDirectionUser();

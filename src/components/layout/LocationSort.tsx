@@ -7,7 +7,7 @@ import {ApiResponseProperty} from "../../classes/Api/ApiResponseProperty";
 
 /* Bootstrap icons; see https://icons.getbootstrap.com/?q=sort#usage */
 import {
-    CursorFill,
+    CursorFill, GeoAlt, GeoAltFill,
     HouseFill,
     HouseSlashFill,
     SortAlphaDown,
@@ -55,8 +55,8 @@ const LocationSort = ({query, apiResponseProperty}: LocationSortProps) =>
                     >
                         {
                             apiResponseProperty.isOwnPosition() ?
-                                <HouseFill size={sizeIcon.Button}/> :
-                                <HouseSlashFill size={sizeIcon.Button}/>
+                                <GeoAlt size={sizeIcon.Button}/> :
+                                <GeoAltFill size={sizeIcon.Button}/>
                         }&nbsp;
                         <sup><small>{t('TEXT_ACTION_SORTING')}</small></sup>
                     </button>

@@ -8,7 +8,7 @@ import {sizeIcon} from "../../config/Config";
 import {colorCurrentPosition, colorCurrentPositionDisabled} from "../../config/Colors";
 
 /* Bootstrap icons; see https://icons.getbootstrap.com/?q=sort#usage */
-import {GlobeAmericas, CursorFill, HouseFill, House} from "react-bootstrap-icons";
+import {GlobeAmericas, CursorFill, HouseFill, House, GeoAltFill, GeoAlt} from "react-bootstrap-icons";
 
 /* Import classes. */
 import {Query} from "../../classes/Query";
@@ -301,9 +301,9 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
         <>
             <h3 {...titleProperty}><GlobeAmericas size={sizeIcon.H3}/> {t('TEXT_HEADER_LOCATION_SEARCH')} {
                 query.getFilterConfig().hasCurrentPosition() ? <sup style={{color: colorCurrentPosition}} className="shadow-svg-blue">
-                    <small><small><small><HouseFill size={sizeIcon.ButtonSmall}/></small></small></small>
+                    <small><small><small><GeoAltFill size={sizeIcon.ButtonSmall}/></small></small></small>
                 </sup> : <sup style={{color: colorCurrentPositionDisabled}} className="shadow-svg">
-                    <small><small><small><House size={sizeIcon.ButtonSmall}/></small></small></small>
+                    <small><small><small><GeoAlt size={sizeIcon.ButtonSmall}/></small></small></small>
                 </sup>
             }</h3>
 

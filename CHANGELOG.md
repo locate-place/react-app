@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Changelogs
 
+### [0.2.40] - 2023-04-27
+
+* Separate single next places to NextPlace JSX
+* Add search/position switch to show different search distances (search or current position)
+
 ### [0.2.39] - 2023-04-25
 
 * Submit form on click

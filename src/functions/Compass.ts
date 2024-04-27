@@ -1,3 +1,5 @@
+let lastBearing: number = 0;
+
 /**
  * Shows the main and detail compasses.
  */
@@ -65,6 +67,8 @@ const displayCompass = (): void =>
  */
 const setDirection = (direction: number): void =>
 {
+    lastBearing = direction;
+
     let compassDisc: HTMLElement|null = document.getElementById('compassDisc');
 
     if (compassDisc !== null) {
@@ -118,4 +122,8 @@ const initializeCompass = (): void =>
     }
 }
 
-export default initializeCompass;
+export {
+    lastBearing,
+    initializeCompass,
+    setDirection
+};

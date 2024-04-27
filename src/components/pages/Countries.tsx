@@ -15,7 +15,7 @@ import {sizeIcon} from "../../config/Config";
 
 /* Import functions */
 import loadApiData from "../../functions/LoadApiData";
-import initializeCompass from "../../functions/Compass";
+import {initializeCompass} from "../../functions/Compass";
 
 /* Import classes */
 import {Query} from "../../classes/Query";

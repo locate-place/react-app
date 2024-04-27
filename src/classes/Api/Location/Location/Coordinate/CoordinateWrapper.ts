@@ -68,6 +68,14 @@ class CoordinateWrapper
     }
 
     /**
+     * Returns the longitude of the location.
+     */
+    getLongitudeDecimal(): number
+    {
+        return this.coordinate.longitude.decimal;
+    }
+
+    /**
      * Returns the srid of the location.
      */
     getSrid(): number
@@ -199,6 +207,35 @@ class CoordinateWrapper
         const longitudeDms = coordinate.parsed.longitude.dms;
 
         return t('TEXT_CURRENT_POSITION_FROM_POSITION', {latitudeDms, longitudeDms});
+    }
+
+    /**
+     * Returns the distance text.
+     */
+    getDistanceUserTextCoordinate(): string|null
+    {
+        if (this.apiLocationWrapper === null) {
+            throw new Error("ApiLocationWrapper not set.");
+        }
+
+        const coordinate = this.apiLocationWrapper.getGiven().get().coordinate ?? null;
+
+        if (coordinate === null) {
+            return null;
+        }
+
+        const latitudeDms = coordinate.parsed.latitude.dms;
+        const longitudeDms = coordinate.parsed.longitude.dms;
+
+        return latitudeDms + ', ' + longitudeDms;
+    }
+
+    /**
+     * Returns the distance text.
+     */
+    getDistanceUserTextSimple(t:  TFunction<"translation", undefined>): string|null
+    {
+        return t('TEXT_CURRENT_POSITION_FROM_POSITION_SIMPLE');
     }
 
     /**

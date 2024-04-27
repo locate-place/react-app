@@ -7,6 +7,13 @@ import {ClassNames} from "../../../config/ClassNames";
 
 /* Import functions. */
 import {numberToRoman} from "../../../functions/Number";
+import {
+    classUserDegree,
+    classUserDirection,
+    classUserDirectionShort,
+    classUserDistance, classUserPositionDms,
+    updateUserPosition
+} from "../../../functions/Position";
 
 /* Import classes. */
 import {LocationWrapper} from "../../../classes/Api/Location/Location/LocationWrapper";
@@ -44,7 +51,15 @@ const LocationPosition = ({location, query, number}: LocationPositionProps) =>
                              location.getCoordinate().getDistanceUserKilometerValue() >= 0 ?
                                  <>
                                      <sup>*)</sup>&nbsp;
-                                     {location.getCoordinate().getDistanceUserText(t)}
+                                     {location.getCoordinate().getDistanceUserTextSimple(t)}&nbsp;
+                                     <span
+                                         className={classUserPositionDms}
+                                         onClick={() => { updateUserPosition(t) }}
+                                         data-latitude={location.getCoordinate().getLatitudeDecimal()}
+                                         data-longitude={location.getCoordinate().getLongitudeDecimal()}
+                                     >
+                                         {location.getCoordinate().getDistanceUserTextCoordinate()}
+                                     </span>
                                  </> :
                                  null
                          }>
@@ -87,7 +102,14 @@ const LocationPosition = ({location, query, number}: LocationPositionProps) =>
                                             <td className={classNamesRow2.join(' ')}
                                                 colSpan={2}
                                                 title={location.getCoordinate().getDistanceUserText(t) ?? ''}>
-                                                {location.getCoordinate().getDistanceUserKilometerFormatted()}<sup>*)</sup>
+                                                <span
+                                                    className={classUserDistance}
+                                                    onClick={() => { updateUserPosition(t) }}
+                                                    data-latitude={location.getCoordinate().getLatitudeDecimal()}
+                                                    data-longitude={location.getCoordinate().getLongitudeDecimal()}
+                                                >
+                                                    {location.getCoordinate().getDistanceUserKilometerFormatted()}
+                                                </span><sup>*)</sup>
                                             </td>
                                         </tr>
                                         <tr>
@@ -95,7 +117,22 @@ const LocationPosition = ({location, query, number}: LocationPositionProps) =>
                                             <td className={classNamesRow2.join(' ')}
                                                 title={location.getCoordinate().getDistanceUserText(t) ?? ''}
                                             >
-                                                {location.getCoordinate().getDirectionUserCode()} - {location.getCoordinate().getDirectionUserCodeTranslated(t)}<sup>*)</sup>
+                                                <span
+                                                    className={classUserDirectionShort}
+                                                    onClick={() => { updateUserPosition(t) }}
+                                                    data-latitude={location.getCoordinate().getLatitudeDecimal()}
+                                                    data-longitude={location.getCoordinate().getLongitudeDecimal()}
+                                                >
+                                                    {location.getCoordinate().getDirectionUserCode()}
+                                                </span> -&nbsp;
+                                                <span
+                                                    className={classUserDirection}
+                                                    onClick={() => { updateUserPosition(t) }}
+                                                    data-latitude={location.getCoordinate().getLatitudeDecimal()}
+                                                    data-longitude={location.getCoordinate().getLongitudeDecimal()}
+                                                >
+                                                    {location.getCoordinate().getDirectionUserCodeTranslated(t)}
+                                                </span><sup>*)</sup>
                                             </td>
                                             <td className={classNamesRow3.join(' ')}
                                                 style={{
@@ -104,8 +141,13 @@ const LocationPosition = ({location, query, number}: LocationPositionProps) =>
                                                 }}>
                                                 <div
                                                     className="compass compass-direction shadow-own">
-                                                    <div className="arrow arrow-direction"
-                                                         data-degree={location.getCoordinate().getDirectionUserDegree()}></div>
+                                                    <div
+                                                        className={'arrow arrow-direction ' + classUserDegree}
+                                                        onClick={() => { updateUserPosition(t) }}
+                                                        data-degree={location.getCoordinate().getDirectionUserDegree()}
+                                                        data-latitude={location.getCoordinate().getLatitudeDecimal()}
+                                                        data-longitude={location.getCoordinate().getLongitudeDecimal()}
+                                                    ></div>
                                                 </div>
                                             </td>
                                         </tr>

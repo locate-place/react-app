@@ -14,7 +14,7 @@ import {ApiLocationWrapper} from "../../classes/Api/Location/ApiLocationWrapper"
 import {ApiResponseProperty} from "../../classes/Api/ApiResponseProperty";
 
 /* Add functions */
-import initializeCompass from "../../functions/Compass";
+import {initializeCompass} from "../../functions/Compass";
 import loadApiData from "../../functions/LoadApiData";
 
 /* Add component parts */

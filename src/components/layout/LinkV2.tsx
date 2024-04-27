@@ -8,6 +8,9 @@ import {Query} from "../../classes/Query";
 /* Import components. */
 import {useLoader} from "./LoaderContext";
 
+/* Import functions. */
+import {getPosition} from "../../functions/Position";
+
 /* Import types. */
 import {CallableString} from "../../types/Types";
 import {
@@ -70,35 +73,6 @@ const LinkV2: React.FC<LinkV2Props> = ({
     const [searchParams] = useSearchParams();
 
     let query = new Query(searchParams, env);
-
-    /**
-     * Round function.
-     *
-     * @param value
-     * @param decimals
-     */
-    const round = (value: number, decimals: number): number =>
-    {
-        return Number(Math.round(Number(value + 'e' + decimals)) + 'e-' + decimals);
-    };
-
-    /**
-     * Get position string from GeolocationPosition.
-     *
-     * @param position
-     */
-    const getPosition = (position: GeolocationPosition): string =>
-    {
-        const randomValue = false;
-
-        return round(
-                position.coords.latitude + (randomValue ? (1 - Math.random() * 2) : .0), 6
-            ) +
-            ', ' +
-            round(
-                position.coords.longitude + (randomValue ? (1 - Math.random() * 2) : .0), 6
-            );
-    }
 
     /**
      * ScrollToTop function.

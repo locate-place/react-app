@@ -20,7 +20,7 @@
   "TEXT_CAPTION_POPULATION": "Bevölkerung",
   "TEXT_CAPTION_DMS": "DMS",
   "TEXT_CAPTION_DECIMAL": "Dezimal",
-  "TEXT_CAPTION_DISTANCE": "Distance",
+  "TEXT_CAPTION_DISTANCE": "Entfernung",
   "TEXT_CAPTION_DIRECTION": "Richtung",
   "TEXT_CAPTION_MASTER_CODE": "Oberschlüssel",
   "TEXT_CAPTION_CODE": "Schlüssel",
@@ -80,6 +80,7 @@
   "TEXT_TITLE_CURRENT_POSITION_NOT_USED": "Aktuelle Position wird nicht verwendet.",
 
   "TEXT_CURRENT_POSITION_FROM_POSITION": "Von aktueller Position {{latitudeDms}}, {{longitudeDms}}",
+  "TEXT_CURRENT_POSITION_FROM_POSITION_SIMPLE": "Von aktueller Position",
 
   "TEXT_NEXT_PLACE_TITLE": "Nächste {{name}}",
   "TEXT_NEXT_PLACE_SEARCH_PARAMS": "Suchparameter",

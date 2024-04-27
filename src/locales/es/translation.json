@@ -79,6 +79,7 @@
   "TEXT_TITLE_CURRENT_POSITION_NOT_USED": "Posición actual no utilizada",
 
   "TEXT_CURRENT_POSITION_FROM_POSITION": "Desde la posición actual {{latitudeDms}}, {{longitudeDms}}",
+  "TEXT_CURRENT_POSITION_FROM_POSITION_SIMPLE": "Desde la posición actual",
 
   "TEXT_NEXT_PLACE_TITLE": "Siguiente {{name}}",
   "TEXT_NEXT_PLACE_SEARCH_PARAMS": "Parámetros de búsqueda",

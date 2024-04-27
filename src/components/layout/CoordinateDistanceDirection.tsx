@@ -14,6 +14,7 @@ import {
 import {TypeLocationCoordinate} from "../../types/Types";
 import LinkV2 from "./LinkV2";
 import {Query} from "../../classes/Query";
+import {classUserDegree, updateUserPosition} from "../../functions/Position";
 
 type CoordinateDistanceDirectionProps = {
     location: TypeLocationCoordinate,
@@ -77,8 +78,12 @@ const CoordinateDistanceDirection = ({location, query}: CoordinateDistanceDirect
                                 hasDirectionUser ?
                                     <div className="compass-area float-end" style={{marginLeft: '0.5rem'}} title={t('TEXT_COORDINATE_DISTANCE_DIRECTION_OWN_DIRECTION')}>
                                         <div className="compass compass-direction shadow-own">
-                                            <div className="arrow arrow-direction"
-                                                 data-degree={degreeUser}
+                                            <div
+                                                className={'arrow arrow-direction ' + classUserDegree}
+                                                onClick={() => { updateUserPosition(t) }}
+                                                data-degree={degreeUser}
+                                                data-latitude={latitudeDecimal}
+                                                data-longitude={longitudeDecimal}
                                             ></div>
                                         </div>
                                     </div> :
@@ -127,14 +132,28 @@ const CoordinateDistanceDirection = ({location, query}: CoordinateDistanceDirect
                                 <Compass size={sizeIcon.TextSmall}/>&nbsp;
                             </span>
                             {
-                                hasDistanceUser && <span title={t('TEXT_COORDINATE_DISTANCE_DIRECTION_OWN_DISTANCE')} className="user-distance" data-latitude={latitudeDecimal} data-longitude={longitudeDecimal}>
+                                hasDistanceUser && <span
+                                    title={t('TEXT_COORDINATE_DISTANCE_DIRECTION_OWN_DISTANCE')}
+                                    onClick={() => { updateUserPosition(t) }}
+                                    className="user-distance"
+                                    data-latitude={latitudeDecimal}
+                                    data-longitude={longitudeDecimal}
+                                >
                                     {distanceUser}
                                 </span>
                             }
                             {
                                 hasDirectionUser && <>
                                     &nbsp;-&nbsp;
-                                    <span title={t('TEXT_COORDINATE_DISTANCE_DIRECTION_OWN_DIRECTION')} className="user-direction" data-latitude={latitudeDecimal} data-longitude={longitudeDecimal}>{directionUser}</span>
+                                    <span
+                                        title={t('TEXT_COORDINATE_DISTANCE_DIRECTION_OWN_DIRECTION')}
+                                        onClick={() => { updateUserPosition(t) }}
+                                        className="user-direction-short"
+                                        data-latitude={latitudeDecimal}
+                                        data-longitude={longitudeDecimal}
+                                    >
+                                        {directionUser}
+                                    </span>
                                 </>
                             }
                         </> :

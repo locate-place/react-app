@@ -19,7 +19,7 @@ const classUserNoDistance = 'user-no-distance';
 
 const classFlashBackground = 'flash-background';
 
-const randomPositionValue = true;
+const randomPositionValue = false;
 
 interface TypeCoordinateDms {
     latitude: string,

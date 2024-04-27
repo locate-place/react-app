@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Changelogs
 
+### [0.2.41] - 2023-04-27
+
+* Implements an ad hoc update of distances, directions and the compass
+  * Without API access 
+
 ### [0.2.40] - 2023-04-27
 
 * Separate single next places to NextPlace JSX

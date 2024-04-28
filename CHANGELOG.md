@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Changelogs
 
+### [0.2.45] - 2023-04-28
+
+* Add current location determine button to main compass
+* On-touch device fixes (hover)
+* Main compass fixes: show no direction on compass if current position is unknown
+
 ### [0.2.44] - 2023-04-27
 
 * Show main compass to current place

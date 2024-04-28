@@ -476,17 +476,14 @@ body {
     .position-toggler {
         &.btn-outline-secondary {
             background-color: rgba(0, 0, 0, 0.1);
-            color: rgb(108, 117, 125);
-        }
-    }
 
-    @media (hover: hover) {
-        .position-toggler {
-            &.btn-outline-secondary {
-                &:hover {
-                    background-color: var(--bs-btn-hover-bg);
-                    color: white;
-                }
+            &:hover {
+                background-color: var(--bs-btn-hover-bg);
+                color: white;
+            }
+            &:focus {
+                background-color: rgba(0, 0, 0, 0.1);
+                color: rgb(108, 117, 125);
             }
         }
     }

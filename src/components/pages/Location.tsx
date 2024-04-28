@@ -38,6 +38,7 @@ import LocationCompass from "../layout/Location/LocationCompass";
 
 /* Bootstrap icons; see https://icons.getbootstrap.com/?q=sort#usage */
 import {ArrowLeftRight, GeoAltFill, GlobeAmericas} from "react-bootstrap-icons";
+import {classUserPositionDms, updateUserPosition} from "../../functions/Position";
 
 /**
  * This is the app locations component.
@@ -116,7 +117,7 @@ const Location = () =>
         return t('TEXT_NEXT_PLACE_DESCRIPTION', {name: location.getName()});
     }
 
-    const showDescriptionNextPlacesPosition = (location: LocationWrapper, query: Query): string|null =>
+    const showDescriptionNextPlacesPosition = (query: Query): string|null =>
     {
         let coordinateParsedQuery = query.getApiResponseProperty().getGiven()?.getCoordinate()?.getParsed() ?? null;
 
@@ -125,6 +126,22 @@ const Location = () =>
         }
 
         return t('TEXT_NEXT_PLACE_DESCRIPTION_POSITION', {position: coordinateParsedQuery.getLatitude().getDMS() + ', ' + coordinateParsedQuery.getLongitude().getDMS()});
+    }
+
+    const showDescriptionNextPlacesPositionText = (): string|null =>
+    {
+        return t('TEXT_NEXT_PLACE_DESCRIPTION_POSITION_SIMPLE');
+    }
+
+    const showDescriptionNextPlacesPositionCoordinate = (query: Query): string|null =>
+    {
+        let coordinateParsedQuery = query.getApiResponseProperty().getGiven()?.getCoordinate()?.getParsed() ?? null;
+
+        if (coordinateParsedQuery === null) {
+            return null;
+        }
+
+        return coordinateParsedQuery.getLatitude().getDMS() + ', ' + coordinateParsedQuery.getLongitude().getDMS();
     }
 
     const getCurrentPosition = (query: Query): null|CoordinateParsedWrapper =>
@@ -238,7 +255,14 @@ const Location = () =>
 
                                         {
                                             showUserDistance ?
-                                                <p style={{paddingLeft: 0}}>{showDescriptionNextPlacesPosition(location, query)}</p> :
+                                                <p style={{paddingLeft: 0}}>
+                                                    {showDescriptionNextPlacesPositionText()}: <span
+                                                        className={classUserPositionDms}
+                                                        data-latitude={location.getCoordinate().getLatitudeDecimal()}
+                                                        data-longitude={location.getCoordinate().getLongitudeDecimal()}
+                                                        onClick={() => { updateUserPosition(t) }}
+                                                    >{showDescriptionNextPlacesPositionCoordinate(query)}</span>
+                                                </p> :
                                                 <p>{showDescriptionNextPlacesSearch(location, query)}</p>
                                         }
 

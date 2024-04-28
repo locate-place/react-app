@@ -97,7 +97,8 @@
   "TEXT_NEXT_PLACE_NO_IATA_CODE_SPECIFIED": "Sin código IATA especificado",
   "TEXT_NEXT_PLACE_NO_RIVER_LENGTH_SPECIFIED": "No se especifica la longitud del río",
   "TEXT_NEXT_PLACE_DESCRIPTION": "Para el lugar buscado \"{{name}}\".",
-  "TEXT_NEXT_PLACE_DESCRIPTION_POSITION": "Para la posición actual \"{{position}}\".",
+  "TEXT_NEXT_PLACE_DESCRIPTION_POSITION": "Para la posición actual: {{position}}",
+  "TEXT_NEXT_PLACE_DESCRIPTION_POSITION_SIMPLE": "Para la posición actual",
   "TEXT_NEXT_PLACE_BUTTON_SEARCH": "Lugar",
   "TEXT_NEXT_PLACE_BUTTON_POSITION": "Posición",
 

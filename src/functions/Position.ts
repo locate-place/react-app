@@ -25,7 +25,7 @@ const randomPositionValue = false;
 
 let updateRegularly = false;
 
-let updateTime = 5000;
+let updateTime = 20000;
 
 interface TypeCoordinateDms {
     latitude: string,

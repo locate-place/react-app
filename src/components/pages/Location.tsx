@@ -4,6 +4,7 @@ import {useTranslation} from "react-i18next";
 
 /* Add configurations */
 import {routePathLocation} from "../../config/Route";
+import {sizeIcon} from "../../config/Config";
 
 /* Import types. */
 import {TypeApiData, TypeApiProperties, TypeErrorOwn, TypeLoaded} from "../../types/Types";
@@ -12,6 +13,8 @@ import {TypeApiData, TypeApiProperties, TypeErrorOwn, TypeLoaded} from "../../ty
 import {Query} from "../../classes/Query";
 import {ApiLocationWrapper} from "../../classes/Api/Location/ApiLocationWrapper";
 import {ApiResponseProperty} from "../../classes/Api/ApiResponseProperty";
+import {LocationWrapper} from "../../classes/Api/Location/Location/LocationWrapper";
+import {CoordinateParsedWrapper} from "../../classes/Api/Base/Given/Coordinate/Parsed/CoordinateParsedWrapper";
 
 /* Add functions */
 import {initializeCompass} from "../../functions/Compass";
@@ -32,10 +35,9 @@ import LocationInformation from "../layout/Location/LocationInformation";
 import LocationMapsLinks from "../layout/Location/LocationMapsLinks";
 import LocationPropertyAirport from "../layout/Location/Property/LocationPropertyAirport";
 import LocationCompass from "../layout/Location/LocationCompass";
-import {LocationWrapper} from "../../classes/Api/Location/Location/LocationWrapper";
-import {CoordinateParsedWrapper} from "../../classes/Api/Base/Given/Coordinate/Parsed/CoordinateParsedWrapper";
+
+/* Bootstrap icons; see https://icons.getbootstrap.com/?q=sort#usage */
 import {ArrowLeftRight, GeoAltFill, GlobeAmericas} from "react-bootstrap-icons";
-import {sizeIcon} from "../../config/Config";
 
 /**
  * This is the app locations component.
@@ -178,6 +180,7 @@ const Location = () =>
 
                                 {/* Compass. */}
                                 <LocationCompass
+                                    query={query}
                                     degree={location.getCoordinate().getDirectionUserDegreeWithNull()}
                                     latitude={location.getCoordinate().getLatitudeDecimal()}
                                     longitude={location.getCoordinate().getLongitudeDecimal()}

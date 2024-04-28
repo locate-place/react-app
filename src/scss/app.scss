@@ -454,17 +454,39 @@ body {
             margin-left: 0;
             margin-right: 0;
         }
+    }
 
-        &:hover {
-            @include shadow-own;
-            border: 1px solid rgba(0, 0, 128, 0.1);
-            background-color: rgba(0, 0, 128, 0.05);
-            padding: 0.1rem 0.25rem;
+    @media (hover: hover) {
+        .user-direction, .user-direction-short, .user-distance, .user-position-decimal, .user-position-dms {
+            &:hover {
+                @include shadow-own;
+                border: 1px solid rgba(0, 0, 128, 0.1);
+                background-color: rgba(0, 0, 128, 0.05);
+                padding: 0.1rem 0.25rem;
 
-            &.user-no-distance {
-                padding: 0;
-                margin-left: 0;
-                margin-right: 0;
+                &.user-no-distance {
+                    padding: 0;
+                    margin-left: 0;
+                    margin-right: 0;
+                }
+            }
+        }
+    }
+
+    .position-toggler {
+        &.btn-outline-secondary {
+            background-color: rgba(0, 0, 0, 0.1);
+            color: rgb(108, 117, 125);
+        }
+    }
+
+    @media (hover: hover) {
+        .position-toggler {
+            &.btn-outline-secondary {
+                &:hover {
+                    background-color: var(--bs-btn-hover-bg);
+                    color: white;
+                }
             }
         }
     }
@@ -472,20 +494,6 @@ body {
     .flash-background {
         border-radius: 6px !important;
         animation: flashAnimation 1s;
-    }
-
-    .position-toggler {
-        &.btn-outline-secondary {
-            background-color: rgba(0, 0, 0, 0.1);
-
-            &:hover {
-                background-color: var(--bs-btn-hover-bg);
-            }
-            &:focus {
-                background-color: rgba(0, 0, 0, 0.1);
-                color: rgb(108, 117, 125);
-            }
-        }
     }
 
     .flex-between {

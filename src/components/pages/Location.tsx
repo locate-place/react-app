@@ -34,7 +34,7 @@ import LocationPropertyAirport from "../layout/Location/Property/LocationPropert
 import LocationCompass from "../layout/Location/LocationCompass";
 import {LocationWrapper} from "../../classes/Api/Location/Location/LocationWrapper";
 import {CoordinateParsedWrapper} from "../../classes/Api/Base/Given/Coordinate/Parsed/CoordinateParsedWrapper";
-import {ArrowLeftRight, GeoAltFill, GlobeAmericas, GraphUp, HouseFill} from "react-bootstrap-icons";
+import {ArrowLeftRight, GeoAltFill, GlobeAmericas} from "react-bootstrap-icons";
 import {sizeIcon} from "../../config/Config";
 
 /**
@@ -178,7 +178,7 @@ const Location = () =>
 
                                 {/* Compass. */}
                                 <LocationCompass
-                                    degree={location.getCoordinate().getDirectionUserDegree()}
+                                    degree={location.getCoordinate().getDirectionUserDegreeWithNull()}
                                     latitude={location.getCoordinate().getLatitudeDecimal()}
                                     longitude={location.getCoordinate().getLongitudeDecimal()}
                                     distance={location.getCoordinate().getDistanceUserKilometerFormatted()}

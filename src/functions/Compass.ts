@@ -1,6 +1,6 @@
 let lastBearing: number = 0;
 
-let debug: boolean = false;
+let debug: boolean = true;
 
 /**
  * Shows the main and detail compasses.

@@ -389,6 +389,20 @@ class CoordinateWrapper
 
         return direction.degree;
     }
+
+    /**
+     * Returns the cardinal direction of the location to user.
+     */
+    getDirectionUserDegreeWithNull(): number|null
+    {
+        const direction = this.getDirectionUser();
+
+        if (direction === null) {
+            return null;
+        }
+
+        return direction.degree;
+    }
 }
 
 /*

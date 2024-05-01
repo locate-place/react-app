@@ -291,6 +291,26 @@ body {
                         position: relative;
                         @include shadow-own;
 
+                        .form-info {
+                            white-space: nowrap;
+                            //border-right: 1px solid gray;
+                            //padding-right: 0.5rem;
+                            color: rgb(108, 117, 125);
+                            font-size: 0.75em;
+                            line-height: 2em;
+                            user-select: none; /* Prevents text selection */
+                            cursor: default;
+                            padding-left: 0.5rem;
+
+                            &.form-info-list {
+                                display: none;
+                            }
+
+                            &:first-child {
+                                padding-left: 0;
+                            }
+                        }
+
                         .form-property {
                             white-space: nowrap;
                             border-right: 1px solid gray;
@@ -318,7 +338,7 @@ body {
 
                             .form-property-choice {
                                 position: absolute;
-                                top: 37px;
+                                top: 36px;
                                 left: 0;
                                 display: none;
                                 z-index: 1000;
@@ -333,6 +353,7 @@ body {
                                     margin: 0;
                                     padding: 0;
 
+                                    /* Country specific settings. */
                                     &.country-list {
                                         display: flex;
                                         flex-wrap: wrap;
@@ -354,16 +375,22 @@ body {
 
                                     li {
                                         padding: 0.4rem 0.8rem;
-                                        cursor: pointer;
+
+                                        &.form-property-choice-item {
+                                            cursor: pointer;
+                                        }
 
                                         &.remover {
                                             border-bottom: 1px solid #dee2e6;
-
                                             display: flex;
                                             justify-content: space-between;
                                             align-items: center;
                                             width: 100%;
                                             margin-bottom: 1rem;
+
+                                            .remover-click {
+                                                cursor: pointer;
+                                            }
                                         }
 
                                         &:hover {
@@ -389,6 +416,10 @@ body {
                             border: 0;
                             width: 100%;
                             outline: none;
+
+                            &:first-child {
+                                margin-left: 0 !important;
+                            }
 
                             &:active {
                                 border: 0;
@@ -445,6 +476,12 @@ body {
                             width: auto;
                             border-bottom-right-radius: 0 !important;
                             border-top-right-radius: 0 !important;
+
+                            .form-info {
+                                &.form-info-list {
+                                    display: block !important;
+                                }
+                            }
 
                             .form-property {
                                 .form-property-choice {

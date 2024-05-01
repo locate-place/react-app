@@ -1,4 +1,4 @@
-import React, {SyntheticEvent, useEffect, useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 
 /* Import translation libraries. */
 import {useTranslation} from "react-i18next";
@@ -6,6 +6,21 @@ import {useTranslation} from "react-i18next";
 /* Add configurations */
 import {sizeIcon} from "../../config/Config";
 import {colorCurrentPosition, colorCurrentPositionDisabled} from "../../config/Colors";
+import {
+    nameParameterCurrentPosition,
+    nameParameterLanguage,
+    nameParameterNextPlaces
+} from "../../config/NameParameter";
+
+/* Import classes. */
+import {Query} from "../../classes/Query";
+
+/* Import components. */
+import LinkV2 from "./LinkV2";
+
+/* Import translations. */
+import {getCountryArray, translateCountryCode} from "../../translations/Country";
+import {getFeatureArray, translateFeatureCode} from "../../translations/Feature";
 
 /* Bootstrap icons; see https://icons.getbootstrap.com/?q=sort#usage */
 import {
@@ -13,25 +28,15 @@ import {
     CursorFill,
     GeoAltFill,
     GeoAlt,
-    ArrowBarRight,
-    SignTurnRightFill,
-    Fingerprint, FunnelFill, Trash3Fill, ImageAlt, Joystick, ListOl
+    Trash3Fill,
+    ImageAlt,
+    Joystick,
+    ListOl
 } from "react-bootstrap-icons";
 
-/* Import classes. */
-import {Query} from "../../classes/Query";
-
-/* Import components. */
-import LinkV2 from "./LinkV2";
-import {
-    nameParameterCountry,
-    nameParameterCurrentPosition,
-    nameParameterLanguage,
-    nameParameterNextPlaces
-} from "../../config/NameParameter";
+/* Import flags. */
 import Flag from "./Flag";
-import {getCountryArray, translateCountryCode} from "../../translations/Country";
-import {getFeatureArray, translateFeatureCode} from "../../translations/Feature";
+import {searchTypeCoordinateDecimal, searchTypeCoordinateDms, searchTypeGeonameId} from "../../config/SearchType";
 
 /* Search form properties. */
 type SearchFormProps = {
@@ -109,13 +114,20 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
 
     const [country, setCountry] = useState<string|null>(null);
     const [distance, setDistance] = useState<number|null>(null);
-    const [feature, setFeature] = useState<string|null>(null);
+    const [features, setFeatures] = useState<string[]>([]);
     const [limit, setLimit] = useState<number|null>(null);
 
     const menuRefCountry = useRef<HTMLSpanElement>(null);
     const menuRefDistance = useRef<HTMLSpanElement>(null);
     const menuRefFeature = useRef<HTMLSpanElement>(null);
     const menuRefLimit = useRef<HTMLSpanElement>(null);
+
+    const resetAutocompleteBox = () =>
+    {
+        setLocations([]);
+        setFeatureClasses([]);
+        setFeatureCodes([]);
+    }
 
     useEffect(() =>
     {
@@ -127,23 +139,17 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
         setQueryString(parseQueryString(queryString));
 
         if (!queryString) {
-            setLocations([]);
-            setFeatureClasses([]);
-            setFeatureCodes([]);
+            resetAutocompleteBox();
             return;
         }
 
         if (queryString.length < 3) {
-            setLocations([]);
-            setFeatureClasses([]);
-            setFeatureCodes([]);
+            resetAutocompleteBox();
             return;
         }
 
         if (!showAutocompleteBox) {
-            setLocations([]);
-            setFeatureClasses([]);
-            setFeatureCodes([]);
+            resetAutocompleteBox();
             return;
         }
 
@@ -155,7 +161,7 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
         {
             setIsLoading(true);
             try {
-                const response = await fetch(process.env.REACT_APP_LOCATION_API_URL + '/api/v1/autocomplete.json?q='+queryString);
+                const response = await fetch(process.env.REACT_APP_LOCATION_API_URL + '/api/v1/autocomplete.json?q=' + getQueryString(queryString));
                 const data: AutoCompleteApi = await response.json();
                 setLocations(data.data.locations);
                 setFeatureClasses(data.data["feature-classes"]);
@@ -331,8 +337,8 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
             queryString = 'limit:' + limit.toString() + ' ' + queryString;
         }
 
-        if (feature) {
-            queryString = 'feature-classes:' + feature + ' ' + queryString;
+        if (features.length > 0) {
+            queryString = 'feature-classes:' + features.join('|') + ' ' + queryString;
         }
 
         if (distance) {
@@ -365,7 +371,7 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
         const patterns: PatternMap = {
             country: /country:([A-Z]{2})\s?/,
             distance: /distance:(\d+)\s?/,
-            featureClasses: /feature-classes:([A-Za-z]+)\s?/,
+            featureClasses: /feature-classes:([A-Za-z|]+)\s?/,
             limit: /limit:(\d+)\s?/
         };
 
@@ -387,7 +393,7 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
                         break;
 
                     case 'featureClasses':
-                        setFeature(value);
+                        setFeatures(value.split(/[,|]/));
                         break;
 
                     case 'limit':
@@ -401,12 +407,12 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
     }
 
     /**
-     * Onclick function.
+     * Autocomplete OnClick function.
      *
      * @param value
      * @param country
      */
-    const onClick = (value: string, country: string|null) =>
+    const onClickAutocomplete = (value: string, country: string|null) =>
     {
         setQuery(value, country);
         setLocations([]);
@@ -416,12 +422,11 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
         setTimeout(() => {
             formRef.current?.submit();
         }, 300);
-
     }
 
-    const currentPosition = query.getFilterConfig().getCurrentPosition(true);
-    const titleProperty = query.getFilterConfig().hasCurrentPosition() ? {title: t('TEXT_TITLE_CURRENT_POSITION_IS_USED')} : {};
-
+    /**
+     * Shows the country menu.
+     */
     const enableMenuCountry = () =>
     {
         setIsCountryChoiceVisible(prevState => !prevState);
@@ -430,11 +435,20 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
         setIsLimitChoiceVisible(false);
     };
 
+    /**
+     * Sets the country to form.
+     *
+     * @param e
+     */
     const clickCountry = (e: React.MouseEvent<HTMLLIElement>) =>
     {
         setCountry(e.currentTarget.dataset.value ?? null);
+        resetAutocompleteBox();
     }
 
+    /**
+     * Shows the distance menu.
+     */
     const enableMenuDistance = () =>
     {
         setIsCountryChoiceVisible(false);
@@ -443,13 +457,22 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
         setIsLimitChoiceVisible(false);
     }
 
+    /**
+     * Sets the distance to form.
+     *
+     * @param e
+     */
     const clickDistance = (e: React.MouseEvent<HTMLLIElement>) =>
     {
         const value = e.currentTarget.dataset.value ?? null;
 
         setDistance(value === null ? null : parseFloat(value));
+        resetAutocompleteBox();
     }
 
+    /**
+     * Shows the feature menu.
+     */
     const enableMenuFeature = () =>
     {
         setIsCountryChoiceVisible(false);
@@ -458,11 +481,43 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
         setIsLimitChoiceVisible(false);
     }
 
-    const clickFeature = (e: React.MouseEvent<HTMLLIElement>) =>
+    /**
+     * Adds a single feature to the feature array.
+     *
+     * @param featureCode
+     */
+    const addFeature = (featureCode: string|null) =>
     {
-        setFeature(e.currentTarget.dataset.value ?? null);
+        if (featureCode === null) {
+            setFeatures([]);
+            return;
+        }
+
+        setFeatures(prevFeatures => {
+            /* Check whether the code already exists in the array. */
+            if (!prevFeatures.includes(featureCode)) {
+                return [...prevFeatures, featureCode];
+            }
+
+            /* If available, return the unchanged array. */
+            return prevFeatures;
+        });
     }
 
+    /**
+     * Sets the feature to form.
+     *
+     * @param e
+     */
+    const clickFeature = (e: React.MouseEvent<HTMLLIElement>) =>
+    {
+        addFeature(e.currentTarget.dataset.value ?? null);
+        resetAutocompleteBox();
+    }
+
+    /**
+     * Shows the limit menu.
+     */
     const enableMenuLimit = () =>
     {
         setIsCountryChoiceVisible(false);
@@ -471,13 +526,22 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
         setIsLimitChoiceVisible(prevState => !prevState);
     }
 
+    /**
+     * Sets the limit to form.
+     *
+     * @param e
+     */
     const clickLimit = (e: React.MouseEvent<HTMLLIElement>) =>
     {
         const value = e.currentTarget.dataset.value ?? null;
 
         setLimit(value === null ? null : parseFloat(value));
+        resetAutocompleteBox();
     }
 
+    /**
+     * Disables all menus.
+     */
     const disableMenus = () =>
     {
         setIsCountryChoiceVisible(false);
@@ -486,8 +550,15 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
         setIsLimitChoiceVisible(false);
     }
 
-    const countries = getCountryArray();
-    const distances = [
+    const currentPosition = query.getFilterConfig().getCurrentPosition(true);
+    const hasCurrentPosition = query.getFilterConfig().hasCurrentPosition();
+    const titleProperty = query.getFilterConfig().hasCurrentPosition() ? {title: t('TEXT_TITLE_CURRENT_POSITION_IS_USED')} : {};
+
+    /**
+     * Gets the filter variables.
+     */
+    const selectCountries = getCountryArray();
+    const selectDistances = [
         {'code': 0.1, name: 0.1},
         {'code': 0.5, name: 0.5},
         {'code': 1, name: 1},
@@ -499,14 +570,22 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
         {'code': 500, name: 500},
         {'code': 1000, name: 1000},
     ];
-    const features = getFeatureArray();
-    const limits = [
+    const selectFeatures = getFeatureArray();
+    const selectLimits = [
         {'code': 5, name: 5},
         {'code': 10, name: 10},
         {'code': 20, name: 20},
         {'code': 50, name: 50},
+        {'code': 100, name: 100},
     ];
 
+    const showFilter: boolean = ![
+        searchTypeGeonameId,
+        searchTypeCoordinateDecimal,
+        searchTypeCoordinateDms
+    ].includes(query.getFilterConfig().getQueryType(queryString));
+
+    /* Register event listeners. */
     document.addEventListener('mousedown', handleClickOutside);
 
     return (
@@ -538,183 +617,229 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
                         <div
                             className="form-control shadow-none"
                         >
-                            <div className="form-property form-property-country">
-                                <span ref={menuRefCountry} onClick={enableMenuCountry} className="form-property-click">
-                                    {
-                                        country === null ?
-                                            <GlobeAmericas size={sizeIcon.H3}/> :
-                                            <Flag country={country.toUpperCase()} size={1}
-                                                  title={translateCountryCode(country.toUpperCase())}/>
-                                    }
-                                </span>
+                            {
+                                !showFilter && <>
+                                    <div className="form-info form-info-detail">{t('TEXT_WORD_SEARCH_DETAIL')}:</div>
+                                </>
+                            }
 
-                                <div
-                                    className={['form-property-choice', isCountryChoiceVisible ? 'form-property-choice-visible' : 'form-property-choice-invisible'].join(' ')}>
-                                    <ul className="country-list">
-                                        {
-                                            country !== null && <li
-                                                data-value={null}
-                                                key={'country-code-remove'}
-                                                onClick={clickCountry}
-                                                className="remover"
-                                                title={translateCountryCode(country.toUpperCase())}
-                                            >
-                                                <div>
-                                                    <Flag
-                                                        country={country.toUpperCase()}
-                                                        size={1}
+                            {
+                                showFilter && <>
+                                    <div className="form-property form-property-country">
+                                        <span ref={menuRefCountry} onClick={enableMenuCountry}
+                                              className="form-property-click">
+                                            {
+                                                country === null ?
+                                                    <GlobeAmericas size={sizeIcon.H3}/> :
+                                                    <Flag country={country.toUpperCase()} size={1}
+                                                          title={translateCountryCode(country.toUpperCase())}/>
+                                            }
+                                        </span>
+
+                                        <div
+                                            className={['form-property-choice', isCountryChoiceVisible ? 'form-property-choice-visible' : 'form-property-choice-invisible'].join(' ')}>
+                                            <ul className="country-list">
+                                                {
+                                                    country !== null && <li
+                                                        data-value={null}
+                                                        key={'country-code-remove'}
+                                                        className="remover"
                                                         title={translateCountryCode(country.toUpperCase())}
-                                                    /> {translateCountryCode(country.toUpperCase())}
-                                                </div>
+                                                    >
+                                                        <div>
+                                                            <span className="fw-bold">{t('TEXT_WORD_CHOSEN')}</span>: <Flag
+                                                            country={country.toUpperCase()}
+                                                            size={1}
+                                                            title={translateCountryCode(country.toUpperCase())}
+                                                        /> {translateCountryCode(country.toUpperCase())}
+                                                        </div>
 
-                                                <Trash3Fill size={sizeIcon.H3}/>
-                                            </li>
-                                        }
+                                                        <span
+                                                            onClick={clickCountry}
+                                                            className="remover-click"
+                                                        >
+                                                            <Trash3Fill size={sizeIcon.H3}/>
+                                                        </span>
+                                                    </li>
+                                                }
 
-                                        {countries.map(countryItem => (
-                                            country !== countryItem.code.toUpperCase() && <li
-                                                className="country-item"
-                                                data-value={countryItem.code.toUpperCase()}
-                                                key={'country-code-' + countryItem.code}
-                                                onClick={clickCountry}
-                                                title={countryItem.name}
-                                            >
-                                                <Flag
-                                                    country={countryItem.code.toUpperCase()}
-                                                    size={1}
-                                                    title={countryItem.name}
-                                                />&nbsp;
-                                                <div className="country-item-text">
-                                                    {countryItem.name}
-                                                </div>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            </div>
-                            <div className="form-property form-property-distance">
-                                <span ref={menuRefDistance} onClick={enableMenuDistance}
-                                      className="form-property-click">
+                                                {selectCountries.map(countryItem => (
+                                                    country !== countryItem.code.toUpperCase() && <li
+                                                        className="form-property-choice-item country-item"
+                                                        data-value={countryItem.code.toUpperCase()}
+                                                        key={'country-code-' + countryItem.code}
+                                                        onClick={clickCountry}
+                                                        title={countryItem.name}
+                                                    >
+                                                        <Flag
+                                                            country={countryItem.code.toUpperCase()}
+                                                            size={1}
+                                                            title={countryItem.name}
+                                                        />&nbsp;
+                                                        <div className="country-item-text">
+                                                            {countryItem.name}
+                                                        </div>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    </div>
+
                                     {
-                                        distance === null ? <Joystick size={sizeIcon.H3}/> :
-                                            <span className="fw-bold">{distance.toString()} km</span>
+                                        hasCurrentPosition &&
+                                        <div className="form-property form-property-distance">
+                                                <span ref={menuRefDistance} onClick={enableMenuDistance}
+                                                      className="form-property-click">
+                                                    {
+                                                        distance === null ? <Joystick size={sizeIcon.H3}/> :
+                                                            <span className="fw-bold">{distance.toString()} km</span>
+                                                    }
+                                                </span>
+                                            <div
+                                                className={['form-property-choice', isDistanceChoiceVisible ? 'form-property-choice-visible' : 'form-property-choice-invisible'].join(' ')}>
+                                                <ul>
+                                                    {
+                                                        distance !== null && <li
+                                                            data-value={null}
+                                                            key={'distance-code-remove'}
+                                                            className="remover"
+                                                            title={distance.toString() + ' km'}
+                                                        >
+                                                            <div>
+                                                                {distance} km
+                                                            </div>
+
+                                                            <span
+                                                                onClick={clickDistance}
+                                                                className="remover-click"
+                                                            >
+                                                                    <Trash3Fill size={sizeIcon.H3}/>
+                                                                </span>
+                                                        </li>
+                                                    }
+
+                                                    {selectDistances.map(distanceItem => (
+                                                        distance !== distanceItem.code && <li
+                                                            className="form-property-choice-item distance-item"
+                                                            data-value={distanceItem.code}
+                                                            key={'distance-code-' + distanceItem.code}
+                                                            onClick={clickDistance}
+                                                            title={distanceItem.name.toString() + ' km'}
+                                                        >
+                                                            <div className="distance-item-text">
+                                                                {distanceItem.name.toString()} km
+                                                            </div>
+                                                        </li>
+                                                    ))}
+                                                </ul>
+                                            </div>
+                                        </div>
                                     }
-                                </span>
-                                <div
-                                    className={['form-property-choice', isDistanceChoiceVisible ? 'form-property-choice-visible' : 'form-property-choice-invisible'].join(' ')}>
-                                    <ul>
-                                        {
-                                            distance !== null && <li
-                                                data-value={null}
-                                                key={'distance-code-remove'}
-                                                onClick={clickDistance}
-                                                className="remover"
-                                                title={distance.toString() + ' km'}
-                                            >
-                                                <div>
-                                                    {distance} km
-                                                </div>
 
-                                                <Trash3Fill size={sizeIcon.H3}/>
-                                            </li>
-                                        }
+                                    <div className="form-property form-property-feature">
+                                        <span ref={menuRefFeature} onClick={enableMenuFeature}
+                                              className="form-property-click">
+                                            {
+                                                features.length <= 0 ? <ImageAlt/> :
+                                                    <span className="fw-bold">{features}</span>
+                                            }
+                                        </span>
+                                        <div
+                                            className={['form-property-choice', isFeatureChoiceVisible ? 'form-property-choice-visible' : 'form-property-choice-invisible'].join(' ')}>
+                                            <ul>
+                                                {
+                                                    features.length > 0 && <li
+                                                        data-value={null}
+                                                        key={'feature-code-remove'}
+                                                        className="remover"
+                                                    >
+                                                        <div>
+                                                            {
+                                                                features.map((feature, index, array) => (
+                                                                    <span key={'feature-code-remove-' + index}>
+                                                                        {feature} - {translateFeatureCode(feature.toUpperCase())}
+                                                                        {index < array.length - 1 && ', '}
+                                                                    </span>
+                                                                ))
+                                                            }
+                                                        </div>
 
-                                        {distances.map(distanceItem => (
-                                            distance !== distanceItem.code && <li
-                                                className="distance-item"
-                                                data-value={distanceItem.code}
-                                                key={'distance-code-' + distanceItem.code}
-                                                onClick={clickDistance}
-                                                title={distanceItem.name.toString() + ' km'}
-                                            >
-                                                <div className="distance-item-text">
-                                                    {distanceItem.name.toString()} km
-                                                </div>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            </div>
-                            <div className="form-property form-property-feature">
-                                <span ref={menuRefFeature} onClick={enableMenuFeature} className="form-property-click">
-                                    {
-                                        feature === null ? <ImageAlt/> : <span className="fw-bold">{feature}</span>
-                                    }
-                                </span>
-                                <div
-                                    className={['form-property-choice', isFeatureChoiceVisible ? 'form-property-choice-visible' : 'form-property-choice-invisible'].join(' ')}>
-                                    <ul>
-                                        {
-                                            feature !== null && <li
-                                                data-value={null} key={'feature-code-remove'}
-                                                onClick={clickFeature}
-                                                className="remover"
-                                                title={translateFeatureCode(feature.toUpperCase())}
-                                            >
-                                                <div>
-                                                    {feature} - {translateFeatureCode(feature.toUpperCase())}
-                                                </div>
+                                                        <span
+                                                            onClick={clickFeature}
+                                                            className="remover-click"
+                                                        >
+                                                            <Trash3Fill size={sizeIcon.H3}/>
+                                                        </span>
+                                                    </li>
+                                                }
 
-                                                <Trash3Fill size={sizeIcon.H3}/>
-                                            </li>
-                                        }
+                                                {selectFeatures.map(featureItem => (
+                                                    !features.includes(featureItem.code.toUpperCase()) && <li
+                                                        className="form-property-choice-item feature-item"
+                                                        data-value={featureItem.code.toUpperCase()}
+                                                        key={'feature-code-' + featureItem.code}
+                                                        onClick={clickFeature}
+                                                        title={featureItem.name}
+                                                    >
+                                                        <div className="feature-item-text">
+                                                            {featureItem.code} - {featureItem.name}
+                                                        </div>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    </div>
 
-                                        {features.map(featureItem => (
-                                            feature !== featureItem.code.toUpperCase() && <li
-                                                className="feature-item"
-                                                data-value={featureItem.code.toUpperCase()}
-                                                key={'feature-code-' + featureItem.code}
-                                                onClick={clickFeature}
-                                                title={featureItem.name}
-                                            >
-                                                <div className="feature-item-text">
-                                                    {featureItem.code} - {featureItem.name}
-                                                </div>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            </div>
-                            <div className="form-property form-property-limit">
-                                <span ref={menuRefLimit} onClick={enableMenuLimit} className="form-property-click">
-                                    {
-                                        limit === null ? <ListOl/> : <span className="fw-bold">{limit}</span>
-                                    }
-                                </span>
-                                <div
-                                    className={['form-property-choice', isLimitChoiceVisible ? 'form-property-choice-visible' : 'form-property-choice-invisible'].join(' ')}>
-                                    <ul>
-                                        {
-                                            limit !== null && <li
-                                                data-value={null} key={'limit-code-remove'}
-                                                onClick={clickLimit}
-                                                className="remover"
-                                                title={limit.toString()}
-                                            >
-                                                <div>
-                                                    Limit {limit}
-                                                </div>
+                                    <div className="form-property form-property-limit">
+                                        <span ref={menuRefLimit} onClick={enableMenuLimit}
+                                              className="form-property-click">
+                                            {
+                                                limit === null ? <ListOl/> : <span className="fw-bold">{limit}</span>
+                                            }
+                                        </span>
+                                        <div
+                                            className={['form-property-choice', isLimitChoiceVisible ? 'form-property-choice-visible' : 'form-property-choice-invisible'].join(' ')}>
+                                            <ul>
+                                                {
+                                                    limit !== null && <li
+                                                        data-value={null} key={'limit-code-remove'}
+                                                        className="remover"
+                                                        title={limit.toString()}
+                                                    >
+                                                        <div>
+                                                            Limit {limit}
+                                                        </div>
 
-                                                <Trash3Fill size={sizeIcon.H3}/>
-                                            </li>
-                                        }
+                                                        <span
+                                                            onClick={clickLimit}
+                                                            className="remover-click"
+                                                        >
+                                                            <Trash3Fill size={sizeIcon.H3}/>
+                                                        </span>
+                                                    </li>
+                                                }
 
-                                        {limits.map(limitItem => (
-                                            limit !== limitItem.code && <li
-                                                className="limit-item"
-                                                data-value={limitItem.code}
-                                                key={'limit-code-' + limitItem.code}
-                                                onClick={clickLimit}
-                                                title={limitItem.name.toString()}
-                                            >
-                                                <div className="limit-item-text">
-                                                    Limit {limitItem.name.toString()}
-                                                </div>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            </div>
+                                                {selectLimits.map(limitItem => (
+                                                    limit !== limitItem.code && <li
+                                                        className="form-property-choice-item limit-item"
+                                                        data-value={limitItem.code}
+                                                        key={'limit-code-' + limitItem.code}
+                                                        onClick={clickLimit}
+                                                        title={limitItem.name.toString()}
+                                                    >
+                                                        <div className="limit-item-text">
+                                                            Limit {limitItem.name.toString()}
+                                                        </div>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div className="form-info form-info-list">{t('TEXT_WORD_SEARCH_LIST')}:</div>
+                                </>
+                            }
+
                             <input
                                 id="query"
                                 type="text"
@@ -743,7 +868,7 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
                                             className="py-1 px-2"
                                             key={item.id}
                                             onClick={() => {
-                                                onClick(item.name, item.country);
+                                                onClickAutocomplete(item.name, item.country);
                                             }}
                                             style={{backgroundColor: highlightedIndex === index ? 'lightgray' : 'transparent'}}
                                         >
@@ -762,8 +887,6 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
                         <input name="q" id="query-real" type="hidden" value={queryString ? queryString : ''} />
                         <input type="hidden" name={nameParameterLanguage}
                                value={query.getFilterConfig().getLanguage(true)}/>
-                        <input type="hidden" name={nameParameterCountry}
-                               value={query.getFilterConfig().getCountry(true)}/>
                         <input type="hidden" name={nameParameterNextPlaces} value="1"/>
 
                         {

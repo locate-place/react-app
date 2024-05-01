@@ -384,11 +384,14 @@ body {
                                             border-bottom: 1px solid #dee2e6;
                                             display: flex;
                                             justify-content: space-between;
-                                            align-items: center;
+                                            align-items: flex-start;
                                             width: 100%;
                                             margin-bottom: 1rem;
+                                            white-space: break-spaces;
 
                                             .remover-click {
+                                                align-self: flex-end;
+                                                margin-left: 0.5rem;
                                                 cursor: pointer;
                                             }
                                         }

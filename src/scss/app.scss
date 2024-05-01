@@ -285,8 +285,115 @@ body {
 
                     .form-control {
                         width: 100%;
+                        border-color: #6c757d;
                         margin-bottom: 10px;
+                        display: flex;
+                        position: relative;
                         @include shadow-own;
+
+                        .form-property {
+                            white-space: nowrap;
+                            border-right: 1px solid gray;
+
+                            .form-property-click {
+                                cursor: pointer;
+                                padding-right: 0.5rem;
+                                padding-left: 0.5rem;
+
+                                &:hover {
+                                    background-color: #f1f0fe;
+                                    border-radius: 6px !important;
+                                }
+                            }
+
+                            &:first-child {
+                                .form-property-click {
+                                    margin-left: -0.5rem;
+                                }
+                            }
+
+                            &.form-property-country {
+
+                            }
+
+                            .form-property-choice {
+                                position: absolute;
+                                top: 37px;
+                                left: 0;
+                                display: none;
+                                z-index: 1000;
+                                background-color: white;
+                                border: 1px solid rgb(108, 117, 125);
+                                border-radius: 6px !important;
+                                width: 100%;
+                                @include shadow-own;
+
+                                ul {
+                                    list-style-type: none;
+                                    margin: 0;
+                                    padding: 0;
+
+                                    &.country-list {
+                                        display: flex;
+                                        flex-wrap: wrap;
+
+                                        li.country-item {
+                                            flex: 1 1 50%;
+                                            display: flex;
+                                            align-items: center;
+                                            box-sizing: border-box;
+                                            min-width: 0;
+
+                                            .country-item-text {
+                                                overflow: hidden;
+                                                white-space: nowrap;
+                                                text-overflow: ellipsis;
+                                            }
+                                        }
+                                    }
+
+                                    li {
+                                        padding: 0.4rem 0.8rem;
+                                        cursor: pointer;
+
+                                        &.remover {
+                                            border-bottom: 1px solid #dee2e6;
+
+                                            display: flex;
+                                            justify-content: space-between;
+                                            align-items: center;
+                                            width: 100%;
+                                            margin-bottom: 1rem;
+                                        }
+
+                                        &:hover {
+                                            background-color: #f1f0fe;
+                                            border-radius: 6px !important;
+                                        }
+                                    }
+                                }
+
+                                &.form-property-choice-visible {
+                                    display: block;
+                                }
+
+                                &.form-property-choice-invisible {
+                                    display: none;
+                                }
+                            }
+                        }
+
+                        input {
+                            padding: 0 0 !important;
+                            margin: 0 0 0 0.5rem !important;
+                            border: 0;
+                            width: 100%;
+                            outline: none;
+
+                            &:active {
+                                border: 0;
+                            }
+                        }
                     }
 
                     .link-button-wrapper {
@@ -338,6 +445,23 @@ body {
                             width: auto;
                             border-bottom-right-radius: 0 !important;
                             border-top-right-radius: 0 !important;
+
+                            .form-property {
+                                .form-property-choice {
+                                    ul {
+                                        &.country-list {
+                                            .country-item {
+                                                flex: 1 1 33% !important;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            input {
+                                padding: 0 0 !important;
+                                margin: 0 0 0 0.5rem !important;
+                            }
                         }
 
                         .link-button-wrapper {

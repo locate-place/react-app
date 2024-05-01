@@ -822,6 +822,52 @@ const translationsES: Record<string, string> = {
     'ZW': 'Zimbabue'
 };
 
+const supportedCountries = [
+    'AD',
+    'AL',
+    'AT',
+    'AX',
+    'BA',
+    'BE',
+    'BG',
+    'BR',
+    'BY',
+    'CA',
+    'CH',
+    'CZ',
+    'DE',
+    'DK',
+    'EE',
+    'ES',
+    'FI',
+    'FO',
+    'FR',
+    'GB',
+    'GI',
+    'GR',
+    'HR',
+    'IE',
+    'IN',
+    'IS',
+    'IT',
+    'JP',
+    'LI',
+    'LU',
+    'MC',
+    'MT',
+    'MX',
+    'NL',
+    'NO',
+    'PL',
+    'PT',
+    'RU',
+    'SE',
+    'SI',
+    'TR',
+    'UA',
+    'US',
+];
+
 /**
  * Translates the given country code into a German language.
  *
@@ -862,9 +908,28 @@ const translateCountryCode = (countryCode: string, language: string = i18n.langu
     return translations[countryCode];
 }
 
+/**
+ * Returns a country array (for example for select tags).
+ *
+ * @param language
+ */
+const getCountryArray = (language: string = i18n.language): { code: string, name: string }[] =>
+{
+    let countryArray: { code: string, name: string }[] = [];
+
+    supportedCountries.forEach((code: string) => {
+        countryArray.push({ code: code, name: translateCountryCode(code, language) });
+    });
+
+    countryArray.sort((a, b) => a.name.localeCompare(b.name));
+
+    return countryArray;
+}
+
 /*
  * Export functions.
  */
 export {
-    translateCountryCode
+    translateCountryCode,
+    getCountryArray
 }

@@ -39,6 +39,7 @@ import {
     nameSortRelevance,
     nameSortRelevanceUser
 } from "../config/NameSort";
+import {setInitSearchQuery} from "../functions/Search";
 
 
 /**
@@ -706,6 +707,20 @@ class FilterConfig
         return keyValuePairs.join('&');
     }
 
+    /**
+     * Init search query.
+     *
+     * @param initSearchConfig
+     */
+    initSearchQuery(initSearchConfig: boolean|null): void
+    {
+        if (initSearchConfig === null) {
+            return;
+        }
+
+        setInitSearchQuery(initSearchConfig);
+    }
+
 
 
     /**
@@ -772,9 +787,13 @@ class FilterConfig
     /**
      * Returns the current link.
      */
-    getLinkCurrent(filterConfig: TypeFilterConfig|null = null, pathname: string|null = null): string
+    getLinkCurrent(
+        filterConfig: TypeFilterConfig|null = null,
+        pathname: string|null = null,
+        initSearchConfig: boolean|null = null): string
     {
         this.reset();
+        this.initSearchQuery(initSearchConfig);
 
         if (filterConfig !== null) {
             this.addByFilterConfig(filterConfig);
@@ -788,13 +807,17 @@ class FilterConfig
      *
      * @param language
      * @param country
+     * @param initSearchConfig
      */
     getLinkCurrentByLanguage(
         language: string|null = null,
         country: string|null = null,
+        initSearchConfig: boolean|null = null
     ): string
     {
         this.reset();
+        this.initSearchQuery(initSearchConfig);
+
         this.addLanguageAndCountry(language, country);
         return this.getLinkFullConverted(null, true);
     }
@@ -816,9 +839,10 @@ class FilterConfig
     /**
      * Returns the location detail link by current location.
      */
-    getLinkLocationCurrent(): string
+    getLinkLocationCurrent(initSearchConfig: boolean|null = null): string
     {
         this.reset();
+        this.initSearchQuery(initSearchConfig);
 
         this.setNextPlaces(true);
 
@@ -829,10 +853,12 @@ class FilterConfig
      * Returns the location detail link by given query.
      *
      * @param query
+     * @param initSearchConfig
      */
-    getLinkLocationQuery(query: string): string
+    getLinkLocationQuery(query: string, initSearchConfig: boolean|null = null): string
     {
         this.reset();
+        this.initSearchQuery(initSearchConfig);
 
         const ownPosition = this.getCurrentPosition();
 
@@ -853,10 +879,12 @@ class FilterConfig
      * Returns the location list link given by sort value.
      *
      * @param sort
+     * @param initSearchConfig
      */
-    getLinkLocations(sort: string|null = null): string
+    getLinkLocations(sort: string|null = null, initSearchConfig: boolean|null = null): string
     {
         this.reset();
+        this.initSearchQuery(initSearchConfig);
 
         if (sort !== null) {
             this.setSort(sort);
@@ -913,9 +941,11 @@ class FilterConfig
     getLinkNextListPlacesByNextPlacesConfig(
         locationWrapper: LocationWrapper,
         key: string,
+        initSearchConfig: boolean|null = null
     ): string
     {
         this.reset();
+        this.initSearchQuery(initSearchConfig);
 
         const nextPlacesConfig = locationWrapper.getNextPlacesConfig();
 
@@ -948,12 +978,15 @@ class FilterConfig
      * Returns the next places list by location or coordinate.
      *
      * @param nextPlace
+     * @param initSearchConfig
      */
     getLinkNextPlacesList(
-        nextPlace: NextPlaceWrapper
+        nextPlace: NextPlaceWrapper,
+        initSearchConfig: boolean|null = null
     ): string
     {
         this.reset();
+        this.initSearchQuery(initSearchConfig);
 
         const coordinate = nextPlace.getConfigCoordinateDecimal();
         const featureClass = nextPlace.getFeatureClassCode();
@@ -985,9 +1018,10 @@ class FilterConfig
     /**
      * Returns the next places link with the given page number.
      */
-    getLinkNextPlacesPage(page: number): string
+    getLinkNextPlacesPage(page: number, initSearchConfig: boolean|null = null): string
     {
         this.reset();
+        this.initSearchQuery(initSearchConfig);
 
         this.setPage(page.toString());
 

@@ -37,6 +37,7 @@ import {
 /* Import flags. */
 import Flag from "./Flag";
 import {searchTypeCoordinateDecimal, searchTypeCoordinateDms, searchTypeGeonameId} from "../../config/SearchType";
+import {initSearchQuery, setInitSearchQuery} from "../../functions/Search";
 
 /* Search form properties. */
 type SearchFormProps = {
@@ -95,7 +96,6 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
 
     const formRef = useRef<HTMLFormElement>(null);
     const [shouldSubmit, setShouldSubmit] = useState(false);
-    const [firstInit, setFirstInit] = useState(true);
 
     /* State variables */
     const [queryString, setQueryString] = useState<string>(queryDefault ?? '');
@@ -407,6 +407,11 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
             limit: /limit:(\d+)\s?/
         };
 
+        let countryWasSet = false;
+        let distanceWasSet = false;
+        let featuresWasSet = false;
+        let limitWasSet = false;
+
         /* Extract values and remove them from the query string. */
         Object.keys(patterns).forEach(key => {
             const match = queryString.match(patterns[key]);
@@ -418,27 +423,50 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
                 switch (key) {
                     case 'country':
                         setCountry(value);
+                        countryWasSet = true;
                         break;
 
                     case 'distance':
                         setDistance(parseFloat(value) / 1000);
+                        distanceWasSet = true;
                         break;
 
                     case 'featureClasses':
                         setFeatures(value.split(/[,|]/));
+                        featuresWasSet = true;
                         break;
 
                     case 'limit':
                         setLimit(parseFloat(value));
+                        limitWasSet = true;
                         break;
                 }
             }
         });
 
+        if (initSearchQuery && !countryWasSet) {
+            setCountry(null);
+        }
+
+        if (initSearchQuery && !distanceWasSet) {
+            setDistance(null);
+        }
+
+        if (initSearchQuery && !featuresWasSet) {
+            setFeatures([]);
+        }
+
+        if (initSearchQuery && !limitWasSet) {
+            setLimit(null);
+        }
+
         /* Trim the query string the first time. */
-        if (firstInit) {
+        if (initSearchQuery) {
             queryString = queryString.trim();
-            setFirstInit(false);
+        }
+
+        if (initSearchQuery) {
+            setInitSearchQuery(false);
         }
 
         return queryString;

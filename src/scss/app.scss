@@ -321,8 +321,8 @@ body {
                                 padding-left: 0.5rem;
 
                                 &:hover {
-                                    background-color: #f1f0fe;
-                                    border-radius: 6px !important;
+                                    //background-color: #f1f0fe;
+                                    //border-radius: 6px !important;
                                 }
                             }
 
@@ -397,6 +397,18 @@ body {
                                             background-color: #f1f0fe;
                                             border-radius: 6px !important;
                                         }
+
+                                        .chosen {
+                                            white-space: nowrap;
+                                            //border-right: 1px solid gray;
+                                            //padding-right: 0.5rem;
+                                            color: rgb(108, 117, 125);
+                                            font-size: 0.75em;
+                                            line-height: 2em;
+                                            user-select: none; /* Prevents text selection */
+                                            cursor: default;
+                                            padding-right: 0.5rem;
+                                        }
                                     }
                                 }
 
@@ -424,6 +436,10 @@ body {
                             &:active {
                                 border: 0;
                             }
+                        }
+
+                        .form-reset {
+                            cursor: pointer;
                         }
                     }
 

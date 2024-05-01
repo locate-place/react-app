@@ -31,7 +31,7 @@ import {
     Trash3Fill,
     ImageAlt,
     Joystick,
-    ListOl
+    ListOl, X
 } from "react-bootstrap-icons";
 
 /* Import flags. */
@@ -94,9 +94,12 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
     const { t } = useTranslation();
 
     const formRef = useRef<HTMLFormElement>(null);
+    const [shouldSubmit, setShouldSubmit] = useState(false);
+    const [firstInit, setFirstInit] = useState(true);
 
     /* State variables */
     const [queryString, setQueryString] = useState<string>(queryDefault ?? '');
+    const [queryStringReal, setQueryStringReal] = useState<string>(queryDefault ?? '');
     const [routePath, setRoutePath] = useState<string>(routePathDefault);
     const [locations, setLocations] = useState<AutoCompleteLocation[]>([]);
     const [featureClasses, setFeatureClasses] = useState<AutoCompleteFeature[]>([]);
@@ -129,11 +132,58 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
         setFeatureCodes([]);
     }
 
+    /**
+     * Fetches the auto-complete data.
+     */
+    const fetchAutocompleteData = async () =>
+    {
+        setIsLoading(true);
+        try {
+            const response = await fetch(process.env.REACT_APP_LOCATION_API_URL + '/api/v1/autocomplete.json?q=' + getQueryStringReal(queryString));
+            const data: AutoCompleteApi = await response.json();
+            setLocations(data.data.locations);
+            setFeatureClasses(data.data["feature-classes"]);
+            setFeatureCodes(data.data["feature-codes"]);
+
+            const featureCodes = data.given.query.parsed["feature-codes"] ?? null;
+
+            if (featureCodes !== null) {
+                const featureCodesString = featureCodes
+                    .map((fc) => fc.code)
+                    .join('|');
+
+                setAdditionalQuery(featureCodesString);
+            } else {
+                setAdditionalQuery(null);
+            }
+        } catch (error) {
+            console.error('Error when retrieving the auto-complete data:', error);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    /**
+     * Use effect for queryDefault.
+     */
     useEffect(() =>
     {
         setQueryString(queryDefault ?? queryString);
     }, [queryDefault]);
 
+    /**
+     * Use effect for queryStringReal and shouldSubmit.
+     */
+    useEffect(() => {
+        if (shouldSubmit && formRef.current) {
+            formRef.current?.submit();
+            setShouldSubmit(false);  // Reset des Submit-Flags nach dem Absenden
+        }
+    }, [queryStringReal, shouldSubmit]);
+
+    /**
+     * Use effect for queryString.
+     */
     useEffect(() =>
     {
         setQueryString(parseQueryString(queryString));
@@ -157,38 +207,9 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
             return;
         }
 
-        const fetchData = async () =>
-        {
-            setIsLoading(true);
-            try {
-                const response = await fetch(process.env.REACT_APP_LOCATION_API_URL + '/api/v1/autocomplete.json?q=' + getQueryString(queryString));
-                const data: AutoCompleteApi = await response.json();
-                setLocations(data.data.locations);
-                setFeatureClasses(data.data["feature-classes"]);
-                setFeatureCodes(data.data["feature-codes"]);
-
-                const featureCodes = data.given.query.parsed["feature-codes"] ?? null;
-
-                if (featureCodes !== null) {
-                    const featureCodesString = featureCodes
-                        .map((fc) => fc.code)
-                        .join('|');
-
-                    setAdditionalQuery(featureCodesString);
-                } else {
-                    setAdditionalQuery(null);
-                }
-            } catch (error) {
-                console.error('Error when retrieving the auto-complete data:', error);
-            } finally {
-                setIsLoading(false);
-            }
-        };
-
-        const delayDebounce = setTimeout(() => fetchData(), 500);
+        const delayDebounce = window.setTimeout(() => fetchAutocompleteData(), 500);
 
         return () => clearTimeout(delayDebounce);
-
     }, [queryString]);
 
     /**
@@ -196,7 +217,7 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
      *
      * @param e {React.SyntheticEvent<HTMLFormElement>}
      */
-    const onSubmit = (e: React.SyntheticEvent<HTMLFormElement>): void =>
+    const onSubmitSearch = (e: React.SyntheticEvent<HTMLFormElement>): void =>
     {
         if (queryString === '') {
             console.warn('No query value given.');
@@ -204,21 +225,29 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
             return;
         }
 
-        setRoutePath(query.getFilterConfig().getLinkQuery(queryString));
-
-        let queryReal = document.getElementById("query-real");
-
-        if (queryReal instanceof HTMLInputElement) {
-            queryReal.value = getQueryString(queryString);
-        }
+        setRoutePathAndQueryStringReal(queryString);
     }
 
+    /**
+     * Sets all form properties.
+     */
+    const setRoutePathAndQueryStringReal = (queryString: string) =>
+    {
+        setRoutePath(query.getFilterConfig().getLinkQuery(queryString));
+        setQueryStringReal(getQueryStringReal(queryString));
+    }
+
+    /**
+     * Disable all filter menus if clicked outside the menu.
+     *
+     * @param event
+     */
     const handleClickOutside = (event: MouseEvent) =>
     {
-        const isClickOutsideCountry = menuRefCountry.current && !menuRefCountry.current.contains(event.target as Node);
-        const isClickOutsideDistance = menuRefDistance.current && !menuRefDistance.current.contains(event.target as Node);
-        const isClickOutsideFeature = menuRefFeature.current && !menuRefFeature.current.contains(event.target as Node);
-        const isClickOutsideLimit = menuRefLimit.current && !menuRefLimit.current.contains(event.target as Node);
+        const isClickOutsideCountry = (menuRefCountry.current && !menuRefCountry.current.contains(event.target as Node)) ?? true;
+        const isClickOutsideDistance = (menuRefDistance.current && !menuRefDistance.current.contains(event.target as Node)) ?? true;
+        const isClickOutsideFeature = (menuRefFeature.current && !menuRefFeature.current.contains(event.target as Node)) ?? true;
+        const isClickOutsideLimit = (menuRefLimit.current && !menuRefLimit.current.contains(event.target as Node)) ?? true;
 
         if (isClickOutsideCountry && isClickOutsideDistance && isClickOutsideFeature && isClickOutsideLimit) {
             window.setTimeout(() => {
@@ -294,6 +323,7 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
     {
         setShowAutocompleteBox(true);
         setIsApiLoadMode(true);
+        fetchAutocompleteData().then();
     };
 
     /**
@@ -315,15 +345,17 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
      * @param value
      * @param country
      */
-    const setQuery = (value: string, country: string|null) =>
+    const setQuery = (value: string, country: string|null): string =>
     {
-        let queryString = (additionalQuery !== null ? (additionalQuery + ' ') : '') + value;
+        let queryStringFormatted = (additionalQuery !== null ? (additionalQuery + ' ') : '') + value;
 
         if (country !== null) {
-            queryString += ' country:' + country.toUpperCase();
+            queryStringFormatted += ' country:' + country.toUpperCase();
         }
 
-        setQueryString(queryString);
+        setQueryString(queryStringFormatted);
+
+        return queryStringFormatted;
     }
 
     /**
@@ -331,7 +363,7 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
      *
      * @param queryString
      */
-    const getQueryString = (queryString: string): string =>
+    const getQueryStringReal = (queryString: string): string =>
     {
         if (limit) {
             queryString = 'limit:' + limit.toString() + ' ' + queryString;
@@ -403,7 +435,13 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
             }
         });
 
-        return queryString.trim();
+        /* Trim the query string the first time. */
+        if (firstInit) {
+            queryString = queryString.trim();
+            setFirstInit(false);
+        }
+
+        return queryString;
     }
 
     /**
@@ -414,14 +452,9 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
      */
     const onClickAutocomplete = (value: string, country: string|null) =>
     {
-        setQuery(value, country);
         setLocations([]);
-
-        setRoutePath(query.getFilterConfig().getLinkQuery(queryString));
-
-        setTimeout(() => {
-            formRef.current?.submit();
-        }, 300);
+        setRoutePathAndQueryStringReal(setQuery(value, country));
+        setShouldSubmit(true);
     }
 
     /**
@@ -550,6 +583,60 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
         setIsLimitChoiceVisible(false);
     }
 
+    /**
+     * Activate input field.
+     */
+    const focusInput = () =>
+    {
+        disableMenus();
+        document.getElementById('query')?.focus();
+    };
+
+    /**
+     * Resets the search form.
+     */
+    const deleteSearch = () =>
+    {
+        if (!isSearchUsed()) {
+            return;
+        }
+
+        setCountry(null);
+        setDistance(null);
+        setFeatures([]);
+        setLimit(null);
+        setQueryString('');
+        setQueryStringReal(getQueryStringReal(''));
+    }
+
+    /**
+     * Returns if the search is used.
+     */
+    const isSearchUsed = (): boolean =>
+    {
+        if (queryString.length > 0) {
+            return true;
+        }
+
+        if (country !== null) {
+            return true;
+        }
+
+        if (distance !== null) {
+            return true;
+        }
+
+        if (features.length > 0) {
+            return true;
+        }
+
+        if (limit !== null) {
+            return true;
+        }
+
+        return false;
+    }
+
     const currentPosition = query.getFilterConfig().getCurrentPosition(true);
     const hasCurrentPosition = query.getFilterConfig().hasCurrentPosition();
     const titleProperty = query.getFilterConfig().hasCurrentPosition() ? {title: t('TEXT_TITLE_CURRENT_POSITION_IS_USED')} : {};
@@ -605,7 +692,7 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
                 className="search-form"
                 autoComplete="false"
                 action={routePath}
-                onSubmit={onSubmit}
+                onSubmit={onSubmitSearch}
             >
                 <div
                     className="d-flex justify-content-center w-100 mb-4 search-group-shadow"
@@ -619,15 +706,19 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
                         >
                             {
                                 !showFilter && <>
-                                    <div className="form-info form-info-detail">{t('TEXT_WORD_SEARCH_DETAIL')}:</div>
+                                    <div className="form-info form-info-detail" onClick={focusInput}>{t('TEXT_WORD_SEARCH_DETAIL')}:</div>
                                 </>
                             }
 
                             {
                                 showFilter && <>
                                     <div className="form-property form-property-country">
-                                        <span ref={menuRefCountry} onClick={enableMenuCountry}
-                                              className="form-property-click">
+                                        <span
+                                            ref={menuRefCountry}
+                                            onClick={enableMenuCountry}
+                                            className="form-property-click"
+                                            title={t('TEXT_WORD_COUNTRY_FILTER')}
+                                        >
                                             {
                                                 country === null ?
                                                     <GlobeAmericas size={sizeIcon.H3}/> :
@@ -647,7 +738,7 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
                                                         title={translateCountryCode(country.toUpperCase())}
                                                     >
                                                         <div>
-                                                            <span className="fw-bold">{t('TEXT_WORD_CHOSEN')}</span>: <Flag
+                                                            <span className="chosen">{t('TEXT_WORD_CHOSEN')}</span><Flag
                                                             country={country.toUpperCase()}
                                                             size={1}
                                                             title={translateCountryCode(country.toUpperCase())}
@@ -685,60 +776,13 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
                                         </div>
                                     </div>
 
-                                    {
-                                        hasCurrentPosition &&
-                                        <div className="form-property form-property-distance">
-                                                <span ref={menuRefDistance} onClick={enableMenuDistance}
-                                                      className="form-property-click">
-                                                    {
-                                                        distance === null ? <Joystick size={sizeIcon.H3}/> :
-                                                            <span className="fw-bold">{distance.toString()} km</span>
-                                                    }
-                                                </span>
-                                            <div
-                                                className={['form-property-choice', isDistanceChoiceVisible ? 'form-property-choice-visible' : 'form-property-choice-invisible'].join(' ')}>
-                                                <ul>
-                                                    {
-                                                        distance !== null && <li
-                                                            data-value={null}
-                                                            key={'distance-code-remove'}
-                                                            className="remover"
-                                                            title={distance.toString() + ' km'}
-                                                        >
-                                                            <div>
-                                                                {distance} km
-                                                            </div>
-
-                                                            <span
-                                                                onClick={clickDistance}
-                                                                className="remover-click"
-                                                            >
-                                                                    <Trash3Fill size={sizeIcon.H3}/>
-                                                                </span>
-                                                        </li>
-                                                    }
-
-                                                    {selectDistances.map(distanceItem => (
-                                                        distance !== distanceItem.code && <li
-                                                            className="form-property-choice-item distance-item"
-                                                            data-value={distanceItem.code}
-                                                            key={'distance-code-' + distanceItem.code}
-                                                            onClick={clickDistance}
-                                                            title={distanceItem.name.toString() + ' km'}
-                                                        >
-                                                            <div className="distance-item-text">
-                                                                {distanceItem.name.toString()} km
-                                                            </div>
-                                                        </li>
-                                                    ))}
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    }
-
                                     <div className="form-property form-property-feature">
-                                        <span ref={menuRefFeature} onClick={enableMenuFeature}
-                                              className="form-property-click">
+                                        <span
+                                            ref={menuRefFeature}
+                                            onClick={enableMenuFeature}
+                                            className="form-property-click"
+                                            title={t('TEXT_WORD_FEATURE_FILTER')}
+                                        >
                                             {
                                                 features.length <= 0 ? <ImageAlt/> :
                                                     <span className="fw-bold">{features}</span>
@@ -754,6 +798,7 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
                                                         className="remover"
                                                     >
                                                         <div>
+                                                            <span className="chosen">{t('TEXT_WORD_CHOSEN')}</span>
                                                             {
                                                                 features.map((feature, index, array) => (
                                                                     <span key={'feature-code-remove-' + index}>
@@ -790,9 +835,69 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
                                         </div>
                                     </div>
 
+                                    {
+                                        hasCurrentPosition &&
+                                        <div className="form-property form-property-distance">
+                                                <span
+                                                    ref={menuRefDistance}
+                                                    onClick={enableMenuDistance}
+                                                    className="form-property-click"
+                                                    title={t('TEXT_WORD_DISTANCE_FILTER', {currentPosition: currentPosition})}
+                                                >
+                                                    {
+                                                        distance === null ? <Joystick size={sizeIcon.H3}/> :
+                                                            <span className="fw-bold">{distance.toString()} km</span>
+                                                    }
+                                                </span>
+                                            <div
+                                                className={['form-property-choice', isDistanceChoiceVisible ? 'form-property-choice-visible' : 'form-property-choice-invisible'].join(' ')}>
+                                                <ul>
+                                                    {
+                                                        distance !== null && <li
+                                                            data-value={null}
+                                                            key={'distance-code-remove'}
+                                                            className="remover"
+                                                            title={distance.toString() + ' km'}
+                                                        >
+                                                            <div>
+                                                                <span className="chosen">{t('TEXT_WORD_CHOSEN')}</span>
+                                                                {distance} km
+                                                            </div>
+
+                                                            <span
+                                                                onClick={clickDistance}
+                                                                className="remover-click"
+                                                            >
+                                                                    <Trash3Fill size={sizeIcon.H3}/>
+                                                                </span>
+                                                        </li>
+                                                    }
+
+                                                    {selectDistances.map(distanceItem => (
+                                                        distance !== distanceItem.code && <li
+                                                            className="form-property-choice-item distance-item"
+                                                            data-value={distanceItem.code}
+                                                            key={'distance-code-' + distanceItem.code}
+                                                            onClick={clickDistance}
+                                                            title={distanceItem.name.toString() + ' km'}
+                                                        >
+                                                            <div className="distance-item-text">
+                                                                {distanceItem.name.toString()} km
+                                                            </div>
+                                                        </li>
+                                                    ))}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    }
+
                                     <div className="form-property form-property-limit">
-                                        <span ref={menuRefLimit} onClick={enableMenuLimit}
-                                              className="form-property-click">
+                                        <span
+                                            ref={menuRefLimit}
+                                            onClick={enableMenuLimit}
+                                            className="form-property-click"
+                                            title={t('TEXT_WORD_LIMIT_FILTER')}
+                                        >
                                             {
                                                 limit === null ? <ListOl/> : <span className="fw-bold">{limit}</span>
                                             }
@@ -807,6 +912,7 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
                                                         title={limit.toString()}
                                                     >
                                                         <div>
+                                                            <span className="chosen">{t('TEXT_WORD_CHOSEN')}</span>
                                                             Limit {limit}
                                                         </div>
 
@@ -836,10 +942,11 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
                                         </div>
                                     </div>
 
-                                    <div className="form-info form-info-list">{t('TEXT_WORD_SEARCH_LIST')}:</div>
+                                    <div className="form-info form-info-list" onClick={focusInput}>{t('TEXT_WORD_SEARCH_LIST')}:</div>
                                 </>
                             }
 
+                            {/*Search input.*/}
                             <input
                                 id="query"
                                 type="text"
@@ -855,6 +962,15 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
                                 onFocus={handleOnFocus}
                                 onBlur={handleOnBlur}
                             />
+
+                            {/*Reset form button*/}
+                            {
+                                isSearchUsed() && <div
+                                    className="form-reset"
+                                    title={t('TEXT_WORD_DELETE_SEARCH')}
+                                    onClick={deleteSearch}
+                                ><X size={sizeIcon.H3}/></div>
+                            }
                         </div>
 
                         {isLoading && <div className="input-loader search-group-shadow">{t('TEXT_WORD_LOAD')} ...</div>}
@@ -884,7 +1000,7 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
                             </div>
                         }
 
-                        <input name="q" id="query-real" type="hidden" value={queryString ? queryString : ''} />
+                        <input name="q" id="query-real" type="hidden" value={queryStringReal ? queryStringReal : ''} />
                         <input type="hidden" name={nameParameterLanguage}
                                value={query.getFilterConfig().getLanguage(true)}/>
                         <input type="hidden" name={nameParameterNextPlaces} value="1"/>

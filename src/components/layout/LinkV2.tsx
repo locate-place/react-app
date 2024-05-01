@@ -57,6 +57,8 @@ const LinkV2: React.FC<LinkV2Props> = ({
     ...props
 }) =>
 {
+    console.log(queryString);
+
     /* Import translation. */
     const { t } = useTranslation();
 

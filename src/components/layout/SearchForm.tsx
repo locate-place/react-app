@@ -213,6 +213,13 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
     }, [queryString]);
 
     /**
+     * Use effect for country, features, distance and limit.
+     */
+    useEffect(() => {
+        setQueryStringReal(getQueryStringReal(queryString));
+    }, [country, features, distance, limit]);
+
+    /**
      * Handles the search "form submit".
      *
      * @param e {React.SyntheticEvent<HTMLFormElement>}
@@ -312,6 +319,7 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
     const handleQueryStringChange = (event: React.SyntheticEvent<HTMLInputElement>) =>
     {
         setQueryString(event.currentTarget.value);
+        setQueryStringReal(parseQueryString(event.currentTarget.value));
     };
 
     /**
@@ -1044,7 +1052,7 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
                                 to={query.getFilterConfig().getLinkLocationCurrent()}
                                 useCurrentPosition={true}
                                 showAdoptionText={true}
-                                queryString={queryString}
+                                queryString={queryStringReal}
                                 setQuery={true}
                                 title={t('TEXT_TITLE_SEARCH_BY_CURRENT_POSITION')}
                                 className="btn btn-outline-primary button-own-position button-own-position-search"

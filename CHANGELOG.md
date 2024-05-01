@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Changelogs
 
+### [0.2.46] - 2023-04-28
+
+* Extended search with filter buttons
+  * Add multiple feature search (array search)
+  * Add search reset button and translations
+  * Add global search reset function
+
 ### [0.2.45] - 2023-04-28
 
 * Add current location determine button to main compass

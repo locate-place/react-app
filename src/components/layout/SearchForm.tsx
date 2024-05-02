@@ -226,7 +226,10 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
      */
     const onSubmitSearch = (e: React.SyntheticEvent<HTMLFormElement>): void =>
     {
-        if (queryString === '') {
+        const queryGiven: boolean = queryString !== '';
+        const searchUsed: boolean = isSearchUsed();
+
+        if (!queryGiven && !searchUsed) {
             console.warn('No query value given.');
             e.preventDefault();
             return;

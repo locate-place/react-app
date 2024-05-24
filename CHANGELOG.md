@@ -7,155 +7,161 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Changelogs
 
-### [0.2.46] - 2023-04-28
+### [1.0.0] - 2024-05-24
+
+* Unlocking all countries
+* Adoption to api version 1.0.0
+* Unlock reference sort to examples and capitol search
+
+### [0.2.46] - 2024-04-28
 
 * Extended search with filter buttons
   * Add multiple feature search (array search)
   * Add search reset button and translations
   * Add global search reset function
 
-### [0.2.45] - 2023-04-28
+### [0.2.45] - 2024-04-28
 
 * Add current location determine button to main compass
 * On-touch device fixes (hover)
 * Main compass fixes: show no direction on compass if current position is unknown
 
-### [0.2.44] - 2023-04-27
+### [0.2.44] - 2024-04-27
 
 * Show main compass to current place
 
-### [0.2.43] - 2023-04-27
+### [0.2.43] - 2024-04-27
 
 * Implements an ad hoc update also to current position card
 
-### [0.2.42] - 2023-04-27
+### [0.2.42] - 2024-04-27
 
 * Implements an ad hoc update also to next places
 
-### [0.2.41] - 2023-04-27
+### [0.2.41] - 2024-04-27
 
 * Implements an ad hoc update of distances, directions and the compass
   * Without API access 
 
-### [0.2.40] - 2023-04-27
+### [0.2.40] - 2024-04-27
 
 * Separate single next places to NextPlace JSX
 * Add search/position switch to show different search distances (search or current position)
 
-### [0.2.39] - 2023-04-25
+### [0.2.39] - 2024-04-25
 
 * Submit form on click
 
-### [0.2.38] - 2023-04-25
+### [0.2.38] - 2024-04-25
 
 * Fix pager
 
-### [0.2.37] - 2023-04-20
+### [0.2.37] - 2024-04-20
 
 * Adoptions to new location api version 0.1.77
   * query parser with country, limit and distance
 * Improved autocomplete
   * Country search and more
 
-### [0.2.36] - 2023-04-08
+### [0.2.36] - 2024-04-08
 
 * Add feature codes to query search if given 
 * Adopt to location api version 0.1.69
 
-### [0.2.35] - 2023-04-08
+### [0.2.35] - 2024-04-08
 
 * Add autocomplete to the search form
 * Adopt to location api version 0.1.67
 
-### [0.2.34] - 2023-04-01
+### [0.2.34] - 2024-04-01
 
 * Add borough part to location overview
 
-### [0.2.33] - 2023-04-01
+### [0.2.33] - 2024-04-01
 
 * Current position modal wording fixes
 * Fix pager
 
-### [0.2.32] - 2023-04-01
+### [0.2.32] - 2024-04-01
 
 * Improved current position modal
 * Add more information texts and possibility to switch and show current position
 
-### [0.2.31] - 2023-04-01
+### [0.2.31] - 2024-04-01
 
 * Add info page
 * Add search to index
 
-### [0.2.30] - 2023-04-01
+### [0.2.30] - 2024-04-01
 
 * Add new manifest icons
 
-### [0.2.29] - 2023-03-31
+### [0.2.29] - 2024-03-31
 
 * Adopt to location api version 0.1.59
 * Add river length to properties
 * Some jest unit test fixes
 
-### [0.2.28] - 2023-03-16
+### [0.2.28] - 2024-03-16
 
 * Adopt to location api version 0.1.58
 
-### [0.2.27] - 2023-03-16
+### [0.2.27] - 2024-03-16
 
 * Add zip code to location information
 
-### [0.2.26] - 2023-03-11
+### [0.2.26] - 2024-03-11
 
 * Add correct translation for runway
 
-### [0.2.25] - 2023-03-11
+### [0.2.25] - 2024-03-11
 
 * Add title, language, meta description changer
 
-### [0.2.24] - 2023-03-11
+### [0.2.24] - 2024-03-11
 
 * Add loader text to some current position search buttons and links
 * Remove timeout
 
-### [0.2.23] - 2023-03-11
+### [0.2.23] - 2024-03-11
 
 * Add position determination modal.
 
-### [0.2.22] - 2023-03-10
+### [0.2.22] - 2024-03-10
 
 * Add translations for today's birthdays
 
-### [0.2.21] - 2023-03-10
+### [0.2.21] - 2024-03-10
 
 * Add direction request button to locations match items if user position is not known
 
-### [0.2.20] - 2023-03-09
+### [0.2.20] - 2024-03-09
 
 * Adopt location api search to version 0.1.53
 
-### [0.2.19] - 2023-03-09
+### [0.2.19] - 2024-03-09
 
 * Location text refactoring
 
-### [0.2.18] - 2023-03-09
+### [0.2.18] - 2024-03-09
 
 * Use the location search button to also renew current position or search with current position
 
-### [0.2.17] - 2023-03-09
+### [0.2.17] - 2024-03-09
 
 * Location search optimization on small devices
 
-### [0.2.16] - 2023-03-09
+### [0.2.16] - 2024-03-09
 
 * Disable compass collapsible on desktop devices
 
-### [0.2.15] - 2023-03-09
+### [0.2.15] - 2024-03-09
 
 * Add hyphen to text-30
 * Add current language to html.lang
 * Add compass to CollapsibleCard
 
-### [0.2.14] - 2023-03-08
+### [0.2.14] - 2024-03-08
 
 * Card Refactoring
 * Add Airport details
@@ -165,11 +171,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 * Add country page
 * Add other links to location
 
-### [0.2.13] - 2023-02-22
+### [0.2.13] - 2024-02-22
 
 * Add next_places and Location refactoring
 
-### [0.2.12] - 2023-02-19
+### [0.2.12] - 2024-02-19
 
 * Change next places layout from table to flex
 * Optimize layout for small mobile phones
@@ -180,54 +186,54 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 * Add CollapsibleCard
 * Location structure refactoring
 
-### [0.2.11] - 2023-02-19
+### [0.2.11] - 2024-02-19
 
 * Add parsed feature classes
 
-### [0.2.10] - 2023-02-19
+### [0.2.10] - 2024-02-19
 
 * Add searched position
 
-### [0.2.9] - 2023-02-19
+### [0.2.9] - 2024-02-19
 
 * Add own position and position to search metrics
 
-### [0.2.8] - 2023-02-19
+### [0.2.8] - 2024-02-19
 
 * Add own position to the search form
 
-### [0.2.7] - 2023-02-19
+### [0.2.7] - 2024-02-19
 
 * Add translations to CoordinateDistanceDirection
 
-### [0.2.6] - 2023-02-19
+### [0.2.6] - 2024-02-19
 
 * Improve error output and information
 
-### [0.2.5] - 2023-02-18
+### [0.2.5] - 2024-02-18
 
 * Add calendar translation
 
-### [0.2.4] - 2023-02-18
+### [0.2.4] - 2024-02-18
 
 * Add language to location(s) search
 * Add init parameter to FilterConfig getter
 
-### [0.2.3] - 2023-02-18
+### [0.2.3] - 2024-02-18
 
 * Fix language forwarding
 * Add translations
 
-### [0.2.2] - 2023-02-18
+### [0.2.2] - 2024-02-18
 
 * SearchMetrics translations
 
-### [0.2.1] - 2023-02-18
+### [0.2.1] - 2024-02-18
 
 * Translate about and contact page
 * Link refactoring on calendar pages
 
-### [0.2.0] - 2023-02-18
+### [0.2.0] - 2024-02-18
 
 * Add menu closer on mobile view
 * Add compass callback to api call
@@ -259,11 +265,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 * Update npm packages
 * Add wikipedia link with soft hyphens
 
-### [0.1.20] - 2023-01-26
+### [0.1.20] - 2024-01-26
 
 * Add pager
 
-### [0.1.19] - 2023-01-23
+### [0.1.19] - 2024-01-23
 
 * Add card area to location page (refactoring)
 * Add the direction to location page
@@ -285,7 +291,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
   * Migrate first files from js to typescript
   * etc.
 
-### [0.1.18] - 2023-01-20
+### [0.1.18] - 2024-01-20
 
 * Add user and location distance
 * Component and function refactoring
@@ -294,7 +300,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 * API search refactoring
 * Add location api version 0.1.34
 
-### [0.1.17] - 2023-01-07
+### [0.1.17] - 2024-01-07
 
 * Preparing the app for the Location API
 * Customize the design of the About page

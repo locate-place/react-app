@@ -33,7 +33,7 @@ const apiPathCalendarPage: string = '/v/%calendar%/%month%.json';
 const apiPathCalendar: string = '/v/%calendar%.json';
 const apiPathQuerySearch: string = '/api/v1/location.json';
 const apiPathExampleSearch: string = '/api/v1/location/examples.json';
-const apiPathCountrySearch: string = '/api/v1/location/countries.json';
+const apiPathCountrySearch: string = '/api/v1/location/capitals.json';
 const apiPathDetail: string = '/api/v1/location/coordinate.json';
 
 /**
@@ -342,22 +342,22 @@ class Query
             return t('TEXT_NO_RESULT_QUERY', {query});
         }
 
-        if (!this.filterConfig.hasQuery()) {
-            const resultsTotal = formatNumber(this.apiResponseProperty.getResultsTotal());
-            const resultsCurrent = this.apiResponseProperty.getResultsCurrent();
+        let resultsTotal = formatNumber(this.apiResponseProperty.getResultsTotal());
+        let numberFirstItem = this.apiResponseProperty.getNumberItemFirst();
+        let numberLastItem = this.apiResponseProperty.getNumberItemLast();
 
-            return t('TEXT_RESULT', {numberTotal: resultsTotal, numberResults: resultsCurrent});
+        if (!this.filterConfig.hasQuery()) {
+            return t('TEXT_RESULT', {
+                numberTotal: resultsTotal,
+                numberFirstItem: numberFirstItem,
+                numberLastItem: numberLastItem
+            });
         }
 
         let query = this.filterConfig.getQuery();
 
-        let resultsTotal = this.apiResponseProperty.getResultsTotal();
-
-        let numberFirstItem = this.apiResponseProperty.getNumberItemFirst();
-        let numberLastItem = this.apiResponseProperty.getNumberItemLast();
-
         return t('TEXT_RESULT_QUERY', {
-            numberTotal: formatNumber(resultsTotal),
+            numberTotal: resultsTotal,
             query: query,
             numberFirstItem: numberFirstItem,
             numberLastItem: numberLastItem

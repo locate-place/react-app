@@ -139,7 +139,7 @@ const Locations = () =>
                             }
 
                             {/* Add location sort. */}
-                            <LocationSort query={query} apiResponseProperty={apiResponseProperty} />
+                            <LocationSort query={query} apiResponseProperty={apiResponseProperty} forceRelevance={true} />
 
                             {/* Show the results. */}
                             <div className="mt-5"><p>{query.getQueryResultText(t)}</p></div>

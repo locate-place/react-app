@@ -40,7 +40,7 @@
   "TEXT_NO_RESULT": "No results found.",
   "TEXT_NO_RESULT_QUERY": "No results found for \"{{query}}\".",
 
-  "TEXT_RESULT": "{{numberTotal}} results found. Show {{numberResults}}.",
+  "TEXT_RESULT": "{{numberTotal}} results found. Show {{numberFirstItem}} - {{numberLastItem}}.",
   "TEXT_RESULT_QUERY": "{{numberTotal}} results found for \"{{query}}\". Show {{numberFirstItem}} - {{numberLastItem}}.",
 
   "TEXT_SEARCH_RESULTS": "Search results",

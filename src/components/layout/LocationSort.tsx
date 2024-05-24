@@ -32,12 +32,13 @@ import LinkV2 from "./LinkV2";
 type LocationSortProps = {
     query: Query,
     apiResponseProperty: ApiResponseProperty,
+    forceRelevance?: boolean
 }
 
 /**
  * This renders the location sort part.
  */
-const LocationSort = ({query, apiResponseProperty}: LocationSortProps) =>
+const LocationSort = ({query, apiResponseProperty, forceRelevance = false}: LocationSortProps) =>
 {
     /* Import translation. */
     const { t } = useTranslation();
@@ -94,7 +95,7 @@ const LocationSort = ({query, apiResponseProperty}: LocationSortProps) =>
                             </LinkV2>
                     }
                     {
-                        query.getFilterConfig().hasQuery() ?
+                        query.getFilterConfig().hasQuery() || forceRelevance ?
                             (
                                 query.isCoordinateSearch() ?
                                     <LinkV2

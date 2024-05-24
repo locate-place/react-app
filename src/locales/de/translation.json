@@ -41,7 +41,7 @@
   "TEXT_NO_RESULT": "Keine Ergebnisse gefunden.",
   "TEXT_NO_RESULT_QUERY": "Keine Ergebnisse für \"{{query}}\" gefunden.",
 
-  "TEXT_RESULT": "{{numberTotal}} Ergebnisse gefunden. Zeige {{numberResults}}.",
+  "TEXT_RESULT": "{{numberTotal}} Ergebnisse gefunden. Zeige {{numberFirstItem}} - {{numberLastItem}}.",
   "TEXT_RESULT_QUERY": "{{numberTotal}} Ergebnisse für \"{{query}}\" gefunden. Zeige {{numberFirstItem}} - {{numberLastItem}}.",
 
   "TEXT_SEARCH_RESULTS": "Suchergebnisse",

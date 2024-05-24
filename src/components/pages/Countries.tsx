@@ -120,7 +120,7 @@ const Countries = () =>
                             <h3><ListTask size={sizeIcon.H3}/> {t('TEXT_COUNTRY_HEADER')}</h3>
 
                             {/* Add location sort. */}
-                            <LocationSort query={query} apiResponseProperty={apiResponseProperty} />
+                            <LocationSort query={query} apiResponseProperty={apiResponseProperty} forceRelevance={true} />
 
                             {/* Show the results. */}
                             <div className="mt-5"><p>{query.getQueryResultText(t)}</p></div>

@@ -9,7 +9,7 @@ import {Query} from "../../classes/Query";
 import {useLoader} from "./LoaderContext";
 
 /* Import functions. */
-import {getPosition} from "../../functions/Position";
+import {getPosition, geoLocationPositionOptions} from "../../functions/Position";
 
 /* Import types. */
 import {CallableString} from "../../types/Types";
@@ -143,60 +143,64 @@ const LinkV2: React.FC<LinkV2Props> = ({
         );
 
         /* Add current position to query. */
-        navigator.geolocation.getCurrentPosition((position) =>
-        {
-            const positionString = getPosition(position);
-            const queryType = filterConfig.getQueryType(queryString);
+        navigator.geolocation.getCurrentPosition(
+            (position: GeolocationPosition) =>
+            {
+                const positionString = getPosition(position);
+                const queryType = filterConfig.getQueryType(queryString);
 
-            filterConfig.setDoNotResetOrClear();
-            filterConfig.setCurrentPosition(positionString);
+                filterConfig.setDoNotResetOrClear();
+                filterConfig.setCurrentPosition(positionString);
 
-            if (setQuery && queryString === null) {
-                filterConfig.setQuery(positionString);
-            }
-
-            if (setQuery && queryString !== null) {
-                let queryStringNew = queryString !== '' ? queryString : positionString;
-
-                if (queryType === searchTypeCoordinateDms || queryType === searchTypeCoordinateDecimal || queryType === searchTypeCoordinate) {
-                    queryStringNew = positionString;
+                if (setQuery && queryString === null) {
+                    filterConfig.setQuery(positionString);
                 }
 
-                filterConfig.setQuery(queryStringNew);
-            }
+                if (setQuery && queryString !== null) {
+                    let queryStringNew = queryString !== '' ? queryString : positionString;
 
-            let isCoordinateSearch = queryType === searchTypeCoordinateDms ||
-                queryType === searchTypeCoordinateDecimal ||
-                queryType === searchTypeCoordinate ||
-                queryType === searchTypeEmpty;
+                    if (queryType === searchTypeCoordinateDms || queryType === searchTypeCoordinateDecimal || queryType === searchTypeCoordinate) {
+                        queryStringNew = positionString;
+                    }
 
-            let textInformationAdditional = showAdoptionText ? (
-                isCoordinateSearch ?
-                    t('TEXT_WORD_POSITION_ADAPTED_SEARCH_QUERY') :
-                    t('TEXT_WORD_POSITION_ADAPTED_LOCATION')
-            ) : null;
+                    filterConfig.setQuery(queryStringNew);
+                }
 
-            navigate(query.getFilterConfig().getLinkTo(pathName));
-            scrollToTop(scrollTo);
+                let isCoordinateSearch = queryType === searchTypeCoordinateDms ||
+                    queryType === searchTypeCoordinateDecimal ||
+                    queryType === searchTypeCoordinate ||
+                    queryType === searchTypeEmpty;
 
-            if (showAdoptionText) {
+                let textInformationAdditional = showAdoptionText ? (
+                    isCoordinateSearch ?
+                        t('TEXT_WORD_POSITION_ADAPTED_SEARCH_QUERY') :
+                        t('TEXT_WORD_POSITION_ADAPTED_LOCATION')
+                ) : null;
+
+                navigate(query.getFilterConfig().getLinkTo(pathName));
+                scrollToTop(scrollTo);
+
+                if (showAdoptionText) {
+                    hideLoader(
+                        textInformation + ': ' + positionString,
+                        textInformationAdditional,
+                        queryString,
+                        queryType,
+                        positionString,
+                        query
+                    );
+                    return;
+                }
+
                 hideLoader(
                     textInformation + ': ' + positionString,
-                    textInformationAdditional,
-                    queryString,
-                    queryType,
-                    positionString,
-                    query
+                    textInformationAdditional
                 );
                 return;
-            }
-
-            hideLoader(
-                textInformation + ': ' + positionString,
-                textInformationAdditional
-            );
-            return;
-        });
+            }, (positionError: GeolocationPositionError) => {
+                alert(positionError.message);
+            }, geoLocationPositionOptions
+        );
 
         event.preventDefault();
         return;

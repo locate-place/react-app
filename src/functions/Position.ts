@@ -27,6 +27,12 @@ let updateRegularly = false;
 
 let updateTime = 15000;
 
+const geoLocationPositionOptions = {
+    enableHighAccuracy: true,
+    timeout: 5 * 1000, /* 5 seconds */
+    maximumAge: 30 * 1000, /* 30 seconds */
+};
+
 interface TypeCoordinateDms {
     latitude: string,
     longitude: string
@@ -39,7 +45,9 @@ const getCurrentPosition = (callback: (position: GeolocationPosition) => void): 
 {
     navigator.geolocation.getCurrentPosition((position: GeolocationPosition) => {
         callback(position);
-    });
+    }, (positionError: GeolocationPositionError) => {
+        alert(positionError.message);
+    }, geoLocationPositionOptions);
 }
 
 /**
@@ -460,5 +468,6 @@ export {
     updateUserPositionDmsElements,
     decimalToDms,
     convertLatLonToDMS,
-    round
+    round,
+    geoLocationPositionOptions
 }

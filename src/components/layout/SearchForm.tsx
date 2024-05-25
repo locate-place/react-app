@@ -688,6 +688,7 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
         {'code': 0.1, name: 0.1},
         {'code': 0.5, name: 0.5},
         {'code': 1, name: 1},
+        {'code': 5, name: 5},
         {'code': 10, name: 10},
         {'code': 20, name: 20},
         {'code': 50, name: 50},
@@ -769,6 +770,8 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
                                         <div
                                             className={['form-property-choice', isCountryChoiceVisible ? 'form-property-choice-visible' : 'form-property-choice-invisible'].join(' ')}>
                                             <ul className="country-list">
+                                                <li className="caption">{t('TEXT_WORD_COUNTRY_FILTER')}</li>
+
                                                 {
                                                     country !== null && <li
                                                         data-value={null}
@@ -830,6 +833,7 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
                                         <div
                                             className={['form-property-choice', isFeatureChoiceVisible ? 'form-property-choice-visible' : 'form-property-choice-invisible'].join(' ')}>
                                             <ul>
+                                                <li className="caption">{t('TEXT_WORD_FEATURE_FILTER')}</li>
                                                 {
                                                     features.length > 0 && <li
                                                         data-value={null}
@@ -875,7 +879,7 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
                                     </div>
 
                                     {
-                                        hasCurrentPosition &&
+                                    hasCurrentPosition &&
                                         <div className="form-property form-property-distance">
                                                 <span
                                                     ref={menuRefDistance}
@@ -891,6 +895,7 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
                                             <div
                                                 className={['form-property-choice', isDistanceChoiceVisible ? 'form-property-choice-visible' : 'form-property-choice-invisible'].join(' ')}>
                                                 <ul>
+                                                    <li className="caption">{t('TEXT_WORD_DISTANCE_FILTER', {currentPosition: currentPosition})}</li>
                                                     {
                                                         distance !== null && <li
                                                             data-value={null}
@@ -944,6 +949,7 @@ const SearchForm = ({routePathDefault, queryDefault, query}: SearchFormProps) =>
                                         <div
                                             className={['form-property-choice', isLimitChoiceVisible ? 'form-property-choice-visible' : 'form-property-choice-invisible'].join(' ')}>
                                             <ul>
+                                                <li className="caption">{t('TEXT_WORD_LIMIT')}</li>
                                                 {
                                                     limit !== null && <li
                                                         data-value={null} key={'limit-code-remove'}

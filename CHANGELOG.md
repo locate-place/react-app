@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Changelogs
 
+### [1.0.6] - 2024-05-25
+
+* Add headers to search filters
+
 ### [1.0.5] - 2024-05-25
 
 * Show alternate names within list and detail view of each location

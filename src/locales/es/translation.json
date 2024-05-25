@@ -9,6 +9,7 @@
   "TEXT_HEADER_INFORMATION": "Información",
   "TEXT_HEADER_NEXT_PLACES": "Siguientes ubicaciones",
   "TEXT_HEADER_MAPS": "Mapas",
+  "TEXT_HEADER_OTHER_NAMES": "Nombres alternativos",
 
   "TEXT_CAPTION_DISTRICT_LOCALITY": "Distrito, Localidad",
   "TEXT_CAPTION_BOROUGH": "Barrio",
@@ -25,6 +26,7 @@
   "TEXT_CAPTION_MASTER_CODE": "Clase de característica",
   "TEXT_CAPTION_CODE": "Código de característica",
   "TEXT_CAPTION_TIME_ZONE": "Zona horaria",
+  "TEXT_CAPTION_OTHER_NAMES": "Nombres alternativos",
   "TEXT_CAPTION_GOOGLE_MAPS": "Google Maps",
   "TEXT_CAPTION_OPEN_STREET_MAP": "OpenStreetMap",
   "TEXT_CAPTION_WIKIPEDIA": "Wikipedia",

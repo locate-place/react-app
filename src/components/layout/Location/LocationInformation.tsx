@@ -53,6 +53,28 @@ const LocationInformation = ({location, number}: LocationInformationProps) =>
                     </td>
                 </tr>
                 {
+                    location.hasAlternateNames() && <tr>
+                        <td className={classNamesRow1.join(' ')}>{t('TEXT_CAPTION_OTHER_NAMES')}</td>
+                        <td
+                            className={classNamesRow2.join(' ')}
+                            colSpan={2}
+                            title={location.getTimezone()?.getCoordinate().getDMS() ?? ''}
+                        >
+                            <ol style={{paddingLeft: '1em', marginBottom: '0'}}>
+                                {
+                                    location.getAlternateNames()?.map((alternativeName, index) => {
+                                        return (
+                                            <li key={'alternative-name-' + index}>
+                                                {alternativeName}
+                                            </li>
+                                        )
+                                    })
+                                }
+                            </ol>
+                        </td>
+                    </tr>
+                }
+                {
                     location.hasTimezone() ?
                         <tr>
                             <td className={classNamesRow1.join(' ')}>{t('TEXT_CAPTION_TIME_ZONE')}</td>

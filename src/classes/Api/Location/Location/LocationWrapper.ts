@@ -75,6 +75,24 @@ class LocationWrapper
     }
 
     /**
+     * Returns the alternate names of the location.
+     *
+     * @return {string[]|null}
+     */
+    getAlternateNames(): string[]|null
+    {
+        return this.location["alternate-names"] ?? null;
+    }
+
+    /**
+     * Returns if the location has alternate names.
+     */
+    hasAlternateNames(): boolean
+    {
+        return !!this.location["alternate-names"] && this.location["alternate-names"].length > 0;
+    }
+
+    /**
      * Returns the full name of the location.
      *
      * @return {number}

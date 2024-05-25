@@ -107,6 +107,12 @@ const LocationCard = ({locationWrapper, apiResponseProperty, showOwnPosition, pa
 
     let wikipediaLink = locationWrapper.getLinks().getWikipedia();
 
+    let infoPartClass = 'col-12 col-md-6 col-lg-4 mb-3';
+
+    if (locationWrapper.hasAlternateNames()) {
+        infoPartClass = 'col-12 col-md-6 col-lg-6 mb-3';
+    }
+
     return (
         <>
             <CollapsibleCard collapsed={true} title={
@@ -163,7 +169,7 @@ const LocationCard = ({locationWrapper, apiResponseProperty, showOwnPosition, pa
             }>
                 <div className="container p-3 pb-0">
                     <div className="row">
-                        <div className="col-12 col-md-6 col-lg-4 mb-3">
+                        <div className={infoPartClass}>
                             <h4>{t('TEXT_HEADER_INFORMATION')}</h4>
                             <p className="m-0">
                                 <Link
@@ -186,7 +192,7 @@ const LocationCard = ({locationWrapper, apiResponseProperty, showOwnPosition, pa
                             }
                             </p>
                         </div>
-                        <div className="col-12 col-md-6 col-lg-4 mb-3">
+                        <div className={infoPartClass}>
                             <h4>{t('TEXT_HEADER_NEXT_PLACES')}</h4>
                             <p className="m-0">
                                 {locationWrapper.getNextPlacesConfig().getConfigKeysNextPlaces().map((key, index) => {
@@ -202,7 +208,26 @@ const LocationCard = ({locationWrapper, apiResponseProperty, showOwnPosition, pa
                                 })}
                             </p>
                         </div>
-                        <div className="col-12 col-md-6 col-lg-4 mb-3">
+                        {
+                            locationWrapper.hasAlternateNames() && <div className={infoPartClass}>
+                                <h4>{t('TEXT_HEADER_OTHER_NAMES')}</h4>
+                                <p className="m-0">
+                                    <ol style={{paddingLeft: '1em'}}>
+                                    {
+                                        locationWrapper.getAlternateNames()?.map((alternateName, index) => {
+                                            return (
+                                                <li key={'other-name-' + index}>
+                                                    {/*{index !== 0 ? ', ' : ''}*/}
+                                                    <span>{alternateName}</span>
+                                                </li>
+                                            );
+                                        })
+                                    }
+                                    </ol>
+                                </p>
+                            </div>
+                        }
+                        <div className={infoPartClass}>
                             <h4>{t('TEXT_HEADER_MAPS')}</h4>
                             <p className="m-0">
                                 {
@@ -233,6 +258,7 @@ const LocationCard = ({locationWrapper, apiResponseProperty, showOwnPosition, pa
                                 }
                             </p>
                         </div>
+
                     </div>
                 </div>
             </CollapsibleCard>

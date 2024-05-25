@@ -374,6 +374,7 @@ type TypeNextPlacesConfig = {
 };
 
 type TypeLocation = {
+    "alternate-names"?: string[],
     "coordinate": TypeCoordinate,
     "feature": TypeFeature,
     "geoname-id": number,

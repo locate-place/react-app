@@ -19,6 +19,8 @@ import Locations from "./components/pages/Locations";
 import Location from "./components/pages/Location";
 import NotFound from "./components/pages/NotFound";
 import Countries from "./components/pages/Countries";
+import Imprint from "./components/pages/Imprint";
+import DataPrivacy from "./components/pages/DataPrivacy";
 
 /* Add component parts */
 import Footer from "./components/layout/Footer";
@@ -88,8 +90,8 @@ const App = () =>
         i18n.changeLanguage(language).then();
 
         changeMetaAndTitle(
-            t('TEXT_WORD_DESCRIPTION'),
-            t('TEXT_WORD_TITLE'),
+            t('TEXT_PAGE_DESCRIPTION'),
+            t('TEXT_PAGE_TITLE'),
             language
         );
     }, [navigate, language]);
@@ -105,6 +107,8 @@ const App = () =>
 
                     <Route path="/info.html" element={<Info />} />
                     <Route path="/contact.html" element={<Contact />} />
+                    <Route path="/imprint.html" element={<Imprint />} />
+                    <Route path="/data-privacy.html" element={<DataPrivacy />} />
                     <Route path="/about.html" element={<About />} />
 
                     <Route path="/locations.html" element={<Locations />} />

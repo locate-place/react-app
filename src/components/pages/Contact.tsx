@@ -46,9 +46,13 @@ const Contact = () =>
             <div className="container mb-5 px-4 px-md-3">
                 <div className="row g-3">
                     <div className="col-12 col-md-10 offset-md-1 col-xl-8 offset-xl-2">
+                        <h3>{t('TEXT_CONTACT_TITLE')}</h3>
+                        <p>{t('TEXT_CONTACT_DESCRIPTION')}</p>
+
                         <div className="card shadow-own">
                             <div className="card-header">
-                                <Flag country="DE" size={1.5}/> &nbsp;<span className="fw-bold">{t('TEXT_CONTACT_TITLE')}</span>
+                                <Flag country="DE" size={1.5}/> &nbsp;<span
+                                className="fw-bold">{t('TEXT_CONTACT_TITLE')}</span>
                             </div>
                             <div className="card-body">
                                 <p className="card-text">
@@ -59,18 +63,20 @@ const Contact = () =>
                                 </p>
                                 <p className="card-text">
                                     {t('TEXT_CONTACT_TEXT_EMAIL')}<br/>
-                                    <EnvelopeAt size={sizeIcon.H3}/> &nbsp;<a href="#!" onClick={handleEmailClick}>{t('TEXT_CONTACT_TEXT_EMAIL_SEND')}</a>
+                                    <EnvelopeAt size={sizeIcon.H3}/> &nbsp;<a href="#!"
+                                                                              onClick={handleEmailClick}>{t('TEXT_CONTACT_TEXT_EMAIL_SEND')}</a>
                                 </p>
                             </div>
                             <div className="card-footer">
                                 <small><small>
                                     <strong>{t('TEXT_ADDRESS')}</strong> -&nbsp;
-                                    <span><LinkV2 to={'/location.html?q=51°3′39.2616″N,%2013°44′26.5956″E&next_places=1'}>51°3′39.2616″N, 13°44′26.5956″E</LinkV2></span><br/>
+                                    <span><LinkV2
+                                        to={'/location.html?q=51°3′39.2616″N,%2013°44′26.5956″E&next_places=1'}>51°3′39.2616″N, 13°44′26.5956″E</LinkV2></span><br/>
                                     <span><strong>{t('TEXT_WORD_LAST_UPDATE')}</strong>: {process.env.REACT_APP_VERSION_APP_DATE}</span>
                                 </small></small>
+                            </div>
                         </div>
                     </div>
-                </div>
                 </div>
             </div>
         </>

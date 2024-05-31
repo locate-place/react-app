@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Changelogs
 
+### [1.0.7] - 2024-06-01
+
+* Adopt to location api version 1.0.8
+
 ### [1.0.6] - 2024-05-25
 
 * Add headers to search filters

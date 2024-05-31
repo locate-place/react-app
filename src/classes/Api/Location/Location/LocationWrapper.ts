@@ -113,6 +113,14 @@ class LocationWrapper
     }
 
     /**
+     * Returns if a zip code exists.
+     */
+    hasZipCode(): boolean
+    {
+        return !!this.location["zip-code"];
+    }
+
+    /**
      * Returns the updated at of the location.
      */
     getUpdateAt(): string

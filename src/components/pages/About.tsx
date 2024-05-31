@@ -124,7 +124,8 @@ const About = () =>
                                             <ul className="mb-0">
                                                 <li>{t('TEXT_ABOUT_VERSION_LOCATION_USP_1')}</li>
                                                 <li>{t('TEXT_ABOUT_VERSION_LOCATION_USP_2')}</li>
-                                                <li>{t('TEXT_ABOUT_VERSION_LOCATION_USP_6')}</li>
+                                                <li>{t('TEXT_ABOUT_VERSION_LOCATION_USP_3')}</li>
+                                                <li>{t('TEXT_ABOUT_VERSION_LOCATION_USP_4')}</li>
                                                 <li>
                                                     {t('TEXT_ABOUT_VERSION_LOCATION_USP_7')}: <a
                                                     href={process.env.REACT_APP_LOCATION_API_URL + '/api/v1/version.json'}

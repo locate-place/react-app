@@ -1,5 +1,12 @@
 # locate.place (react-app gui)
 
+[![Release](https://img.shields.io/github/v/release/locate-place/react-app)](https://github.com/locate-place/react-app/releases)
+[![](https://img.shields.io/github/release-date/locate-place/react-app)](https://github.com/locate-place/react-app/releases)
+![](https://img.shields.io/github/repo-size/locate-place/react-app.svg)
+[![TypeScript](https://img.shields.io/badge/TypeScript-^4.9-555555.svg?logo=typescript&logoColor=white&labelColor=3178c6&style=flat)](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-9.html)
+[![JEST](https://img.shields.io/badge/JEST-^29.1-555555.svg?logo=typescript&style=flat&labelColor=15c213&logoColor=white)](https://jestjs.io/)
+[![LICENSE](https://img.shields.io/github/license/ixnode/php-api-version-bundle)](https://github.com/ixnode/php-api-version-bundle/blob/master/LICENSE)
+
 ## Comprehensive Location Information Assistant
 
 Welcome to the [locate.place](https://locate.place) repository! This project aims to provide detailed and comprehensive location information
@@ -34,6 +41,13 @@ To get started with this project:
 3. Run the application:
     ```bash
     npm start
+    ```
+   
+## Test
+
+1. Run the jest tests:
+    ```bash
+    npm run jest
     ```
 
 ## API

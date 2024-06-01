@@ -1,70 +1,65 @@
-# Getting Started with Create React App
+# locate.place (react-app gui)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Comprehensive Location Information Assistant
 
-## Available Scripts
+Welcome to the [locate.place](https://locate.place) repository! This project aims to provide detailed and comprehensive location information
+to users worldwide. Whether you're curious about the population of a city, details of mountains, airport data, postal
+codes, or other geographical information, [locate.place](https://locate.place) has you covered.
 
-In the project directory, you can run:
+## Features
 
-### `npm start`
+## Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **Population Statistics:** Access up-to-date population data for cities and districts.
+- **Mountain Information:** Discover heights and interesting facts about mountains globally.
+- **Airport Data:** Find information on airports including their locations and codes.
+- **Wikipedia Links:** Direct links to relevant Wikipedia pages for more in-depth information.
+- **Postal Codes:** Look up postal codes for any location.
+- **Geographical Units:** Detailed information from the largest administrative units to the smallest districts.
+- And much more
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Getting Started
 
-### `npm test`
+To get started with this project:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. Clone the repository:
+    ```bash
+    git clone https://github.com/locate-place/react-app.git
+    ```
+2. Install dependencies:
+    ```bash
+    cd react-app
+    npm install
+    ```
+3. Run the application:
+    ```bash
+    npm start
+    ```
 
-### `npm run build`
+## API
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+This project is built to work with the following API:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- **Live Demo:** [loc8.place](https://loc8.place)
+- **Repository:** [php-location-api](https://github.com/locate-place/php-location-api)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Important Note
 
-### `npm run eject`
+> This repository only contains the GUI (ReactJS) for the locate.place project. It does not provide the data itself. The data is provided by the API mentioned above.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Demo
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Check out the live demo here: [locate.place](https://location.place)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Contributing
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+We welcome contributions! Feel free to open issues or submit pull requests.
 
-## Learn More
+## License
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+This project is licensed under the MIT License.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+---
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Explore the world around you with locate.place, your reliable partner for comprehensive location information. Start your
+journey now!

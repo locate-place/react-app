@@ -49,7 +49,7 @@ This project is built to work with the following API:
 
 ## Demo
 
-Check out the live demo here: [locate.place](https://location.place)
+Check out the live demo here: [locate.place](https://locate.place)
 
 ## Contributing
 

@@ -174,24 +174,24 @@ const About = () =>
                             <p>{t('TEXT_ABOUT_DATA_DESCRIPTION')}</p>
 
                             <h4>{t('TEXT_ABOUT_DATA_LOCATIONS_TITLE')}</h4>
-                            <p dangerouslySetInnerHTML={{__html: t('TEXT_ABOUT_DATA_LOCATIONS_DESCRIPTION')}}/>
+                            <p dangerouslySetInnerHTML={{__html: t('TEXT_ABOUT_DATA_LOCATIONS_DESCRIPTION')}} style={{textAlign: 'justify'}} />
                             <h5>{t('TEXT_ABOUT_DATA_LOCATIONS_LICENSE_GEONAMES_TITLE')}</h5>
-                            <p dangerouslySetInnerHTML={{__html: t('TEXT_ABOUT_DATA_LOCATIONS_LICENSE_GEONAMES_DESCRIPTION')}}/>
+                            <p dangerouslySetInnerHTML={{__html: t('TEXT_ABOUT_DATA_LOCATIONS_LICENSE_GEONAMES_DESCRIPTION')}} style={{textAlign: 'justify'}} />
 
                             <h4>{t('TEXT_ABOUT_DATA_ZIP_CODES_TITLE')}</h4>
-                            <p dangerouslySetInnerHTML={{__html: t('TEXT_ABOUT_DATA_ZIP_CODES_DESCRIPTION')}}/>
+                            <p dangerouslySetInnerHTML={{__html: t('TEXT_ABOUT_DATA_ZIP_CODES_DESCRIPTION')}} style={{textAlign: 'justify'}} />
                             <h5>{t('TEXT_ABOUT_DATA_ZIP_CODES_LICENSE_GEONAMES_TITLE')}</h5>
-                            <p dangerouslySetInnerHTML={{__html: t('TEXT_ABOUT_DATA_ZIP_CODES_LICENSE_GEONAMES_DESCRIPTION')}}></p>
+                            <p dangerouslySetInnerHTML={{__html: t('TEXT_ABOUT_DATA_ZIP_CODES_LICENSE_GEONAMES_DESCRIPTION')}} style={{textAlign: 'justify'}} />
 
                             <h4>{t('TEXT_ABOUT_DATA_RIVERS_TITLE')}</h4>
-                            <p dangerouslySetInnerHTML={{__html: t('TEXT_ABOUT_DATA_RIVERS_DESCRIPTION')}}/>
+                            <p dangerouslySetInnerHTML={{__html: t('TEXT_ABOUT_DATA_RIVERS_DESCRIPTION')}} style={{textAlign: 'justify'}} />
                             <h5>{t('TEXT_ABOUT_DATA_RIVERS_LICENSE_GEONAMES_TITLE')}</h5>
-                            <p dangerouslySetInnerHTML={{__html: t('TEXT_ABOUT_DATA_RIVERS_LICENSE_GEONAMES_DESCRIPTION')}}></p>
+                            <p dangerouslySetInnerHTML={{__html: t('TEXT_ABOUT_DATA_RIVERS_LICENSE_GEONAMES_DESCRIPTION')}} style={{textAlign: 'justify'}} />
 
                             <h4>{t('TEXT_ABOUT_DATA_AIRPORTS_TITLE')}</h4>
-                            <p dangerouslySetInnerHTML={{__html: t('TEXT_ABOUT_DATA_AIRPORTS_DESCRIPTION')}}/>
+                            <p dangerouslySetInnerHTML={{__html: t('TEXT_ABOUT_DATA_AIRPORTS_DESCRIPTION')}} style={{textAlign: 'justify'}} />
                             <h5>{t('TEXT_ABOUT_DATA_AIRPORTS_LICENSE_GEONAMES_TITLE')}</h5>
-                            <p dangerouslySetInnerHTML={{__html: t('TEXT_ABOUT_DATA_AIRPORTS_LICENSE_GEONAMES_DESCRIPTION')}}></p>
+                            <p dangerouslySetInnerHTML={{__html: t('TEXT_ABOUT_DATA_AIRPORTS_LICENSE_GEONAMES_DESCRIPTION')}} style={{textAlign: 'justify'}} />
 
                             <div className="mb-5"></div>
 

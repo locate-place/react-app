@@ -45,7 +45,7 @@ const LocationMapsLinks = ({location, number}: LocationMapsLinksProps) =>
                     <td className={classNamesRow2.join(' ')} colSpan={2}><a
                         href={location.getLinks().getMaps('google') ?? ''} target={'_blank'}
                         rel="noreferrer"
-                        dangerouslySetInnerHTML={{__html: addSoftHyphens(location.getLinks().getMaps('google') ?? '')}}/>
+                        dangerouslySetInnerHTML={{__html: addSoftHyphens(location.getLinks().getMaps('google') ?? '')}} />
                     </td>
                 </tr>
                 <tr>

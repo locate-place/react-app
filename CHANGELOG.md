@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Changelogs
 
+### [1.0.10] - 2024-06-01
+
+* Add new README.md content
+
 ### [1.0.9] - 2024-06-01
 
 * Add soft hyphens to about page and add text justify alignment

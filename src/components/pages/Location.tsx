@@ -190,8 +190,8 @@ const Location = () =>
                             <div>
                                 {/* Caption. */}
                                 <h2 className="mt-3">
-                                    <Flag country={location.getCountry()?.getProperties().getCountryCode() ?? 'DE'} size={1}
-                                          title={location.getCountry()?.getProperties().getCountryCodeTranslated()}/> &nbsp;
+                                    <Flag country={location.getProperties().getCountryCode() ?? 'DE'} size={1}
+                                          title={location.getProperties().getCountryCodeTranslated()}/> &nbsp;
                                     {location.getName()}
                                 </h2>
 

@@ -211,20 +211,18 @@ const LocationCard = ({locationWrapper, apiResponseProperty, showOwnPosition, pa
                         {
                             locationWrapper.hasAlternateNames() && <div className={infoPartClass}>
                                 <h4>{t('TEXT_HEADER_OTHER_NAMES')}</h4>
-                                <p className="m-0">
-                                    <ol style={{paddingLeft: '1em'}}>
-                                    {
-                                        locationWrapper.getAlternateNames()?.map((alternateName, index) => {
-                                            return (
-                                                <li key={'other-name-' + index}>
-                                                    {/*{index !== 0 ? ', ' : ''}*/}
-                                                    <span>{alternateName}</span>
-                                                </li>
-                                            );
-                                        })
-                                    }
-                                    </ol>
-                                </p>
+                                <ol className="m-0" style={{paddingLeft: '1em'}}>
+                                {
+                                    locationWrapper.getAlternateNames()?.map((alternateName, index) => {
+                                        return (
+                                            <li key={'other-name-' + index}>
+                                                {/*{index !== 0 ? ', ' : ''}*/}
+                                                <span>{alternateName}</span>
+                                            </li>
+                                        );
+                                    })
+                                }
+                                </ol>
                             </div>
                         }
                         <div className={infoPartClass}>

@@ -21,34 +21,35 @@ const Info = () =>
                     {/* One column */}
                     <div className="col-12">
                         <h1>{t('TEXT_HOME_TITLE')}</h1>
-                        <p>Willkommen bei locate.place - Ihr umfassender Assistent für Ortsinformationen!</p>
+                        <p>Willkommen bei locate.place – Ihrem vielseitigen Assistenten für Ortsinformationen!</p>
 
                         <p>
-                            Egal, ob Sie auf der Suche nach detaillierten Informationen zu einem bestimmten Ort sind oder einfach nur mehr über Ihre aktuelle Umgebung erfahren möchten,&nbsp;
-                            <Link to={'/locations.html'}>locate.place</Link> ist hier, um Ihnen zu helfen. Mit nur wenigen Klicks erhalten Sie Zugang zu einer Vielzahl von Daten zu nahezu jedem Ort auf der Welt.
+                            Ob Sie detaillierte Infos zu einem bestimmten Ort suchen oder mehr über Ihre aktuelle Umgebung
+                            erfahren möchten, <Link to={'/locations.html'}>locate.place</Link> ist zur Stelle. Mit nur wenigen Klicks erhalten Sie umfangreiche
+                            Daten zu fast jedem Ort weltweit.
                         </p>
 
-                        <p>Unser Dienst bietet Ihnen:</p>
+                        <p>Was wir Ihnen bieten:</p>
 
                         <ul>
-                            <li><strong>Einwohnerzahlen</strong>: Möchten Sie wissen, wie viele Menschen in einer Stadt oder einem Stadtteil leben? Wir liefern Ihnen die aktuellsten Einwohnerstatistiken.</li>
-                            <li><strong>Berginformationen</strong>: Fasziniert von Bergen? Erfahren Sie mehr über die Höhe und andere interessante Fakten von Bergen weltweit.</li>
-                            <li><strong>Flugplatzdaten</strong>: Planen Sie eine Reise und benötigen Informationen zu Flugplätzen? Wir bieten Ihnen Daten zu Lage, Codes und mehr.</li>
+                            <li><strong>Einwohnerzahlen</strong>: Neugierig, wie viele Menschen in einer Stadt oder einem Stadtteil leben? Wir liefern die aktuellsten Statistiken.</li>
+                            <li><strong>Berginformationen</strong>: Begeistert von Bergen? Erfahren Sie mehr über Höhe und interessante Fakten zu Bergen weltweit.</li>
+                            <li><strong>Flugplatzdaten</strong>: Planen Sie eine Reise und benötigen Infos zu Flugplätzen? Wir bieten Ihnen Daten zu Lage, Codes und mehr.</li>
                             <li><strong>Wikipedia-Links</strong>: Für tiefergehende Informationen verweisen wir direkt auf die entsprechenden Wikipedia-Seiten.</li>
-                            <li><strong>Postleitzahlen (PLZ)</strong>: Benötigen Sie die PLZ eines bestimmten Ortes? Wir haben sie für Sie.</li>
-                            <li><strong>Bundesland, Land, Stadt, Stadtteil</strong>: Von der größten Verwaltungseinheit bis zum kleinsten Stadtteil - entdecken Sie umfassende Informationen zu jeder geografischen Einheit.</li>
+                            <li><strong>Postleitzahlen (PLZ)</strong>: Suchen Sie die PLZ eines bestimmten Ortes? Wir haben die Antwort.</li>
+                            <li><strong>Verwaltungsinformationen</strong>: Von Bundesland und Land bis hin zu Stadt und Stadtteil – entdecken Sie umfassende Infos zu jeder geografischen Einheit.</li>
                         </ul>
 
                         <p>
-                            Unser Ziel ist es, Ihnen einen einfachen und schnellen Zugang zu den Informationen zu bieten, die Sie benötigen. Egal, ob Sie einen Umzug planen, eine Reise vorbereiten oder einfach nur aus Neugier mehr über einen Ort erfahren möchten, locate.place ist Ihr zuverlässiger Partner.
+                            Unser Ziel ist es, Ihnen schnellen und einfachen Zugang zu den Informationen zu bieten, die Sie brauchen. Ob Sie unterwegs wandern, in der Stadt unterwegs sind oder einfach neugierig sind – <Link to={'/locations.html'}>locate.place</Link> ist Ihr zuverlässiger Partner.
                         </p>
 
                         <p>
-                            Die Nutzung von locate.place ist denkbar einfach. Geben Sie einfach den Namen des gesuchten Ortes in unsere Suchleiste ein oder nutzen Sie unsere Funktion zur Erkennung des aktuellen Standorts, um Informationen zu Ihrer unmittelbaren Umgebung zu erhalten. Innerhalb von Sekunden präsentieren wir Ihnen eine umfassende Liste von Daten, die Ihnen helfen, den gesuchten Ort besser zu verstehen.
+                            Die Nutzung ist kinderleicht: Geben Sie einfach den Namen des gesuchten Ortes in unsere Suchleiste ein oder nutzen Sie die Standorterkennung, um Infos zu Ihrer Umgebung zu erhalten. In Sekunden präsentieren wir Ihnen eine umfassende Liste von Daten, die Ihnen helfen, den Ort besser zu verstehen.
                         </p>
 
                         <p>
-                            Starten Sie jetzt Ihre Entdeckungsreise mit <Link to={'/locations.html'}>locate.place</Link> und entdecken Sie die Welt um sich herum auf eine völlig neue Weise!
+                            Starten Sie jetzt Ihre Entdeckungsreise mit <Link to={'/locations.html'}>locate.place</Link> und entdecken Sie die Welt um sich herum auf eine ganz neue Weise!
                         </p>
 
                         <h2>{t('TEXT_HOME_H2')}</h2>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 
 /* Import configuration. */
@@ -19,6 +19,20 @@ type LocationInformationProps = {
     number: number
 }
 
+const getTimeWithOffset = (offset: string) =>
+{
+    const now = new Date();
+    const [hoursOffset, minutesOffset] = offset.split(':').map(Number);
+    const totalOffsetMinutes = (hoursOffset * 60) + (Math.sign(hoursOffset) * minutesOffset);
+
+    // Calculate the current time in UTC
+    const utcTime = new Date(now.getTime() + (now.getTimezoneOffset() * 60000));
+    // Apply the offset to get the target time
+    const targetTime = new Date(utcTime.getTime() + (totalOffsetMinutes * 60000));
+
+    return targetTime.toTimeString().split(' ')[0];
+}
+
 /**
  * This is the LocationInformation part.
  */
@@ -26,6 +40,21 @@ const LocationInformation = ({location, number}: LocationInformationProps) =>
 {
     /* Import translation. */
     const { t } = useTranslation();
+
+    const [time, setTime] = useState<string>('');
+
+    useEffect(() => {
+        if (location.hasTimezone()) {
+            const offset = location.getTimezone()?.getOffset() ?? '00:00';
+            setTime(getTimeWithOffset(offset));
+
+            const intervalId = setInterval(() => {
+                setTime(getTimeWithOffset(offset));
+            }, 1000);
+
+            return () => clearInterval(intervalId);
+        }
+    }, [location]);
 
     const classNamesRow1 = ClassNames.Row1;
     const classNamesRow2 = ClassNames.Row2;
@@ -83,7 +112,9 @@ const LocationInformation = ({location, number}: LocationInformationProps) =>
                                 colSpan={2}
                                 title={location.getTimezone()?.getCoordinate().getDMS() ?? ''}
                             >{location.getTimezone()?.getTimezone()}&nbsp;
-                                <code>{location.getTimezone()?.getOffset()}</code></td>
+                                <code>{location.getTimezone()?.getOffset()}</code><br />
+                                <span>{time}</span>
+                            </td>
                         </tr> : <></>
                 }
                 {

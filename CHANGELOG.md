@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Changelogs
 
+### [1.0.12] - 2024-06-14
+
+* Add time to detail page
+
 ### [1.0.11] - 2024-06-06
 
 * Fix html structure
